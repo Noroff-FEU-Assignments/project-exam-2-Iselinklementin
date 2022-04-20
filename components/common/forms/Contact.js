@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const CONTACT_URL = "https://grafs.no/wp-json/contact-form-7/v1/contact-forms/669/feedback";
+const CONTACT_URL = "https://grafs.no/wp-json/wp/v2/holidaze_contact";
 
 const schema = yup.object().shape({
-  firstname: yup
+  name: yup
     .string()
-    .required("Please enter your firstname")
-    .min(3, "Your firstname must at be at least 3 characters"),
+    .required("Please enter your name")
+    .min(3, "Your name must at be at least 3 characters"),
   email: yup
     .string()
     .required("Please enter your email address")
@@ -62,7 +62,7 @@ function Contact() {
           label="Name"
           type="text"
           placeholder="Nora Nordmann"
-          {...register("firstname")}
+          {...register("name")}
         />
 
         {/* Email: */}
@@ -72,6 +72,15 @@ function Contact() {
           type="text"
           placeholder="nora@nordmann.no"
           {...register("email")}
+        />
+
+        {/* Subject: */}
+        <input
+          name="your-subject"
+          label="Subject"
+          type="text"
+          placeholder="Subject"
+          {...register("subject")}
         />
 
         {/* Message: */}
