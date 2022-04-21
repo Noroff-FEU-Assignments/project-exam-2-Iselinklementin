@@ -35,8 +35,14 @@ export default function Login() {
 
     try {
       const response = await axios.post(url, data);
-      setAuth(response.data);
+
       // return router.push("/admin");
+
+      const usernamelogin = "Admin";
+      const passwordlogin = "Project_exam2";
+      response.data.username = usernamelogin;
+      response.data.password = passwordlogin;
+      setAuth(response.data);
       console.log(response.data);
     } catch (error) {
       console.log("error", error);

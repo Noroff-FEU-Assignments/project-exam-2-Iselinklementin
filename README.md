@@ -10,6 +10,10 @@ npm run dev
 yarn dev
 ```
 
+1. D1aO 8H45 eb83 Nbb3 v9Ym Mt8I <- min >
+2. nhHC xwcm oDMI jrVs 6lHy zlFK <- light >
+3. Nkvf DtVs V1a1 dv9R o3Lf eNhA <- admin >
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
