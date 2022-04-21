@@ -6,24 +6,22 @@ import { API_URL } from "../constants/api";
 import axios from "axios";
 import Contact from "../components/common/forms/Contact";
 import Login from "../components/common/forms/Login";
+import Layout from "../components/layout/Layout";
 
 export default function Home(props) {
   return (
-    <>
-      <div>
-        {props.holidaze.map(stays => {
-          const stay = stays.acf;
-          console.log(stay);
-          return (
-            <div key={stay.id}>
-              <p>{stay.title}</p>
-            </div>
-          );
-        })}
-      </div>
+    <Layout>
+      {props.holidaze.map(stays => {
+        return (
+          <div key={stays.acf.id}>
+            <p key={stays.acf.id}>{stays.acf.title}</p>
+          </div>
+        );
+      })}
+
       <Login />
       <Contact />
-    </>
+    </Layout>
   );
 }
 
