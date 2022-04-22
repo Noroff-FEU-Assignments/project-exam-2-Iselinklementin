@@ -15,6 +15,9 @@ export default function ({ children }) {
         <Link href="/admin">
           <a>Admin</a>
         </Link>
+        <Link href="/enquire">
+          <a>Enquire</a>
+        </Link>
       </nav>
       <div>{children}</div>
     </>

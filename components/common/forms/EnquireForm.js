@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DateFunction from "../DateFunction";
-import { CONTACT_URL, LIGHT_AUTH } from "../../../constants/api";
+import { ENQUIRES_URL, LIGHT_AUTH } from "../../../constants/api";
+import Select from "react-select";
 
 const schema = yup.object().shape({
-  title: yup
+  stay: yup
     .string()
     .required("Please enter your name")
     .min(3, "Your name must at be at least 3 characters"),
@@ -19,23 +20,27 @@ const schema = yup.object().shape({
     .string()
     .required("Please enter your email address")
     .email("Please enter a valid email address"),
-  subject: yup
+  phone: yup.number(),
+  comments: yup
     .string()
-    .required("Please enter your message")
-    .min(2, "Your subject must at be at least 2 characters"),
-  message: yup
-    .string()
-    .required("Please enter your message")
-    .min(10, "Your message must at be at least 10 characters"),
+    .required("Please enter your comments")
+    .min(10, "Your comment must at be at least 10 characters"),
 });
 
-function Contact() {
+export const SUBJECT = [
+  { value: "Sea", label: "Sea" },
+  { value: "Critters", label: "Critters" },
+  { value: "Villagers", label: "Villagers" },
+];
+
+function EnquireForm() {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(false);
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -43,34 +48,14 @@ function Contact() {
 
   async function onSubmit(data) {
     setSubmitting(true);
-    data = {
-      status: "publish",
-      title: data.title,
-      fields: {
-        message: data.message,
-        title: data.title,
-        name: data.name,
-        subject: data.subject,
-        email: data.email,
-        date: DateFunction(),
-      },
-    };
-
-    try {
-      await axios.post(CONTACT_URL, data, {
-        auth: LIGHT_AUTH,
-      });
-    } catch (error) {
-      setServerError(error.toString());
-    } finally {
-      setSubmitting(false);
-    }
   }
 
   return (
     <>
       {submitting}
-      <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
+
+      <form className="enquire-form" onSubmit={handleSubmit(onSubmit)}>
+        <h6>Stay (hidden)</h6>
         <input
           label="title"
           type="text"
@@ -79,12 +64,22 @@ function Contact() {
           {...register("title")}
         />
         <br />
+        <h3>Who is traveling?</h3>
         <input
           label="Name"
           type="text"
           style={{ height: "35px" }}
           placeholder="Nora Nordmann"
           {...register("name")}
+        />
+        <br />
+        <Controller
+          name="subject"
+          style={{ height: "35px" }}
+          control={control}
+          render={({ field }) => (
+            <Select className="mt-2" placeholder="Antall personer" options={SUBJECT} {...field} />
+          )}
         />
         <br />
         <input
@@ -96,14 +91,14 @@ function Contact() {
         />
         <br />
         <input
-          label="Subject"
+          label="phone"
           type="text"
           style={{ height: "35px" }}
-          placeholder="Subject"
-          {...register("subject")}
+          placeholder="phone"
+          {...register("phone")}
         />
         <br />
-        <textarea label="Message" placeholder="Message" {...register("message")} />
+        <textarea label="comments" placeholder="comments" {...register("comments")} />
         <br />
         <br />
         <button type="submit">{submitting ? "sending.." : "send"}</button>
@@ -112,4 +107,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default EnquireForm;

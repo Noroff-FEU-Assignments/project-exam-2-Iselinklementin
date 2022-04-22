@@ -1,16 +1,11 @@
-import axios from "axios";
 import React from "react";
+import { ENQUIRES_URL } from "../../constants/api";
 
-import Layout from "../components/layout/Layout";
-const CONTACT_URL = "https://grafs.no/wp-json/wp/v2/holidaze_contact";
-
-function admin(props) {
-  console.log(props.messages);
+function EnquireCall(props) {
   return (
-    <Layout>
-      <div>Admin page</div>
-      <div>Messages:</div>
-      {props.messages.map(message => {
+    <>
+      <div>Enquires:</div>
+      {props.enquire.map(message => {
         return (
           <div key={message.acf.id}>
             <h3 key={message.acf.id}>{message.acf.title}</h3>
@@ -20,25 +15,25 @@ function admin(props) {
           </div>
         );
       })}
-    </Layout>
+    </>
   );
 }
 
-export default admin;
+export default EnquireCall;
 
 export async function getStaticProps() {
-  let messages = [];
+  let enquire = [];
 
   try {
-    const response = await axios.get(CONTACT_URL);
-    messages = response.data;
+    const response = await axios.get(ENQUIRES_URL);
+    enquire = response.data;
   } catch (error) {
     console.log(error);
   }
 
   return {
     props: {
-      messages: messages,
+      enquire: enquire,
     },
   };
 }
