@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useAxios from "../../../hooks/useAxios";
-import { BASE_URL, TOKEN_PATH } from "../../../constants/api";
 import AuthContext from "../../../context/AuthContext";
+import DateFunction from "../DateFunction";
 
 const CONTACT_URL = "https://grafs.no/wp-json/wp/v2/holidaze_contact";
 
@@ -30,7 +30,6 @@ const schema = yup.object().shape({
     .string()
     .required("Please enter your message")
     .min(10, "Your message must at be at least 10 characters"),
-  id: yup.number(),
 });
 
 function Contact() {
@@ -63,21 +62,20 @@ function Contact() {
 
   async function onSubmit(data) {
     setSubmitting(true);
-    data.status = "publish";
-    // data.date = Date();
+
     // setServerError(null);
 
     try {
-      //
       data = {
         status: "publish",
+        title: data.title,
         fields: {
           message: data.message,
           title: data.title,
           name: data.name,
           subject: data.subject,
           email: data.email,
-          id: data.id,
+          date: DateFunction(),
         },
       };
       console.log(data);
@@ -98,19 +96,42 @@ function Contact() {
   return (
     <>
       {submitting}
-
       <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
-        <input label="title" type="text" placeholder="title" {...register("title")} />
-        <input label="Name" type="text" placeholder="Nora Nordmann" {...register("name")} />
-
-        <input label="Email" type="text" placeholder="nora@nordmann.no" {...register("email")} />
-
-        <input label="Subject" type="text" placeholder="Subject" {...register("subject")} />
-
+        <input
+          label="title"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="title"
+          {...register("title")}
+        />
+        <br />
+        <input
+          label="Name"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="Nora Nordmann"
+          {...register("name")}
+        />
+        <br />
+        <input
+          label="Email"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="nora@nordmann.no"
+          {...register("email")}
+        />
+        <br />
+        <input
+          label="Subject"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="Subject"
+          {...register("subject")}
+        />
+        <br />
         <textarea label="Message" placeholder="Message" {...register("message")} />
-
-        <input name="id" placeholder="id" {...register("id")} />
-
+        <br />
+        <br />
         <button type="submit">{submitting ? "sending.." : "send"}</button>
       </form>
     </>
@@ -118,18 +139,3 @@ function Contact() {
 }
 
 export default Contact;
-
-// const headers = {
-//   Authorization: "Bearer " + username + ":" + application_password,
-//   "My-Custom-Header": "foobar",
-// };
-// await axios.post(CONTACT_URL, data, { headers });
-//   await http.post(CONTACT_URL, beforeSend: function ( xhr ) {
-//     xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce );
-// }, data);
-
-// const username = "light_user";
-// const application_password = "nhHC xwcm oDMI jrVs 6lHy zlFK";
-// const url = BASE_URL + CONTACT_URL;
-
-//        action="<?php wp_nonce_field( 'wp_rest' );  ?>"
