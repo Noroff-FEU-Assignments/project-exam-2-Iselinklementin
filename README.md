@@ -14,6 +14,20 @@ yarn dev
 2. nhHC xwcm oDMI jrVs 6lHy zlFK <- light >
 3. Nkvf DtVs V1a1 dv9R o3Lf eNhA <- admin >
 
+https://artisansweb.net/how-to-use-application-passwords-in-wordpress-for-rest-api-authentication/#:~:text=Head%20over%20to%20the%20Users,password%20with%20or%20without%20spaces.
+
+https://jasonwatmore.com/post/2020/07/17/react-axios-http-post-request-examples
+
+https://jasonwatmore.com/post/2020/07/17/react-axios-http-post-request-examples
+
+https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+
+https://react-hook-form.com/api/usecontroller/controller/
+
+https://michaelsoriano.com/create-a-file-uploader-with-react-and-wordpress-rest-api-media/
+
+https://www.edmundcwm.com/uploading-media-using-the-wp-rest-api-and-javascript/
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

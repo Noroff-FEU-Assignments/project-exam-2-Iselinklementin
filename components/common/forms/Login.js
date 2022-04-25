@@ -38,10 +38,10 @@ export default function Login() {
 
       // return router.push("/admin");
 
-      const usernamelogin = "Admin";
-      const passwordlogin = "Project_exam2";
-      response.data.username = usernamelogin;
-      response.data.password = passwordlogin;
+      // const usernamelogin = "Admin";
+      // const passwordlogin = "Project_exam2";
+      // response.data.username = usernamelogin;
+      // response.data.password = passwordlogin;
       setAuth(response.data);
       console.log(response.data);
     } catch (error) {

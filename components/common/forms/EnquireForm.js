@@ -8,33 +8,29 @@ import { ENQUIRES_URL, LIGHT_AUTH } from "../../../constants/api";
 import Select from "react-select";
 
 const schema = yup.object().shape({
-  stay: yup
-    .string()
-    .required("Please enter your name")
-    .min(3, "Your name must at be at least 3 characters"),
-  name: yup
-    .string()
-    .required("Please enter your name")
-    .min(3, "Your name must at be at least 3 characters"),
-  email: yup
-    .string()
-    .required("Please enter your email address")
-    .email("Please enter a valid email address"),
+  title: yup.string().required("Please enter the title"),
+  name: yup.string().required("Please enter your name"),
+  email: yup.string(),
+  // .required("Please enter your email address")
+  // .email("Please enter a valid email address"),
+  message: yup.string(),
+  // .required("Please enter your message")
+  // .min(10, "Your message must at be at least 10 characters"),
+  from_date: yup.string(),
+  to_date: yup.string(),
   phone: yup.number(),
-  comments: yup
-    .string()
-    .required("Please enter your comments")
-    .min(10, "Your comment must at be at least 10 characters"),
 });
 
 export const SUBJECT = [
-  { value: "Sea", label: "Sea" },
-  { value: "Critters", label: "Critters" },
-  { value: "Villagers", label: "Villagers" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5+", label: "5+" },
 ];
 
 function EnquireForm() {
-  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState(false);
 
   const {
@@ -47,17 +43,41 @@ function EnquireForm() {
   });
 
   async function onSubmit(data) {
-    setSubmitting(true);
+    data = {
+      status: "publish",
+      title: data.title,
+      fields: {
+        comments: data.message,
+        stay_title: data.title,
+        name: data.name,
+        email: data.email,
+        from_date: data.from_date,
+        to_date: data.to_date,
+        how_many: data.how_many.value,
+        phone: data.phone,
+      },
+    };
+    console.log(data);
+    setSubmitted(true);
+
+    try {
+      await axios.post(ENQUIRES_URL, data, {
+        auth: LIGHT_AUTH,
+      });
+    } catch (error) {
+      setServerError(error.toString());
+    } finally {
+      setSubmitted(false);
+    }
   }
 
   return (
     <>
-      {submitting}
+      {submitted}
 
       <form className="enquire-form" onSubmit={handleSubmit(onSubmit)}>
-        <h6>Stay (hidden)</h6>
         <input
-          label="title"
+          label="stay_title"
           type="text"
           style={{ height: "35px" }}
           placeholder="title"
@@ -74,11 +94,16 @@ function EnquireForm() {
         />
         <br />
         <Controller
-          name="subject"
+          name="how_many"
           style={{ height: "35px" }}
           control={control}
           render={({ field }) => (
-            <Select className="mt-2" placeholder="Antall personer" options={SUBJECT} {...field} />
+            <Select
+              placeholder="How many"
+              defaultValue={{ value: 0, label: "How many" }}
+              options={SUBJECT}
+              {...field}
+            />
           )}
         />
         <br />
@@ -98,10 +123,26 @@ function EnquireForm() {
           {...register("phone")}
         />
         <br />
-        <textarea label="comments" placeholder="comments" {...register("comments")} />
+        <input
+          label="from_date"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="from_date"
+          {...register("from_date")}
+        />
+        <br />
+        <input
+          label="to_date"
+          type="text"
+          style={{ height: "35px" }}
+          placeholder="to_date"
+          {...register("to_date")}
+        />
+        <br />
+        <textarea label="comments" placeholder="comments" {...register("message")} />
         <br />
         <br />
-        <button type="submit">{submitting ? "sending.." : "send"}</button>
+        <button type="submit">{submitted ? "sending.." : "send"}</button>
       </form>
     </>
   );

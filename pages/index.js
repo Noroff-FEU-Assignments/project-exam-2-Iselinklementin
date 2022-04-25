@@ -7,8 +7,10 @@ import axios from "axios";
 import Contact from "../components/common/forms/Contact";
 import Login from "../components/common/forms/Login";
 import Layout from "../components/layout/Layout";
+import MediaForm from "../components/common/forms/MediaForm";
 
 export default function Home(props) {
+  console.log(props.holidaze);
   return (
     <Layout>
       {props.holidaze.map(stays => {
@@ -21,6 +23,8 @@ export default function Home(props) {
 
       <Login />
       <Contact />
+      <br />
+      <MediaForm />
     </Layout>
   );
 }
