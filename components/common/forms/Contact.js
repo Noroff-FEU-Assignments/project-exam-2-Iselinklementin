@@ -43,6 +43,7 @@ function Contact() {
 
   async function onSubmit(data) {
     setSubmitting(true);
+
     data = {
       status: "publish",
       title: data.title,

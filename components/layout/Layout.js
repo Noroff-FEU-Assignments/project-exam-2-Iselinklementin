@@ -18,6 +18,10 @@ export default function ({ children }) {
         <Link href="/enquire">
           <a>Enquire</a>
         </Link>
+
+        <Link href="/add">
+          <a>Add</a>
+        </Link>
       </nav>
       <div>{children}</div>
     </>
