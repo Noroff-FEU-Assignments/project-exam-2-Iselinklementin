@@ -3,11 +3,13 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import Layout from "../components/layout/Layout";
 import useAxios from "../hooks/useAxios";
 import { API_URL } from "../constants/api";
 import AuthContext from "../context/AuthContext";
+
+let optObject = [];
 
 const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
@@ -26,28 +28,28 @@ const schema = yup.object().shape({
   featured: yup.boolean(),
 });
 
-export const STAYS = [
+const STAYS = [
   { value: "Hotel", label: "Hotel" },
   { value: "Apartment", label: "Apartment" },
   { value: "B&B", label: "B&B" },
 ];
 
-export const STAY_INCLUDES = [
-  { value: "Wifi", label: "Wifi" },
-  { value: "Kitchen", label: "Kitchen" },
-  { value: "Free parking", label: "Free parking" },
-  { value: "Breakfast", label: "Breakfast" },
-  { value: "Swimming pool", label: "Swimming pool" },
-  { value: "Pet friendly", label: "Pet friendly" },
+const STAY_INCLUDES = [
+  { value: "wifi", label: "Wifi" },
+  { value: "kitchen", label: "Kitchen" },
+  { value: "free_parking", label: "Free parking" },
+  { value: "breakfast", label: "Breakfast" },
+  { value: "swimming_pool", label: "Swimming pool" },
+  { value: "pet_friendly", label: "Pet friendly" },
 ];
 
-export const REVIEW = [
+const REVIEW = [
   { value: "3 stars", label: "3 stars" },
   { value: "4 stars", label: "4 stars" },
   { value: "5 stars", label: "5 stars" },
 ];
 
-export const ROOMS = [
+const ROOMS = [
   { value: "Superior Room - Queensize bed", label: "Superior Room - Queensize bed" },
   {
     value: "Superior Double Room - 1 large double bed",
@@ -60,9 +62,41 @@ export const ROOMS = [
 function add() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState(false);
-  // const [includes, setIncludes] = useState([]);
+  const [includes, setIncludes] = useState({});
   const [auth, setAuth] = useContext(AuthContext);
+  const [selectedOptions, setSelectedOptions] = useState({});
+  // const [isActive, setIsActive] = useState(false);
+  // const onMouseDown = () => setIsActive(true);
+  // const onMouseUp = () => setIsActive(false);
+  // const onMouseLeave = () => setIsActive(false);
+
   let http = useAxios();
+
+  const InputOption = ({ isSelected, innerProps, children, isDisabled, isFocused, ...rest }) => {
+    const [isActive, setIsActive] = useState(false);
+    const onMouseDown = () => setIsActive(true);
+    const onMouseUp = () => setIsActive(false);
+    const onMouseLeave = () => setIsActive(false);
+
+    const props = {
+      ...innerProps,
+      onMouseDown,
+      onMouseUp,
+      onMouseLeave,
+    };
+
+    return (
+      <components.Option
+        {...rest}
+        isDisabled={isDisabled}
+        isFocused={isFocused}
+        isSelected={isSelected}
+        innerProps={props}>
+        <input type="checkbox" checked={isSelected} />
+        {children}
+      </components.Option>
+    );
+  };
 
   const {
     register,
@@ -74,6 +108,22 @@ function add() {
   });
 
   async function onSubmit(data) {
+    // console.log(optObject);
+    // setSelectedOptions(optObject);
+    console.log(selectedOptions);
+    const optData = selectedOptions.map(opt => {
+      console.log(opt);
+      return opt + ": true";
+    });
+
+    setIncludes(...optData);
+
+    console.log(includes);
+
+    // selectedOptions.forEach(opt => {
+    //   opt.checked = true;
+    // });
+
     data = {
       status: "publish",
       title: data.title,
@@ -98,19 +148,20 @@ function add() {
           stay_type: data.stay_type.value,
         },
         stars: data.stars.value,
-        includes: data.includes,
+        // includes: data.includes,
+        stay_includes: optData,
       },
     };
     console.log(data);
     setSubmitted(true);
 
-    try {
-      await http.post(API_URL, data);
-    } catch (error) {
-      setServerError(error.toString());
-    } finally {
-      setSubmitted(false);
-    }
+    // try {
+    //   await http.post(API_URL, data);
+    // } catch (error) {
+    //   setServerError(error.toString());
+    // } finally {
+    //   setSubmitted(false);
+    // }
   }
 
   return (
@@ -238,12 +289,12 @@ function add() {
         <br />
 
         <Controller
-          name="includes"
+          name="stay_includes"
           style={{ height: "35px" }}
           control={control}
           render={({ field }) => (
             <Select
-              name="includes"
+              name="stay_includes"
               isMulti
               options={STAY_INCLUDES}
               placeholder="Includes.."
@@ -252,6 +303,25 @@ function add() {
             />
           )}
         />
+        <br />
+
+        <Select
+          defaultValue={[]}
+          isMulti
+          closeMenuOnSelect={false}
+          hideSelectedOptions={false}
+          onChange={options => {
+            if (Array.isArray(options)) {
+              setSelectedOptions(options.map(opt => opt.value));
+            }
+          }}
+          options={STAY_INCLUDES}
+          components={{
+            Option: InputOption,
+          }}
+        />
+        {/* <pre>{JSON.stringify({ selected: selectedOptions }, null, 2)}</pre> */}
+        {/* <div>({selectedOptions})</div> */}
         <br />
         <button type="submit">{submitted ? "sending.." : "send"}</button>
       </form>
