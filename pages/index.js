@@ -11,6 +11,27 @@ import MediaForm from "../components/common/forms/MediaForm";
 
 export default function Home(props) {
   console.log(props.holidaze);
+
+  const checkInc = {
+    wifi: true,
+    kitchen: true,
+    free_parking: true,
+    breakfast: true,
+    swimming_pool: true,
+    pet_friendly: true,
+  };
+
+  console.log(checkInc);
+
+  const entries = new Map([
+    ["foo", "bar"],
+    ["baz", 42],
+  ]);
+
+  const obj = Object.fromEntries(entries);
+
+  console.log(obj);
+
   return (
     <Layout>
       {props.holidaze.map(stays => {

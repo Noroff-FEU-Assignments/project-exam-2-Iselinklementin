@@ -8,8 +8,7 @@ import Layout from "../components/layout/Layout";
 import useAxios from "../hooks/useAxios";
 import { API_URL } from "../constants/api";
 import AuthContext from "../context/AuthContext";
-
-let optObject = [];
+import Checkbox from "../components/common/Checkbox";
 
 const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
@@ -26,21 +25,20 @@ const schema = yup.object().shape({
   text: yup.string(),
   room_info: yup.string(),
   featured: yup.boolean(),
+  wifi: yup.boolean(),
+  kitchen: yup.boolean(),
+  free_parking: yup.boolean(),
+  breakfast: yup.boolean(),
+  swimming_pool: yup.boolean(),
+  pet_friendly: yup.boolean(),
+  no_smoking: yup.boolean(),
+  handicap_friendly: yup.boolean(),
 });
 
 const STAYS = [
   { value: "Hotel", label: "Hotel" },
   { value: "Apartment", label: "Apartment" },
   { value: "B&B", label: "B&B" },
-];
-
-const STAY_INCLUDES = [
-  { value: "wifi", label: "Wifi" },
-  { value: "kitchen", label: "Kitchen" },
-  { value: "free_parking", label: "Free parking" },
-  { value: "breakfast", label: "Breakfast" },
-  { value: "swimming_pool", label: "Swimming pool" },
-  { value: "pet_friendly", label: "Pet friendly" },
 ];
 
 const REVIEW = [
@@ -61,42 +59,9 @@ const ROOMS = [
 
 function add() {
   const [submitted, setSubmitted] = useState(false);
-  const [serverError, setServerError] = useState(false);
-  const [includes, setIncludes] = useState({});
   const [auth, setAuth] = useContext(AuthContext);
-  const [selectedOptions, setSelectedOptions] = useState({});
-  // const [isActive, setIsActive] = useState(false);
-  // const onMouseDown = () => setIsActive(true);
-  // const onMouseUp = () => setIsActive(false);
-  // const onMouseLeave = () => setIsActive(false);
 
   let http = useAxios();
-
-  const InputOption = ({ isSelected, innerProps, children, isDisabled, isFocused, ...rest }) => {
-    const [isActive, setIsActive] = useState(false);
-    const onMouseDown = () => setIsActive(true);
-    const onMouseUp = () => setIsActive(false);
-    const onMouseLeave = () => setIsActive(false);
-
-    const props = {
-      ...innerProps,
-      onMouseDown,
-      onMouseUp,
-      onMouseLeave,
-    };
-
-    return (
-      <components.Option
-        {...rest}
-        isDisabled={isDisabled}
-        isFocused={isFocused}
-        isSelected={isSelected}
-        innerProps={props}>
-        <input type="checkbox" checked={isSelected} />
-        {children}
-      </components.Option>
-    );
-  };
 
   const {
     register,
@@ -108,22 +73,6 @@ function add() {
   });
 
   async function onSubmit(data) {
-    // console.log(optObject);
-    // setSelectedOptions(optObject);
-    console.log(selectedOptions);
-    const optData = selectedOptions.map(opt => {
-      console.log(opt);
-      return opt + ": true";
-    });
-
-    setIncludes(...optData);
-
-    console.log(includes);
-
-    // selectedOptions.forEach(opt => {
-    //   opt.checked = true;
-    // });
-
     data = {
       status: "publish",
       title: data.title,
@@ -140,7 +89,9 @@ function add() {
         nice_to_know: {
           check_in: data.check_in,
           checkout: data.checkout,
-          text: data.text,
+          nice_text: data.text,
+          handicap_friendly: data.handicap_friendly,
+          no_smoking: data.no_smoking,
         },
         room: {
           room_info: data.room_info,
@@ -148,20 +99,26 @@ function add() {
           stay_type: data.stay_type.value,
         },
         stars: data.stars.value,
-        // includes: data.includes,
-        stay_includes: optData,
+        stay_includes: {
+          wifi: data.wifi,
+          kitchen: data.kitchen,
+          free_parking: data.free_parking,
+          breakfast: data.breakfast,
+          swimming_pool: data.swimming_pool,
+          pet_friendly: data.pet_friendly,
+        },
       },
     };
     console.log(data);
     setSubmitted(true);
 
-    // try {
-    //   await http.post(API_URL, data);
-    // } catch (error) {
-    //   setServerError(error.toString());
-    // } finally {
-    //   setSubmitted(false);
-    // }
+    try {
+      await http.post(API_URL, data);
+    } catch (error) {
+      setServerError(error.toString());
+    } finally {
+      setSubmitted(false);
+    }
   }
 
   return (
@@ -176,7 +133,6 @@ function add() {
           placeholder="title"
           {...register("title")}
         />
-
         <br />
         <input
           label="price"
@@ -188,11 +144,7 @@ function add() {
         <br />
         <textarea label="description" placeholder="description" {...register("description")} />
         <br />
-
-        <input type="checkbox" name="featured" {...register("featured")} />
-
         <br />
-
         <input
           label="full_address"
           type="text"
@@ -233,7 +185,6 @@ function add() {
           {...register("text")}
         />
         <br />
-
         <input
           label="room_info"
           type="text"
@@ -242,7 +193,6 @@ function add() {
           {...register("room_info")}
         />
         <br />
-
         <Controller
           name="room_type"
           style={{ height: "35px" }}
@@ -257,7 +207,6 @@ function add() {
           )}
         />
         <br />
-
         <Controller
           name="stay_type"
           style={{ height: "35px" }}
@@ -272,7 +221,6 @@ function add() {
           )}
         />
         <br />
-
         <Controller
           name="stars"
           style={{ height: "35px" }}
@@ -287,41 +235,26 @@ function add() {
           )}
         />
         <br />
+        <input type="checkbox" name="featured" {...register("featured")} />
+        <label htmlFor="featured">Featured</label>
+        <input type="checkbox" name="wifi" {...register("wifi")} />
+        <label htmlFor="wifi">Wifi</label>
+        <input type="checkbox" name="kitchen" {...register("kitchen")} />
+        <label htmlFor="kitchen">kitchen</label>
+        <input type="checkbox" name="free_parking" {...register("free_parking")} />
+        <label htmlFor="free_parking">free_parking</label>
+        <input type="checkbox" name="breakfast" {...register("breakfast")} />
+        <label htmlFor="breakfast">breakfast</label>
+        <input type="checkbox" name="swimming_pool" {...register("swimming_pool")} />
+        <label htmlFor="swimming_pool">swimming_pool</label>
+        <input type="checkbox" name="pet_friendly" {...register("pet_friendly")} />
+        <label htmlFor="pet_friendly">pet_friendly</label>
+        <input type="checkbox" name="no_smoking" {...register("no_smoking")} />
+        <label htmlFor="no_smoking">no_smoking</label>
+        <input type="checkbox" name="handicap_friendly" {...register("handicap_friendly")} />
+        <label htmlFor="handicap_friendly">handicap_friendly</label>
 
-        <Controller
-          name="stay_includes"
-          style={{ height: "35px" }}
-          control={control}
-          render={({ field }) => (
-            <Select
-              name="stay_includes"
-              isMulti
-              options={STAY_INCLUDES}
-              placeholder="Includes.."
-              // defaultValue={{ value: "0", label: "Includes.." }}
-              {...field}
-            />
-          )}
-        />
         <br />
-
-        <Select
-          defaultValue={[]}
-          isMulti
-          closeMenuOnSelect={false}
-          hideSelectedOptions={false}
-          onChange={options => {
-            if (Array.isArray(options)) {
-              setSelectedOptions(options.map(opt => opt.value));
-            }
-          }}
-          options={STAY_INCLUDES}
-          components={{
-            Option: InputOption,
-          }}
-        />
-        {/* <pre>{JSON.stringify({ selected: selectedOptions }, null, 2)}</pre> */}
-        {/* <div>({selectedOptions})</div> */}
         <br />
         <button type="submit">{submitted ? "sending.." : "send"}</button>
       </form>
