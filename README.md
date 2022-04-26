@@ -30,6 +30,8 @@ https://www.edmundcwm.com/uploading-media-using-the-wp-rest-api-and-javascript/
 
 https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/
 
+https://medium.com/@650egor/react-30-day-challenge-day-2-image-upload-preview-2d534f8eaaa
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

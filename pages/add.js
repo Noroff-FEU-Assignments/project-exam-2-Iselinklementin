@@ -1,4 +1,4 @@
-import React, { useState, Component, useContext } from "react";
+import React, { useState, Component, useContext, useRef } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
@@ -6,9 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Select, { components } from "react-select";
 import Layout from "../components/layout/Layout";
 import useAxios from "../hooks/useAxios";
-import { API_URL } from "../constants/api";
+import { API_URL, BASE_URL } from "../constants/api";
 import AuthContext from "../context/AuthContext";
 import Checkbox from "../components/common/Checkbox";
+import Image from "next/image";
+import image_test from "../components/images/img.png";
 
 const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
@@ -33,6 +35,7 @@ const schema = yup.object().shape({
   pet_friendly: yup.boolean(),
   no_smoking: yup.boolean(),
   handicap_friendly: yup.boolean(),
+  images: yup.mixed(),
 });
 
 const STAYS = [
@@ -60,6 +63,13 @@ const ROOMS = [
 function add() {
   const [submitted, setSubmitted] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
+  //
+  const imgUpload = useRef(null);
+  const [img, setImg] = useState();
+
+  function previewImage(event) {
+    setImg(URL.createObjectURL(event.target.files[0]));
+  }
 
   let http = useAxios();
 
@@ -109,10 +119,23 @@ function add() {
         },
       },
     };
+
+    // const formData = new FormData();
+    // let file = imgUpload.current.files[0];
+    // formData.append("file", file);
+    // formData.append("title", "riktig data");
+    // formData.append("caption", "riktig data her og");
+
+    // // const postImage = await http.post(imageurl, formData)
+    // console.log(file.name);
+    // // const responsePostCreation = await http.post(API_URL, data)
+
+    // formData.append("data", data);
     console.log(data);
     setSubmitted(true);
 
     try {
+      // await http.post(API_URL, formData);
       await http.post(API_URL, data);
     } catch (error) {
       setServerError(error.toString());
@@ -254,6 +277,18 @@ function add() {
         <input type="checkbox" name="handicap_friendly" {...register("handicap_friendly")} />
         <label htmlFor="handicap_friendly">handicap_friendly</label>
 
+        <br />
+        <br />
+        {/* <br />
+        <div className="img-div" style={{ position: "relative", width: "80vw", height: "66.66vw" }}>
+          {img ? (
+            <Image src={img} alt="image" layout="fill" objectFit="cover" />
+          ) : (
+            <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
+          )}
+        </div>
+        <input id="imgUpload" name="image_1" type="file" ref={imgUpload} onChange={previewImage} />
+        <br /> */}
         <br />
         <br />
         <button type="submit">{submitted ? "sending.." : "send"}</button>
