@@ -27,7 +27,6 @@ function MediaForm() {
 
     const url = BASE_URL + "wp/v2/media";
 
-    // setPicture(formData);
     try {
       await http.post(url, formData);
       console.log(formData);
@@ -49,7 +48,6 @@ function MediaForm() {
             <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
           )}
         </div>
-
         <input id="imgUpload" type="file" ref={imgUpload} onChange={previewImage} />
         <button type="submit">{submitted ? "sending.." : "send"}</button>
       </form>
