@@ -34,6 +34,12 @@ https://medium.com/@650egor/react-30-day-challenge-day-2-image-upload-preview-2d
 
 javascript.plainenglish.io/custom-hook-in-react-js-for-calling-api-useapi-7de24b42729c
 
+https://developer.wordpress.org/rest-api/
+
+http://wp-api.org/node-wpapi/guides/2016/08/15/create-a-post-with-featured-media.html
+
+https://axios-http.com/docs/post_example
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
