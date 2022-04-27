@@ -44,13 +44,8 @@ export async function getStaticProps() {
 //   let stays = [];
 
 //   try {
-//     const response = await axios.get(PI_URL);
-
-//     if (response.status === 200) {
-//       stays = response.data;
-//     } else {
-//       console.log(error);
-//     }
+//     const response = await axios.get(API_URL);
+//     stays = response.data;
 //   } catch (error) {
 //     console.log(error);
 //   }

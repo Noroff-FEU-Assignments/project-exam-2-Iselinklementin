@@ -8,6 +8,10 @@ import { CONTACT_URL, LIGHT_AUTH } from "../../constants/api";
 import { schema } from "../../utils/schemaValidation/contactFormSchema";
 import { Form, Button } from "react-bootstrap";
 import AlertBox from "../common/AlertBox";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { GrTextAlignFull } from "react-icons/gr";
+import { BsFillChatRightTextFill } from "react-icons/bs";
 
 function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -66,7 +70,9 @@ function ContactForm() {
 
         {/* Name  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Name</Form.Label>
+          <Form.Label className="d-block mb-0">
+            <FaUser /> Name
+          </Form.Label>
           <Form.Text className="text-muted">Please insert your name</Form.Text>
           <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
           {errors.name && (
@@ -78,7 +84,9 @@ function ContactForm() {
 
         {/* Email  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Email</Form.Label>
+          <Form.Label className="d-block mb-0">
+            <MdEmail /> Email
+          </Form.Label>
           <Form.Text className="text-muted">Please insert a valid email address</Form.Text>
           <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
           {errors.email && (
@@ -89,7 +97,10 @@ function ContactForm() {
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Subject</Form.Label>
+          <Form.Label className="d-block mb-0">
+            <GrTextAlignFull />
+            Subject
+          </Form.Label>
           <Form.Text className="text-muted">Please insert your subject</Form.Text>
           <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
           {errors.subject && (
@@ -100,7 +111,10 @@ function ContactForm() {
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Message</Form.Label>
+          <Form.Label className="d-block mb-0">
+            <BsFillChatRightTextFill />
+            Message
+          </Form.Label>
           <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
           <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
           {errors.message && (
