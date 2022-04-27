@@ -22,6 +22,14 @@ export default function ({ children }) {
         <Link href="/add">
           <a>Add</a>
         </Link>
+
+        <Link href="/contact">
+          <a>Contact</a>
+        </Link>
+
+        <Link href="/login">
+          <a>Login</a>
+        </Link>
       </nav>
       <div>{children}</div>
     </>
