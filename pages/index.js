@@ -6,13 +6,14 @@ import { useState } from "react";
 import { getStays } from "lib/getStays";
 import Messages from "components/admin/Messages";
 import Link from "next/link";
+import Search from "components/common/Search";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
   // const { loading, error, posts, media } = useApi(API_URL, MEDIA_URL);
   // console.log(error);
-  console.log(stays);
+  // console.log(stays);
   // if (error)
   //   return (
   //     <Alert variant="danger" className="mt-5">
@@ -22,6 +23,7 @@ export default function Home({ stays }) {
 
   return (
     <Layout>
+      <Search />
       {stays.map(stay => {
         return (
           <Link href={`stay/${stay.id}`}>
@@ -32,7 +34,6 @@ export default function Home({ stays }) {
           </Link>
         );
       })}
-      <Messages />
     </Layout>
   );
 }
