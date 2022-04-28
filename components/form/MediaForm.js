@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { ADD_AUTH, BASE_URL } from "../../../constants/api";
-import useAxios from "../../../hooks/useAxios";
+import { ADD_AUTH, BASE_URL } from "../../constants/api";
+import useAxios from "../../hooks/useAxios";
 import Image from "next/image";
 import image_test from "../../images/img.png";
 
