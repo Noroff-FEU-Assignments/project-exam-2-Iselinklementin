@@ -1,8 +1,8 @@
 import React, { useContext, useRef } from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { MEDIA_URL } from "../../constants/api";
-import useAxios from "../../hooks/useAxios";
+import { MEDIA_URL } from "constants/api";
+import useAxios from "hooks/useAxios";
 
 export default function usePostImage(thisFile) {
   // const postImage = file => {

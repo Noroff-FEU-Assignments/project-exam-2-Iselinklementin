@@ -3,11 +3,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DateFunction from "../common/DateFunction";
-import { CONTACT_URL, LIGHT_AUTH } from "../../constants/api";
-import { schema } from "../../utils/schemaValidation/contactFormSchema";
+import DateFunction from "components/common/DateFunction";
+import { CONTACT_URL, LIGHT_AUTH } from "constants/api";
+import { schema } from "utils/schemaValidation/contactFormSchema";
 import { Form, Button } from "react-bootstrap";
-import AlertBox from "../common/AlertBox";
+import Alertbox from "components/common/Alertbox";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { GrTextAlignFull } from "react-icons/gr";
@@ -53,8 +53,8 @@ function ContactForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      {serverError && <AlertBox type="danger">Something went wrong.</AlertBox>}
+    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+      {serverError && <Alertbox type="danger">Something went wrong.</Alertbox>}
       <fieldset disabled={submitting}>
         {/* Title  */}
         <Form.Group className="mt-3">
@@ -62,9 +62,9 @@ function ContactForm() {
           <Form.Text className="text-muted">Please insert a title</Form.Text>
           <Form.Control type="text" placeholder="Title" className="mt-2" {...register("title")} />
           {errors.title && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.title.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -76,9 +76,9 @@ function ContactForm() {
           <Form.Text className="text-muted">Please insert your name</Form.Text>
           <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
           {errors.name && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.name.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -90,9 +90,9 @@ function ContactForm() {
           <Form.Text className="text-muted">Please insert a valid email address</Form.Text>
           <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
           {errors.email && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.email.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -102,11 +102,16 @@ function ContactForm() {
             Subject
           </Form.Label>
           <Form.Text className="text-muted">Please insert your subject</Form.Text>
-          <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
+          <Form.Control
+            type="text"
+            placeholder="Subject"
+            className="mt-2"
+            {...register("subject")}
+          />
           {errors.subject && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.subject.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -115,12 +120,20 @@ function ContactForm() {
             <BsFillChatRightTextFill />
             Message
           </Form.Label>
-          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
-          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
+          <Form.Text className="text-muted">
+            Your message must at be at least 10 characters
+          </Form.Text>
+          <Form.Control
+            as="textarea"
+            rows={6}
+            placeholder="Message"
+            className="mt-2"
+            {...register("message")}
+          />
           {errors.message && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.message.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -129,9 +142,9 @@ function ContactForm() {
         </Button>
 
         {submitting && (
-          <AlertBox type="success" className="mt-4 mb-4">
+          <Alertbox type="success" className="mt-4 mb-4">
             Your message was sent
-          </AlertBox>
+          </Alertbox>
         )}
       </fieldset>
     </Form>

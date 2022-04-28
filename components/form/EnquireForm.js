@@ -3,12 +3,12 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ENQUIRES_URL, LIGHT_AUTH } from "../../constants/api";
+import { ENQUIRES_URL, LIGHT_AUTH } from "constants/api";
 import Select from "react-select";
-import { schema } from "../../utils/schemaValidation/enquireFormSchema";
+import { schema } from "utils/schemaValidation/enquireFormSchema";
 import { Container, Form, Button } from "react-bootstrap";
-import AlertBox from "../common/AlertBox";
-import Heading from "../typography/Heading";
+import Alertbox from "components/common/Alertbox";
+import Heading from "components/typography/Heading";
 
 export const SUBJECT = [
   { value: "1", label: "1" },
@@ -64,15 +64,15 @@ export default function EnquireForm() {
     <>
       {submitting}
 
-      <Form className="enquire-form" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">Title</Form.Label>
           <Form.Text className="text-muted">Denne skal komme automatisk</Form.Text>
           <Form.Control type="text" placeholder="Title" className="mt-2" {...register("title")} />
           {errors.title && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.title.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -84,9 +84,9 @@ export default function EnquireForm() {
           <Form.Text className="text-muted">Please insert your name</Form.Text>
           <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
           {errors.name && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.name.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -110,9 +110,9 @@ export default function EnquireForm() {
           <Form.Text className="text-muted">Please insert a valid email address</Form.Text>
           <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
           {errors.email && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.email.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -122,42 +122,60 @@ export default function EnquireForm() {
           <Form.Text className="text-muted">Please insert your phonenumber</Form.Text>
           <Form.Control type="number" placeholder="Name" className="mt-2" {...register("phone")} />
           {errors.name && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.phone.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">from_date</Form.Label>
           <Form.Text className="text-muted">Please insert from_date</Form.Text>
-          <Form.Control type="text" placeholder="from_date" className="mt-2" {...register("from_date")} />
+          <Form.Control
+            type="text"
+            placeholder="from_date"
+            className="mt-2"
+            {...register("from_date")}
+          />
           {errors.from_date && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.from_date.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">to_date</Form.Label>
           <Form.Text className="text-muted">Please insert to_date</Form.Text>
-          <Form.Control type="text" placeholder="to_date" className="mt-2" {...register("to_date")} />
+          <Form.Control
+            type="text"
+            placeholder="to_date"
+            className="mt-2"
+            {...register("to_date")}
+          />
           {errors.to_date && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.to_date.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">Message</Form.Label>
-          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
-          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
+          <Form.Text className="text-muted">
+            Your message must at be at least 10 characters
+          </Form.Text>
+          <Form.Control
+            as="textarea"
+            rows={6}
+            placeholder="Message"
+            className="mt-2"
+            {...register("message")}
+          />
           {errors.message && (
-            <AlertBox className="mt-2" type="danger">
+            <Alertbox className="mt-2" type="danger">
               {errors.message.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
@@ -166,9 +184,9 @@ export default function EnquireForm() {
         </Button>
 
         {submitting && (
-          <AlertBox type="success" className="mt-4 mb-4">
+          <Alertbox type="success" className="mt-4 mb-4">
             Your message was sent
-          </AlertBox>
+          </Alertbox>
         )}
       </Form>
     </>

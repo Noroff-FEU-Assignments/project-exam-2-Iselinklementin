@@ -1,9 +1,9 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import ContactForm from "../components/form/ContactForm";
-import Head from "../components/layout/Head";
-import Layout from "../components/layout/Layout";
-import Heading from "../components/typography/Heading";
+import ContactForm from "components/form/ContactForm";
+import Head from "components/layout/Head";
+import Layout from "components/layout/Layout";
+import Heading from "components/typography/Heading";
 
 function contact() {
   return (

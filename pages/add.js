@@ -3,13 +3,13 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
-import Layout from "../components/layout/Layout";
-import useAxios from "../hooks/useAxios";
-import { API_URL, MEDIA_URL } from "../constants/api";
-import AuthContext from "../context/AuthContext";
+import Layout from "components/layout/Layout";
+import useAxios from "hooks/useAxios";
+import { API_URL, MEDIA_URL } from "constants/api";
+import AuthContext from "context/AuthContext";
 import Image from "next/image";
-import image_test from "../components/images/img.png";
-import usePostImage from "../components/common/usePostImage";
+import image_test from "components/images/img.png";
+import usePostImage from "components/common/usePostImage";
 
 const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),

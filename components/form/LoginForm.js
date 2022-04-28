@@ -6,10 +6,10 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LOGIN_URL } from "../../constants/api";
-import AuthContext from "../../context/AuthContext";
-import AlertBox from "../common/AlertBox";
-import { schema } from "../../utils/schemaValidation/loginFormSchema";
+import { LOGIN_URL } from "constants/api";
+import AuthContext from "context/AuthContext";
+import Alertbox from "components/common/Alertbox";
+import { schema } from "utils/schemaValidation/loginFormSchema";
 
 function LoginForm() {
   const [submitting, setSumbitting] = useState(false);
@@ -46,26 +46,33 @@ function LoginForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {loginError && (
-        <AlertBox type="danger">Wrong username or password. Please ensure you entered your correct details.</AlertBox>
+        <Alertbox type="danger">
+          Wrong username or password. Please ensure you entered your correct details.
+        </Alertbox>
       )}
       <fieldset disabled={submitting}>
         <Form.Group className="mb-3">
           <Form.Label>Username: </Form.Label> <br />
           <Form.Control name="username" placeholder="Username" {...register("username")} />
           {errors.username && (
-            <AlertBox type="danger" className="mt-2">
+            <Alertbox type="danger" className="mt-2">
               {errors.username.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Password: </Form.Label> <br />
-          <Form.Control name="password" placeholder="Password" {...register("password")} type="password" />
+          <Form.Control
+            name="password"
+            placeholder="Password"
+            {...register("password")}
+            type="password"
+          />
           {errors.password && (
-            <AlertBox type="danger" className="mt-2">
+            <Alertbox type="danger" className="mt-2">
               {errors.password.message}
-            </AlertBox>
+            </Alertbox>
           )}
         </Form.Group>
 

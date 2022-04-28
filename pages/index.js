@@ -1,12 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-
-import { API_URL } from "../constants/api";
-import Layout from "../components/layout/Layout";
-import axios from "axios";
+import styles from "styles/Home.module.css";
+import Layout from "components/layout/Layout";
 import { useState } from "react";
-import { getStays } from "../lib/getStays";
+import { getStays } from "lib/getStays";
+import Messages from "components/admin/Messages";
+import Link from "next/link";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
@@ -23,14 +22,17 @@ export default function Home({ stays }) {
 
   return (
     <Layout>
-      {stays.map((stay) => {
+      {stays.map(stay => {
         return (
-          <div key={stay.id}>
-            <p key={stay.id}>{stay.acf.title}</p>
-            <p>{stay.id}</p>
-          </div>
+          <Link href={`stay/${stay.id}`}>
+            <div key={stay.id}>
+              <h1 key={stay.id}>{stay.acf.title}</h1>
+              <p>{stay.id}</p>
+            </div>
+          </Link>
         );
       })}
+      <Messages />
     </Layout>
   );
 }

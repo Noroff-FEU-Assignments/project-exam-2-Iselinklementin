@@ -1,5 +1,5 @@
 import React from "react";
-import { ENQUIRES_URL } from "../../constants/api";
+import { ENQUIRES_URL } from "constants/api";
 
 function EnquireCall(props) {
   return (
