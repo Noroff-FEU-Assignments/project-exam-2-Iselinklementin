@@ -1,84 +1,97 @@
 import axios from "axios";
 import { API_URL } from "constants/api";
-import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Button, ListGroup } from "react-bootstrap";
 
-function Search() {
-  const searchRef = useRef(null);
-  const [result, setResult] = useState([]);
-  const [field, setField] = useState("");
-  const [error, setError] = useState(null);
-  const [active, setActive] = useState(false);
+// searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
 
-  // async function getApi() {
-  //   try {
-  //     const response = await axios.get(API_URL);
-  //     if (response.status === 200) {
-  //       setResult(response.data);
-  //     } else {
-  //       setResult([]);
-  //     }
-  //   } catch (error) {
-  //     setError(error.toString());
-  //   }
-  // }
+const SearchbarDropdown = (props) => {
+  const { options, onInputChange } = props;
+  const ulRef = useRef();
+  const inputRef = useRef();
 
-  const onChange = useCallback(e => {
-    const field = e.target.value.toLowerCase();
-    setField(field);
-
-    if (field.length) {
-      console.log(field);
-      console.log(result);
-    }
+  useEffect(() => {
+    inputRef.current.addEventListener("click", (event) => {
+      event.stopPropagation();
+      ulRef.current.style.display = "flex";
+      onInputChange(event);
+    });
+    document.addEventListener("click", (event) => {
+      ulRef.current.style.display = "none";
+    });
   }, []);
-
-  const onFocus = useCallback(() => {
-    setActive(true);
-    // window.addEventListener("click", onClick);
-  }, []);
-
-  const onClick = useCallback(e => {
-    // if (searchRef.current && !searchRef.current.contains(field)) {
-    //   setActive(false);
-    //   window.removeEventListener("click", onClick);
-    // }
-  });
-  // onChange={onChange} onFocus={onFocus}
 
   return (
-    <div ref={searchRef}>
-      <input placeholder="Search stays" type="text" onChange={onChange} onFocus={onFocus} />
-      {active && result.length > 0 && (
-        <ul>
-          {/* <li key={id}>
-            <Link href="/stays/[id]">
-              <a>{title}</a>
-            </Link>
-          </li> */}
-        </ul>
-      )}
+    <div className="search-bar-dropdown">
+      <input
+        id="search-bar"
+        type="text"
+        className="form-control"
+        placeholder="Search"
+        ref={inputRef}
+        onChange={onInputChange}
+      />
+      <ul id="results" className="list-group" ref={ulRef}>
+        {options.map((option, index) => {
+          return (
+            <button
+              type="button"
+              key={index}
+              onClick={(e) => {
+                inputRef.current.value = option;
+              }}
+              className="list-group-item list-group-item-action"
+            >
+              {option}
+            </button>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const defaultOptions = [];
+for (let i = 0; i < 10; i++) {
+  defaultOptions.push(`option ${i}`);
+  defaultOptions.push(`suggesstion ${i}`);
+  defaultOptions.push(`advice ${i}`);
+}
+
+function Search() {
+  const [stays, setStays] = useState([]);
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    async function getApi() {
+      try {
+        const response = await axios.get(API_URL);
+
+        if (response.status === 200) {
+          setStays(response.data);
+        } else {
+          setStays([]);
+        }
+      } catch (error) {
+        // setError(error.toString());
+      }
+    }
+    getApi();
+  }, []);
+
+  const onInputChange = (event) => {
+    let filter = stays.filter((stay) => stay.acf.title.toLowerCase().includes(event.target.value.toLowerCase()));
+    console.log(filter);
+    setOptions(filter.map((stay) => stay.acf.title));
+  };
+  return (
+    <div className="container mt-2 mb-3">
+      <h1>Search Bar Dropdown</h1>
+      <SearchbarDropdown options={options} onInputChange={onInputChange} />
+      <br />
+      <button className="btn btn-primary">Search</button>
     </div>
   );
 }
 
 export default Search;
-
-// useEffect(() => {
-//   async function getApi() {
-//     try {
-//       const response = await axios.get(API_URL);
-//       if (response.status === 200) {
-//         stays = response.data;
-//       } else {
-//         setError("This wasnt good");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       setError(error.toString());
-//     } finally {
-//       // setLoading(false);
-//     }
-//   }
-//   getApi();
-// }, []);

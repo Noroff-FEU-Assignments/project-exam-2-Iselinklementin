@@ -40,6 +40,8 @@ http://wp-api.org/node-wpapi/guides/2016/08/15/create-a-post-with-featured-media
 
 https://axios-http.com/docs/post_example
 
+https://react-icons.github.io/react-icons
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
