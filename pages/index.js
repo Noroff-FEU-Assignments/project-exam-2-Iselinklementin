@@ -4,12 +4,14 @@ import styles from "styles/Home.module.css";
 import Layout from "components/layout/Layout";
 import { useState } from "react";
 import { getStays } from "lib/getStays";
-import Messages from "components/admin/Messages";
 import Link from "next/link";
 import Search from "components/common/Search";
+// import { Bare } from "lib/icons";
+import Icon, { icons } from "lib/icons";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
+
   // const [error, setError] = useState(null);
   // const { loading, error, posts, media } = useApi(API_URL, MEDIA_URL);
   // console.log(error);
@@ -21,10 +23,44 @@ export default function Home({ stays }) {
   //     </Alert>
   //   );
 
+  console.log(icons);
+
   return (
     <Layout>
       <Search />
-      {stays.map(stay => {
+      <Icon icon={icons.map((icon) => icon.more)} />
+      <Icon icon={icons.map((icon) => icon.plus)} />
+      <Icon icon={icons.map((icon) => icon.heart)} />
+      <Icon icon={icons.map((icon) => icon.user)} />
+      <Icon icon={icons.map((icon) => icon.text)} />
+      <Icon icon={icons.map((icon) => icon.shortText)} />
+      <Icon icon={icons.map((icon) => icon.email)} />
+      <Icon icon={icons.map((icon) => icon.phone)} />
+      <Icon icon={icons.map((icon) => icon.userplus)} />
+      <Icon icon={icons.map((icon) => icon.calendar)} />
+      <Icon icon={icons.map((icon) => icon.bag)} />
+      <Icon icon={icons.map((icon) => icon.search)} />
+      <Icon icon={icons.map((icon) => icon.clock)} />
+      <Icon icon={icons.map((icon) => icon.lock)} />
+      <Icon icon={icons.map((icon) => icon.chat)} />
+      <Icon icon={icons.map((icon) => icon.price)} />
+      <Icon icon={icons.map((icon) => icon.bed)} />
+      <Icon icon={icons.map((icon) => icon.hotel)} />
+      <Icon icon={icons.map((icon) => icon.apartment)} />
+      <Icon icon={icons.map((icon) => icon.images)} />
+      <Icon icon={icons.map((icon) => icon.image)} />
+      <Icon icon={icons.map((icon) => icon.smoking)} />
+      <Icon icon={icons.map((icon) => icon.check)} />
+      <Icon icon={icons.map((icon) => icon.error)} />
+      <Icon icon={icons.map((icon) => icon.pool)} />
+      <Icon icon={icons.map((icon) => icon.pet)} />
+      <Icon icon={icons.map((icon) => icon.location)} />
+      <Icon icon={icons.map((icon) => icon.kitchen)} />
+      <Icon icon={icons.map((icon) => icon.eat)} />
+      <Icon icon={icons.map((icon) => icon.wifi)} />
+      <Icon icon={icons.map((icon) => icon.parking)} />
+      <Icon icon={icons.map((icon) => icon.title)} />
+      {stays.map((stay) => {
         return (
           <Link href={`stay/${stay.id}`}>
             <div key={stay.id}>

@@ -102,12 +102,7 @@ function ContactForm() {
             Subject
           </Form.Label>
           <Form.Text className="text-muted">Please insert your subject</Form.Text>
-          <Form.Control
-            type="text"
-            placeholder="Subject"
-            className="mt-2"
-            {...register("subject")}
-          />
+          <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
           {errors.subject && (
             <Alertbox className="mt-2" type="danger">
               {errors.subject.message}
@@ -120,16 +115,8 @@ function ContactForm() {
             <BsFillChatRightTextFill />
             Message
           </Form.Label>
-          <Form.Text className="text-muted">
-            Your message must at be at least 10 characters
-          </Form.Text>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            placeholder="Message"
-            className="mt-2"
-            {...register("message")}
-          />
+          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
+          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
           {errors.message && (
             <Alertbox className="mt-2" type="danger">
               {errors.message.message}
