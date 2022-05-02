@@ -3,20 +3,18 @@ import { API_URL } from "constants/api";
 import React, { useState, useRef, useEffect } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 
-// searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
-
-const SearchbarDropdown = (props) => {
+const SearchbarDropdown = props => {
   const { options, onInputChange } = props;
   const ulRef = useRef();
   const inputRef = useRef();
 
   useEffect(() => {
-    inputRef.current.addEventListener("click", (event) => {
+    inputRef.current.addEventListener("click", event => {
       event.stopPropagation();
       ulRef.current.style.display = "flex";
       onInputChange(event);
     });
-    document.addEventListener("click", (event) => {
+    document.addEventListener("click", event => {
       ulRef.current.style.display = "none";
     });
   }, []);
@@ -37,11 +35,10 @@ const SearchbarDropdown = (props) => {
             <button
               type="button"
               key={index}
-              onClick={(e) => {
+              onClick={e => {
                 inputRef.current.value = option;
               }}
-              className="list-group-item list-group-item-action"
-            >
+              className="list-group-item list-group-item-action">
               {option}
             </button>
           );
@@ -50,13 +47,6 @@ const SearchbarDropdown = (props) => {
     </div>
   );
 };
-
-const defaultOptions = [];
-for (let i = 0; i < 10; i++) {
-  defaultOptions.push(`option ${i}`);
-  defaultOptions.push(`suggesstion ${i}`);
-  defaultOptions.push(`advice ${i}`);
-}
 
 function Search() {
   const [stays, setStays] = useState([]);
@@ -79,17 +69,19 @@ function Search() {
     getApi();
   }, []);
 
-  const onInputChange = (event) => {
-    let filter = stays.filter((stay) => stay.acf.title.toLowerCase().includes(event.target.value.toLowerCase()));
+  const onInputChange = event => {
+    let filter = stays.filter(stay =>
+      stay.acf.title.toLowerCase().includes(event.target.value.toLowerCase())
+    );
     console.log(filter);
-    setOptions(filter.map((stay) => stay.acf.title));
+    setOptions(filter.map(stay => stay.acf.title));
   };
   return (
     <div className="container mt-2 mb-3">
       <h1>Search Bar Dropdown</h1>
       <SearchbarDropdown options={options} onInputChange={onInputChange} />
       <br />
-      <button className="btn btn-primary">Search</button>
+      <Button>Search</Button>
     </div>
   );
 }

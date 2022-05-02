@@ -42,6 +42,12 @@ https://axios-http.com/docs/post_example
 
 https://react-icons.github.io/react-icons
 
+https://blog.logrocket.com/best-styling-options-nextjs/
+
+https://medium.com/nerd-for-tech/using-next-js-with-styled-components-easy-dfff3849e4f1
+
+// searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

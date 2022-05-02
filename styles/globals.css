@@ -1,4 +1,4 @@
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -18,12 +18,10 @@ a {
 
 .img-div {
   height: 200px;
-  /* background-color: black; */
   width: 200px;
   margin-bottom: 2rem;
 }
 
 h1 {
   font-family: Roboto, sans-serif;
-  /* font-family: Raleway, sans-serif; */
-}
+} */
