@@ -1,17 +1,13 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "styles/Home.module.css";
 import Layout from "components/layout/Layout";
 import { useState } from "react";
 import { getStays } from "lib/getStays";
 import Link from "next/link";
 import Search from "components/common/Search";
-// import { Bare } from "lib/icons";
 import Icon, { icons } from "lib/icons";
 import styled from "styled-components";
 
 export const Title = styled.h1`
-  color: red;
+  color: ${p => p.theme.primaryColour};
 `;
 
 export default function Home({ stays }) {

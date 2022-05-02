@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
-  *,
+*,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -18,13 +18,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    color: #767676;
-    background: ${props => props.theme.gradientBackground};
+    color: ${props => props.theme.darkGrey};
+    background: ${props => props.theme.backgroundColour};
     font-family: "Roboto", sans-serif;
     height: 100%;
   }
   h1 {
     font-family: "Roboto";
+
   }
 `;
 

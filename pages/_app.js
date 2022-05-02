@@ -1,14 +1,17 @@
 import { AuthProvider } from "../context/AuthContext";
-import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "styled-components";
-import Theme from "styles/Theme";
+import Theme from "global/ThemeConfig.js";
+import GlobalStyle from "global/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <ThemeProvider theme={Theme}>
+      <AuthProvider>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
