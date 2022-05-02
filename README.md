@@ -46,7 +46,9 @@ https://blog.logrocket.com/best-styling-options-nextjs/
 
 https://medium.com/nerd-for-tech/using-next-js-with-styled-components-easy-dfff3849e4f1
 
-// searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
+searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
+
+https://github.com/withspectrum/spectrum
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

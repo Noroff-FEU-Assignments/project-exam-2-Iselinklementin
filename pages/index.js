@@ -29,7 +29,7 @@ export default function Home({ stays }) {
   return (
     <Layout>
       <Title>Test</Title>
-      <Search />
+      {/* <Search /> */}
       <Icon icon={icons.map(icon => icon.more)} />
       <Icon icon={icons.map(icon => icon.plus)} />
       <Icon icon={icons.map(icon => icon.heart)} />

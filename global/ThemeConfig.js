@@ -17,10 +17,10 @@ export const Size = ({ height, maxHeight, maxWidth, width }) => css`
 // `;
 
 const theme = {
-  purpleSky: "#FC5156",
-  dawn: "#301850",
-  snow: "#F2F0EB",
-  darkGrey: "#1E1B21",
+  primaryColour: "#FC5156",
+  SecondaryColour: "#301850",
+  light: "#F2F0EB",
+  body: "#1E1B21",
   primaryFont: "Roboto",
   secondaryFont: "Railway",
   backgroundColour: "#FFFAFA",

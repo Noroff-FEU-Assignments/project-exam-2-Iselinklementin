@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    color: ${props => props.theme.darkGrey};
+    color: ${props => props.theme.body};
     background: ${props => props.theme.backgroundColour};
     font-family: "Roboto", sans-serif;
     height: 100%;
@@ -26,6 +26,15 @@ const GlobalStyle = createGlobalStyle`
   h1 {
     font-family: "Roboto";
 
+  }
+  a {
+    color: ${props => props.theme.body};
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      color: ${props => props.theme.primaryColour};
+    }
   }
 `;
 
