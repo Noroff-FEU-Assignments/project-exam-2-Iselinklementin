@@ -50,6 +50,8 @@ searchbar: https://www.youtube.com/watch?v=QtJiQXfAqPg
 
 https://github.com/withspectrum/spectrum
 
+https://letsbuildui.dev/articles/building-a-dropdown-menu-component-with-react-hooks
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

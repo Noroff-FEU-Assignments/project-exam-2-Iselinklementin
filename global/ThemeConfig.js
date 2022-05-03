@@ -23,7 +23,7 @@ const theme = {
   body: "#1E1B21",
   primaryFont: "Roboto",
   secondaryFont: "Railway",
-  backgroundColour: "#FFFAFA",
+  backgroundColour: "white",
   success: "#92B76B",
   error: "#D11117",
   status: "#A1D1ED",
