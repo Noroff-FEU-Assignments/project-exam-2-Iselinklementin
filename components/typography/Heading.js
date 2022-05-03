@@ -10,7 +10,7 @@ export default function Heading({ size = "1", className, children, fontSize }) {
 }
 
 Heading.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   className: PropTypes.string,
   size: PropTypes.string,
   fontSize: PropTypes.string,

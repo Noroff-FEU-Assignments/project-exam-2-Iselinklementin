@@ -52,6 +52,12 @@ https://github.com/withspectrum/spectrum
 
 https://letsbuildui.dev/articles/building-a-dropdown-menu-component-with-react-hooks
 
+cards:
+
+https://stackoverflow.com/questions/34189370/how-to-repeat-an-element-n-times-using-jsx-and-loadsh
+
+https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled.a`
   background: ${(props) => props.theme.primaryColour};
   text-transform: Uppercase;
   font-size: 14px;
-  display: flex;
   border-color: transparent;
+  display: inline-flex;
+
+  &:hover,
+  &:focus {
+    background: ${(props) => props.theme.secondaryColour};
+    border-color: transparent;
+  }
 `;

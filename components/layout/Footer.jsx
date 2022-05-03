@@ -8,8 +8,12 @@ import { Container } from "react-bootstrap";
 
 const StyledFooter = styled.footer`
   padding: 1rem;
-  margin-top: 8rem;
+  margin-top: 5rem;
   text-align: center;
+  /* position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; */
 `;
 
 const StyledLink = styled.a`

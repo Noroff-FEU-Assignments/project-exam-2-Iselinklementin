@@ -4,7 +4,8 @@ const GlobalStyle = createGlobalStyle`
   #root {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
+    width: 100vw;
   }
 
 *,
@@ -12,9 +13,8 @@ const GlobalStyle = createGlobalStyle`
 *::after {
   box-sizing: border-box;
 }
-  html {
-    height: 100%;
-  }
+
+  html ,
   body {
     margin: 0;
     padding: 0;
@@ -22,7 +22,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.backgroundColour};
     font-family: "Roboto", sans-serif;
     height: 100%;
+    width: 100%;
   }
+
   h1 {
     font-family: "Roboto";
 

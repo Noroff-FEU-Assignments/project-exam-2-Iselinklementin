@@ -4,7 +4,7 @@ import { getStays } from "lib/getStays";
 import Link from "next/link";
 import Search from "components/common/search/Search";
 import Icon, { icons } from "lib/icons";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Image from "next/image";
 import Mountain from "assets/mountain.svg";
 import Bryggen from "assets/bryggen.svg";
@@ -19,6 +19,7 @@ import StaysCard from "components/common/StaysCard";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
+  console.log(stays);
 
   return (
     <Layout>
@@ -41,15 +42,17 @@ export default function Home({ stays }) {
       </SearchBox>
 
       <div className="position-relative">
-        <Image src={IntroImg} alt="image" layout="responsive" objectFit="cover" />
+        <Image src={IntroImg} alt="image" layout="responsive" objectFit="cover" priority />
         <ExploreContainer>
           <Heading size="2">We in Holiday have the best places to stay, handpicked for you!</Heading>
-          <StyledButton className="px-3">
-            Explore stays
-            <StyledIconHolder>
-              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2" />
-            </StyledIconHolder>
-          </StyledButton>
+          <Link href="/stays">
+            <StyledButton className="px-3 btn btn-primary" role="button">
+              Explore stays
+              <StyledIconHolder>
+                <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2" />
+              </StyledIconHolder>
+            </StyledButton>
+          </Link>
         </ExploreContainer>
       </div>
 
@@ -93,27 +96,17 @@ export default function Home({ stays }) {
 
       {/* Inspiration  */}
       <Container className="mt-5">
-        <Heading size="3" fontSize="18px">
+        <Heading size="4" fontSize="18px" className="mt-5 mb-4">
           Inspiration for your next trip
         </Heading>
-
-        <Row className="g-5 gy-5 mt-1">
-          <Col sm={6} lg={3}>
-            <StaysCard />
-          </Col>
-        </Row>
+        <StaysCard stays={stays} />
       </Container>
 
-      {stays.map((stay) => {
-        return (
-          <Link href={`stay/${stay.id}`}>
-            <div key={stay.id}>
-              <h1 key={stay.id}>{stay.acf.title}</h1>
-              <p>{stay.id}</p>
-            </div>
-          </Link>
-        );
-      })}
+      <Container>
+        <Heading size="4" fontSize="18px" className="mt-5 mb-4">
+          Some of our popular destinations
+        </Heading>
+      </Container>
     </Layout>
   );
 }
@@ -174,4 +167,13 @@ export async function getStaticProps() {
 <Icon icon={icons.map((icon) => icon.parking)} />
 <Icon icon={icons.map((icon) => icon.title)} />
 <Icon icon={icons.map((icon) => icon.burger)} /> */
+}
+
+{
+  /* <Link href={`stay/${stay.id}`}>
+<div key={stay.id}>
+  <h1 key={stay.id}>{stay.acf.title}</h1>
+  <p>{stay.id}</p>
+</div>
+</Link> */
 }

@@ -23,6 +23,7 @@ import {
   BsFillCalendarCheckFill,
   BsFillBagPlusFill,
   BsSearch,
+  BsFilter,
   BsFillClockFill,
   BsTextLeft,
   BsFillArrowRightCircleFill,
@@ -34,6 +35,9 @@ import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
 
 export const icons = [
+  {
+    filter: <BsFilter />,
+  },
   {
     star: <BsStarFill />,
   },
