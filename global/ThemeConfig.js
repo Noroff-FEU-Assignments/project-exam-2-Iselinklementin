@@ -18,11 +18,11 @@ export const Size = ({ height, maxHeight, maxWidth, width }) => css`
 
 const theme = {
   primaryColour: "#FC5156",
-  SecondaryColour: "#301850",
+  secondaryColour: "#301850",
   light: "#F2F0EB",
   body: "#1E1B21",
   primaryFont: "Roboto",
-  secondaryFont: "Railway",
+  secondaryFont: "Raleway",
   backgroundColour: "white",
   success: "#92B76B",
   error: "#D11117",

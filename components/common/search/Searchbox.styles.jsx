@@ -23,6 +23,6 @@ export const SearchDropdown = styled.div`
   .icon-container {
     position: absolute;
     left: 10px;
-    top: 48px;
+    top: 44px;
   }
 `;

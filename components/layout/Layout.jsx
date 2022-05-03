@@ -8,6 +8,12 @@ import Stays from "assets/stays.svg";
 import Icon, { icons } from "lib/icons";
 import Link from "next/link";
 import { MenuContainer } from "./layout.styles";
+import Footer from "./Footer";
+import styled from "styled-components";
+
+export const Wrapper = styled.div`
+  flex: 1 0 auto;
+`;
 
 export default function ({ children }) {
   const [auth, setAuth] = useContext(AuthContext);
@@ -53,26 +59,29 @@ export default function ({ children }) {
 
   return (
     <>
-      <Navbar expand="lg">
-        <Container className="mt-3 justify-space-between">
-          <DropdownMenu />
+      <Wrapper>
+        <Navbar expand="lg">
+          <Container className="mt-3 justify-space-between">
+            <DropdownMenu />
 
-          <Navbar.Brand>
-            <Link href="/" passHref>
-              <a>
-                <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
+            <Navbar.Brand>
+              <Link href="/" passHref>
+                <a>
+                  <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
+                </a>
+              </Link>
+            </Navbar.Brand>
+
+            <Link href="/">
+              <a style={{ lineHeight: "0.9" }}>
+                <Image src={Stays} alt="Icon, a house with a chimney" width="28.18" height="20" />
               </a>
             </Link>
-          </Navbar.Brand>
-
-          <Link href="/">
-            <a style={{ lineHeight: "0.9" }}>
-              <Image src={Stays} alt="Icon, a house with a chimney" width="28.18" height="20" />
-            </a>
-          </Link>
-        </Container>
-      </Navbar>
-      {children}
+          </Container>
+        </Navbar>
+        {children}
+      </Wrapper>
+      <Footer />
     </>
   );
 }

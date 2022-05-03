@@ -4,8 +4,7 @@ import { getStays } from "lib/getStays";
 import Link from "next/link";
 import Search from "components/common/search/Search";
 import Icon, { icons } from "lib/icons";
-import styled from "styled-components";
-import { Container, Button, Card, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Mountain from "assets/mountain.svg";
 import Bryggen from "assets/bryggen.svg";
@@ -16,6 +15,7 @@ import { SearchBox } from "components/common/search/Searchbox.styles";
 import { StyledButton } from "components/buttons/Button.styles";
 import { ExploreContainer } from "styles/pages/home/ExploreContainer.styles";
 import { StyledIconHolder } from "components/styles/StyledIconHolder.styles";
+import StaysCard from "components/common/StaysCard";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,7 @@ export default function Home({ stays }) {
 
       <Container className="mt-5">
         <div className="border p-3">
-          <div className="d-flex">
+          <div className="d-flex mb-1">
             <Icon icon={icons.map((icon) => icon.hotel)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Hotels
@@ -69,9 +69,9 @@ export default function Home({ stays }) {
 
       <Container className="mt-4">
         <div className="border p-3">
-          <div className="d-flex">
+          <div className="d-flex mb-1">
             <Icon icon={icons.map((icon) => icon.apartment)} />
-            <Heading size="3" fontSize="18px" className="ms-2 m-0">
+            <Heading size="3" fontSize="18px" className="ms-2 ">
               Apartments
             </Heading>
           </div>
@@ -81,7 +81,7 @@ export default function Home({ stays }) {
 
       <Container className="mt-4">
         <div className="border p-3">
-          <div className="d-flex">
+          <div className="d-flex mb-1">
             <Icon icon={icons.map((icon) => icon.bed)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Bed & Breakfast
@@ -93,21 +93,13 @@ export default function Home({ stays }) {
 
       {/* Inspiration  */}
       <Container className="mt-5">
-        <Heading size="3" fontSize="18px" className="mb-3">
+        <Heading size="3" fontSize="18px">
           Inspiration for your next trip
         </Heading>
 
-        <Row className="g-5 gy-5 mt-3">
+        <Row className="g-5 gy-5 mt-1">
           <Col sm={6} lg={3}>
-            <Card style={{ width: "18rem" }}>
-              <Image variant="top" src={IntroImg} />
-              <Card.Body>
-                <Card.Title>Small condo</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </Card.Text>
-              </Card.Body>
-            </Card>
+            <StaysCard />
           </Col>
         </Row>
       </Container>
