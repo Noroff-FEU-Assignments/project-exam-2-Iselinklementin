@@ -18,6 +18,8 @@ export const MenuContainer = styled.div`
     visibility: hidden;
     transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
     width: 100vw;
+    z-index: 2;
+    padding-bottom: 1rem;
   }
 
   .menu.active {

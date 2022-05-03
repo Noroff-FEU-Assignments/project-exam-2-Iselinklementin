@@ -11,10 +11,10 @@ import { MenuContainer } from "./layout.styles";
 
 export default function ({ children }) {
   const [auth, setAuth] = useContext(AuthContext);
+  const [isActive, setIsActive] = useState(false);
 
   const DropdownMenu = () => {
     const dropdownRef = useRef(null);
-    const [isActive, setIsActive] = useState(false);
     const onClick = () => setIsActive(!isActive);
 
     return (
@@ -23,7 +23,7 @@ export default function ({ children }) {
           <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
         </button>
 
-        <Container ref={dropdownRef} className={`border-bottom menu ${isActive ? "active" : "inactive"}`}>
+        <Container ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
           <Container className="py-4">
             <Link href="/">
               <a className="d-flex my-2">
@@ -54,9 +54,10 @@ export default function ({ children }) {
   return (
     <>
       <Navbar expand="lg">
-        <Container className="mt-3 justify-space-between align-items-center">
+        <Container className="mt-3 justify-space-between">
           <DropdownMenu />
-          <Navbar.Brand className="">
+
+          <Navbar.Brand>
             <Link href="/" passHref>
               <a>
                 <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
@@ -65,8 +66,8 @@ export default function ({ children }) {
           </Navbar.Brand>
 
           <Link href="/">
-            <a>
-              <Image src={Stays} alt="Icon, a house with a chimney" width="29.18" height="23.07" />
+            <a style={{ lineHeight: "0.9" }}>
+              <Image src={Stays} alt="Icon, a house with a chimney" width="28.18" height="20" />
             </a>
           </Link>
         </Container>

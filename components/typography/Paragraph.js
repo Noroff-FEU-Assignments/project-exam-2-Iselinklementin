@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
+const StyledParagraph = styled.p`
+  line-height: 1.4;
+`;
 
 export default function Paragraph({ className, children }) {
-  return <p className={className}>{children}</p>;
+  return <StyledParagraph className={className}>{children}</StyledParagraph>;
 }
 
 Paragraph.propTypes = {
