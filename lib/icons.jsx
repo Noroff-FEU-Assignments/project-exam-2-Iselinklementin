@@ -15,7 +15,7 @@ import { ImSpoonKnife } from "react-icons/im";
 import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu } from "react-icons/io";
 import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
-
+import { GrWheelchair } from "react-icons/gr";
 import {
   BsFillTelephoneFill,
   BsStarFill,
@@ -31,13 +31,19 @@ import { IconContext } from "react-icons";
 
 export const icons = [
   {
+    arrow: <BsFillArrowRightCircleFill />,
+  },
+  {
+    burger: <IoIosMenu />,
+  },
+  {
+    breakfast: <ImSpoonKnife />,
+  },
+  {
     filter: <BsFilter />,
   },
   {
     star: <BsStarFill />,
-  },
-  {
-    arrow: <BsFillArrowRightCircleFill />,
   },
   {
     title: <MdTextFields />,
@@ -47,9 +53,6 @@ export const icons = [
   },
   {
     wifi: <MdWifi />,
-  },
-  {
-    breakfast: <ImSpoonKnife />,
   },
   {
     kitchen: <MdKitchen />,
@@ -112,7 +115,10 @@ export const icons = [
     search: <BsSearch />,
   },
   {
-    clock: <BsFillClockFill />,
+    check_in: <BsFillClockFill />,
+  },
+  {
+    checkout: <BsFillClockFill />,
   },
   {
     lock: <FaLock />,
@@ -130,13 +136,13 @@ export const icons = [
     hotel: <RiHotelFill />,
   },
   {
+    handicap_friendly: <GrWheelchair />,
+  },
+  {
     apartment: <IoBedSharp />,
   },
   {
-    smoking: <IoLogoNoSmoking />,
-  },
-  {
-    burger: <IoIosMenu />,
+    no_smoking: <IoLogoNoSmoking />,
   },
 ];
 

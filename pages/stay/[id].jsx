@@ -5,12 +5,15 @@ import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
-import { Breadcrumb, Container } from "react-bootstrap";
+import { Breadcrumb, Container, Row, Button } from "react-bootstrap";
 import Carousels from "components/images/Carousel";
 import Link from "next/link";
 import Icon, { icons } from "lib/icons";
 import styled from "styled-components";
 import Includes from "components/common/Includes";
+import Select from "react-select";
+import { StyledButton, StyledMobileButton } from "components/buttons/Button.styles";
+import { StyledIconHolder } from "components/styles/StyledIconHolder.styles";
 
 const StyledEnquireBtn = styled.a`
   background: ${(props) => props.theme.primaryColour};
@@ -20,6 +23,10 @@ const StyledEnquireBtn = styled.a`
   &:hover {
     background: ${(props) => props.theme.secondaryColour};
   }
+`;
+
+const StyledRoomContainer = styled.div`
+  background: ${(props) => props.theme.light};
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
@@ -37,6 +44,36 @@ export default function stay({ stay }) {
     imagesArr.push(img[1].url);
   });
 
+  function ShowRoom() {
+    let SELECT_OPTIONS = [];
+    if (stay.acf.room.stay_type === "Hotel") {
+      stay.acf.room.room_type.map((room) => {
+        let rooms = { value: room, label: room };
+        SELECT_OPTIONS.push(rooms);
+      });
+      return (
+        <StyledRoomContainer className="p-3 pt-4 mt-4">
+          <Select placeholder="How many" defaultValue={{ value: 0, label: "Choose room" }} options={SELECT_OPTIONS} />
+          <hr />
+          <Paragraph className="mt-3">
+            Price from: <span className="fw-bold">{stay.acf.price},- / night</span>
+          </Paragraph>
+        </StyledRoomContainer>
+      );
+    } else {
+      return (
+        <>
+          <Paragraph>{stay.acf.room.room_info}</Paragraph>
+          <Paragraph className="mt-3">
+            Price from: <span className="fw-bold">{stay.acf.price},- / night</span>
+          </Paragraph>
+        </>
+      );
+    }
+  }
+
+  console.log(Select.value);
+
   return (
     <Layout>
       <Head title={stay.acf.title} />
@@ -51,7 +88,7 @@ export default function stay({ stay }) {
           </li>
         </StyledBreadcrumb>
         {/* Heading */}
-        <div className="d-flex justify-content-between align-items-end mt-2">
+        <div className="d-flex justify-content-between align-items-center mt-4">
           <Heading>{stay.acf.title}</Heading>
           <Link href="/enquire">
             <StyledEnquireBtn className="btn btn-primary">
@@ -65,7 +102,35 @@ export default function stay({ stay }) {
         {/* Images / Carousel */}
         <Carousels stays={imagesArr} />
         {/* Icons include */}
-        <Includes stay={stay.acf.stay_includes} />
+        <div className="mt-4">
+          <Includes stay={stay.acf.stay_includes} />
+        </div>
+
+        <Heading size="2" className="mt-5">
+          Description
+        </Heading>
+        <p>{stay.acf.stay_description}</p>
+      </Container>
+      <Container className="mb-5">
+        <Heading size="2" className="mt-5">
+          Nice to know
+        </Heading>
+        <p>{stay.acf.nice_to_know_text}</p>
+        <div className="mt-4">
+          <Includes stay={stay.acf.nice_to_know} />
+        </div>
+      </Container>
+
+      <hr />
+      <Container>
+        <Heading size="3">Room</Heading>
+        {ShowRoom()}
+        <Link href="/enquire" className="mt-4">
+          <StyledMobileButton className="btn primary-btn mt-4" role="button">
+            <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
+            Enquire
+          </StyledMobileButton>
+        </Link>
       </Container>
     </Layout>
   );

@@ -6,6 +6,7 @@ import IntroImg from "assets/index_img.jpg";
 import React from "react";
 import Link from "next/link";
 import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
+import Includes from "./Includes";
 
 function StaysCard(props) {
   // let matches = str.match(/\d+/g);
@@ -40,9 +41,10 @@ function StaysCard(props) {
                     ))}
                   </div>
                   <Card.Text>
-                    {includes.map((include) =>
-                      include[1] ? <span className="me-2">{CapitalizeFirstLetter(include[0])} </span> : ""
-                    )}
+                    {includes.map((include) => {
+                      let thisIncludes = include[0].replace("_", " ");
+                      return include[1] ? <span className="me-2">{CapitalizeFirstLetter(thisIncludes)} </span> : "";
+                    })}
                   </Card.Text>
                 </Card.Body>
               </StyledCard>

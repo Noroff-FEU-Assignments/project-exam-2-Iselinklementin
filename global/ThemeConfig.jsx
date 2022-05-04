@@ -19,7 +19,7 @@ export const Size = ({ height, maxHeight, maxWidth, width }) => css`
 const theme = {
   primaryColour: "#FC5156",
   secondaryColour: "#301850",
-  light: "#F2F0EB",
+  light: "#FAFAFA",
   body: "#1E1B21",
   primaryFont: "Roboto",
   secondaryFont: "Raleway",

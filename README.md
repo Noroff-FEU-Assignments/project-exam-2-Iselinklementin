@@ -20,6 +20,8 @@ Add prop type checks and fix any warnings that appear in the console. Keep your 
 
 Skiftet image til array og ID
 Skiftet B&B til Bed & Breakfast (stay_type)
+endret plass på nicetoknow tekst
+(nice_to_know_text)
 
 ---
 
