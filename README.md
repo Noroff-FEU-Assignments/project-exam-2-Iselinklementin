@@ -10,9 +10,18 @@ npm run dev
 yarn dev
 ```
 
+Add prop type checks and fix any warnings that appear in the console. Keep your console open while developing. If you are using Next, don't forget that the component you pass the props to from getServerSideProps or getStaticProps also needs prop type checks.
+
 1. D1aO 8H45 eb83 Nbb3 v9Ym Mt8I <- min >
 2. nhHC xwcm oDMI jrVs 6lHy zlFK <- light >
 3. Nkvf DtVs V1a1 dv9R o3Lf eNhA <- admin >
+
+---
+
+Skiftet image til array og ID
+Skiftet B&B til Bed & Breakfast (stay_type)
+
+---
 
 https://artisansweb.net/how-to-use-application-passwords-in-wordpress-for-rest-api-authentication/#:~:text=Head%20over%20to%20the%20Users,password%20with%20or%20without%20spaces.
 

@@ -66,7 +66,7 @@ export default function ({ children }) {
             </Link>
           </Navbar.Brand>
 
-          <Link href="/">
+          <Link href="/stays">
             <a style={{ lineHeight: "0.9" }}>
               <Image src={Stays} alt="Icon, a house with a chimney" width="28.18" height="20" />
             </a>

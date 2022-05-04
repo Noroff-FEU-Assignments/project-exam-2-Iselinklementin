@@ -5,22 +5,20 @@ import Image from "next/image";
 import IntroImg from "assets/index_img.jpg";
 import React from "react";
 import Link from "next/link";
+import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
 
 function StaysCard(props) {
   // let matches = str.match(/\d+/g);
+
   return (
-    <Row className="g-5 gy-5">
+    <Row xs={1} sm={2} md={3} className="g-4">
       {props.stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
         let includes = Object.entries(stay.acf.stay_includes);
 
-        function capitalizeFirstLetter(string) {
-          return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
         return (
-          <Col sm={6} lg={4} key={stay.id}>
+          <Col key={stay.id}>
             <Link href={`stay/${stay.id}`}>
               <StyledCard>
                 <Badge bg="light" text="dark" className="pe-3">
@@ -43,7 +41,7 @@ function StaysCard(props) {
                   </div>
                   <Card.Text>
                     {includes.map((include) =>
-                      include[1] ? <span className="me-2">{capitalizeFirstLetter(include[0])} </span> : ""
+                      include[1] ? <span className="me-2">{CapitalizeFirstLetter(include[0])} </span> : ""
                     )}
                   </Card.Text>
                 </Card.Body>

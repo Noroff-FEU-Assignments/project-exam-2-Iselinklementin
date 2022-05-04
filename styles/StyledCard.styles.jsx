@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 
 export const StyledCard = styled(Card)`
   border: none;
+  cursor: pointer;
 
   .card-title {
     font-family: ${(props) => props.theme.secondaryFont};

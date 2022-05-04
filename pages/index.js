@@ -4,7 +4,7 @@ import { getStays } from "lib/getStays";
 import Link from "next/link";
 import Search from "components/common/search/Search";
 import Icon, { icons } from "lib/icons";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Mountain from "assets/mountain.svg";
 import Bryggen from "assets/bryggen.svg";

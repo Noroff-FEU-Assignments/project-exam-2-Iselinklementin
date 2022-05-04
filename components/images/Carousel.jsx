@@ -5,68 +5,61 @@ import Paragraph from "components/typography/Paragraph";
 import Image from "next/image";
 
 const StyledCarousel = styled(Carousel)`
-  width: 100%;
-
   @media ${device.laptop} {
     width: 60%;
   }
 
-  .carousel-caption {
-    margin-bottom: -0.5rem;
-
-    @media ${device.laptop} {
-      margin-bottom: 0;
-    }
-  }
-
   > .carousel-indicators {
-    margin-bottom: 5px;
-
-    & button {
-      width: 15px;
-    }
-
-    & .active {
-      background-color: ${(props) => props.theme.backgroundColour};
-    }
+    display: none;
   }
 
   > .carousel-control-next {
-    @media ${device.laptop} {
-      right: -20px;
+    opacity: 1;
+    height: 45px;
+    width: 45px;
+    border: white solid 1.5px;
+    border-radius: 50%;
+    top: 40%;
+    right: 10px;
+
+    .carousel-control-next-icon {
+      width: 1.2rem;
+      height: 1.2rem;
     }
+    /* @media ${device.laptop} {
+      right: -20px;
+    } */
   }
 
   > .carousel-control-prev {
-    @media ${device.laptop} {
-      left: -20px;
+    opacity: 1;
+    height: 45px;
+    width: 45px;
+    border: white solid 1.5px;
+    border-radius: 50%;
+    top: 40%;
+    left: 10px;
+
+    .carousel-control-prev-icon {
+      width: 1.2rem;
+      height: 1.2rem;
     }
+
+    /* @media ${device.laptop} {
+      left: -20px;
+    } */
   }
-`;
-
-const StyledCaption = styled(Carousel.Caption)`
-  padding-bottom: 0;
-  display: none;
-
-  @media ${device.tablet} {
-    display: block;
-  }
-`;
-
-const StyledHeadline = styled.h2`
-  font-size: 1.2rem;
-  margin-bottom: 2px;
 `;
 
 // Reusable Carousel-function
 
 export default function Carousels(props) {
   return (
-    <StyledCarousel variant="dark">
+    <StyledCarousel>
       {props.stays.map((stay) => {
         return (
-          <Carousel.Item>
-            <Image src={stay} width={320} height={320} />;
+          <Carousel.Item style={{ width: "100vw", height: "80vw" }}>
+            <Image src={stay} layout="fill" objectFit="cover" />
           </Carousel.Item>
         );
       })}

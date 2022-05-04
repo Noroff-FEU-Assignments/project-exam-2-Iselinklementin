@@ -1,4 +1,4 @@
-import { FaUser, FaUserPlus, FaLock, FaCoins, FaBed, FaHeart, FaPlus } from "react-icons/fa";
+import { FaUser, FaShoppingBag, FaUserPlus, FaLock, FaCoins, FaBed, FaHeart } from "react-icons/fa";
 import {
   MdEmail,
   MdShortText,
@@ -13,7 +13,6 @@ import {
 import { HiPlusSm } from "react-icons/hi";
 import { ImSpoonKnife } from "react-icons/im";
 import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu } from "react-icons/io";
-import { GrTextAlignFull } from "react-icons/gr";
 import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
 
@@ -21,15 +20,11 @@ import {
   BsFillTelephoneFill,
   BsStarFill,
   BsFillCalendarCheckFill,
-  BsFillBagPlusFill,
   BsSearch,
   BsFilter,
   BsFillClockFill,
-  BsTextLeft,
   BsFillArrowRightCircleFill,
   BsJustifyLeft,
-  BsPlus,
-  BsCheckCircleFill,
 } from "react-icons/bs";
 import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
@@ -48,13 +43,13 @@ export const icons = [
     title: <MdTextFields />,
   },
   {
-    parking: <RiParkingBoxFill />,
+    free_parking: <RiParkingBoxFill />,
   },
   {
     wifi: <MdWifi />,
   },
   {
-    eat: <ImSpoonKnife />,
+    breakfast: <ImSpoonKnife />,
   },
   {
     kitchen: <MdKitchen />,
@@ -63,10 +58,10 @@ export const icons = [
     location: <IoLocationSharp />,
   },
   {
-    pet: <MdPets />,
+    pet_friendly: <MdPets />,
   },
   {
-    pool: <MdPool />,
+    swimming_pool: <MdPool />,
   },
   {
     check: <MdCheckCircle />,
@@ -111,7 +106,7 @@ export const icons = [
     calendar: <BsFillCalendarCheckFill />,
   },
   {
-    bag: <BsFillBagPlusFill />,
+    bag: <FaShoppingBag />,
   },
   {
     search: <BsSearch />,

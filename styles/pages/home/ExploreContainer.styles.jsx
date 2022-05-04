@@ -1,7 +1,6 @@
-import { Container } from "react-bootstrap";
 import styled from "styled-components";
 
-export const ExploreContainer = styled(Container)`
+export const ExploreContainer = styled.div`
   position: absolute;
   left: 5px;
   top: 65px;

@@ -27,9 +27,11 @@ export default function Footer() {
   return (
     <>
       <StyledFooter>
-        <div style={{ position: "relative", width: "100%", height: "95px" }}>
+        {/* <div style={{ position: "relative", width: "100%", height: "95px" }}> */}
+        <Container>
           <Image src={Mountain} alt="image" layout="responsive" objectFit="cover" style={{ opacity: "0.8" }} />
-        </div>
+        </Container>
+
         <Link href="/">
           <a>
             <Image src={LogoIcon} alt="Holidaze logo element" width="34.28" height="34.28" />
