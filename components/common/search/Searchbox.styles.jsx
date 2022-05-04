@@ -6,23 +6,23 @@ export const SearchBox = styled.div`
   color: white;
 `;
 
-export const SearchDropdown = styled.div`
-  position: relative;
+// export const SearchDropdown = styled.div`
+//   position: relative;
 
-  input {
-    padding-left: 38px;
-    border: none;
-  }
+//   input {
+//     padding-left: 38px;
+//     border: none;
+//   }
 
-  input::placeholder {
-    font-size: 14px;
-    color: ${(props) => props.theme.body};
-    opacity: 0.8;
-  }
+//   input::placeholder {
+//     font-size: 14px;
+//     color: ${(props) => props.theme.body};
+//     opacity: 0.8;
+//   }
 
-  .icon-container {
-    position: absolute;
-    left: 10px;
-    top: 44px;
-  }
-`;
+//   .icon-container {
+//     position: absolute;
+//     left: 10px;
+//     top: 44px;
+//   }
+// `;

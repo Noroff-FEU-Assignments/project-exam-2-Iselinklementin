@@ -29,7 +29,7 @@ export default function Footer() {
       <StyledFooter>
         {/* <div style={{ position: "relative", width: "100%", height: "95px" }}> */}
         <Container>
-          <Image src={Mountain} alt="image" layout="responsive" objectFit="cover" style={{ opacity: "0.8" }} />
+          <Image src={Mountain} alt="image" layout="responsive" objectFit="cover" priority style={{ opacity: "0.8" }} />
         </Container>
 
         <Link href="/">

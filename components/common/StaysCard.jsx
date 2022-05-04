@@ -9,8 +9,6 @@ import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
 import Includes from "./Includes";
 
 function StaysCard(props) {
-  // let matches = str.match(/\d+/g);
-
   return (
     <Row xs={1} sm={2} md={3} className="g-4">
       {props.stays.map((stay) => {
@@ -43,7 +41,13 @@ function StaysCard(props) {
                   <Card.Text>
                     {includes.map((include) => {
                       let thisIncludes = include[0].replace("_", " ");
-                      return include[1] ? <span className="me-2">{CapitalizeFirstLetter(thisIncludes)} </span> : "";
+                      return include[1] ? (
+                        <span className="me-2" key={thisIncludes}>
+                          {CapitalizeFirstLetter(thisIncludes)}{" "}
+                        </span>
+                      ) : (
+                        ""
+                      );
                     })}
                   </Card.Text>
                 </Card.Body>
