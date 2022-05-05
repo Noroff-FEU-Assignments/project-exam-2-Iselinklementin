@@ -5,7 +5,7 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import Image from "next/image";
 import LogoIcon from "assets/logo_element.svg";
 import Stays from "assets/stays.svg";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import Link from "next/link";
 import { MenuContainer } from "./layout.styles";
 import Footer from "./Footer";

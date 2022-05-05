@@ -3,7 +3,7 @@ import { useState } from "react";
 import { getStays } from "lib/getStays";
 import Link from "next/link";
 import Search from "components/common/search/Search";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Mountain from "assets/mountain.svg";
@@ -19,7 +19,7 @@ import StaysCard from "components/common/StaysCard";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
-  console.log(stays);
+  // console.log(stays);
 
   return (
     <Layout>

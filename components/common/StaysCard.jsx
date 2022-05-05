@@ -1,6 +1,6 @@
 import { Container, Button, Card, Row, Col, Badge } from "react-bootstrap";
 import { StyledCard } from "styles/StyledCard.styles";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import Image from "next/image";
 import IntroImg from "assets/index_img.jpg";
 import React from "react";

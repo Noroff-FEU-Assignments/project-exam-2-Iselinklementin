@@ -4,7 +4,7 @@ import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import { Container } from "react-bootstrap";
 import Paragraph from "components/typography/Paragraph";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import { getStays } from "lib/getStays";
 import StaysCard from "components/common/StaysCard";
 

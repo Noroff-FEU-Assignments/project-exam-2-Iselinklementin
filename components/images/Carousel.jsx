@@ -58,7 +58,7 @@ export default function Carousels(props) {
     <StyledCarousel>
       {props.stays.map((stay) => {
         return (
-          <Carousel.Item style={{ width: "100vw", height: "80vw" }}>
+          <Carousel.Item key={stay} style={{ width: "100vw", height: "80vw" }}>
             <Image src={stay} layout="fill" objectFit="cover" />
           </Carousel.Item>
         );

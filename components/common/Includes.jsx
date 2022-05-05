@@ -1,6 +1,6 @@
 import React from "react";
 import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import { Col, Row } from "react-bootstrap";
 import Paragraph from "components/typography/Paragraph";
 
@@ -39,7 +39,7 @@ function Includes(props) {
         }
 
         return include[1] ? (
-          <Col className="d-flex align-items-center">
+          <Col className="d-flex align-items-center" key={include[0]}>
             <FindIcons includes={include[1]} iconIncludes={include[0]} />
             <Paragraph className="m-0">{date.length ? date : CapitalizeFirstLetter(thisIncludes)}</Paragraph>
           </Col>

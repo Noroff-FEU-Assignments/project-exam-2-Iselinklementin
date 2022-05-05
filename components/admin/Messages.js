@@ -16,7 +16,7 @@ export default function Messages() {
       try {
         const response = await axios.get(CONTACT_URL);
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           setContact(response.data);
         } else {
           setError("This wasnt good");
@@ -47,7 +47,7 @@ export default function Messages() {
 
   return (
     <Accordion defaultActiveKey="0" flush>
-      {contact.map(item => {
+      {contact.map((item) => {
         count++;
         return (
           <Accordion.Item eventKey={count}>

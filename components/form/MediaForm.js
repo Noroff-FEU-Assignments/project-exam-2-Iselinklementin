@@ -29,8 +29,8 @@ function MediaForm() {
 
     try {
       await http.post(url, formData);
-      console.log(formData);
-      console.log(file.name);
+      // console.log(formData);
+      // console.log(file.name);
     } catch (error) {
       setServerError(error.toString());
     } finally {

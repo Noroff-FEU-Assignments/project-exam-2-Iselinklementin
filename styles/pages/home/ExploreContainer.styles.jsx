@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ExploreContainer = styled.div`
   position: absolute;
-  left: 5px;
+  left: 15px;
   top: 65px;
   color: ${(props) => props.theme.light};
 

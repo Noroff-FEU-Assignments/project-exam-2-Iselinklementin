@@ -8,7 +8,7 @@ import { API_URL } from "constants/api";
 import { Breadcrumb, Container, Row, Button } from "react-bootstrap";
 import Carousels from "components/images/Carousel";
 import Link from "next/link";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import styled from "styled-components";
 import Includes from "components/common/Includes";
 import Select from "react-select";
@@ -36,24 +36,54 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
+export function WithCallbacks(options, stay) {
+  const [myOption, setMyOption] = useState("Choose room");
+
+  const handleInput = (newValue) => {
+    setMyOption(newValue.value);
+    // console.log(myOption);
+    return newValue;
+  };
+
+  return (
+    <div>
+      <p>{myOption}</p>
+      <Select options={options} onChange={handleInput} />
+      <Link href={`/enquire/${stay.id}`} className="mt-4">
+        <StyledMobileButton
+          className="btn primary-btn mt-4"
+          role="button"
+          data-id={stay.id}
+          data-title={stay.acf.title}
+          data-room={myOption}
+        >
+          <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
+          Enquire
+        </StyledMobileButton>
+      </Link>
+    </div>
+  );
+}
+
 export default function stay({ stay }) {
-  console.log(stay.acf);
+  // console.log(stay);
   let image = Object.entries(stay.acf.image);
   let imagesArr = [];
   image.forEach((img) => {
     imagesArr.push(img[1].url);
   });
 
-  function ShowRoom() {
+  function ShowRoom(options) {
     let SELECT_OPTIONS = [];
     if (stay.acf.room.stay_type === "Hotel") {
       stay.acf.room.room_type.map((room) => {
         let rooms = { value: room, label: room };
         SELECT_OPTIONS.push(rooms);
       });
+
       return (
         <StyledRoomContainer className="p-3 pt-4 mt-4">
-          <Select placeholder="How many" defaultValue={{ value: 0, label: "Choose room" }} options={SELECT_OPTIONS} />
+          {WithCallbacks(SELECT_OPTIONS, stay)}
           <hr />
           <Paragraph className="mt-3">
             Price from: <span className="fw-bold">{stay.acf.price},- / night</span>
@@ -94,7 +124,6 @@ export default function stay({ stay }) {
             </StyledEnquireBtn>
           </Link>
         </div>
-
         {/* <Paragraph>{stay.acf.room.room_type ? stay.acf.room.room_type : stay.acf.room.stay_type}</Paragraph> */}
         <Paragraph>{stay.acf.room.stay_type}</Paragraph>
         {/* Images / Carousel */}
@@ -103,7 +132,6 @@ export default function stay({ stay }) {
         <div className="mt-4">
           <Includes stay={stay.acf.stay_includes} />
         </div>
-
         <Heading size="2" className="mt-5">
           Description
         </Heading>
@@ -123,12 +151,17 @@ export default function stay({ stay }) {
       <Container>
         <Heading size="3">Room</Heading>
         {ShowRoom()}
-        <Link href="/enquire" className="mt-4">
-          <StyledMobileButton className="btn primary-btn mt-4" role="button">
+        {/* <Link href="/enquire" className="mt-4">
+          <StyledMobileButton
+            className="btn primary-btn mt-4"
+            role="button"
+            data-id={stay.id}
+            data-title={stay.acf.title}
+          >
             <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
             Enquire
           </StyledMobileButton>
-        </Link>
+        </Link> */}
       </Container>
     </Layout>
   );

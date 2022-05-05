@@ -33,7 +33,7 @@ function LoginForm() {
     try {
       const response = await axios.post(LOGIN_URL, data);
       setAuth(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       return router.push("/admin");
     } catch (error) {
       console.log("error", error);
@@ -46,9 +46,7 @@ function LoginForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {loginError && (
-        <Alertbox type="danger">
-          Wrong username or password. Please ensure you entered your correct details.
-        </Alertbox>
+        <Alertbox type="danger">Wrong username or password. Please ensure you entered your correct details.</Alertbox>
       )}
       <fieldset disabled={submitting}>
         <Form.Group className="mb-3">
@@ -63,12 +61,7 @@ function LoginForm() {
 
         <Form.Group className="mb-3">
           <Form.Label>Password: </Form.Label> <br />
-          <Form.Control
-            name="password"
-            placeholder="Password"
-            {...register("password")}
-            type="password"
-          />
+          <Form.Control name="password" placeholder="Password" {...register("password")} type="password" />
           {errors.password && (
             <Alertbox type="danger" className="mt-2">
               {errors.password.message}

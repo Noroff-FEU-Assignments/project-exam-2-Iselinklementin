@@ -127,36 +127,36 @@ function add() {
     formData4.append("caption", "riktig data her og");
     formData4.append("file", file4);
 
-    await http.post(MEDIA_URL, formData).then(response => {
+    await http.post(MEDIA_URL, formData).then((response) => {
       const thisID = response.data.id;
       imgArray.image_1 = thisID;
     });
 
-    await http.post(MEDIA_URL, formData2).then(response => {
+    await http.post(MEDIA_URL, formData2).then((response) => {
       const thisID = response.data.id;
       imgArray.image_2 = thisID;
     });
 
-    await http.post(MEDIA_URL, formData3).then(response => {
+    await http.post(MEDIA_URL, formData3).then((response) => {
       const thisID = response.data.id;
       imgArray.image_3 = thisID;
     });
 
-    await http.post(MEDIA_URL, formData4).then(response => {
+    await http.post(MEDIA_URL, formData4).then((response) => {
       const thisID = response.data.id;
       imgArray.image_4 = thisID;
     });
 
-    console.log(imgArray);
+    // console.log(imgArray);
 
-    await http.post(MEDIA_URL, formData3).then(response => {
+    await http.post(MEDIA_URL, formData3).then((response) => {
       const thisID = response.data.id;
-      console.log(thisID);
+      // console.log(thisID);
     });
 
-    await http.post(MEDIA_URL, formData4).then(response => {
+    await http.post(MEDIA_URL, formData4).then((response) => {
       const thisID = response.data.id;
-      console.log(thisID);
+      // console.log(thisID);
     });
 
     // this needs to go straight under the post and id to get stored in images
@@ -206,10 +206,10 @@ function add() {
 
     await http
       .post(API_URL, data)
-      .then(response => {
-        console.log(response.data);
+      .then((response) => {
+        // console.log(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error.toString());
       });
     setSubmitted(true);
@@ -220,21 +220,9 @@ function add() {
       {submitted}
 
       <form className="add-form" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          label="stay_title"
-          type="text"
-          style={{ height: "35px" }}
-          placeholder="title"
-          {...register("title")}
-        />
+        <input label="stay_title" type="text" style={{ height: "35px" }} placeholder="title" {...register("title")} />
         <br />
-        <input
-          label="price"
-          type="text"
-          style={{ height: "35px" }}
-          placeholder="price"
-          {...register("price")}
-        />
+        <input label="price" type="text" style={{ height: "35px" }} placeholder="price" {...register("price")} />
         <br />
         <textarea label="description" placeholder="description" {...register("description")} />
         <br />
@@ -271,13 +259,7 @@ function add() {
           {...register("checkout")}
         />
         <br />
-        <input
-          label="text"
-          type="text"
-          style={{ height: "35px" }}
-          placeholder="text"
-          {...register("text")}
-        />
+        <input label="text" type="text" style={{ height: "35px" }} placeholder="text" {...register("text")} />
         <br />
         <input
           label="room_info"
@@ -292,12 +274,7 @@ function add() {
           style={{ height: "35px" }}
           control={control}
           render={({ field }) => (
-            <Select
-              name="room_type"
-              options={ROOMS}
-              defaultValue={{ value: "0", label: "Type of room" }}
-              {...field}
-            />
+            <Select name="room_type" options={ROOMS} defaultValue={{ value: "0", label: "Type of room" }} {...field} />
           )}
         />
         <br />
@@ -306,12 +283,7 @@ function add() {
           style={{ height: "35px" }}
           control={control}
           render={({ field }) => (
-            <Select
-              name="stay_type"
-              options={STAYS}
-              defaultValue={{ value: "0", label: "Stay type" }}
-              {...field}
-            />
+            <Select name="stay_type" options={STAYS} defaultValue={{ value: "0", label: "Stay type" }} {...field} />
           )}
         />
         <br />
@@ -320,12 +292,7 @@ function add() {
           style={{ height: "35px" }}
           control={control}
           render={({ field }) => (
-            <Select
-              name="stars"
-              options={REVIEW}
-              defaultValue={{ value: "0", label: "How many stars" }}
-              {...field}
-            />
+            <Select name="stars" options={REVIEW} defaultValue={{ value: "0", label: "How many stars" }} {...field} />
           )}
         />
         <br />
@@ -358,13 +325,7 @@ function add() {
             <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
           )}
         </div>
-        <input
-          id="imgUpload1"
-          name="image_1"
-          type="file"
-          ref={imgUpload1}
-          onChange={previewImage}
-        />
+        <input id="imgUpload1" name="image_1" type="file" ref={imgUpload1} onChange={previewImage} />
         <br />
         <br />
         <div className="img-div" style={{ position: "relative", width: "50vw", height: "36.66vw" }}>
@@ -374,13 +335,7 @@ function add() {
             <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
           )}
         </div>
-        <input
-          id="imgUpload2"
-          name="image_2"
-          type="file"
-          ref={imgUpload2}
-          onChange={previewImage}
-        />
+        <input id="imgUpload2" name="image_2" type="file" ref={imgUpload2} onChange={previewImage} />
         <br />
         <br />
         <br />
@@ -392,13 +347,7 @@ function add() {
             <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
           )}
         </div>
-        <input
-          id="imgUpload3"
-          name="image_3"
-          type="file"
-          ref={imgUpload3}
-          onChange={previewImage}
-        />
+        <input id="imgUpload3" name="image_3" type="file" ref={imgUpload3} onChange={previewImage} />
         <br />
         <br />
         <div className="img-div" style={{ position: "relative", width: "50vw", height: "36.66vw" }}>
@@ -408,13 +357,7 @@ function add() {
             <Image src={image_test} alt="image" layout="fill" objectFit="cover" />
           )}
         </div>
-        <input
-          id="imgUpload4"
-          name="image_4"
-          type="file"
-          ref={imgUpload4}
-          onChange={previewImage}
-        />
+        <input id="imgUpload4" name="image_4" type="file" ref={imgUpload4} onChange={previewImage} />
         <br />
         <br />
         <button type="submit">{submitted ? "sending.." : "send"}</button>

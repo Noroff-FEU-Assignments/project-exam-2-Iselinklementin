@@ -1,7 +1,7 @@
 import axios from "axios";
 import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
-import Icon, { icons } from "lib/icons";
+import Icon, { icons } from "constants/icons";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Container, Form, ListGroup, ListGroupItem } from "react-bootstrap";
@@ -62,7 +62,7 @@ function Search() {
         {suggestions &&
           suggestions.map((suggestion, i) => (
             <ListGroupItem key={i} action onClick={() => onSuggestionHandler(suggestion.acf.title)}>
-              <Link href={`stay/${suggestion.id}`}>
+              <Link href={`stay/${suggestion.id}`} prefetch>
                 <a>{suggestion.acf.title}</a>
               </Link>
             </ListGroupItem>
