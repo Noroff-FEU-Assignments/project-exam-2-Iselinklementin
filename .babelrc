@@ -12,7 +12,24 @@
 //   "plugins": [["styled-components", { "ssr": true, "displayName": true, "preprocess": false }]]
 // }
 
+// {
+//   "presets": ["next/babel"],
+//   "plugins": [["styled-components", { "ssr": true }]]
+// }
+
 {
   "presets": ["next/babel"],
-  "plugins": [["styled-components", { "ssr": true }]]
+  "plugins": [
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": true,
+        "minify": true,
+        "transpileTemplateLiterals": true,
+        "pure": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ]
 }

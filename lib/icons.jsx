@@ -31,118 +31,118 @@ import { IconContext } from "react-icons";
 
 export const icons = [
   {
-    arrow: <BsFillArrowRightCircleFill />,
+    arrow: <BsFillArrowRightCircleFill key="arrow" />,
   },
   {
-    burger: <IoIosMenu />,
+    burger: <IoIosMenu key="burger" />,
   },
   {
-    breakfast: <ImSpoonKnife />,
+    breakfast: <ImSpoonKnife key="breakfast" />,
   },
   {
-    filter: <BsFilter />,
+    filter: <BsFilter key="filter" />,
   },
   {
-    star: <BsStarFill />,
+    star: <BsStarFill key="star" />,
   },
   {
-    title: <MdTextFields />,
+    title: <MdTextFields key="title" />,
   },
   {
-    free_parking: <RiParkingBoxFill />,
+    free_parking: <RiParkingBoxFill key="free_parking" />,
   },
   {
-    wifi: <MdWifi />,
+    wifi: <MdWifi key="wifi" />,
   },
   {
-    kitchen: <MdKitchen />,
+    kitchen: <MdKitchen key="kitchen" />,
   },
   {
-    location: <IoLocationSharp />,
+    location: <IoLocationSharp key="location" />,
   },
   {
-    pet_friendly: <MdPets />,
+    pet_friendly: <MdPets key="pet_friendly" />,
   },
   {
-    swimming_pool: <MdPool />,
+    swimming_pool: <MdPool key="swimming_pool" />,
   },
   {
-    check: <MdCheckCircle />,
+    check: <MdCheckCircle key="check" />,
   },
   {
-    error: <MdError />,
+    error: <MdError key="error" />,
   },
   {
-    more: <IoIosMore />,
+    more: <IoIosMore key="more" />,
   },
   {
-    plus: <HiPlusSm />,
+    plus: <HiPlusSm key="plus" />,
   },
   {
-    images: <IoMdImages />,
+    images: <IoMdImages key="images" />,
   },
   {
-    image: <RiImageFill />,
+    image: <RiImageFill key="image" />,
   },
   {
-    heart: <FaHeart />,
+    heart: <FaHeart key="heart" />,
   },
   {
-    text: <BsJustifyLeft />,
+    text: <BsJustifyLeft key="text" />,
   },
   {
-    shortText: <MdShortText />,
+    shortText: <MdShortText key="shortText" />,
   },
   {
-    email: <MdEmail />,
+    email: <MdEmail key="email" />,
   },
   {
-    user: <FaUser />,
+    user: <FaUser key="user" />,
   },
   {
-    phone: <BsFillTelephoneFill />,
+    phone: <BsFillTelephoneFill key="phone" />,
   },
   {
-    userplus: <FaUserPlus />,
+    userplus: <FaUserPlus key="userplus" />,
   },
   {
-    calendar: <BsFillCalendarCheckFill />,
+    calendar: <BsFillCalendarCheckFill key="calendar" />,
   },
   {
-    bag: <FaShoppingBag />,
+    bag: <FaShoppingBag key="bag" />,
   },
   {
-    search: <BsSearch />,
+    search: <BsSearch key="search" />,
   },
   {
-    check_in: <BsFillClockFill />,
+    check_in: <BsFillClockFill key="check_in" />,
   },
   {
-    checkout: <BsFillClockFill />,
+    checkout: <BsFillClockFill key="checkout" />,
   },
   {
-    lock: <FaLock />,
+    lock: <FaLock key="lock" />,
   },
   {
-    chat: <IoChatbubblesSharp />,
+    chat: <IoChatbubblesSharp key="chat" />,
   },
   {
-    price: <FaCoins />,
+    price: <FaCoins key="price" />,
   },
   {
-    bed: <FaBed />,
+    bed: <FaBed key="bed" />,
   },
   {
-    hotel: <RiHotelFill />,
+    hotel: <RiHotelFill key="hotel" />,
   },
   {
-    handicap_friendly: <GrWheelchair />,
+    handicap_friendly: <GrWheelchair key="handicap_friendly" />,
   },
   {
-    apartment: <IoBedSharp />,
+    apartment: <IoBedSharp key="apartment" />,
   },
   {
-    no_smoking: <IoLogoNoSmoking />,
+    no_smoking: <IoLogoNoSmoking key="no_smoking" />,
   },
 ];
 

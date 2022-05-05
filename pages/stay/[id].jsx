@@ -72,8 +72,6 @@ export default function stay({ stay }) {
     }
   }
 
-  console.log(Select.value);
-
   return (
     <Layout>
       <Head title={stay.acf.title} />

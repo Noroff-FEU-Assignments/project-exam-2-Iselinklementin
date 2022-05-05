@@ -6,6 +6,10 @@ export const SearchBox = styled.div`
   color: white;
 `;
 
+export const SearchInput = styled.input`
+  
+`
+
 // export const SearchDropdown = styled.div`
 //   position: relative;
 

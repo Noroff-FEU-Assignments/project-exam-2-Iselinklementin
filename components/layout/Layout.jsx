@@ -20,8 +20,8 @@ export default function ({ children }) {
 
     return (
       <MenuContainer>
-        <button aria-label="navigation" className="p-0 menu-trigger" onClick={onClick}>
-          <Icon key="6" icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
+        <button key="6" aria-label="navigation" className="p-0 menu-trigger" onClick={onClick}>
+          <Icon key="9" icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
         </button>
 
         <Container ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
