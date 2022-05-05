@@ -10,7 +10,7 @@ export default function useAxios() {
     baseURL: BASE_URL,
   });
 
-  apiClient.interceptors.request.use(config => {
+  apiClient.interceptors.request.use((config) => {
     const token = auth.token;
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;

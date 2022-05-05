@@ -1,10 +1,12 @@
 import axios from "axios";
-import Alertbox from "components/common/Alertbox";
-import Loader from "components/common/Loader";
+import Alertbox from "components/common/alert/AlertBox";
+import Loader from "components/common/loader/Loader";
 import { CONTACT_URL } from "constants/api";
 import { getMessages } from "lib/getMessages";
 import React, { useEffect, useState } from "react";
 import { Container, Tab, Tabs, Accordion, Spinner } from "react-bootstrap";
+import { StyledAccordion } from "styles/pages/home/admin/StyledAccordion.styles";
+import Icon, { icons } from "constants/icons";
 
 export default function Messages() {
   const [contact, setContact] = useState([]);
@@ -46,24 +48,29 @@ export default function Messages() {
   let count = 0;
 
   return (
-    <Accordion defaultActiveKey="0" flush>
-      {contact.map((item) => {
-        count++;
-        return (
-          <Accordion.Item eventKey={count}>
-            <Accordion.Header>{item.acf.title}</Accordion.Header>
-            <Accordion.Body>
-              <div key={item.acf.id}>
-                <h3 key={item.acf.id}>{item.acf.title}</h3>
-                <p>sent: {item.acf.date}</p>
-                <p>message: {item.acf.message}</p>
-                <p>sent from: {item.acf.email}</p>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        );
-      })}
-    </Accordion>
+    <StyledAccordion>
+      <Accordion defaultActiveKey="0" flush>
+        {contact.map((item) => {
+          count++;
+          return (
+            <Accordion.Item eventKey={count}>
+              <Accordion.Header>
+                {item.acf.title}
+                <Icon className="message-icon" icon={icons.map((icon) => icon.email)} />
+              </Accordion.Header>
+              <Accordion.Body className="d-flex">
+                <Icon icon={icons.map((icon) => icon.chat)} className="me-3 mt-2" />
+                <div key={item.acf.id}>
+                  <p>sent: {item.acf.date}</p>
+                  <p>message: {item.acf.message}</p>
+                  <p>sent from: {item.acf.email}</p>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
+    </StyledAccordion>
   );
 }
 

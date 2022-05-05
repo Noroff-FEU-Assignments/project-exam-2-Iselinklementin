@@ -1,12 +1,12 @@
 import { Container, Button, Card, Row, Col, Badge } from "react-bootstrap";
-import { StyledCard } from "styles/StyledCard.styles";
+import { StyledCard } from "components/cards/StyledCard.styles";
 import Icon, { icons } from "constants/icons";
 import Image from "next/image";
 import IntroImg from "assets/index_img.jpg";
 import React from "react";
 import Link from "next/link";
-import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
-import Includes from "./Includes";
+import CapitalizeFirstLetter from "components/common/functions/CapitalizeFirstLetter";
+import ShowIcons from "components/icons/ShowIcons";
 
 function StaysCard(props) {
   return (

@@ -10,20 +10,20 @@ import Carousels from "components/images/Carousel";
 import Link from "next/link";
 import Icon, { icons } from "constants/icons";
 import styled from "styled-components";
-import Includes from "components/common/Includes";
 import Select from "react-select";
-import { StyledButton, StyledMobileButton } from "components/buttons/Button.styles";
-import { StyledIconHolder } from "components/styles/StyledIconHolder.styles";
+import { StyledMobileButton } from "components/common/buttons/Button.styles";
+import ShowIcons from "components/icons/ShowIcons";
+import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
 
-const StyledEnquireBtn = styled.a`
-  background: ${(props) => props.theme.primaryColour};
-  height: 44px;
-  cursor: pointer;
+// export const StyledEnquireBtn = styled.a`
+//   background: ${(props) => props.theme.primaryColour};
+//   height: 44px;
+//   cursor: pointer;
 
-  &:hover {
-    background: ${(props) => props.theme.secondaryColour};
-  }
-`;
+//   &:hover {
+//     background: ${(props) => props.theme.secondaryColour};
+//   }
+// `;
 
 const StyledRoomContainer = styled.div`
   background: ${(props) => props.theme.light};
@@ -36,27 +36,20 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
-export function WithCallbacks(options, stay) {
-  const [myOption, setMyOption] = useState("Choose room");
+export function HotelOptions(options, stay) {
+  const [roomOption, setRoomOption] = useState("Choose room");
 
   const handleInput = (newValue) => {
-    setMyOption(newValue.value);
-    // console.log(myOption);
+    setRoomOption(newValue.value);
     return newValue;
   };
 
   return (
     <div>
-      <p>{myOption}</p>
+      <p>{roomOption}</p>
       <Select options={options} onChange={handleInput} />
       <Link href={`/enquire/${stay.id}`} className="mt-4">
-        <StyledMobileButton
-          className="btn primary-btn mt-4"
-          role="button"
-          data-id={stay.id}
-          data-title={stay.acf.title}
-          data-room={myOption}
-        >
+        <StyledMobileButton className="btn primary-btn mt-4" role="button" data-room={roomOption}>
           <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
           Enquire
         </StyledMobileButton>
@@ -66,7 +59,6 @@ export function WithCallbacks(options, stay) {
 }
 
 export default function stay({ stay }) {
-  // console.log(stay);
   let image = Object.entries(stay.acf.image);
   let imagesArr = [];
   image.forEach((img) => {
@@ -83,7 +75,7 @@ export default function stay({ stay }) {
 
       return (
         <StyledRoomContainer className="p-3 pt-4 mt-4">
-          {WithCallbacks(SELECT_OPTIONS, stay)}
+          {HotelOptions(SELECT_OPTIONS, stay)}
           <hr />
           <Paragraph className="mt-3">
             Price from: <span className="fw-bold">{stay.acf.price},- / night</span>
@@ -118,11 +110,7 @@ export default function stay({ stay }) {
         {/* Heading */}
         <div className="d-flex justify-content-between align-items-center mt-4">
           <Heading>{stay.acf.title}</Heading>
-          <Link href="/enquire">
-            <StyledEnquireBtn className="btn btn-primary">
-              <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" />
-            </StyledEnquireBtn>
-          </Link>
+          <SmallEnquireBtn />
         </div>
         {/* <Paragraph>{stay.acf.room.room_type ? stay.acf.room.room_type : stay.acf.room.stay_type}</Paragraph> */}
         <Paragraph>{stay.acf.room.stay_type}</Paragraph>
@@ -130,7 +118,7 @@ export default function stay({ stay }) {
         <Carousels stays={imagesArr} />
         {/* Icons include */}
         <div className="mt-4">
-          <Includes stay={stay.acf.stay_includes} />
+          <ShowIcons stay={stay.acf.stay_includes} />
         </div>
         <Heading size="2" className="mt-5">
           Description
@@ -143,7 +131,7 @@ export default function stay({ stay }) {
         </Heading>
         <p>{stay.acf.nice_to_know_text}</p>
         <div className="mt-4">
-          <Includes stay={stay.acf.nice_to_know} />
+          <ShowIcons stay={stay.acf.nice_to_know} />
         </div>
       </Container>
 

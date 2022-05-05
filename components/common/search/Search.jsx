@@ -41,11 +41,13 @@ function Search() {
   };
 
   return (
-    <Container>
+    <Container className="pb-4 pt-3">
       <Form.Label>Find your favourite place to stay</Form.Label>
       <br />
+      <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
       <Form.Control
         type="text"
+        placeholder="Search stays"
         aria-describedby="search"
         onChange={(e) => {
           onChangeHandler(e.target.value);
@@ -62,7 +64,7 @@ function Search() {
         {suggestions &&
           suggestions.map((suggestion, i) => (
             <ListGroupItem key={i} action onClick={() => onSuggestionHandler(suggestion.acf.title)}>
-              <Link href={`stay/${suggestion.id}`} prefetch>
+              <Link href={`stay/${suggestion.id}`}>
                 <a>{suggestion.acf.title}</a>
               </Link>
             </ListGroupItem>

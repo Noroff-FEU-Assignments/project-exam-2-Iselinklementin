@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Roboto";
 
   }
+
   a {
     color: ${(props) => props.theme.body};
     text-decoration: none;
@@ -38,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
       color: ${(props) => props.theme.primaryColour};
     }
   }
+  
 `;
 
 export default GlobalStyle;

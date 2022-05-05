@@ -7,7 +7,7 @@ import { ENQUIRES_URL, LIGHT_AUTH } from "constants/api";
 import Select from "react-select";
 import { schema } from "utils/schemaValidation/enquireFormSchema";
 import { Container, Form, Button } from "react-bootstrap";
-import Alertbox from "components/common/Alertbox";
+import Alertbox from "components/common/alert/AlertBox";
 import Heading from "components/typography/Heading";
 
 export const SUBJECT = [
@@ -131,12 +131,7 @@ export default function EnquireForm() {
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">from_date</Form.Label>
           <Form.Text className="text-muted">Please insert from_date</Form.Text>
-          <Form.Control
-            type="text"
-            placeholder="from_date"
-            className="mt-2"
-            {...register("from_date")}
-          />
+          <Form.Control type="text" placeholder="from_date" className="mt-2" {...register("from_date")} />
           {errors.from_date && (
             <Alertbox className="mt-2" type="danger">
               {errors.from_date.message}
@@ -147,12 +142,7 @@ export default function EnquireForm() {
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">to_date</Form.Label>
           <Form.Text className="text-muted">Please insert to_date</Form.Text>
-          <Form.Control
-            type="text"
-            placeholder="to_date"
-            className="mt-2"
-            {...register("to_date")}
-          />
+          <Form.Control type="text" placeholder="to_date" className="mt-2" {...register("to_date")} />
           {errors.to_date && (
             <Alertbox className="mt-2" type="danger">
               {errors.to_date.message}
@@ -162,16 +152,8 @@ export default function EnquireForm() {
 
         <Form.Group className="mt-3">
           <Form.Label className="d-block mb-0">Message</Form.Label>
-          <Form.Text className="text-muted">
-            Your message must at be at least 10 characters
-          </Form.Text>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            placeholder="Message"
-            className="mt-2"
-            {...register("message")}
-          />
+          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
+          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
           {errors.message && (
             <Alertbox className="mt-2" type="danger">
               {errors.message.message}

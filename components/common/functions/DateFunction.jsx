@@ -1,6 +1,4 @@
-import React from "react";
-
-function DateFunction() {
+export default function DateFunction() {
   const options = {
     weekday: "long",
     day: "numeric",
@@ -14,5 +12,3 @@ function DateFunction() {
   const todaysDate = date.split(",").join("");
   return todaysDate;
 }
-
-export default DateFunction;

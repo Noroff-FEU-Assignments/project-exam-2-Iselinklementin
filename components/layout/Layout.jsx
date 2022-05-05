@@ -20,29 +20,29 @@ export default function ({ children }) {
 
     return (
       <MenuContainer>
-        <button key="6" aria-label="navigation" className="p-0 menu-trigger" onClick={onClick}>
-          <Icon key="9" icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
+        <button aria-label="navigation" className="p-0 menu-trigger" onClick={onClick}>
+          <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
         </button>
 
         <Container ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
           <Container className="py-4">
             <Link href="/">
               <a className="d-flex my-2">
-                <Icon key="1" icon={icons.map((icon) => icon.apartment)} fontSize="16px" className="me-4" />
+                <Icon icon={icons.map((icon) => icon.apartment)} fontSize="16px" className="me-4" />
                 Stays
               </a>
             </Link>
             <hr />
             <Link href="/contact">
               <a className="d-flex my-2">
-                <Icon key="2" icon={icons.map((icon) => icon.email)} fontSize="16px" className="me-4" />
+                <Icon icon={icons.map((icon) => icon.email)} fontSize="16px" className="me-4" />
                 Contact us
               </a>
             </Link>
             <hr />
             <Link href="/login">
               <a className="d-flex my-2">
-                <Icon key="3" icon={icons.map((icon) => icon.user)} fontSize="16px" className="me-4" />
+                <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="me-4" />
                 Login
               </a>
             </Link>

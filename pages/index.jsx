@@ -12,10 +12,9 @@ import IntroImg from "assets/index_img.jpg";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import { SearchBox } from "components/common/search/Searchbox.styles";
-import { StyledButton } from "components/buttons/Button.styles";
+import { StyledButton } from "components/common/buttons/Button.styles";
 import { ExploreContainer } from "styles/pages/home/ExploreContainer.styles";
-import { StyledIconHolder } from "components/styles/StyledIconHolder.styles";
-import StaysCard from "components/common/StaysCard";
+import StaysCard from "components/cards/StaysCard";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
@@ -48,9 +47,7 @@ export default function Home({ stays }) {
           <Link href="/stays">
             <StyledButton className="px-3 btn btn-primary" role="button">
               Explore stays
-              <StyledIconHolder>
-                <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2" />
-              </StyledIconHolder>
+              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2 mt-1" />
             </StyledButton>
           </Link>
         </ExploreContainer>

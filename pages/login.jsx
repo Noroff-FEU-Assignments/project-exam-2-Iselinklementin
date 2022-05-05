@@ -9,9 +9,9 @@ function login() {
   return (
     <Layout>
       <Head title="Login" />
-      <Container className="py-4 mt-5">
-        <Heading className="mt-5" size="1">
-          Please log in
+      <Container className="py-4 mt-4">
+        <Heading className="" size="1">
+          Login
         </Heading>
         <LoginForm />
       </Container>

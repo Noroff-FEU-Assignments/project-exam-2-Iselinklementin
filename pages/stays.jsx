@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 import Paragraph from "components/typography/Paragraph";
 import Icon, { icons } from "constants/icons";
 import { getStays } from "lib/getStays";
-import StaysCard from "components/common/StaysCard";
+import StaysCard from "components/cards/StaysCard";
 
 function stays({ stays }) {
   return (
