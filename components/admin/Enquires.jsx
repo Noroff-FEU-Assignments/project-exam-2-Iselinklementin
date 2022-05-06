@@ -51,7 +51,7 @@ export default function Enquires() {
 
   return (
     <StyledAccordion>
-      <Accordion defaultActiveKey="0" flush className="show">
+      <Accordion defaultActiveKey="0" flush >
         {contact.map((item) => {
           count++;
           return (

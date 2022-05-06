@@ -20,4 +20,8 @@ export const StyledAccordion = styled.div`
     position: absolute;
     right: 10px;
   }
+
+  .date {
+    font-size: 14px;
+  }
 `;
