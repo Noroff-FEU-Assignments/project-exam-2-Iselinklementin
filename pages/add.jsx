@@ -3,6 +3,7 @@ import Layout from "components/layout/Layout";
 import Head from "components/layout/Head";
 import { Container } from "react-bootstrap";
 import AddForm from "components/form/AddForm";
+import Heading from "components/typography/Heading";
 
 function add() {
   // const [submitted, setSubmitted] = useState(false);
@@ -164,6 +165,7 @@ function add() {
     <Layout>
       <Head title="Add new stay" />
       <Container>
+        <Heading>Create stay</Heading>
         <AddForm />
       </Container>
       {/* {submitted}

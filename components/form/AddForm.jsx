@@ -12,6 +12,9 @@ import { schema } from "utils/schemaValidation/AddFormSchema";
 import { STAYS, REVIEW, ROOMS } from "constants/misc";
 import { StyledForm } from "./Form.styles";
 import { Form } from "react-bootstrap";
+import Heading from "components/typography/Heading";
+import Icon, { icons } from "constants/icons";
+import Checkbox from "components/common/Checkbox";
 
 function AddForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -204,22 +207,7 @@ function AddForm() {
             {...register("short_description")}
           />
         </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control
-            label="check_in"
-            type="text"
-            placeholder="check_in"
-            {...register("check_in")}
-          />
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control
-            label="checkout"
-            type="text"
-            placeholder="checkout"
-            {...register("checkout")}
-          />
-        </Form.Group>
+
         <Form.Group className="mt-3">
           <Form.Control label="text" type="text" placeholder="text" {...register("text")} />
         </Form.Group>
@@ -277,75 +265,58 @@ function AddForm() {
           />
         </Form.Group>
 
+        <hr />
+        <div className="d-flex">
+          <Icon icon={icons.map(icon => icon.heart)} fontSize="18px" className="me-3" />
+          <Heading size="3">Keywords</Heading>
+        </div>
+
         <div className="checkboxes mb-5">
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="featured"
-              {...register("featured")}
-              label="featured"
-            />
-          </Form.Group>
+          <Checkbox name="featured" {...register("featured")} />
+          <Checkbox name="wifi" {...register("wifi")} />
+          <Checkbox name="kitchen" {...register("kitchen")} />
+          <Checkbox name="free_parking" {...register("free_parking")} />
+          <Checkbox name="breakfast" {...register("breakfast")} />
+          <Checkbox name="swimming_pool" {...register("swimming_pool")} />
+          <Checkbox name="pet_friendly" {...register("pet_friendly")} />
+          <Checkbox name="no_smoking" {...register("no_smoking")} />
+          <Checkbox name="handicap_friendly" {...register("handicap_friendly")} />
+        </div>
+        <hr />
 
-          <Form.Group className="mt-3">
-            <Form.Check type="checkbox" name="wifi" {...register("wifi")} label="wifi" />
-          </Form.Group>
-
-          <Form.Group className="mt-3">
-            <Form.Check type="checkbox" name="kitchen" {...register("kitchen")} label="kitchen" />
-          </Form.Group>
-
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="free_parking"
-              {...register("free_parking")}
-              label="free_parking"
+        <div className="d-flex">
+          <Icon icon={icons.map(icon => icon.heart)} fontSize="18px" className="me-3" />
+          <Heading size="3">Nice to know</Heading>
+        </div>
+        <div className="checkboxes mb-5">
+          <Checkbox name="no_smoking" {...register("no_smoking")} />
+          <Checkbox name="handicap_friendly" {...register("handicap_friendly")} />
+        </div>
+        <div className="d-flex align-items-center mt-4 justify-content-between mb-5">
+          <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
+          <Form.Group className="mt-3 me-5">
+            <Form.Control
+              label="check_in"
+              type="text"
+              placeholder="check_in"
+              {...register("check_in")}
             />
           </Form.Group>
-
+          <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
           <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="breakfast"
-              {...register("breakfast")}
-              label="breakfast"
-            />
-          </Form.Group>
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="swimming_pool"
-              {...register("swimming_pool")}
-              label="swimming_pool"
-            />
-          </Form.Group>
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="pet_friendly"
-              {...register("pet_friendly")}
-              label="pet_friendly"
-            />
-          </Form.Group>
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="no_smoking"
-              {...register("no_smoking")}
-              label="no_smoking"
-            />
-          </Form.Group>
-          <Form.Group className="mt-3">
-            <Form.Check
-              type="checkbox"
-              name="handicap_friendly"
-              {...register("handicap_friendly")}
-              label="handicap_friendly"
+            <Form.Control
+              label="checkout"
+              type="text"
+              placeholder="checkout"
+              {...register("checkout")}
             />
           </Form.Group>
         </div>
-
+        <hr />
+        <div className="d-flex mb-5">
+          <Icon icon={icons.map(icon => icon.images)} fontSize="26px" className="me-3" />
+          <Heading size="3">Images</Heading>
+        </div>
         <div className="img-div" style={{ position: "relative", width: "50vw", height: "36.66vw" }}>
           {img1 ? (
             <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
@@ -376,10 +347,7 @@ function AddForm() {
           ref={imgUpload2}
           onChange={previewImage}
         />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <div className="img-div" style={{ position: "relative", width: "50vw", height: "36.66vw" }}>
           {img3 ? (
             <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
@@ -394,8 +362,7 @@ function AddForm() {
           ref={imgUpload3}
           onChange={previewImage}
         />
-        <br />
-        <br />
+
         <div className="img-div" style={{ position: "relative", width: "50vw", height: "36.66vw" }}>
           {img4 ? (
             <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />

@@ -39,6 +39,9 @@ export const StyledForm = styled(Form)`
       height: 20px;
       width: 20px;
     }
+    label {
+      margin-left: 1rem;
+    }
   }
 `;
 
