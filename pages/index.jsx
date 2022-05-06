@@ -23,8 +23,21 @@ export default function Home({ stays }) {
   return (
     <Layout>
       <div style={{ position: "relative", width: "100vw", height: "80vw" }}>
-        <Image src={Mountain} alt="image" layout="fill" objectFit="cover" style={{ opacity: "0.3" }} />
-        <div style={{ position: "absolute", padding: "1rem", height: "200px", width: "100%", bottom: "-2rem" }}>
+        <Image
+          src={Mountain}
+          alt="image"
+          layout="fill"
+          objectFit="cover"
+          style={{ opacity: "0.3" }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            padding: "1rem",
+            height: "200px",
+            width: "100%",
+            bottom: "-2rem",
+          }}>
           <Image src={Bryggen} alt="image" layout="responsive" objectFit="cover" />
         </div>
       </div>
@@ -43,22 +56,39 @@ export default function Home({ stays }) {
       <div className="position-relative">
         <Image src={IntroImg} alt="image" layout="responsive" objectFit="cover" priority />
         <ExploreContainer>
-          <Heading size="2">We in Holiday have the best places to stay, handpicked for you!</Heading>
+          <Heading size="2">
+            We in Holiday have the best places to stay, handpicked for you!
+          </Heading>
           <Link href="/stays">
             <StyledButton className="px-3 btn btn-primary" role="button">
               Explore stays
-              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2 mt-1" />
+              <Icon
+                icon={icons.map(icon => icon.arrow)}
+                color="white"
+                fontSize="14px"
+                className="ms-2 mt-1"
+              />
             </StyledButton>
           </Link>
         </ExploreContainer>
       </div>
 
       {/* Dette må gjøres bedre:  */}
+      {/* <Link
+        to={{
+          pathname: "/courses",
+          search: "?sort=name",
+          hash: "#the-hash",
+          state: { fromDashboard: true },
+        }}
+      /> 
+      
+      <Link href="/dashboard?from=loginPage" as="/dashboard" />*/}
 
       <Container className="mt-5">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.hotel)} />
+            <Icon icon={icons.map(icon => icon.hotel)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Hotels
             </Heading>
@@ -70,7 +100,7 @@ export default function Home({ stays }) {
       <Container className="mt-4">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.apartment)} />
+            <Icon icon={icons.map(icon => icon.apartment)} />
             <Heading size="3" fontSize="18px" className="ms-2 ">
               Apartments
             </Heading>
@@ -82,7 +112,7 @@ export default function Home({ stays }) {
       <Container className="mt-4">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.bed)} />
+            <Icon icon={icons.map(icon => icon.bed)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Bed & Breakfast
             </Heading>

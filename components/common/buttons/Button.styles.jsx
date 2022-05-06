@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 export const StyledButton = styled.a`
-  background: ${(props) => props.theme.primaryColour};
+  background: ${props => props.theme.primaryColour};
   text-transform: Uppercase;
   font-size: 14px;
   border-color: transparent;
@@ -13,7 +13,7 @@ export const StyledButton = styled.a`
 
   &:hover,
   &:focus {
-    background: ${(props) => props.theme.secondaryColour};
+    background: ${props => props.theme.secondaryColour};
     border-color: transparent;
     color: white;
   }
@@ -28,7 +28,7 @@ export const StyledMobileButton = styled(StyledButton)`
 `;
 
 export const StyledFormButton = styled(Button)`
-  background: ${(props) => props.theme.primaryColour};
+  background: ${props => props.theme.primaryColour};
   text-transform: Uppercase;
   font-size: 14px;
   border-color: transparent;
@@ -43,28 +43,30 @@ export const StyledFormButton = styled(Button)`
 
   &:hover,
   &:focus {
-    background: ${(props) => props.theme.secondaryColour};
+    background: ${props => props.theme.secondaryColour};
     border-color: transparent;
     color: white;
   }
 `;
 
 export const StyledAddBtn = styled.a`
-  background: ${(props) => props.theme.primaryColour};
+  background: ${props => props.theme.primaryColour};
   padding: 8px 8px 5px 10px;
   cursor: pointer;
+  border-color: transparent;
 
   &:hover {
-    background: ${(props) => props.theme.secondaryColour};
+    background: ${props => props.theme.secondaryColour};
   }
 `;
 
 export const StyledEnquireBtn = styled.a`
-  background: ${(props) => props.theme.primaryColour};
+  background: ${props => props.theme.primaryColour};
   height: 44px;
   cursor: pointer;
+  border: transparent;
 
   &:hover {
-    background: ${(props) => props.theme.secondaryColour};
+    background: ${props => props.theme.secondaryColour};
   }
 `;

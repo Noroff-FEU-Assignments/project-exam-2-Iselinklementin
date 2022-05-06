@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DateFunction from "components/common/functions/DateFunction";
 import { CONTACT_URL, LIGHT_AUTH } from "constants/api";
 import { schema } from "utils/schemaValidation/contactFormSchema";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Alertbox from "components/common/alert/AlertBox";
-import { FaUser } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { GrTextAlignFull } from "react-icons/gr";
-import { BsFillChatRightTextFill } from "react-icons/bs";
+import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
+import Icon, { icons } from "constants/icons";
+import { StyledFormButton } from "components/common/buttons/Button.styles";
 
 function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [count, setCount] = useState(0);
 
   const {
     register,
@@ -30,12 +29,11 @@ function ContactForm() {
 
     data = {
       status: "publish",
-      title: data.title,
+      title: data.subject,
       fields: {
         message: data.message,
-        title: data.title,
+        title: data.subject,
         name: data.name,
-        subject: data.subject,
         email: data.email,
         date: DateFunction(),
       },
@@ -45,6 +43,9 @@ function ContactForm() {
       await axios.post(CONTACT_URL, data, {
         auth: LIGHT_AUTH,
       });
+
+      // her må jeg få opp en ny boks som sier at meldingen er sent osv.
+      // og at de eventuelt kan sende en ny beskjed.
     } catch (error) {
       setServerError(error.toString());
     } finally {
@@ -53,80 +54,90 @@ function ContactForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {serverError && <Alertbox type="danger">Something went wrong.</Alertbox>}
+    <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
+      {serverError && <Alertbox>Something went wrong.</Alertbox>}
       <fieldset disabled={submitting}>
-        {/* Title  */}
-        <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Title</Form.Label>
-          <Form.Text className="text-muted">Please insert a title</Form.Text>
-          <Form.Control type="text" placeholder="Title" className="mt-2" {...register("title")} />
-          {errors.title && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.title.message}
-            </Alertbox>
-          )}
-        </Form.Group>
-
         {/* Name  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">
-            <FaUser /> Name
-          </Form.Label>
-          <Form.Text className="text-muted">Please insert your name</Form.Text>
-          <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.user)} className="me-4" />
+            <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+          </div>
           {errors.name && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.name.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.name.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
 
         {/* Email  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">
-            <MdEmail /> Email
-          </Form.Label>
-          <Form.Text className="text-muted">Please insert a valid email address</Form.Text>
-          <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.email)} fontSize="25px" className="me-4" />
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              className="mt-2"
+              {...register("email")}
+            />
+          </div>
           {errors.email && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.email.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.email.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">
-            <GrTextAlignFull />
-            Subject
-          </Form.Label>
-          <Form.Text className="text-muted">Please insert your subject</Form.Text>
-          <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.text)} fontSize="25px" className="me-4" />
+
+            <Form.Control
+              type="text"
+              placeholder="Subject"
+              className="mt-2"
+              {...register("subject")}
+            />
+          </div>
           {errors.subject && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.subject.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.subject.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">
-            <BsFillChatRightTextFill />
-            Message
-          </Form.Label>
-          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
-          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
+          <div className="text-area-container">
+            <Icon icon={icons.map(icon => icon.chat)} fontSize="25px" className="me-4 mt-2" />
+            <Form.Control
+              as="textarea"
+              rows={6}
+              onKeyUp={e => setCount(e.target.value.length)}
+              placeholder="Message"
+              className="mt-2"
+              {...register("message")}
+            />
+            <span className="counter">{count}/20</span>
+          </div>
+
           {errors.message && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.message.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon
+                icon={icons.map(icon => icon.error)}
+                color="#D11117"
+                className="warning-icon text-area-icon"
+              />
+              <Alertbox className="mt-2">{errors.message.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
 
-        <Button type="submit" className="mt-4">
+        <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "sending.." : "Send"}
-        </Button>
+        </StyledFormButton>
 
         {submitting && (
           <Alertbox type="success" className="mt-4 mb-4">
@@ -134,7 +145,7 @@ function ContactForm() {
           </Alertbox>
         )}
       </fieldset>
-    </Form>
+    </StyledForm>
   );
 }
 

@@ -13,7 +13,7 @@ import { StyledTabs } from "styles/pages/home/admin/StyledTabs.styles";
 function admin() {
   const [value, setValue] = useState([]);
 
-  const doThis = (e) => {
+  const doThis = e => {
     setValue(<Enquires />);
   };
 
@@ -27,13 +27,12 @@ function admin() {
           </Heading>
 
           <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </Paragraph>
-
           <AddEnquireBtn />
         </div>
-        <StyledTabs>
+        <StyledTabs className="mt-5">
           <Tabs defaultActiveKey="messages" className="mb-3" onClick={doThis}>
             <Tab eventKey="messages" title="Messages" value="0">
               <Messages />

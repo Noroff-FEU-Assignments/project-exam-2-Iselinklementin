@@ -19,11 +19,14 @@ Add prop type checks and fix any warnings that appear in the console. Keep your 
 ---
 
 Skiftet image til array og ID
-Skiftet B&B til Bed & Breakfast (stay_type)
-endret plass på nicetoknow tekst
-(nice_to_know_text)
 
 ---
+
+Skiftet B&B til Bed & Breakfast (stay_type)endret plass på nicetoknow tekst
+(nice_to_know_text)
+satt til dato på enquires. date_received
+Hvis jeg skal ha icons på enquires(admin) så må stay_type følge med i API
+--
 
 https://artisansweb.net/how-to-use-application-passwords-in-wordpress-for-rest-api-authentication/#:~:text=Head%20over%20to%20the%20Users,password%20with%20or%20without%20spaces.
 
@@ -68,6 +71,10 @@ cards:
 https://stackoverflow.com/questions/34189370/how-to-repeat-an-element-n-times-using-jsx-and-loadsh
 
 https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+
+https://bobbyhadz.com/blog/javascript-remove-first-word-from-string
+
+https://www.kindacode.com/article/passing-data-via-a-link-component-in-next-js/
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

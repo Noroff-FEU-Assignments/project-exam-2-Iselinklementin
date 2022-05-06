@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ENQUIRES_URL, LIGHT_AUTH } from "constants/api";
 import Select from "react-select";
 import { schema } from "utils/schemaValidation/enquireFormSchema";
-import { Container, Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Alertbox from "components/common/alert/AlertBox";
-import Heading from "components/typography/Heading";
+import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
+import Icon, { icons } from "constants/icons";
+import { StyledFormButton } from "components/common/buttons/Button.styles";
+import DateFunction from "components/common/functions/DateFunction";
+
+// PHONE - må sjekke for nummer
+// TEXTAREA - skift font inni
+// SELECT - endre styling og gi advarsel
+// Gi tilbakemelding når sendt, fjern skjema
 
 export const SUBJECT = [
   { value: "1", label: "1" },
@@ -18,9 +26,10 @@ export const SUBJECT = [
   { value: "5+", label: "5+" },
 ];
 
-export default function EnquireForm() {
+export default function EnquireForm({ title, room, type }) {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [count, setCount] = useState(0);
 
   const {
     register,
@@ -44,6 +53,9 @@ export default function EnquireForm() {
         to_date: data.to_date,
         how_many: data.how_many.value,
         phone: data.phone,
+        room: data.room,
+        date_received: DateFunction(),
+        type_of_stay: data.stay_type,
       },
     };
     console.log(data);
@@ -64,113 +76,152 @@ export default function EnquireForm() {
     <>
       {submitting}
 
-      <Form className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Title</Form.Label>
-          <Form.Text className="text-muted">Denne skal komme automatisk</Form.Text>
-          <Form.Control type="text" placeholder="Title" className="mt-2" {...register("title")} />
-          {errors.title && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.title.message}
-            </Alertbox>
-          )}
-        </Form.Group>
+      <StyledForm className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Form.Control
+          type="hidden"
+          placeholder="Title"
+          value={title}
+          className="mt-2"
+          {...register("title")}
+        />
 
-        <Heading size="2">Who is traveling?</Heading>
+        <Form.Control
+          type="hidden"
+          placeholder="Type"
+          value={type}
+          className="mt-2"
+          {...register("stay_type")}
+        />
+
+        <Form.Control
+          type="hidden"
+          placeholder="Room"
+          value={room}
+          className="mt-2"
+          {...register("room")}
+        />
 
         {/* Name  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Name</Form.Label>
-          <Form.Text className="text-muted">Please insert your name</Form.Text>
-          <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.user)} className="me-4" />
+            <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+          </div>
           {errors.name && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.name.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.name.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
-
-        <Controller
-          name="how_many"
-          style={{ height: "35px" }}
-          control={control}
-          render={({ field }) => (
-            <Select
-              placeholder="How many"
-              defaultValue={{ value: 0, label: "How many" }}
-              options={SUBJECT}
-              {...field}
-            />
-          )}
-        />
-
-        {/* Email  */}
-        <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Email</Form.Label>
-          <Form.Text className="text-muted">Please insert a valid email address</Form.Text>
-          <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
-          {errors.email && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.email.message}
-            </Alertbox>
-          )}
-        </Form.Group>
-
         {/* Phone  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Phone</Form.Label>
-          <Form.Text className="text-muted">Please insert your phonenumber</Form.Text>
-          <Form.Control type="number" placeholder="Name" className="mt-2" {...register("phone")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.phone)} className="me-4" />
+            <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
+          </div>
           {errors.name && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.phone.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.phone.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
-
+        {/* Email  */}
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">from_date</Form.Label>
-          <Form.Text className="text-muted">Please insert from_date</Form.Text>
-          <Form.Control type="text" placeholder="from_date" className="mt-2" {...register("from_date")} />
-          {errors.from_date && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.from_date.message}
-            </Alertbox>
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.email)} fontSize="25px" className="me-4" />
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              className="mt-2"
+              {...register("email")}
+            />
+          </div>
+          {errors.email && (
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.email.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
-
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">to_date</Form.Label>
-          <Form.Text className="text-muted">Please insert to_date</Form.Text>
-          <Form.Control type="text" placeholder="to_date" className="mt-2" {...register("to_date")} />
-          {errors.to_date && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.to_date.message}
-            </Alertbox>
-          )}
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.email)} fontSize="25px" className="me-4" />
+            <Controller
+              name="how_many"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  className="select-persons"
+                  defaultValue={{ value: 0, label: "How many" }}
+                  options={SUBJECT}
+                  {...field}
+                />
+              )}
+            />
+          </div>
         </Form.Group>
-
         <Form.Group className="mt-3">
-          <Form.Label className="d-block mb-0">Message</Form.Label>
-          <Form.Text className="text-muted">Your message must at be at least 10 characters</Form.Text>
-          <Form.Control as="textarea" rows={6} placeholder="Message" className="mt-2" {...register("message")} />
+          <div className="text-area-container">
+            <Icon icon={icons.map(icon => icon.chat)} fontSize="25px" className="me-4" />
+            <Form.Control
+              as="textarea"
+              rows={6}
+              placeholder="Comments"
+              onKeyUp={e => setCount(e.target.value.length)}
+              className="mt-2"
+              {...register("message")}
+            />
+            <span className="counter">{count}/20</span>
+          </div>
           {errors.message && (
-            <Alertbox className="mt-2" type="danger">
-              {errors.message.message}
-            </Alertbox>
+            <StyledFeedbackContainer>
+              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Alertbox className="mt-2">{errors.message.message}</Alertbox>
+            </StyledFeedbackContainer>
           )}
         </Form.Group>
+        <div className="d-flex align-items-center mt-4 justify-content-between">
+          <Icon icon={icons.map(icon => icon.calendar)} fontSize="20px" />
+          <Form.Group className="mt-3">
+            <Form.Control
+              type="text"
+              placeholder="from_date"
+              className="mt-2"
+              {...register("from_date")}
+            />
+            {errors.from_date && (
+              <Alertbox className="mt-2" type="danger">
+                {errors.from_date.message}
+              </Alertbox>
+            )}
+          </Form.Group>
 
-        <Button type="submit" className="mt-4">
-          {submitting ? "sending.." : "Send"}
-        </Button>
-
+          <Form.Group className="mt-3">
+            <Form.Control
+              type="text"
+              placeholder="to_date"
+              className="mt-2"
+              {...register("to_date")}
+            />
+            {errors.to_date && (
+              <Alertbox className="mt-2" type="danger">
+                {errors.to_date.message}
+              </Alertbox>
+            )}
+          </Form.Group>
+        </div>
+        <StyledFormButton className="mb-4 mt-5" type="submit">
+          <Icon icon={icons.map(icon => icon.bag)} color="white" fontSize="16px" className="me-2" />
+          {submitting ? "sending enquire.." : "Enquire"}
+        </StyledFormButton>
         {submitting && (
           <Alertbox type="success" className="mt-4 mb-4">
             Your message was sent
           </Alertbox>
         )}
-      </Form>
+      </StyledForm>
     </>
   );
 }

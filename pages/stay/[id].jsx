@@ -14,19 +14,14 @@ import Select from "react-select";
 import { StyledMobileButton } from "components/common/buttons/Button.styles";
 import ShowIcons from "components/icons/ShowIcons";
 import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
+// import ChooseRoom from "components/common/functions/ChooseRoom";
 
-// export const StyledEnquireBtn = styled.a`
-//   background: ${(props) => props.theme.primaryColour};
-//   height: 44px;
-//   cursor: pointer;
-
-//   &:hover {
-//     background: ${(props) => props.theme.secondaryColour};
-//   }
-// `;
+// må fikse knapp på vanlige overnattinger
+// og jeg må sjekke om det fins rom eller ikke når man
+// kommer inn på enquire
 
 const StyledRoomContainer = styled.div`
-  background: ${(props) => props.theme.light};
+  background: ${props => props.theme.light};
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
@@ -39,7 +34,7 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 export function HotelOptions(options, stay) {
   const [roomOption, setRoomOption] = useState("Choose room");
 
-  const handleInput = (newValue) => {
+  const handleInput = newValue => {
     setRoomOption(newValue.value);
     return newValue;
   };
@@ -48,9 +43,11 @@ export function HotelOptions(options, stay) {
     <div>
       <p>{roomOption}</p>
       <Select options={options} onChange={handleInput} />
-      <Link href={`/enquire/${stay.id}`} className="mt-4">
-        <StyledMobileButton className="btn primary-btn mt-4" role="button" data-room={roomOption}>
-          <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
+      <Link
+        href={{ pathname: `/enquire/${stay.id}`, query: { room: roomOption } }}
+        className="mt-4">
+        <StyledMobileButton className="btn primary-btn mt-4" role="button">
+          <Icon icon={icons.map(icon => icon.bag)} color="white" fontSize="16px" className="me-2" />
           Enquire
         </StyledMobileButton>
       </Link>
@@ -61,14 +58,14 @@ export function HotelOptions(options, stay) {
 export default function stay({ stay }) {
   let image = Object.entries(stay.acf.image);
   let imagesArr = [];
-  image.forEach((img) => {
+  image.forEach(img => {
     imagesArr.push(img[1].url);
   });
 
   function ShowRoom(options) {
     let SELECT_OPTIONS = [];
     if (stay.acf.room.stay_type === "Hotel") {
-      stay.acf.room.room_type.map((room) => {
+      stay.acf.room.room_type.map(room => {
         let rooms = { value: room, label: room };
         SELECT_OPTIONS.push(rooms);
       });
@@ -112,11 +109,11 @@ export default function stay({ stay }) {
           <Heading>{stay.acf.title}</Heading>
           <SmallEnquireBtn />
         </div>
-        {/* <Paragraph>{stay.acf.room.room_type ? stay.acf.room.room_type : stay.acf.room.stay_type}</Paragraph> */}
+
         <Paragraph>{stay.acf.room.stay_type}</Paragraph>
-        {/* Images / Carousel */}
+
         <Carousels stays={imagesArr} />
-        {/* Icons include */}
+
         <div className="mt-4">
           <ShowIcons stay={stay.acf.stay_includes} />
         </div>
@@ -159,7 +156,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map((item) => ({
+    const paths = stay.map(item => ({
       params: {
         id: JSON.stringify(item.id),
       },

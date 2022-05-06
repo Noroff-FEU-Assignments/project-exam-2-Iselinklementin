@@ -12,8 +12,33 @@ export const StyledForm = styled(Form)`
 
   input::placeholder {
     font-size: 14px;
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
     opacity: 0.8;
+  }
+  // her må det gjøres mer
+  .select-persons {
+    width: 100%;
+  }
+
+  .text-area-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+
+    .counter {
+      position: absolute;
+      right: 10px;
+      bottom: -30px;
+      color: grey;
+      font-size: 14px;
+    }
+  }
+
+  .checkboxes {
+    input {
+      height: 20px;
+      width: 20px;
+    }
   }
 `;
 
@@ -22,8 +47,8 @@ export const StyledFeedbackContainer = styled.div`
 
   .alert-primary {
     background-color: transparent;
-    color: ${(props) => props.theme.error};
-    padding: 0 0 0 2.6rem;
+    color: ${props => props.theme.error};
+    padding: 0 0 0 2.9rem;
     border: none;
     font-size: 14px;
   }
@@ -33,10 +58,14 @@ export const StyledFeedbackContainer = styled.div`
     right: 15px;
     top: -2.7rem;
   }
+
+  .text-area-icon {
+    top: -10.5rem;
+  }
 `;
 
 export const WrongInput = styled(Alert)`
   background-color: transparent;
-  color: ${(props) => props.theme.error};
+  color: ${props => props.theme.error};
   border: none;
 `;
