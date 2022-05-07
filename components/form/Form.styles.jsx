@@ -15,8 +15,13 @@ export const StyledForm = styled(Form)`
     color: ${props => props.theme.body};
     opacity: 0.8;
   }
+
+  h3 {
+    font-size: 16px;
+  }
+
   // her må det gjøres mer
-  .select-persons {
+  .select {
     width: 100%;
   }
 

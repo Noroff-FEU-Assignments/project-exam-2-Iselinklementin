@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
@@ -21,6 +21,9 @@ function AddForm() {
   const [auth, setAuth] = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [count, setCount] = useState(0);
+  const [counter, setCounter] = useState(0);
+  const [type, setType] = useState("");
   //
   const imgUpload1 = useRef(null);
   const imgUpload2 = useRef(null);
@@ -43,6 +46,8 @@ function AddForm() {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     control,
     formState: { errors },
   } = useForm({
@@ -172,47 +177,117 @@ function AddForm() {
     setSubmitted(true);
   }
 
+  const onChangeHandler = value => {
+    console.log("This changed");
+    setType(value);
+    console.log(value);
+  };
+
   return (
     <>
       {submitted}
       <StyledForm className="add-form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
-          <Form.Control label="stay_title" type="text" placeholder="title" {...register("title")} />
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control label="price" type="text" placeholder="price" {...register("price")} />
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control
-            as="textarea"
-            label="description"
-            placeholder="description"
-            {...register("description")}
-          />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.title)} fontSize="22px" className="me-3" />
+            <Form.Control
+              label="stay_title"
+              type="text"
+              placeholder="Title"
+              {...register("title")}
+            />
+          </div>
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Control
-            label="full_address"
-            type="text"
-            placeholder="full_address"
-            {...register("full_address")}
-          />
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Control
-            label="short_description"
-            type="text"
-            placeholder="short_description"
-            {...register("short_description")}
-          />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.price)} fontSize="20px" className="me-3" />
+            <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
+          </div>
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <Form.Control label="text" type="text" placeholder="text" {...register("text")} />
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.hotel)} fontSize="24px" className="me-3" />
+            <Controller
+              name="stay_type"
+              defaultValue=""
+              onChange={() => console.log("hellow")}
+              control={control}
+              render={({ field, onChange, value }) => (
+                <Select
+                  // defaultValue={{ value: "0", label: "Stay type" }}
+
+                  onChange={e => {
+                    onChangeHandler(e);
+                  }}
+                  value={value ? value : ""}
+                  name="stay_type"
+                  className="select"
+                  options={STAYS}
+                  {...field}
+                />
+              )}
+            />
+          </div>
         </Form.Group>
 
         <Form.Group className="mt-3">
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.location)} fontSize="24px" className="me-3" />
+            <Form.Control
+              label="full_address"
+              type="text"
+              placeholder="Full address"
+              {...register("full_address")}
+            />
+          </div>
+        </Form.Group>
+
+        <Form.Group className="mt-3">
+          <div className="d-flex align-items-center">
+            <Icon icon={icons.map(icon => icon.location)} fontSize="24px" className="me-3" />
+            <Form.Control
+              label="short_description"
+              type="text"
+              placeholder="Address - short description"
+              {...register("short_description")}
+            />
+          </div>
+        </Form.Group>
+
+        <Form.Group className="mt-3">
+          <div className="text-area-container">
+            <Icon icon={icons.map(icon => icon.text)} fontSize="22px" className="me-3" />
+            <Form.Control
+              as="textarea"
+              rows={6}
+              label="description"
+              onKeyUp={e => setCount(e.target.value.length)}
+              placeholder="Description"
+              {...register("description")}
+            />
+            <span className="counter">{count}/20</span>
+          </div>
+        </Form.Group>
+
+        <Form.Group className="mt-5">
+          <div className="text-area-container">
+            <Icon icon={icons.map(icon => icon.text)} fontSize="22px" className="me-3" />
+            <Form.Control
+              as="textarea"
+              label="text"
+              rows={3}
+              onKeyUp={e => setCounter(e.target.value.length)}
+              type="text"
+              placeholder="Nice to know"
+              {...register("text")}
+            />
+            <span className="counter">{counter}/20</span>
+          </div>
+        </Form.Group>
+
+        <Form.Group className="mt-5">
           <Form.Control
             label="room_info"
             type="text"
@@ -229,21 +304,6 @@ function AddForm() {
                 name="room_type"
                 options={ROOMS}
                 defaultValue={{ value: "0", label: "Type of room" }}
-                {...field}
-              />
-            )}
-          />
-        </Form.Group>
-
-        <Form.Group className="mt-3">
-          <Controller
-            name="stay_type"
-            control={control}
-            render={({ field }) => (
-              <Select
-                name="stay_type"
-                options={STAYS}
-                defaultValue={{ value: "0", label: "Stay type" }}
                 {...field}
               />
             )}
@@ -279,8 +339,6 @@ function AddForm() {
           <Checkbox name="breakfast" {...register("breakfast")} />
           <Checkbox name="swimming_pool" {...register("swimming_pool")} />
           <Checkbox name="pet_friendly" {...register("pet_friendly")} />
-          <Checkbox name="no_smoking" {...register("no_smoking")} />
-          <Checkbox name="handicap_friendly" {...register("handicap_friendly")} />
         </div>
         <hr />
 
@@ -288,6 +346,7 @@ function AddForm() {
           <Icon icon={icons.map(icon => icon.heart)} fontSize="18px" className="me-3" />
           <Heading size="3">Nice to know</Heading>
         </div>
+
         <div className="checkboxes mb-5">
           <Checkbox name="no_smoking" {...register("no_smoking")} />
           <Checkbox name="handicap_friendly" {...register("handicap_friendly")} />

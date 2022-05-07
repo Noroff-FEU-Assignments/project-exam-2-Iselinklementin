@@ -145,15 +145,16 @@ export default function EnquireForm({ title, room, type }) {
             </StyledFeedbackContainer>
           )}
         </Form.Group>
+
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.email)} fontSize="25px" className="me-4" />
+            <Icon icon={icons.map(icon => icon.userplus)} fontSize="25px" className="me-4" />
             <Controller
               name="how_many"
               control={control}
               render={({ field }) => (
                 <Select
-                  className="select-persons"
+                  className="select"
                   defaultValue={{ value: 0, label: "How many" }}
                   options={SUBJECT}
                   {...field}
@@ -192,9 +193,9 @@ export default function EnquireForm({ title, room, type }) {
               {...register("from_date")}
             />
             {errors.from_date && (
-              <Alertbox className="mt-2" type="danger">
-                {errors.from_date.message}
-              </Alertbox>
+              <StyledFeedbackContainer>
+                <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
+              </StyledFeedbackContainer>
             )}
           </Form.Group>
 
@@ -206,9 +207,9 @@ export default function EnquireForm({ title, room, type }) {
               {...register("to_date")}
             />
             {errors.to_date && (
-              <Alertbox className="mt-2" type="danger">
-                {errors.to_date.message}
-              </Alertbox>
+              <StyledFeedbackContainer>
+                <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
+              </StyledFeedbackContainer>
             )}
           </Form.Group>
         </div>

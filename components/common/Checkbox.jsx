@@ -3,11 +3,11 @@ import { Form } from "react-bootstrap";
 import CapitalizeFirstLetter from "./functions/CapitalizeFirstLetter";
 
 function Checkbox({ name }) {
-  let Thistext = "";
+  let label = "";
   let labelText = CapitalizeFirstLetter(name);
 
   if (labelText.includes("_")) {
-    Thistext = labelText.replace("_", " ");
+    label = labelText.replace("_", " ");
   }
 
   return (
@@ -15,7 +15,7 @@ function Checkbox({ name }) {
       className="mt-3"
       type="checkbox"
       name={name}
-      label={Thistext.length ? Thistext : labelText}
+      label={label.length ? label : labelText}
     />
   );
 }
