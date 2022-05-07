@@ -178,9 +178,8 @@ function AddForm() {
   }
 
   const onChangeHandler = value => {
-    console.log("This changed");
-    setType(value);
-    console.log(value);
+    setType(value.label);
+    console.log(type);
   };
 
   return (
@@ -211,21 +210,17 @@ function AddForm() {
             <Icon icon={icons.map(icon => icon.hotel)} fontSize="24px" className="me-3" />
             <Controller
               name="stay_type"
-              defaultValue=""
-              onChange={() => console.log("hellow")}
               control={control}
-              render={({ field, onChange, value }) => (
+              render={({ field }) => (
                 <Select
-                  // defaultValue={{ value: "0", label: "Stay type" }}
-
-                  onChange={e => {
-                    onChangeHandler(e);
-                  }}
-                  value={value ? value : ""}
+                  defaultValue={{ value: "0", label: "Stay type" }}
                   name="stay_type"
                   className="select"
                   options={STAYS}
                   {...field}
+                  onChange={e => {
+                    onChangeHandler(e);
+                  }}
                 />
               )}
             />
