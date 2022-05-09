@@ -89,9 +89,14 @@ export default function Enquires() {
                   <Paragraph>
                     <span>Persons:</span> {item.acf.how_many}
                   </Paragraph>
-                  <Paragraph>
-                    <span>Room:</span> {item.acf.room}
-                  </Paragraph>
+                  {item.acf.room === "Choose room" ? (
+                    " "
+                  ) : (
+                    <Paragraph>
+                      <span>Room:</span> {item.acf.room}
+                    </Paragraph>
+                  )}
+
                   <Paragraph>
                     <span>Date:</span> {item.acf.from_date} - {item.acf.to_date}
                   </Paragraph>

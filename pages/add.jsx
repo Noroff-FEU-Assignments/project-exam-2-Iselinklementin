@@ -6,161 +6,6 @@ import AddForm from "components/form/AddForm";
 import Heading from "components/typography/Heading";
 
 function add() {
-  // const [submitted, setSubmitted] = useState(false);
-  // const [auth, setAuth] = useContext(AuthContext);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-  // //
-  // const imgUpload1 = useRef(null);
-  // const imgUpload2 = useRef(null);
-  // const imgUpload3 = useRef(null);
-  // const imgUpload4 = useRef(null);
-
-  // const [img1, setImg1] = useState();
-  // const [img2, setImg2] = useState();
-  // const [img3, setImg3] = useState();
-  // const [img4, setImg4] = useState();
-
-  // let http = useAxios();
-  // function previewImage(event) {
-  //   setImg1(URL.createObjectURL(event.target.files[0]));
-  //   setImg2(URL.createObjectURL(event.target.files[0]));
-  //   setImg3(URL.createObjectURL(event.target.files[0]));
-  //   setImg4(URL.createObjectURL(event.target.files[0]));
-  // }
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   control,
-  //   formState: { errors },
-  // } = useForm({
-  //   resolver: yupResolver(schema),
-  // });
-
-  // let imgArray = {
-  //   image_1: 1234,
-  //   image_2: 1234,
-  //   image_3: 1234,
-  //   image_4: 1234,
-  // };
-
-  // // console.log(imgArray);
-
-  // async function onSubmit(data) {
-  //   const formData = new FormData();
-  //   const formData2 = new FormData();
-  //   const formData3 = new FormData();
-  //   const formData4 = new FormData();
-  //   let file1 = imgUpload1.current.files[0];
-  //   let file2 = imgUpload2.current.files[0];
-  //   let file3 = imgUpload3.current.files[0];
-  //   let file4 = imgUpload4.current.files[0];
-
-  //   formData.append("title", "Ny data");
-  //   formData.append("caption", "riktig data her og");
-  //   formData.append("file", file1);
-  //   //
-  //   formData2.append("title", "nummer 2 data");
-  //   formData2.append("caption", "riktig data her og");
-  //   formData2.append("file", file2);
-  //   //
-  //   formData3.append("title", "nummer 2 data");
-  //   formData3.append("caption", "riktig data her og");
-  //   formData3.append("file", file3);
-  //   //
-  //   formData4.append("title", "nummer 2 data");
-  //   formData4.append("caption", "riktig data her og");
-  //   formData4.append("file", file4);
-
-  //   await http.post(MEDIA_URL, formData).then(response => {
-  //     const thisID = response.data.id;
-  //     imgArray.image_1 = thisID;
-  //   });
-
-  //   await http.post(MEDIA_URL, formData2).then(response => {
-  //     const thisID = response.data.id;
-  //     imgArray.image_2 = thisID;
-  //   });
-
-  //   await http.post(MEDIA_URL, formData3).then(response => {
-  //     const thisID = response.data.id;
-  //     imgArray.image_3 = thisID;
-  //   });
-
-  //   await http.post(MEDIA_URL, formData4).then(response => {
-  //     const thisID = response.data.id;
-  //     imgArray.image_4 = thisID;
-  //   });
-
-  //   // console.log(imgArray);
-
-  //   await http.post(MEDIA_URL, formData3).then(response => {
-  //     const thisID = response.data.id;
-  //     // console.log(thisID);
-  //   });
-
-  //   await http.post(MEDIA_URL, formData4).then(response => {
-  //     const thisID = response.data.id;
-  //     // console.log(thisID);
-  //   });
-
-  //   // this needs to go straight under the post and id to get stored in images
-  //   data = {
-  //     status: "publish",
-  //     title: data.title,
-
-  //     fields: {
-  //       title: data.title,
-  //       stay_description: data.description,
-  //       price: data.price,
-  //       featured: data.featured,
-  //       address: {
-  //         full_address: data.full_address,
-  //         short_description: data.short_description,
-  //       },
-  //       nice_to_know: {
-  //         check_in: data.check_in,
-  //         checkout: data.checkout,
-  //         nice_text: data.text,
-  //         handicap_friendly: data.handicap_friendly,
-  //         no_smoking: data.no_smoking,
-  //       },
-  //       room: {
-  //         room_info: data.room_info,
-  //         room_type: data.room_type.value,
-  //         stay_type: data.stay_type.value,
-  //       },
-  //       stars: data.stars.value,
-  //       stay_includes: {
-  //         wifi: data.wifi,
-  //         kitchen: data.kitchen,
-  //         free_parking: data.free_parking,
-  //         breakfast: data.breakfast,
-  //         swimming_pool: data.swimming_pool,
-  //         pet_friendly: data.pet_friendly,
-  //       },
-  //       image: {
-  //         image_1: imgArray.image_1,
-  //         image_2: imgArray.image_2,
-  //         image_3: imgArray.image_3,
-  //         image_4: imgArray.image_4,
-  //       },
-  //     },
-  //   };
-  //   // });
-
-  //   await http
-  //     .post(API_URL, data)
-  //     .then(response => {
-  //       // console.log(response.data);
-  //     })
-  //     .catch(error => {
-  //       setError(error.toString());
-  //     });
-  //   setSubmitted(true);
-  // }
-
   return (
     <Layout>
       <Head title="Add new stay" />
@@ -168,7 +13,167 @@ function add() {
         <Heading>Create stay</Heading>
         <AddForm />
       </Container>
-      {/* {submitted}
+    </Layout>
+  );
+}
+
+export default add;
+// const [submitted, setSubmitted] = useState(false);
+// const [auth, setAuth] = useContext(AuthContext);
+// const [loading, setLoading] = useState(false);
+// const [error, setError] = useState(null);
+// //
+// const imgUpload1 = useRef(null);
+// const imgUpload2 = useRef(null);
+// const imgUpload3 = useRef(null);
+// const imgUpload4 = useRef(null);
+
+// const [img1, setImg1] = useState();
+// const [img2, setImg2] = useState();
+// const [img3, setImg3] = useState();
+// const [img4, setImg4] = useState();
+
+// let http = useAxios();
+// function previewImage(event) {
+//   setImg1(URL.createObjectURL(event.target.files[0]));
+//   setImg2(URL.createObjectURL(event.target.files[0]));
+//   setImg3(URL.createObjectURL(event.target.files[0]));
+//   setImg4(URL.createObjectURL(event.target.files[0]));
+// }
+
+// const {
+//   register,
+//   handleSubmit,
+//   control,
+//   formState: { errors },
+// } = useForm({
+//   resolver: yupResolver(schema),
+// });
+
+// let imgArray = {
+//   image_1: 1234,
+//   image_2: 1234,
+//   image_3: 1234,
+//   image_4: 1234,
+// };
+
+// // console.log(imgArray);
+
+// async function onSubmit(data) {
+//   const formData = new FormData();
+//   const formData2 = new FormData();
+//   const formData3 = new FormData();
+//   const formData4 = new FormData();
+//   let file1 = imgUpload1.current.files[0];
+//   let file2 = imgUpload2.current.files[0];
+//   let file3 = imgUpload3.current.files[0];
+//   let file4 = imgUpload4.current.files[0];
+
+//   formData.append("title", "Ny data");
+//   formData.append("caption", "riktig data her og");
+//   formData.append("file", file1);
+//   //
+//   formData2.append("title", "nummer 2 data");
+//   formData2.append("caption", "riktig data her og");
+//   formData2.append("file", file2);
+//   //
+//   formData3.append("title", "nummer 2 data");
+//   formData3.append("caption", "riktig data her og");
+//   formData3.append("file", file3);
+//   //
+//   formData4.append("title", "nummer 2 data");
+//   formData4.append("caption", "riktig data her og");
+//   formData4.append("file", file4);
+
+//   await http.post(MEDIA_URL, formData).then(response => {
+//     const thisID = response.data.id;
+//     imgArray.image_1 = thisID;
+//   });
+
+//   await http.post(MEDIA_URL, formData2).then(response => {
+//     const thisID = response.data.id;
+//     imgArray.image_2 = thisID;
+//   });
+
+//   await http.post(MEDIA_URL, formData3).then(response => {
+//     const thisID = response.data.id;
+//     imgArray.image_3 = thisID;
+//   });
+
+//   await http.post(MEDIA_URL, formData4).then(response => {
+//     const thisID = response.data.id;
+//     imgArray.image_4 = thisID;
+//   });
+
+//   // console.log(imgArray);
+
+//   await http.post(MEDIA_URL, formData3).then(response => {
+//     const thisID = response.data.id;
+//     // console.log(thisID);
+//   });
+
+//   await http.post(MEDIA_URL, formData4).then(response => {
+//     const thisID = response.data.id;
+//     // console.log(thisID);
+//   });
+
+//   // this needs to go straight under the post and id to get stored in images
+//   data = {
+//     status: "publish",
+//     title: data.title,
+
+//     fields: {
+//       title: data.title,
+//       stay_description: data.description,
+//       price: data.price,
+//       featured: data.featured,
+//       address: {
+//         full_address: data.full_address,
+//         short_description: data.short_description,
+//       },
+//       nice_to_know: {
+//         check_in: data.check_in,
+//         checkout: data.checkout,
+//         nice_text: data.text,
+//         handicap_friendly: data.handicap_friendly,
+//         no_smoking: data.no_smoking,
+//       },
+//       room: {
+//         room_info: data.room_info,
+//         room_type: data.room_type.value,
+//         stay_type: data.stay_type.value,
+//       },
+//       stars: data.stars.value,
+//       stay_includes: {
+//         wifi: data.wifi,
+//         kitchen: data.kitchen,
+//         free_parking: data.free_parking,
+//         breakfast: data.breakfast,
+//         swimming_pool: data.swimming_pool,
+//         pet_friendly: data.pet_friendly,
+//       },
+//       image: {
+//         image_1: imgArray.image_1,
+//         image_2: imgArray.image_2,
+//         image_3: imgArray.image_3,
+//         image_4: imgArray.image_4,
+//       },
+//     },
+//   };
+//   // });
+
+//   await http
+//     .post(API_URL, data)
+//     .then(response => {
+//       // console.log(response.data);
+//     })
+//     .catch(error => {
+//       setError(error.toString());
+//     });
+//   setSubmitted(true);
+// }
+
+/* {submitted}
 
       <form className="add-form" onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -369,9 +374,4 @@ function add() {
         <br />
         <br />
         <button type="submit">{submitted ? "sending.." : "send"}</button>
-      </form> */}
-    </Layout>
-  );
-}
-
-export default add;
+      </form> */

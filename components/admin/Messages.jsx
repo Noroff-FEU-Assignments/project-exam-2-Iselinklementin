@@ -65,7 +65,7 @@ export default function Messages() {
                 </div>
               </Accordion.Header>
               <Accordion.Body className="d-flex">
-                <Icon icon={icons.map(icon => icon.chat)} className="me-3 mt-1" />
+                <Icon icon={icons.map(icon => icon.chat)} className="me-3" fontSize="18px" />
                 <div className="text-container">
                   <Paragraph className="fw-bold">{item.acf.name}</Paragraph>
                   <Paragraph>

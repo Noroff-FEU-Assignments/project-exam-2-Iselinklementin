@@ -155,7 +155,8 @@ export default function EnquireForm({ title, room, type }) {
               render={({ field }) => (
                 <Select
                   className="select"
-                  defaultValue={{ value: 0, label: "How many" }}
+                  defaultValue={{ value: 0, label: "Persons" }}
+                  // defaultInputValue="Persons"
                   options={SUBJECT}
                   {...field}
                 />

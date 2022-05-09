@@ -6,6 +6,11 @@ export const StyledAccordion = styled.div`
   .accordion-button {
     background: ${props => props.theme.light};
     color: ${props => props.theme.body};
+    word-break: break-word;
+  }
+
+  .accordion-button::after {
+    width: 40%;
   }
 
   .accordion-button:focus {
@@ -28,9 +33,10 @@ export const StyledAccordion = styled.div`
   }
 
   .text-container {
+    max-width: 240px;
     p {
       margin-bottom: 4px;
-      max-width: 500px;
+      word-break: break-word;
     }
 
     span {

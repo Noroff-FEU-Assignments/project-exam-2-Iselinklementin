@@ -7,7 +7,6 @@ import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
-import { BsParagraph } from "react-icons/bs";
 
 export default function Enquire({ stay }) {
   console.log(stay);
@@ -15,15 +14,26 @@ export default function Enquire({ stay }) {
   const query = router.query;
   const room = query.room;
 
+  const showRoom = () => {
+    if (room === "Hotel") {
+      return (
+        <Paragraph className="mt-3">
+          <span className="fw-bold">Room: </span>
+          {room}
+        </Paragraph>
+      );
+    } else if (room === "Apartment" || room === "Bed & Breakfast") {
+      return <Paragraph className="mt-3">{room}</Paragraph>;
+    }
+    return <Paragraph className="mt-3">{stay.acf.room.stay_type}</Paragraph>;
+  };
+
   return (
     <Layout>
       <Head title="Enquire" />
       <Container className="mt-5">
         <Heading>Start planning your trip to {stay.acf.title}</Heading>
-        <Paragraph className="mt-3">
-          <span className="fw-bold">Room: </span>
-          {room}
-        </Paragraph>
+        {showRoom()}
         <Paragraph className="mt-5">Information</Paragraph>
         <Heading size="2">Who is traveling?</Heading>
 

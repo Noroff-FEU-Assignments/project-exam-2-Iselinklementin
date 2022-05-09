@@ -20,15 +20,31 @@ export const StyledForm = styled(Form)`
     font-size: 16px;
   }
 
-  // her må det gjøres mer
   .select {
     width: 100%;
+    border-radius: 6px;
+
+    .css-1s2u09g-control,
+    .css-319lph-ValueContainer {
+      height: 50px;
+    }
+
+    .css-qc6sy-singleValue {
+      height: 35px;
+    }
   }
 
   .text-area-container {
     position: relative;
     display: flex;
     align-items: flex-start;
+    font-family: inherit;
+
+    .form-control::placeholder {
+      font-size: 14px;
+      color: ${props => props.theme.body};
+      opacity: 0.8;
+    }
 
     .counter {
       position: absolute;

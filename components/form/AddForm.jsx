@@ -6,17 +6,14 @@ import useAxios from "hooks/useAxios";
 import { API_URL, MEDIA_URL } from "constants/api";
 import AuthContext from "context/AuthContext";
 import Image from "next/image";
-import image_test from "components/images/img.png";
-import usePostImage from "components/common/usePostImage";
 import { schema } from "utils/schemaValidation/AddFormSchema";
 import { STAYS, REVIEW, ROOMS } from "constants/misc";
 import { StyledForm } from "./Form.styles";
 import { Form } from "react-bootstrap";
 import Heading from "components/typography/Heading";
 import Icon, { icons } from "constants/icons";
-import Checkbox from "components/common/Checkbox";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
-import FileUploader, { UploadLabel } from "components/common/buttons/FileUploader";
+import { UploadLabel } from "components/common/buttons/FileUploader";
 import { StyledImageContainer } from "styles/pages/home/admin/Add/StyledImageContainer";
 
 function AddForm() {
@@ -75,25 +72,25 @@ function AddForm() {
     let imageThree = AddImages(file3, "Tester tittel 3", "Tester caption 300");
     let imageFour = AddImages(file4, "Tester tittel 4", "Tester caption 400");
 
-    // await http.post(MEDIA_URL, imageOne).then(response => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_1 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageOne).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_1 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageTwo).then(response => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_2 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageTwo).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_2 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageThree).then(response => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_3 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageThree).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_3 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageFour).then(response => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_4 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageFour).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_4 = thisID;
+    });
 
     data = {
       status: "publish",
@@ -138,16 +135,18 @@ function AddForm() {
       },
     };
 
-    // await http
-    //   .post(API_URL, data)
-    //   .then(response => {
-    //     console.log(response.data);
-    //     console.log(data);
-    //   })
-    //   .catch(error => {
-    //     setError(error.toString());
-    //   });
-    // setSubmitting(true);
+    // Ordne en success melding og error
+
+    await http
+      .post(API_URL, data)
+      .then(response => {
+        console.log(response.data);
+        console.log(data);
+      })
+      .catch(error => {
+        setError(error.toString());
+      });
+    setSubmitting(true);
   }
 
   const onChangeHandler = value => {
@@ -352,7 +351,7 @@ function AddForm() {
             {...register("handicap_friendly")}
           />
         </div>
-        <div className="d-flex align-items-center mt-4 justify-content-between mb-5">
+        <div className="d-flex align-items-center  mb-5 mt-4">
           <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
           <Form.Group className="mt-3 me-5">
             <Form.Control

@@ -13,12 +13,7 @@ import styled from "styled-components";
 import Select from "react-select";
 import { StyledMobileButton } from "components/common/buttons/Button.styles";
 import ShowIcons from "components/icons/ShowIcons";
-import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
-// import ChooseRoom from "components/common/functions/ChooseRoom";
-
-// må fikse knapp på vanlige overnattinger
-// og jeg må sjekke om det fins rom eller ikke når man
-// kommer inn på enquire
+// import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
 
 const StyledRoomContainer = styled.div`
   background: ${props => props.theme.light};
@@ -79,13 +74,30 @@ export default function stay({ stay }) {
           </Paragraph>
         </StyledRoomContainer>
       );
-    } else {
+    } else if (
+      stay.acf.room.stay_type === "Apartment" ||
+      stay.acf.room.stay_type === "Bed & Breakfast"
+    ) {
       return (
         <>
           <Paragraph>{stay.acf.room.room_info}</Paragraph>
           <Paragraph className="mt-3">
             Price from: <span className="fw-bold">{stay.acf.price},- / night</span>
           </Paragraph>
+
+          <Link
+            href={{ pathname: `/enquire/${stay.id}`, query: { room: stay.acf.room.stay_type } }}
+            className="mt-4">
+            <StyledMobileButton className="btn primary-btn mt-4" role="button">
+              <Icon
+                icon={icons.map(icon => icon.bag)}
+                color="white"
+                fontSize="16px"
+                className="me-2"
+              />
+              Enquire
+            </StyledMobileButton>
+          </Link>
         </>
       );
     }
@@ -107,13 +119,12 @@ export default function stay({ stay }) {
         {/* Heading */}
         <div className="d-flex justify-content-between align-items-center mt-4">
           <Heading>{stay.acf.title}</Heading>
-          <SmallEnquireBtn />
+          {/* <SmallEnquireBtn id=`${stay.id}` /> */}
+          {/* {SmallEnquireBtn(stay.id, stay.acf.room.stay_type)} */}
         </div>
 
         <Paragraph>{stay.acf.room.stay_type}</Paragraph>
-
         <Carousels stays={imagesArr} />
-
         <div className="mt-4">
           <ShowIcons stay={stay.acf.stay_includes} />
         </div>
@@ -136,17 +147,6 @@ export default function stay({ stay }) {
       <Container>
         <Heading size="3">Room</Heading>
         {ShowRoom()}
-        {/* <Link href="/enquire" className="mt-4">
-          <StyledMobileButton
-            className="btn primary-btn mt-4"
-            role="button"
-            data-id={stay.id}
-            data-title={stay.acf.title}
-          >
-            <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="14px" className="me-2" />
-            Enquire
-          </StyledMobileButton>
-        </Link> */}
       </Container>
     </Layout>
   );
