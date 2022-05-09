@@ -76,6 +76,8 @@ https://bobbyhadz.com/blog/javascript-remove-first-word-from-string
 
 https://www.kindacode.com/article/passing-data-via-a-link-component-in-next-js/
 
+https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
