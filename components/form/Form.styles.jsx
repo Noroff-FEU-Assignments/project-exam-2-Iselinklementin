@@ -40,6 +40,10 @@ export const StyledForm = styled(Form)`
   }
 
   .checkboxes {
+    .form-check {
+      margin: 1rem 0 1rem 0;
+    }
+
     input {
       height: 20px;
       width: 20px;

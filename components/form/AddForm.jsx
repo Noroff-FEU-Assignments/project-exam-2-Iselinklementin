@@ -67,39 +67,33 @@ function AddForm() {
       formData.append("title", title);
       formData.append("caption", caption);
       formData.append("file", file);
-
       return formData;
     };
 
-    console.log(Object.fromEntries(AddImages(file1, "Tester tittel 100", "Tester caption 1100")));
     let imageOne = AddImages(file1, "Tester tittel 100", "Tester caption 1100");
     let imageTwo = AddImages(file2, "Tester tittel 2", "Tester caption 200");
     let imageThree = AddImages(file3, "Tester tittel 3", "Tester caption 300");
     let imageFour = AddImages(file4, "Tester tittel 4", "Tester caption 400");
 
-    await http.post(MEDIA_URL, imageOne).then(response => {
-      const thisID = response.data.id;
-      imgArray.image_1 = thisID;
-      console.log(response.data);
-    });
+    // await http.post(MEDIA_URL, imageOne).then(response => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_1 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageTwo).then(response => {
-      const thisID = response.data.id;
-      imgArray.image_2 = thisID;
-      console.log(response.data);
-    });
+    // await http.post(MEDIA_URL, imageTwo).then(response => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_2 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageThree).then(response => {
-      const thisID = response.data.id;
-      imgArray.image_3 = thisID;
-      console.log(response.data);
-    });
+    // await http.post(MEDIA_URL, imageThree).then(response => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_3 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageFour).then(response => {
-      const thisID = response.data.id;
-      imgArray.image_4 = thisID;
-      console.log(response.data);
-    });
+    // await http.post(MEDIA_URL, imageFour).then(response => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_4 = thisID;
+    // });
 
     data = {
       status: "publish",
@@ -144,16 +138,16 @@ function AddForm() {
       },
     };
 
-    await http
-      .post(API_URL, data)
-      .then(response => {
-        console.log(response.data);
-        console.log(data);
-      })
-      .catch(error => {
-        setError(error.toString());
-      });
-    setSubmitting(true);
+    // await http
+    //   .post(API_URL, data)
+    //   .then(response => {
+    //     console.log(response.data);
+    //     console.log(data);
+    //   })
+    //   .catch(error => {
+    //     setError(error.toString());
+    //   });
+    // setSubmitting(true);
   }
 
   const onChangeHandler = value => {
@@ -190,7 +184,7 @@ function AddForm() {
           </div>
         </Form.Group>
       );
-    } else {
+    } else if (type === "Apartment" || type === "Bed & Breakfast") {
       return (
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
@@ -205,6 +199,8 @@ function AddForm() {
         </Form.Group>
       );
     }
+
+    return "";
   };
 
   return (
@@ -247,7 +243,6 @@ function AddForm() {
               render={({ field }) => (
                 <Select
                   defaultValue={{ value: "0", label: "Stay type" }}
-                  // name="stay_type"
                   className="select"
                   options={STAYS}
                   {...field}
@@ -260,39 +255,6 @@ function AddForm() {
           </div>
         </Form.Group>
         {createHtml(type)}
-        {/* <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.hotel)} fontSize="24px" className="me-3" />
-            <Controller
-              name="room_type"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  name="room_type"
-                  className="select"
-                  options={ROOMS}
-                  defaultValue={{ value: "0", label: "Type of room" }}
-                  {...field}
-                  onChange={e => {
-                    changeHandler(e);
-                  }}
-                />
-              )}
-            />
-          </div>
-        </Form.Group> */}
-
-        {/* <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.apartment)} fontSize="24px" className="me-3" />
-            <Form.Control
-              label="room_info"
-              type="text"
-              placeholder="Room info"
-              {...register("room_info")}
-            />
-          </div>
-        </Form.Group> */}
 
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
@@ -369,13 +331,13 @@ function AddForm() {
           <Heading size="3">Keywords</Heading>
         </div>
         <div className="checkboxes mb-5">
-          <Checkbox name="featured" {...register("featured")} />
-          <Checkbox name="wifi" {...register("wifi")} />
-          <Checkbox name="kitchen" {...register("kitchen")} />
-          <Checkbox name="free_parking" {...register("free_parking")} />
-          <Checkbox name="breakfast" {...register("breakfast")} />
-          <Checkbox name="swimming_pool" {...register("swimming_pool")} />
-          <Checkbox name="pet_friendly" {...register("pet_friendly")} />
+          <Form.Check name="featured" label="Featured" {...register("featured")} />
+          <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
+          <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
+          <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
+          <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
+          <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
+          <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
         </div>
         <hr />
         <div className="d-flex">
@@ -383,8 +345,12 @@ function AddForm() {
           <Heading size="3">Nice to know</Heading>
         </div>
         <div className="checkboxes mb-5">
-          <Checkbox name="no_smoking" {...register("no_smoking")} />
-          <Checkbox name="handicap_friendly" {...register("handicap_friendly")} />
+          <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
+          <Form.Check
+            name="handicap_friendly"
+            label="Handicap friendly"
+            {...register("handicap_friendly")}
+          />
         </div>
         <div className="d-flex align-items-center mt-4 justify-content-between mb-5">
           <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
@@ -392,7 +358,7 @@ function AddForm() {
             <Form.Control
               label="check_in"
               type="text"
-              placeholder="check_in"
+              placeholder="check in"
               {...register("check_in")}
             />
           </Form.Group>
@@ -435,7 +401,7 @@ function AddForm() {
             name="image_1"
             ref={imgUpload1}
             onChange={e => setImg1(URL.createObjectURL(e.target.files[0]))}
-            // style={{ opacity: "0" }}
+            style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
         </div>
@@ -464,7 +430,7 @@ function AddForm() {
             name="image_2"
             ref={imgUpload2}
             onChange={e => setImg2(URL.createObjectURL(e.target.files[0]))}
-            // style={{ opacity: "0" }}
+            style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
         </div>
@@ -493,7 +459,7 @@ function AddForm() {
             name="image_3"
             ref={imgUpload3}
             onChange={e => setImg3(URL.createObjectURL(e.target.files[0]))}
-            // style={{ opacity: "0" }}
+            style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
         </div>
@@ -522,7 +488,7 @@ function AddForm() {
             name="image_4"
             ref={imgUpload4}
             onChange={e => setImg4(URL.createObjectURL(e.target.files[0]))}
-            // style={{ opacity: "0" }}
+            style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
         </div>
