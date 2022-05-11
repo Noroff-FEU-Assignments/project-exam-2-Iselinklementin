@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { useRef, useState, createRef } from "react";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
@@ -15,6 +15,8 @@ function stays({ stays }) {
   const [filterChips, setFilterChips] = useState([]);
   const [filterRating, setFilterRating] = useState([]);
   const [activeStay, setActiveStay] = useState(true);
+
+  const chipsContainer = createRef();
 
   let Rating = () => {
     return (
@@ -74,9 +76,11 @@ function stays({ stays }) {
   const onClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
     includeFilter(btnName);
-    let parentDiv = e.parentNode;
+    // let parentDiv = e.parentNode;
+    // console.log(parentDiv);
+    // // console.log(parentDiv.lastChild);
+    // parentDiv.lastChild === "empty" ? setActiveStay(false) : setActiveStay(true);
     // console.log(parentDiv.lastChild);
-    parentDiv.lastChild === "empty" ? setActiveStay(false) : setActiveStay(true);
   };
 
   const CreateHtml = () => {
@@ -92,8 +96,6 @@ function stays({ stays }) {
 
     return <StaysCard stays={stays} />;
   };
-
-  // må sjekke om det skal være knapper
 
   return (
     <Layout>
@@ -112,8 +114,8 @@ function stays({ stays }) {
           <div className={show ? "" : "hidden"}>
             <Rating />
 
-            <Chips clicked={(e) => onClick(e.target)} />
-
+            <Chips clicked={(e) => onClick(e.target)} ref={chipsContainer} />
+            {console.log(chipsContainer)}
             <div
               role="button"
               onClick={() => {

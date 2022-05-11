@@ -4,7 +4,7 @@ import Icon, { icons } from "constants/icons";
 import { StyledFilter } from "./StyledFilter.styles";
 import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
 
-export const Chips = ({ clicked, changed }) => {
+export const Chips = ({ clicked }) => {
   const [activeButton, setActiveButton] = useState("active");
   const [filterStay, setFilterStay] = useState(true);
 
@@ -52,26 +52,27 @@ export const Chips = ({ clicked, changed }) => {
   ];
 
   return (
-    <StyledFilter onClick={clicked} onChange={changed}>
-      {buttons.map((btnName) => {
-        let removeLine = btnName.replace("_", " ");
-        let newBtnName = CapitalizeFirstLetter(removeLine);
-        return (
-          <button
-            key={btnName}
-            name={btnName}
-            className={activeButton === btnName ? `me-2 mt-3 active` : "me-2 mt-3"}
-            onClick={(e) => {
-              clickedButtonHandler(btnName);
-              checkClick(e.target);
-            }}
-          >
-            {ShowIcon(btnName)}
-            {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
-          </button>
-        );
-      })}
-      {filterStay ? "" : "empty"}
-    </StyledFilter>
+    <>
+      <StyledFilter onClick={clicked}>
+        {buttons.map((btnName) => {
+          let removeLine = btnName.replace("_", " ");
+          let newBtnName = CapitalizeFirstLetter(removeLine);
+          return (
+            <button
+              key={btnName}
+              name={btnName}
+              className={activeButton === btnName ? `me-2 mt-3 active` : "me-2 mt-3"}
+              onClick={(e) => {
+                clickedButtonHandler(btnName);
+                checkClick(e.target);
+              }}
+            >
+              {ShowIcon(btnName)}
+              {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
+            </button>
+          );
+        })}
+      </StyledFilter>
+    </>
   );
 };
