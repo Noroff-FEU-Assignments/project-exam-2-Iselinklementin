@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
@@ -8,115 +8,46 @@ import Icon, { icons } from "constants/icons";
 import { getStays } from "lib/getStays";
 import StaysCard from "components/cards/StaysCard";
 import { StyledFilter } from "components/common/filter/StyledFilter.styles";
-// import FilterSearch from "components/common/filter/FilterSearch";
 import { Chips } from "components/common/filter/Chips";
 
 function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filterRating, setFilterRating] = useState([]);
-  const [activeBtn, setActiveBtn] = useState("");
-  const [activeIcon, setActiveIcon] = useState("");
+  const [activeStay, setActiveStay] = useState(true);
 
   let Rating = () => {
     return (
-      <>
-        <Form.Check name="3 stars" label="3 stars" onClick={e => handleCheck(e.target)} />
-        <Form.Check name="4 stars" label="4 stars" onClick={e => handleCheck(e.target)} />
-        <Form.Check name="5 stars" label="5 stars" onClick={e => handleCheck(e.target)} />
-      </>
-    );
-  };
+      <div>
+        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
+          <Form.Check type="radio" name="stars" />3 stars
+        </Form.Label>
 
-  let Chip = () => {
-    return (
-      <>
-        <Chips
-          name="Swimming pool"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="swimming_pool"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Bed & Breakfast"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="bed"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Kitchen"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="kitchen"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Hotel"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="hotel"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Breakfast"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="breakfast"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Wifi"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="wifi"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Free parking"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="free_parking"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Apartment"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="apartment"
-          clicked={e => onClick(e.target)}
-        />
-        <Chips
-          name="Pet friendly"
-          cssIcon={activeIcon}
-          cssBtn={activeBtn}
-          iconName="pet_friendly"
-          clicked={e => onClick(e.target)}
-        />
-      </>
+        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
+          <Form.Check type="radio" name="stars" />4 stars
+        </Form.Label>
+
+        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
+          <Form.Check type="radio" name="stars" />5 stars
+        </Form.Label>
+      </div>
     );
   };
 
   let chipsfilter = [];
   let ratingfilter = [];
 
-  const ratingFunction = value => {
-    stays.map(item => {
-      if (item.acf.stars[0] === value) {
-        ratingfilter.push(item);
+  const includeFilter = (e) => {
+    stays.map((item) => {
+      if (e.toLowerCase() === item.acf.room.stay_type.toLowerCase()) {
+        chipsfilter.push(item);
       }
-    });
-    setFilterRating(ratingfilter);
-  };
 
-  const includeFilter = e => {
-    stays.map(item => {
       let staysInclude = Object.entries(item.acf.stay_includes);
-      staysInclude.map(key => {
+      staysInclude.map((key) => {
         if (key[1]) {
-          let thisIncludes = key[0].replace("_", " ");
-          if (thisIncludes === e.innerText.toLowerCase()) {
+          // let thisIncludes = key[0].replace("_", " ");
+          if (key[0] === e) {
             chipsfilter.push(item);
           }
         }
@@ -125,27 +56,37 @@ function stays({ stays }) {
     setFilterChips(chipsfilter);
   };
 
-  const handleCheck = e => {
-    console.log(e.attributes);
+  const ratingFilter = (value) => {
+    stays.map((item) => {
+      if (item.acf.stars[0] === value) {
+        ratingfilter.push(item);
+      }
+    });
+    setFilterRating(ratingfilter);
+  };
 
-    if (e.checked) {
-      console.log(e);
-      ratingFunction(e.name);
+  const handleRadio = (e) => {
+    if (e.innerText.length) {
+      ratingFilter(e.innerText);
     }
   };
 
-  const onClick = e => {
-    includeFilter(e);
-    // setActiveIcon("iconColourLight");
-    // setActiveBtn("active");
+  const onClick = (e) => {
+    let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
+    includeFilter(btnName);
+    let parentDiv = e.parentNode;
+    // console.log(parentDiv.lastChild);
+    parentDiv.lastChild === "empty" ? setActiveStay(false) : setActiveStay(true);
   };
 
   const CreateHtml = () => {
-    if (filterChips.length) {
+    if (filterChips.length && activeStay) {
+      // console.log(filterChips);
       return <StaysCard stays={filterChips} />;
     }
 
-    if (filterRating.length) {
+    if (filterRating.length && activeStay) {
+      // console.log(filterRating);
       return <StaysCard stays={filterRating} />;
     }
 
@@ -153,6 +94,7 @@ function stays({ stays }) {
   };
 
   // må sjekke om det skal være knapper
+
   return (
     <Layout>
       <Head title="Stays" />
@@ -162,21 +104,24 @@ function stays({ stays }) {
         </Heading>
 
         <button className="d-flex align-items-center mt-5" onClick={() => setShow(!show)}>
-          <Icon icon={icons.map(icon => icon.filter)} color="#FC5156" className="me-2" />
+          <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" />
           <Paragraph className="mt-2">Here is filter search</Paragraph>
         </button>
 
         <StyledFilter>
           <div className={show ? "" : "hidden"}>
             <Rating />
-            <Chip />
+
+            <Chips clicked={(e) => onClick(e.target)} />
+
             <div
               role="button"
               onClick={() => {
                 setFilterChips([]);
                 setFilterRating([]);
               }}
-              className="mt-3">
+              className="mt-3"
+            >
               CLEAR ALL
             </div>
           </div>
@@ -184,7 +129,6 @@ function stays({ stays }) {
 
         <hr className="mb-5" />
         <CreateHtml />
-        {/* {filterChips.length ? <StaysCard stays={filterChips} /> : <StaysCard stays={stays} />} */}
       </Container>
     </Layout>
   );
