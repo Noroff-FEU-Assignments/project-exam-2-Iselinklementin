@@ -13,4 +13,8 @@ export const StyledFilter = styled.div`
   .hidden {
     display: none;
   }
+
+  .active {
+    background-color: ${props => props.theme.primaryColour};
+  }
 `;

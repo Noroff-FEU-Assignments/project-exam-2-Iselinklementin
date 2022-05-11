@@ -15,7 +15,8 @@ function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filterRating, setFilterRating] = useState([]);
-  const [active, setActive] = useState(false);
+  const [activeBtn, setActiveBtn] = useState("");
+  const [activeIcon, setActiveIcon] = useState("");
 
   let Rating = () => {
     return (
@@ -30,15 +31,69 @@ function stays({ stays }) {
   let Chip = () => {
     return (
       <>
-        <Chips name="Swimming pool" iconName="swimming_pool" clicked={e => onClick(e.target)} />
-        <Chips name="Bed & Breakfast" iconName="bed" clicked={e => onClick(e.target)} />
-        <Chips name="Kitchen" iconName="kitchen" clicked={e => onClick(e.target)} />
-        <Chips name="Hotel" iconName="hotel" clicked={e => onClick(e.target)} />
-        <Chips name="Breakfast" iconName="breakfast" clicked={e => onClick(e.target)} />
-        <Chips name="Wifi" iconName="wifi" clicked={e => onClick(e.target)} />
-        <Chips name="Free parking" iconName="free_parking" clicked={e => onClick(e.target)} />
-        <Chips name="Apartment" iconName="apartment" clicked={e => onClick(e.target)} />
-        <Chips name="Pet friendly" iconName="pet_friendly" clicked={e => onClick(e.target)} />
+        <Chips
+          name="Swimming pool"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="swimming_pool"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Bed & Breakfast"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="bed"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Kitchen"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="kitchen"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Hotel"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="hotel"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Breakfast"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="breakfast"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Wifi"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="wifi"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Free parking"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="free_parking"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Apartment"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="apartment"
+          clicked={e => onClick(e.target)}
+        />
+        <Chips
+          name="Pet friendly"
+          cssIcon={activeIcon}
+          cssBtn={activeBtn}
+          iconName="pet_friendly"
+          clicked={e => onClick(e.target)}
+        />
       </>
     );
   };
@@ -81,6 +136,8 @@ function stays({ stays }) {
 
   const onClick = e => {
     includeFilter(e);
+    // setActiveIcon("iconColourLight");
+    // setActiveBtn("active");
   };
 
   const CreateHtml = () => {

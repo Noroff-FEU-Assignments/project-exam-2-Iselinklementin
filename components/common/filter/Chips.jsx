@@ -2,7 +2,7 @@ import { Container, Form } from "react-bootstrap";
 import React from "react";
 import Icon, { icons } from "constants/icons";
 
-export const Chips = ({ name, iconName, clicked }) => {
+export const Chips = ({ name, iconName, clicked, cssIcon, cssBtn }) => {
   let stayIcons = [];
   let thisIcon;
 
@@ -13,16 +13,19 @@ export const Chips = ({ name, iconName, clicked }) => {
       thisIcon = (
         <Icon
           icon={stayIcons.map(icon => Object.entries(icon)[0][1])}
-          className="me-2"
+          className={cssIcon}
           fontSize="16px"
         />
       );
     }
   });
   return (
-    <button className="me-2 mt-3" onClick={clicked}>
+    <button className={cssBtn} onClick={clicked}>
       {thisIcon}
       {name}
     </button>
   );
 };
+
+// icon: className="me-2"
+// btn : className="me-2 mt-3"

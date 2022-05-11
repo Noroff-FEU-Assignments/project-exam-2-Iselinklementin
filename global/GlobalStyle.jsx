@@ -39,6 +39,18 @@ const GlobalStyle = createGlobalStyle`
       color: ${props => props.theme.primaryColour};
     }
   }
+
+  .iconColourDark {
+    color: ${props => props.theme.body};
+  }
+
+  .iconColourLight {
+    color: ${props => props.theme.light};
+  }
+
+  .iconColourPrimary {
+    color: ${props => props.theme.primaryColour};
+  }
   
 `;
 
