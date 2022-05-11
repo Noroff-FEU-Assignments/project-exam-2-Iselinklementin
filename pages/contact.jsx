@@ -9,8 +9,8 @@ function contact() {
   return (
     <Layout>
       <Head title="Contact us" />
-      <Container>
-        <Heading className="mt-5" size="1">
+      <Container className="p-4">
+        <Heading className="mt-3" size="1">
           Contact us
         </Heading>
         <ContactForm />

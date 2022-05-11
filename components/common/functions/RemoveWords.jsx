@@ -10,3 +10,11 @@ export function RemoveWords(word) {
   // return the new string
   return newString.substring(0, lastIndexOfSpace);
 }
+
+// in this case: Date on Enquire-form
+export function RemoveLastWord(word) {
+  // find index of last word
+  const lastIndexOfSpace = word.lastIndexOf(" ");
+  // return the new string
+  return word.substring(0, lastIndexOfSpace);
+}

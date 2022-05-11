@@ -6,8 +6,6 @@ import Search from "components/common/search/Search";
 import Icon, { icons } from "constants/icons";
 import { Container } from "react-bootstrap";
 import Image from "next/image";
-import Mountain from "assets/mountain.svg";
-import Bryggen from "assets/bryggen.svg";
 import IntroImg from "assets/index_img.jpg";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
@@ -15,34 +13,24 @@ import { SearchBox } from "components/common/search/Searchbox.styles";
 import { StyledButton } from "components/common/buttons/Button.styles";
 import { ExploreContainer } from "styles/pages/home/ExploreContainer.styles";
 import StaysCard from "components/cards/StaysCard";
+import { useWindowSize } from "hooks/useWindowSize";
+import { SCREEN } from "constants/misc";
+import Head from "components/layout/Head";
+import { Intro } from "components/pages/home/Intro";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
   // console.log(stays);
 
+  const size = useWindowSize();
+
   return (
     <Layout>
-      <div style={{ position: "relative", width: "100vw", height: "80vw" }}>
-        <Image
-          src={Mountain}
-          alt="image"
-          layout="fill"
-          objectFit="cover"
-          style={{ opacity: "0.3" }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            padding: "1rem",
-            height: "200px",
-            width: "100%",
-            bottom: "-2rem",
-          }}>
-          <Image src={Bryggen} alt="image" layout="responsive" objectFit="cover" />
-        </div>
-      </div>
+      <Head title="Holidaze" />
 
-      {/* Intro */}
+      <Intro />
+
+      {/* {size.width <= SCREEN.tablet ? ( */}
 
       <Container className="d-flex flex-column align-items-center text-center mb-5">
         <Heading>Welcome to Bergen</Heading>
@@ -56,18 +44,11 @@ export default function Home({ stays }) {
       <div className="position-relative">
         <Image src={IntroImg} alt="image" layout="responsive" objectFit="cover" priority />
         <ExploreContainer>
-          <Heading size="2">
-            We in Holiday have the best places to stay, handpicked for you!
-          </Heading>
+          <Heading size="2">We in Holiday have the best places to stay, handpicked for you!</Heading>
           <Link href="/stays">
             <StyledButton className="px-3 btn btn-primary" role="button">
               Explore stays
-              <Icon
-                icon={icons.map(icon => icon.arrow)}
-                color="white"
-                fontSize="14px"
-                className="ms-2 mt-1"
-              />
+              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2 mt-1" />
             </StyledButton>
           </Link>
         </ExploreContainer>
@@ -88,7 +69,7 @@ export default function Home({ stays }) {
       <Container className="mt-5">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map(icon => icon.hotel)} />
+            <Icon icon={icons.map((icon) => icon.hotel)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Hotels
             </Heading>
@@ -100,7 +81,7 @@ export default function Home({ stays }) {
       <Container className="mt-4">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map(icon => icon.apartment)} />
+            <Icon icon={icons.map((icon) => icon.apartment)} />
             <Heading size="3" fontSize="18px" className="ms-2 ">
               Apartments
             </Heading>
@@ -112,7 +93,7 @@ export default function Home({ stays }) {
       <Container className="mt-4">
         <div className="border p-3">
           <div className="d-flex mb-1">
-            <Icon icon={icons.map(icon => icon.bed)} />
+            <Icon icon={icons.map((icon) => icon.bed)} />
             <Heading size="3" fontSize="18px" className="ms-2">
               Bed & Breakfast
             </Heading>

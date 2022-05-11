@@ -4,11 +4,11 @@ import { ENQUIRES_URL } from "constants/api";
 import { Accordion } from "react-bootstrap";
 import Loader from "components/common/loader/Loader";
 import Alertbox from "components/common/alert/AlertBox";
-import { StyledAccordion } from "styles/pages/home/admin/StyledAccordion.styles";
+import { StyledAccordion } from "styles/pages/admin/StyledAccordion.styles";
 import Icon, { icons } from "constants/icons";
 import { RemoveWords } from "components/common/functions/RemoveWords";
 import Paragraph from "components/typography/Paragraph";
-import ReturnIcon from "components/admin/ReturnIcon";
+import ReturnIcon from "components/pages/admin/ReturnIcon";
 
 // Alt utenom fetch er likt som Messages.
 // Prøv å samle det og bare skift url og return
@@ -55,7 +55,7 @@ export default function Enquires() {
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map(item => {
+        {contact.map((item) => {
           count++;
           let received = item.acf.date_received;
           console.log(item);
@@ -66,7 +66,7 @@ export default function Enquires() {
                 {item.acf.stay_title}
                 <div className="received-container">
                   <p className="date">{RemoveWords(received)}</p>
-                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
+                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
                 </div>
               </Accordion.Header>
 

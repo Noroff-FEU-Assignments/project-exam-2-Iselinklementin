@@ -5,7 +5,7 @@ import { CONTACT_URL } from "constants/api";
 import { getMessages } from "lib/getMessages";
 import React, { useEffect, useState } from "react";
 import { Container, Tab, Tabs, Accordion, Spinner } from "react-bootstrap";
-import { StyledAccordion } from "styles/pages/home/admin/StyledAccordion.styles";
+import { StyledAccordion } from "styles/pages/admin/StyledAccordion.styles";
 import Icon, { icons } from "constants/icons";
 import Paragraph from "components/typography/Paragraph";
 import { RemoveWords } from "components/common/functions/RemoveWords";
@@ -51,7 +51,7 @@ export default function Messages() {
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map(item => {
+        {contact.map((item) => {
           count++;
           let received = item.acf.date;
 
@@ -61,11 +61,11 @@ export default function Messages() {
                 {item.acf.title}
                 <div className="received-container">
                   <p className="date">{RemoveWords(received)}</p>
-                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
+                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
                 </div>
               </Accordion.Header>
               <Accordion.Body className="d-flex">
-                <Icon icon={icons.map(icon => icon.chat)} className="me-3" fontSize="18px" />
+                <Icon icon={icons.map((icon) => icon.chat)} className="me-3" fontSize="18px" />
                 <div className="text-container">
                   <Paragraph className="fw-bold">{item.acf.name}</Paragraph>
                   <Paragraph>

@@ -9,9 +9,11 @@ function add() {
   return (
     <Layout>
       <Head title="Add new stay" />
-      <Container>
-        <Heading>Create stay</Heading>
-        <AddForm />
+      <Container className="p-4 mb-4">
+        <Heading className="mt-3" size="1">
+          Create stay
+        </Heading>
+        <AddForm className="mt-5" />
       </Container>
     </Layout>
   );

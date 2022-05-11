@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import Theme from "global/ThemeConfig";
 import GlobalStyle from "global/GlobalStyle";
 import styled from "styled-components";
+import SSRProvider from "react-bootstrap/SSRProvider";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -11,14 +12,16 @@ const Wrapper = styled.div`
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={Theme}>
-      <AuthProvider>
-        <GlobalStyle />
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
-      </AuthProvider>
-    </ThemeProvider>
+    <SSRProvider>
+      <ThemeProvider theme={Theme}>
+        <AuthProvider>
+          <GlobalStyle />
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+        </AuthProvider>
+      </ThemeProvider>
+    </SSRProvider>
   );
 }
 

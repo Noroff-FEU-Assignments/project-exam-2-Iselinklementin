@@ -1,16 +1,16 @@
-// import { useContext, useEffect } from "react";
-// import { useRouter } from "next/router";
-// import AuthContext from "../../context/AuthContext";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import AuthContext from "../../context/AuthContext";
 
-// function Auth() {
-//   const [auth] = useContext(AuthContext);
-//   const router = useRouter();
+function Auth() {
+  const [auth] = useContext(AuthContext);
+  const router = useRouter();
 
-//   useEffect(() => {
-//     if (!auth) {
-//       return router.push("/");
-//     }
-//   }, []);
-// }
+  useEffect(() => {
+    if (!auth) {
+      return router.push("/");
+    }
+  }, []);
+}
 
-// export default Auth;
+export default Auth;

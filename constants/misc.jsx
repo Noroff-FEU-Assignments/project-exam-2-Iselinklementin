@@ -19,3 +19,5 @@ export const ROOMS = [
   { value: "Standard Twin Room - 2 single beds", label: "Standard Twin Room - 2 single beds" },
   { value: "Standard Room - 1 double bed", label: "Standard Room - 1 double bed" },
 ];
+
+export const SCREEN = { mobile: 375, tablet: 768, laptop: 992, desktop: 1200, desktop_large: 1400 };

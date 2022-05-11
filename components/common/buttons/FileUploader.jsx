@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 export const UploadLabel = styled(FormLabel)`
   border: transparent;
-  background-color: ${props => props.theme.secondaryColour};
-  color: ${props => props.theme.light};
+  background-color: ${(props) => props.theme.secondaryColour};
+  color: ${(props) => props.theme.light};
   width: 230px;
   cursor: pointer;
   border-radius: 4px;
@@ -15,27 +15,27 @@ export const UploadLabel = styled(FormLabel)`
   padding: 10px;
 `;
 
-function FileUploader(props) {
-  const hiddenFileInput = useRef(null);
+// function FileUploader(props) {
+//   const hiddenFileInput = useRef(null);
 
-  const handleChange = e => {
-    const fileUploaded = e.target.files[0];
-    props.setImg(URL.createObjectURL(fileUploaded));
-  };
+//   const handleChange = e => {
+//     const fileUploaded = e.target.files[0];
+//     props.setImg(URL.createObjectURL(fileUploaded));
+//   };
 
-  return (
-    <>
-      <UploadLabel for={props.uploadBtn}>Upload image</UploadLabel>
-      <Form.Control
-        id={props.uploadBtn}
-        type="file"
-        name={props.name}
-        ref={hiddenFileInput}
-        onChange={handleChange}
-        // style={{ display: "none" }}
-      />
-    </>
-  );
-}
+//   return (
+//     <>
+//       <UploadLabel for={props.uploadBtn}>Upload image</UploadLabel>
+//       <Form.Control
+//         id={props.uploadBtn}
+//         type="file"
+//         name={props.name}
+//         ref={hiddenFileInput}
+//         onChange={handleChange}
+//         // style={{ display: "none" }}
+//       />
+//     </>
+//   );
+// }
 
-export default FileUploader;
+// export default FileUploader;

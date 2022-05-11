@@ -7,8 +7,9 @@ import Paragraph from "components/typography/Paragraph";
 import Icon, { icons } from "constants/icons";
 import { getStays } from "lib/getStays";
 import StaysCard from "components/cards/StaysCard";
-import { StyledFilter } from "components/common/filter/StyledFilter.styles";
+import { StyledFilter, StyledFilterBtn, StyledFilterButton } from "components/common/filter/StyledFilter.styles";
 import { Chips } from "components/common/filter/Chips";
+import { StyledHeadingH1 } from "components/typography/StyledHeading.styles";
 
 function stays({ stays }) {
   const [show, setShow] = useState(false);
@@ -16,11 +17,11 @@ function stays({ stays }) {
   const [filterRating, setFilterRating] = useState([]);
   const [activeStay, setActiveStay] = useState(true);
 
-  const chipsContainer = createRef();
+  // const chipsContainer = createRef();
 
   let Rating = () => {
     return (
-      <div>
+      <div className="rating-container">
         <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
           <Form.Check type="radio" name="stars" />3 stars
         </Form.Label>
@@ -101,30 +102,36 @@ function stays({ stays }) {
     <Layout>
       <Head title="Stays" />
       <Container className="py-4">
-        <Heading className="mb-4" size="1">
+        <StyledHeadingH1 className="mt-3" size="1">
           Book a stay with free cancellation <span style={{ color: "#FC5156" }}>- apply now!</span>
-        </Heading>
+        </StyledHeadingH1>
 
-        <button className="d-flex align-items-center mt-5" onClick={() => setShow(!show)}>
-          <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" />
-          <Paragraph className="mt-2">Here is filter search</Paragraph>
-        </button>
+        <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
+          <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
+          <Paragraph>Filter search</Paragraph>
+        </StyledFilterBtn>
 
         <StyledFilter>
-          <div className={show ? "" : "hidden"}>
+          <div className={show ? "filter-container" : "filter-container hidden"}>
             <Rating />
+            <hr />
+            <Chips clicked={(e) => onClick(e.target)} />
 
-            <Chips clicked={(e) => onClick(e.target)} ref={chipsContainer} />
-            {console.log(chipsContainer)}
-            <div
-              role="button"
-              onClick={() => {
-                setFilterChips([]);
-                setFilterRating([]);
-              }}
-              className="mt-3"
-            >
-              CLEAR ALL
+            <div className="results-btn-container">
+              <div
+                className="clear"
+                role="button"
+                onClick={() => {
+                  setFilterChips([]);
+                  setFilterRating([]);
+                }}
+              >
+                Clear all
+              </div>
+
+              <div role="button" className="results">
+                Show results
+              </div>
             </div>
           </div>
         </StyledFilter>

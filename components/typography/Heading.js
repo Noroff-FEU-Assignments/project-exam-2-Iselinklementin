@@ -1,12 +1,9 @@
 import PropTypes from "prop-types";
 
-export default function Heading({ size = "1", className, children, fontSize }) {
+export default function Heading({ size = "1", className, children }) {
   const VariableHeading = `h${size}`;
-  return (
-    <VariableHeading style={{ fontSize }} className={className}>
-      {children}
-    </VariableHeading>
-  );
+
+  return <VariableHeading className={className}>{children}</VariableHeading>;
 }
 
 Heading.propTypes = {

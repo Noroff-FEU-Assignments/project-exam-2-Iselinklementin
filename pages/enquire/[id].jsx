@@ -4,6 +4,8 @@ import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
+import { StyledHeadingH1, StyledHeadingH2 } from "components/typography/StyledHeading.styles";
+import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
@@ -31,11 +33,14 @@ export default function Enquire({ stay }) {
   return (
     <Layout>
       <Head title="Enquire" />
-      <Container className="mt-5">
-        <Heading>Start planning your trip to {stay.acf.title}</Heading>
+      <Container className="p-4">
         {showRoom()}
-        <Paragraph className="mt-5">Information</Paragraph>
-        <Heading size="2">Who is traveling?</Heading>
+        <StyledHeadingH1 className="mt-3" size="1">
+          Start planning your trip to {stay.acf.title}
+        </StyledHeadingH1>
+
+        <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
+        <StyledHeadingH2 size="2">Who is traveling?</StyledHeadingH2>
 
         <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
       </Container>
@@ -47,7 +52,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map(item => ({
+    const paths = stay.map((item) => ({
       params: {
         id: JSON.stringify(item.id),
       },

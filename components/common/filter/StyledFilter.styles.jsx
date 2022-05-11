@@ -2,6 +2,17 @@ import styled from "styled-components";
 
 export const StyledFilter = styled.div`
   background-color: ${(props) => props.theme.light};
+  /* transition: all 0.6s; */
+
+  .filter-container {
+    padding-top: 1.5rem;
+  }
+
+  .rating-container {
+    input {
+      margin-right: 0.8rem;
+    }
+  }
 
   button {
     background-color: transparent;
@@ -9,6 +20,7 @@ export const StyledFilter = styled.div`
     padding: 5px 10px;
     border: 1px solid grey;
   }
+
   .hidden {
     display: none;
   }
@@ -25,12 +37,33 @@ export const StyledFilter = styled.div`
     }
   }
 
-  /* .active {
+  .results-btn-container {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .results,
+  .clear {
+    text-transform: uppercase;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .results {
+    color: ${(props) => props.theme.primaryColour};
+  }
+`;
+
+export const StyledFilterBtn = styled.div`
+  /* transition: all ease-in-out 7s; */
+`;
+
+/* .active {
     background-color: ${(props) => props.theme.primaryColour};
     color: ${(props) => props.theme.light};
   } */
-`;
-
 // // export const StyledFilterButton = styled.button.attrs((props) => ({
 // //   background: props.active ? "orange" : "white",
 // // }))`

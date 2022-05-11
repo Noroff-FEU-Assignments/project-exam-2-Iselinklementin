@@ -9,10 +9,12 @@ import {
   MdKitchen,
   MdWifi,
   MdTextFields,
+  MdLogout,
 } from "react-icons/md";
+import { GoSignOut } from "react-icons/go";
 import { HiPlusSm } from "react-icons/hi";
 import { ImSpoonKnife } from "react-icons/im";
-import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu } from "react-icons/io";
+import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu, IoMdMore } from "react-icons/io";
 import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
 import { GrWheelchair } from "react-icons/gr";
@@ -30,6 +32,9 @@ import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
 
 export const icons = [
+  {
+    moreHorizontal: <IoMdMore key="moreHorizontal" />,
+  },
   {
     arrow: <BsFillArrowRightCircleFill key="arrow" />,
   },
@@ -104,6 +109,9 @@ export const icons = [
   },
   {
     userplus: <FaUserPlus key="userplus" />,
+  },
+  {
+    logout: <GoSignOut key="logout" />,
   },
   {
     calendar: <BsFillCalendarCheckFill key="calendar" />,

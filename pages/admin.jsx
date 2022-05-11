@@ -4,16 +4,16 @@ import { Container, Tab, Tabs, Accordion } from "react-bootstrap";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
-import Messages from "components/admin/Messages";
-import Enquires from "components/admin/Enquires";
+import Messages from "components/pages/admin/Messages";
+import Enquires from "components/pages/admin/Enquires";
 import Paragraph from "components/typography/Paragraph";
 import { AddEnquireBtn } from "components/common/buttons/AddEnqurieBtn";
-import { StyledTabs } from "styles/pages/home/admin/StyledTabs.styles";
+import { StyledTabs } from "styles/pages/admin/StyledTabs.styles";
 
 function admin() {
   const [value, setValue] = useState([]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     setValue(<Enquires />);
   };
 
@@ -27,8 +27,8 @@ function admin() {
           </Heading>
 
           <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.
           </Paragraph>
           <AddEnquireBtn />
         </div>

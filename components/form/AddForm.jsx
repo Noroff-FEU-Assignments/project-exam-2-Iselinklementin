@@ -72,22 +72,22 @@ function AddForm() {
     let imageThree = AddImages(file3, "Tester tittel 3", "Tester caption 300");
     let imageFour = AddImages(file4, "Tester tittel 4", "Tester caption 400");
 
-    await http.post(MEDIA_URL, imageOne).then(response => {
+    await http.post(MEDIA_URL, imageOne).then((response) => {
       const thisID = response.data.id;
       imgArray.image_1 = thisID;
     });
 
-    await http.post(MEDIA_URL, imageTwo).then(response => {
+    await http.post(MEDIA_URL, imageTwo).then((response) => {
       const thisID = response.data.id;
       imgArray.image_2 = thisID;
     });
 
-    await http.post(MEDIA_URL, imageThree).then(response => {
+    await http.post(MEDIA_URL, imageThree).then((response) => {
       const thisID = response.data.id;
       imgArray.image_3 = thisID;
     });
 
-    await http.post(MEDIA_URL, imageFour).then(response => {
+    await http.post(MEDIA_URL, imageFour).then((response) => {
       const thisID = response.data.id;
       imgArray.image_4 = thisID;
     });
@@ -139,31 +139,31 @@ function AddForm() {
 
     await http
       .post(API_URL, data)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         console.log(data);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error.toString());
       });
     setSubmitting(true);
   }
 
-  const onChangeHandler = value => {
+  const onChangeHandler = (value) => {
     setType(value.label);
   };
 
-  const changeHandler = value => {
+  const changeHandler = (value) => {
     setRoomType(value.label);
   };
 
-  const createHtml = type => {
+  const createHtml = (type) => {
     console.log(type);
     if (type === "Hotel") {
       return (
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.hotel)} fontSize="24px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
             <Controller
               name="room_type"
               control={control}
@@ -174,7 +174,7 @@ function AddForm() {
                   options={ROOMS}
                   defaultValue={{ value: "0", label: "Type of room" }}
                   {...field}
-                  onChange={e => {
+                  onChange={(e) => {
                     changeHandler(e);
                   }}
                 />
@@ -187,13 +187,8 @@ function AddForm() {
       return (
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.apartment)} fontSize="24px" className="me-3" />
-            <Form.Control
-              label="room_info"
-              type="text"
-              placeholder="Room info"
-              {...register("room_info")}
-            />
+            <Icon icon={icons.map((icon) => icon.apartment)} fontSize="24px" className="me-3" />
+            <Form.Control label="room_info" type="text" placeholder="Room info" {...register("room_info")} />
           </div>
         </Form.Group>
       );
@@ -205,16 +200,11 @@ function AddForm() {
   return (
     <>
       {submitting}
-      <StyledForm className="add-form" onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.title)} fontSize="22px" className="me-3" />
-            <Form.Control
-              label="stay_title"
-              type="text"
-              placeholder="Title"
-              {...register("title")}
-            />
+            <Icon icon={icons.map((icon) => icon.title)} fontSize="22px" className="me-3" />
+            <Form.Control label="stay_title" type="text" placeholder="Title" {...register("title")} />
             {/* {errors.title && (
               <StyledFeedbackContainer>
                 <Icon
@@ -229,13 +219,13 @@ function AddForm() {
         </Form.Group>
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.price)} fontSize="20px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.price)} fontSize="20px" className="me-3" />
             <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
           </div>
         </Form.Group>
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.hotel)} fontSize="24px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
             <Controller
               name="stay_type"
               control={control}
@@ -245,7 +235,7 @@ function AddForm() {
                   className="select"
                   options={STAYS}
                   {...field}
-                  onChange={e => {
+                  onChange={(e) => {
                     onChangeHandler(e);
                   }}
                 />
@@ -257,18 +247,13 @@ function AddForm() {
 
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.location)} fontSize="24px" className="me-3" />
-            <Form.Control
-              label="full_address"
-              type="text"
-              placeholder="Full address"
-              {...register("full_address")}
-            />
+            <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+            <Form.Control label="full_address" type="text" placeholder="Full address" {...register("full_address")} />
           </div>
         </Form.Group>
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.location)} fontSize="24px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
             <Form.Control
               label="short_description"
               type="text"
@@ -279,12 +264,12 @@ function AddForm() {
         </Form.Group>
         <Form.Group className="mt-3">
           <div className="text-area-container">
-            <Icon icon={icons.map(icon => icon.text)} fontSize="22px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
             <Form.Control
               as="textarea"
               rows={6}
               label="description"
-              onKeyUp={e => setCount(e.target.value.length)}
+              onKeyUp={(e) => setCount(e.target.value.length)}
               placeholder="Description"
               {...register("description")}
             />
@@ -293,12 +278,12 @@ function AddForm() {
         </Form.Group>
         <Form.Group className="mt-5">
           <div className="text-area-container">
-            <Icon icon={icons.map(icon => icon.text)} fontSize="22px" className="me-3" />
+            <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
             <Form.Control
               as="textarea"
               label="text"
               rows={3}
-              onKeyUp={e => setCounter(e.target.value.length)}
+              onKeyUp={(e) => setCounter(e.target.value.length)}
               type="text"
               placeholder="Nice to know"
               {...register("text")}
@@ -308,7 +293,7 @@ function AddForm() {
         </Form.Group>
         <Form.Group className="mt-5">
           <div className="text-area-container">
-            <Icon icon={icons.map(icon => icon.star)} fontSize="22px" className="me-3 mt-3" />
+            <Icon icon={icons.map((icon) => icon.star)} fontSize="22px" className="me-3 mt-3" />
             <Controller
               name="stars"
               control={control}
@@ -326,7 +311,7 @@ function AddForm() {
         </Form.Group>
         <hr />
         <div className="d-flex">
-          <Icon icon={icons.map(icon => icon.heart)} fontSize="18px" className="me-3" />
+          <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
           <Heading size="3">Keywords</Heading>
         </div>
         <div className="checkboxes mb-5">
@@ -340,56 +325,36 @@ function AddForm() {
         </div>
         <hr />
         <div className="d-flex">
-          <Icon icon={icons.map(icon => icon.heart)} fontSize="18px" className="me-3" />
+          <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
           <Heading size="3">Nice to know</Heading>
         </div>
         <div className="checkboxes mb-5">
           <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
-          <Form.Check
-            name="handicap_friendly"
-            label="Handicap friendly"
-            {...register("handicap_friendly")}
-          />
+          <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
         </div>
         <div className="d-flex align-items-center  mb-5 mt-4">
-          <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
+          <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
           <Form.Group className="mt-3 me-5">
-            <Form.Control
-              label="check_in"
-              type="text"
-              placeholder="check in"
-              {...register("check_in")}
-            />
+            <Form.Control label="check_in" type="text" placeholder="check in" {...register("check_in")} />
           </Form.Group>
-          <Icon icon={icons.map(icon => icon.checkout)} fontSize="18px" className="me-3" />
+          <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
           <Form.Group className="mt-3">
-            <Form.Control
-              label="checkout"
-              type="text"
-              placeholder="checkout"
-              {...register("checkout")}
-            />
+            <Form.Control label="checkout" type="text" placeholder="checkout" {...register("checkout")} />
           </Form.Group>
         </div>
         <hr />
         <div className="d-flex mb-5">
-          <Icon icon={icons.map(icon => icon.images)} fontSize="26px" className="me-3" />
+          <Icon icon={icons.map((icon) => icon.images)} fontSize="26px" className="me-3" />
           <Heading size="3">Images</Heading>
         </div>
         {/* FØRSTE BILDE */}
         <div className="d-flex flex-column align-items-center mt-4">
           <StyledImageContainer>
             {img1 ? (
-              <Image
-                src={img1}
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                {...register("images")}
-              />
+              <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
             ) : (
               <div className="img-placeholder">
-                <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="white" />
+                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
               </div>
             )}
           </StyledImageContainer>
@@ -399,7 +364,7 @@ function AddForm() {
             type="file"
             name="image_1"
             ref={imgUpload1}
-            onChange={e => setImg1(URL.createObjectURL(e.target.files[0]))}
+            onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
             style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
@@ -409,16 +374,10 @@ function AddForm() {
         <div className="d-flex flex-column align-items-center mt-4">
           <StyledImageContainer>
             {img2 ? (
-              <Image
-                src={img2}
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                {...register("images")}
-              />
+              <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
             ) : (
               <div className="img-placeholder">
-                <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="white" />
+                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
               </div>
             )}
           </StyledImageContainer>
@@ -428,7 +387,7 @@ function AddForm() {
             type="file"
             name="image_2"
             ref={imgUpload2}
-            onChange={e => setImg2(URL.createObjectURL(e.target.files[0]))}
+            onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
             style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
@@ -438,16 +397,10 @@ function AddForm() {
         <div className="d-flex flex-column align-items-center mt-4">
           <StyledImageContainer>
             {img3 ? (
-              <Image
-                src={img3}
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                {...register("images")}
-              />
+              <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
             ) : (
               <div className="img-placeholder">
-                <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="white" />
+                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
               </div>
             )}
           </StyledImageContainer>
@@ -457,7 +410,7 @@ function AddForm() {
             type="file"
             name="image_3"
             ref={imgUpload3}
-            onChange={e => setImg3(URL.createObjectURL(e.target.files[0]))}
+            onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
             style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
@@ -467,16 +420,10 @@ function AddForm() {
         <div className="d-flex flex-column align-items-center mt-4">
           <StyledImageContainer>
             {img4 ? (
-              <Image
-                src={img4}
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                {...register("images")}
-              />
+              <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
             ) : (
               <div className="img-placeholder">
-                <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="white" />
+                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
               </div>
             )}
           </StyledImageContainer>
@@ -486,7 +433,7 @@ function AddForm() {
             type="file"
             name="image_4"
             ref={imgUpload4}
-            onChange={e => setImg4(URL.createObjectURL(e.target.files[0]))}
+            onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
             style={{ opacity: "0" }}
           />
           {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
@@ -494,12 +441,7 @@ function AddForm() {
 
         <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "Adding stay.." : "Add stay"}
-          <Icon
-            icon={icons.map(icon => icon.plus)}
-            color="white"
-            fontSize="20px"
-            className="ms-12"
-          />
+          <Icon icon={icons.map((icon) => icon.plus)} color="white" fontSize="20px" className="ms-12" />
         </StyledFormButton>
       </StyledForm>
     </>

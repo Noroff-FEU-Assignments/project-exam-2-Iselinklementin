@@ -6,7 +6,7 @@ export const StyledImageContainer = styled.div`
   height: 250px;
 
   .img-placeholder {
-    background-color: ${props => props.theme.secondaryColour};
+    background-color: ${(props) => props.theme.secondaryColour};
     height: 100%;
     display: flex;
     justify-content: center;
