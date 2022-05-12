@@ -1,11 +1,13 @@
 import axios from "axios";
-import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import Icon, { icons } from "constants/icons";
 import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
-import { Button, Container, Form, ListGroup, ListGroupItem } from "react-bootstrap";
-import { SearchDropdown } from "./Searchbox.styles";
+import React, { useState, useEffect } from "react";
+import { Container, Form, ListGroup, ListGroupItem } from "react-bootstrap";
+import { StyledButtonContainer, StyledIconWrap, StyledWideContainer } from "./Searchbox.styles";
+import { useWindowSize } from "hooks/useWindowSize";
+import { SCREEN } from "constants/misc";
+import { StyledButton } from "../buttons/Button.styles";
 
 // https://www.youtube.com/watch?v=Q2aky3eeO40
 
@@ -21,6 +23,8 @@ function Search() {
     };
     loadStays();
   }, []);
+
+  const size = useWindowSize();
 
   const onSuggestionHandler = (value) => {
     setValue(value);
@@ -41,36 +45,52 @@ function Search() {
   };
 
   return (
-    <Container className="pb-4 pt-3">
-      <Form.Label>Find your favourite place to stay</Form.Label>
-      <br />
-      <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
-      <Form.Control
-        type="text"
-        placeholder="Search stays"
-        aria-describedby="search"
-        onChange={(e) => {
-          onChangeHandler(e.target.value);
-        }}
-        value={value}
-        onBlur={() => {
-          setTimeout(() => {
-            setSuggestions([]);
-          }, 100);
-        }}
-      />
+    <StyledWideContainer>
+      <Container className="pb-4 pt-3">
+        <StyledIconWrap>
+          <Form.Label>Find your favourite place to stay</Form.Label>
+          <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
+        </StyledIconWrap>
 
-      <ListGroup>
-        {suggestions &&
-          suggestions.map((suggestion, i) => (
-            <ListGroupItem key={i} action onClick={() => onSuggestionHandler(suggestion.acf.title)}>
-              <Link href={`stay/${suggestion.id}`}>
-                <a>{suggestion.acf.title}</a>
-              </Link>
-            </ListGroupItem>
-          ))}
-      </ListGroup>
-    </Container>
+        <Form.Control
+          type="text"
+          placeholder="Search stays"
+          aria-describedby="search"
+          onChange={(e) => {
+            onChangeHandler(e.target.value);
+          }}
+          value={value}
+          onBlur={() => {
+            setTimeout(() => {
+              setSuggestions([]);
+            }, 100);
+          }}
+        />
+
+        <ListGroup>
+          {suggestions &&
+            suggestions.map((suggestion, i) => (
+              <ListGroupItem key={i} action onClick={() => onSuggestionHandler(suggestion.acf.title)}>
+                <Link href={`stay/${suggestion.id}`}>
+                  <a>{suggestion.acf.title}</a>
+                </Link>
+              </ListGroupItem>
+            ))}
+        </ListGroup>
+      </Container>
+      {size.width >= SCREEN.tablet ? (
+        <StyledButtonContainer>
+          <Link href="/stays">
+            <StyledButton className="px-3 btn btn-primary" role="button">
+              Explore stays
+              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="16px" className="ms-2" />
+            </StyledButton>
+          </Link>
+        </StyledButtonContainer>
+      ) : (
+        ""
+      )}
+    </StyledWideContainer>
   );
 }
 

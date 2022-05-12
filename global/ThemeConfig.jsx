@@ -1,21 +1,3 @@
-import { css } from "styled-components";
-
-// eksempel på en mixin
-// eventuelt på flex-containere
-
-export const Size = ({ height, maxHeight, maxWidth, width }) => css`
-  block-size: ${height};
-  inline-size: ${width};
-  max-block-size: ${maxHeight};
-  max-inline-size: ${maxWidth};
-`;
-
-// import { Size } from 'Mixins';
-
-// const SomeComponent = styled.div`
-//   ${Size({ height: '15rem', maxWidth: '50rem', width: '100%' });
-// `;
-
 const theme = {
   primaryColour: "#FC5156",
   secondaryColour: "#301850",
@@ -34,6 +16,8 @@ export default theme;
 
 export const size = {
   mobile: "375px",
+  mobile_large: "435px",
+  small_tablet: "580px",
   tablet: "768px",
   laptop: "992px",
   desktop: "1200px",
@@ -42,13 +26,10 @@ export const size = {
 
 export const device = {
   mobile: `(min-width: ${size.mobile})`,
+  mobile_large: `(min-width: ${size.mobile_large})`,
+  small_tablet: `(min-width: ${size.small_tablet})`,
   tablet: `(min-width: ${size.tablet})`,
   laptop: `(min-width: ${size.laptop})`,
   desktop: `(min-width: ${size.desktop})`,
   desktop_large: `(min-width: ${size.desktop_large})`,
 };
-
-// export const typography = {
-//   overline: "10px",
-//   button: "14px",
-// };

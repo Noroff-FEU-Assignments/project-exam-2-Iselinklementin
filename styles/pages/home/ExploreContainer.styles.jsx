@@ -1,3 +1,4 @@
+import { device } from "global/ThemeConfig";
 import styled from "styled-components";
 
 export const ExploreContainer = styled.div`
@@ -5,6 +6,25 @@ export const ExploreContainer = styled.div`
   left: 15px;
   top: 65px;
   color: ${(props) => props.theme.light};
+
+  @media ${device.mobile_large} {
+    left: 10%;
+  }
+
+  @media ${device.small_tablet} {
+    top: 15%;
+    left: 6%;
+  }
+
+  p {
+    max-width: 230px;
+    margin-bottom: 2rem;
+    text-shadow: 2px 3px 2px #4d4c4c88;
+
+    @media ${device.laptop} {
+      max-width: 300px;
+    }
+  }
 
   h2 {
     font-size: 20px;

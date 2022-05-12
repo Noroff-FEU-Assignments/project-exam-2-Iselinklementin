@@ -7,16 +7,19 @@ import Icon, { icons } from "constants/icons";
 import { Container } from "react-bootstrap";
 import Image from "next/image";
 import IntroImg from "assets/index_img.jpg";
+import IntroImgDesktop from "assets/introimagedesktop.jpg";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import { SearchBox } from "components/common/search/Searchbox.styles";
 import { StyledButton } from "components/common/buttons/Button.styles";
-import { ExploreContainer } from "styles/pages/home/ExploreContainer.styles";
+
 import StaysCard from "components/cards/StaysCard";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
 import Head from "components/layout/Head";
 import { Intro } from "components/pages/home/Intro";
+import { ExploreBergen } from "components/pages/home/ExploreBergen";
+import { LinkStays } from "components/pages/home/LinkStays";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
@@ -32,26 +35,34 @@ export default function Home({ stays }) {
 
       {/* {size.width <= SCREEN.tablet ? ( */}
 
-      <Container className="d-flex flex-column align-items-center text-center mb-5">
-        <Heading>Welcome to Bergen</Heading>
-        <Paragraph>We in Holiday have the best places to stay, handpicked for you!</Paragraph>
-      </Container>
-
       <SearchBox className="d-flex flex-column justify-content-center mt-4 py-4">
         <Search />
       </SearchBox>
 
       <div className="position-relative">
-        <Image src={IntroImg} alt="image" layout="responsive" objectFit="cover" priority />
-        <ExploreContainer>
-          <Heading size="2">We in Holiday have the best places to stay, handpicked for you!</Heading>
-          <Link href="/stays">
-            <StyledButton className="px-3 btn btn-primary" role="button">
-              Explore stays
-              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="14px" className="ms-2 mt-1" />
-            </StyledButton>
-          </Link>
-        </ExploreContainer>
+        {size.width <= SCREEN.small_tablet ? (
+          <>
+            <Image
+              src={IntroImg}
+              alt="Girl standing on a mountain near Bergen"
+              layout="responsive"
+              objectFit="cover"
+              priority
+            />
+            <ExploreBergen />
+          </>
+        ) : (
+          <Container className="mt-5 position-relative" style={{ height: "400px", maxWidth: "960px" }}>
+            <Image
+              src={IntroImgDesktop}
+              alt="Girl standing on a mountain near Bergen"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+            <ExploreBergen />
+          </Container>
+        )}
       </div>
 
       {/* Dette må gjøres bedre:  */}
@@ -66,41 +77,7 @@ export default function Home({ stays }) {
       
       <Link href="/dashboard?from=loginPage" as="/dashboard" />*/}
 
-      <Container className="mt-5">
-        <div className="border p-3">
-          <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.hotel)} />
-            <Heading size="3" fontSize="18px" className="ms-2">
-              Hotels
-            </Heading>
-          </div>
-          <Paragraph>We work hard to find the best local places.</Paragraph>
-        </div>
-      </Container>
-
-      <Container className="mt-4">
-        <div className="border p-3">
-          <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.apartment)} />
-            <Heading size="3" fontSize="18px" className="ms-2 ">
-              Apartments
-            </Heading>
-          </div>
-          <Paragraph>We work hard to find the best local places.</Paragraph>
-        </div>
-      </Container>
-
-      <Container className="mt-4">
-        <div className="border p-3">
-          <div className="d-flex mb-1">
-            <Icon icon={icons.map((icon) => icon.bed)} />
-            <Heading size="3" fontSize="18px" className="ms-2">
-              Bed & Breakfast
-            </Heading>
-          </div>
-          <Paragraph>We work hard to find the best local places.</Paragraph>
-        </div>
-      </Container>
+      <LinkStays />
 
       {/* Inspiration  */}
       <Container className="mt-5">
