@@ -85,9 +85,6 @@ export default function Enquires() {
                   <Paragraph>
                     <span>Name:</span> {item.acf.name}
                   </Paragraph>
-                  <Paragraph className="paragraph-margin">
-                    <span>Email:</span> {item.acf.email}
-                  </Paragraph>
                   <Paragraph>
                     <span>Phone:</span> {item.acf.phone}
                   </Paragraph>
@@ -108,6 +105,10 @@ export default function Enquires() {
 
                   <Paragraph className="paragraph-margin">
                     <span>Comments:</span> {item.acf.comments}
+                  </Paragraph>
+
+                  <Paragraph className="paragraph-margin">
+                    <span>Email:</span> {item.acf.email}
                   </Paragraph>
                 </div>
               </Accordion.Body>

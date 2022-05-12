@@ -80,6 +80,22 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
 
 https://stackoverflow.com/questions/63406435/how-to-detect-window-size-in-next-js-ssr-using-react-hook
 
+https://github.com/react-icons/react-icons/issues/509
+
+---
+
+react-icons (modules)
+changed:  
+"main": "lib",
+"types": "./lib/esm/index.d.ts",
+
+to:
+"main": "lib/cjs/index.js",
+"module": "lib/esm/index.js",
+"types": "lib/esm/index.d.ts",
+
+---
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

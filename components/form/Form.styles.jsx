@@ -1,18 +1,23 @@
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Form, FormCheck } from "react-bootstrap";
 import styled from "styled-components";
 // noe av denne koden er 2 ganger
 // også i searchfunksjonen
 
 export const StyledForm = styled(Form)`
-  input {
+  input[type="text"] {
     border-radius: 6px;
     height: 50px;
     background: white;
+
+    :focus {
+      border-color: #fc5156;
+      box-shadow: 0 0 0 0.05rem rgb(252 81 86 / 25%);
+    }
   }
 
   input::placeholder {
     font-size: 14px;
-    color: ${props => props.theme.body};
+    color: ${(props) => props.theme.body};
     opacity: 0.8;
   }
 
@@ -24,13 +29,44 @@ export const StyledForm = styled(Form)`
     width: 100%;
     border-radius: 6px;
 
-    .css-1s2u09g-control,
-    .css-319lph-ValueContainer {
+    :focus-visible {
+      outline-color: #fc5156;
+    }
+
+    input:focus {
+      box-shadow: none;
+    }
+
+    .react-select__value-container:focus-visible,
+    .react-select__indicators,
+    .react-select__control--is-focused,
+    .react-select__control--menu-is-open,
+    .react-.react-select__value-container,
+    .react-select__control {
       height: 50px;
     }
 
-    .css-qc6sy-singleValue {
-      height: 35px;
+    .react-select__single-value {
+      height: 22px;
+      line-height: 10px;
+      overflow: unset;
+    }
+
+    .react-select__control--is-focused,
+    .react-select__control--menu-is-open {
+      border-color: #fc5156;
+      box-shadow: 0 0 0 1px rgb(252 81 86 / 25%);
+    }
+
+    .react-select__menu {
+      .react-select__option--is-selected {
+        background: #fc5156;
+      }
+
+      .react-select__option--is-focused {
+        background: #fdc2c2;
+        color: ${(props) => props.theme.body};
+      }
     }
   }
 
@@ -42,7 +78,7 @@ export const StyledForm = styled(Form)`
 
     .form-control::placeholder {
       font-size: 14px;
-      color: ${props => props.theme.body};
+      color: ${(props) => props.theme.body};
       opacity: 0.8;
     }
 
@@ -56,14 +92,23 @@ export const StyledForm = styled(Form)`
   }
 
   .checkboxes {
+    .form-check-input:checked {
+      background-color: #fc5156;
+      border-color: #fc5156;
+    }
+    input[type="checkbox"] {
+      height: 20px;
+      width: 20px;
+      :focus {
+        border-color: #fc5156;
+        box-shadow: 0 0 0 0.25rem rgb(252 81 86 / 25%);
+      }
+    }
+
     .form-check {
       margin: 1rem 0 1rem 0;
     }
 
-    input {
-      height: 20px;
-      width: 20px;
-    }
     label {
       margin-left: 1rem;
     }
@@ -75,7 +120,7 @@ export const StyledFeedbackContainer = styled.div`
 
   .alert-primary {
     background-color: transparent;
-    color: ${props => props.theme.error};
+    color: ${(props) => props.theme.error};
     padding: 0 0 0 2.9rem;
     border: none;
     font-size: 14px;
@@ -94,6 +139,6 @@ export const StyledFeedbackContainer = styled.div`
 
 export const WrongInput = styled(Alert)`
   background-color: transparent;
-  color: ${props => props.theme.error};
+  color: ${(props) => props.theme.error};
   border: none;
 `;

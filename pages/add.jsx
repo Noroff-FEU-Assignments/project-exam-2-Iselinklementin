@@ -4,17 +4,22 @@ import Head from "components/layout/Head";
 import { Container } from "react-bootstrap";
 import AddForm from "components/form/AddForm";
 import Heading from "components/typography/Heading";
+import styled from "styled-components";
+
+const StyledContainer = styled(Container)`
+  max-width: 960px;
+`;
 
 function add() {
   return (
     <Layout>
       <Head title="Add new stay" />
-      <Container className="p-4 mb-4">
-        <Heading className="mt-3" size="1">
+      <StyledContainer className="p-4 mb-4">
+        <Heading className="mt-5" size="1">
           Create stay
         </Heading>
         <AddForm className="mt-5" />
-      </Container>
+      </StyledContainer>
     </Layout>
   );
 }

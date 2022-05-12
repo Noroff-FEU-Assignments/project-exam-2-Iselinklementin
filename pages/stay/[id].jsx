@@ -13,6 +13,7 @@ import styled from "styled-components";
 import Select from "react-select";
 import { StyledMobileButton } from "components/common/buttons/Button.styles";
 import ShowIcons from "components/icons/ShowIcons";
+import { StyledSelect } from "components/form/StyledSelect";
 // import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
 
 const StyledRoomContainer = styled.div`
@@ -37,7 +38,7 @@ export function HotelOptions(options, stay) {
   return (
     <div>
       <p>{roomOption}</p>
-      <Select options={options} onChange={handleInput} />
+      <StyledSelect options={options} className="select" classNamePrefix="react-select" onChange={handleInput} />
       <Link href={{ pathname: `/enquire/${stay.id}`, query: { room: roomOption } }} className="mt-4">
         <StyledMobileButton className="btn primary-btn mt-4" role="button">
           <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-2" />
@@ -107,8 +108,6 @@ export default function stay({ stay }) {
         {/* Heading */}
         <div className="d-flex justify-content-between align-items-center mt-4">
           <Heading>{stay.acf.title}</Heading>
-          {/* <SmallEnquireBtn id=`${stay.id}` /> */}
-          {/* {SmallEnquireBtn(stay.id, stay.acf.room.stay_type)} */}
         </div>
 
         <Paragraph>{stay.acf.room.stay_type}</Paragraph>

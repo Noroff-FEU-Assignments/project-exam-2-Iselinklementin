@@ -13,8 +13,37 @@ import { Form } from "react-bootstrap";
 import Heading from "components/typography/Heading";
 import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
-import { UploadLabel } from "components/common/buttons/FileUploader";
-import { StyledImageContainer } from "styles/pages/admin/Add/StyledImageContainer";
+import { StyledImageContainer, UploadLabel } from "styles/pages/admin/Add/StyledImageContainer";
+import styled from "styled-components";
+import { device } from "global/ThemeConfig";
+
+const StyledImageWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media ${device.tablet} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+  }
+`;
+
+const StyledFormWrap = styled.div`
+  @media ${device.tablet} {
+    width: 45%;
+  }
+`;
+
+const StyledFormWrapDesktop = styled.div`
+  @media ${device.tablet} {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+`;
 
 function AddForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -170,6 +199,7 @@ function AddForm() {
               render={({ field }) => (
                 <Select
                   name="room_type"
+                  classNamePrefix="react-select"
                   className="select"
                   options={ROOMS}
                   defaultValue={{ value: "0", label: "Type of room" }}
@@ -201,11 +231,13 @@ function AddForm() {
     <>
       {submitting}
       <StyledForm className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.title)} fontSize="22px" className="me-3" />
-            <Form.Control label="stay_title" type="text" placeholder="Title" {...register("title")} />
-            {/* {errors.title && (
+        <StyledFormWrapDesktop>
+          <StyledFormWrap>
+            <Form.Group className="mt-3">
+              <div className="d-flex align-items-center">
+                <Icon icon={icons.map((icon) => icon.title)} fontSize="22px" className="me-3" />
+                <Form.Control label="stay_title" type="text" placeholder="Title" {...register("title")} />
+                {/* {errors.title && (
               <StyledFeedbackContainer>
                 <Icon
                   icon={icons.map(icon => icon.error)}
@@ -215,229 +247,254 @@ function AddForm() {
                 <Alertbox className="mt-2">{errors.title.message}</Alertbox>
               </StyledFeedbackContainer>
             )} */}
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.price)} fontSize="20px" className="me-3" />
-            <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
-            <Controller
-              name="stay_type"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  defaultValue={{ value: "0", label: "Stay type" }}
-                  className="select"
-                  options={STAYS}
-                  {...field}
-                  onChange={(e) => {
-                    onChangeHandler(e);
-                  }}
-                />
-              )}
-            />
-          </div>
-        </Form.Group>
-        {createHtml(type)}
+              </div>
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <div className="d-flex align-items-center">
+                <Icon icon={icons.map((icon) => icon.price)} fontSize="20px" className="me-3" />
+                <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
+              </div>
+            </Form.Group>
 
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
-            <Form.Control label="full_address" type="text" placeholder="Full address" {...register("full_address")} />
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
-            <Form.Control
-              label="short_description"
-              type="text"
-              placeholder="Location"
-              {...register("short_description")}
-            />
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <div className="text-area-container">
-            <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
-            <Form.Control
-              as="textarea"
-              rows={6}
-              label="description"
-              onKeyUp={(e) => setCount(e.target.value.length)}
-              placeholder="Description"
-              {...register("description")}
-            />
-            <span className="counter">{count}/20</span>
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-5">
-          <div className="text-area-container">
-            <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
-            <Form.Control
-              as="textarea"
-              label="text"
-              rows={3}
-              onKeyUp={(e) => setCounter(e.target.value.length)}
-              type="text"
-              placeholder="Nice to know"
-              {...register("text")}
-            />
-            <span className="counter">{counter}/20</span>
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-5">
-          <div className="text-area-container">
-            <Icon icon={icons.map((icon) => icon.star)} fontSize="22px" className="me-3 mt-3" />
-            <Controller
-              name="stars"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  className="select"
-                  name="stars"
-                  options={REVIEW}
-                  defaultValue={{ value: "0", label: "Review" }}
-                  {...field}
+            <Form.Group className="mt-3">
+              <div className="d-flex align-items-center">
+                <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
+                <Controller
+                  name="stay_type"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      // menuIsOpen={true}
+                      defaultValue={{ value: "0", label: "Stay type" }}
+                      className="select"
+                      classNamePrefix="react-select"
+                      options={STAYS}
+                      {...field}
+                      onChange={(e) => {
+                        onChangeHandler(e);
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
-          </div>
-        </Form.Group>
-        <hr />
-        <div className="d-flex">
-          <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-          <Heading size="3">Keywords</Heading>
-        </div>
-        <div className="checkboxes mb-5">
-          <Form.Check name="featured" label="Featured" {...register("featured")} />
-          <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
-          <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
-          <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
-          <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
-          <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
-          <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
-        </div>
-        <hr />
-        <div className="d-flex">
-          <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-          <Heading size="3">Nice to know</Heading>
-        </div>
-        <div className="checkboxes mb-5">
-          <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
-          <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
-        </div>
-        <div className="d-flex align-items-center  mb-5 mt-4">
-          <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
-          <Form.Group className="mt-3 me-5">
-            <Form.Control label="check_in" type="text" placeholder="check in" {...register("check_in")} />
-          </Form.Group>
-          <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
-          <Form.Group className="mt-3">
-            <Form.Control label="checkout" type="text" placeholder="checkout" {...register("checkout")} />
-          </Form.Group>
-        </div>
-        <hr />
+              </div>
+            </Form.Group>
+
+            {createHtml(type)}
+
+            <Form.Group className="mt-3">
+              <div className="d-flex align-items-center">
+                <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+                <Form.Control
+                  label="full_address"
+                  type="text"
+                  placeholder="Full address"
+                  {...register("full_address")}
+                />
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mt-3">
+              <div className="d-flex align-items-center">
+                <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+                <Form.Control
+                  label="short_description"
+                  type="text"
+                  placeholder="Location"
+                  {...register("short_description")}
+                />
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mt-3">
+              <div className="text-area-container">
+                <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                <Form.Control
+                  as="textarea"
+                  rows={6}
+                  label="description"
+                  onKeyUp={(e) => setCount(e.target.value.length)}
+                  placeholder="Description"
+                  {...register("description")}
+                />
+                <span className="counter">{count}/20</span>
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mt-5">
+              <div className="text-area-container">
+                <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                <Form.Control
+                  as="textarea"
+                  label="text"
+                  rows={3}
+                  onKeyUp={(e) => setCounter(e.target.value.length)}
+                  type="text"
+                  placeholder="Nice to know"
+                  {...register("text")}
+                />
+                <span className="counter">{counter}/20</span>
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mt-5">
+              <div className="text-area-container">
+                <Icon icon={icons.map((icon) => icon.star)} fontSize="22px" className="me-3 mt-3" />
+                <Controller
+                  name="stars"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      className="select"
+                      classNamePrefix="react-select"
+                      name="stars"
+                      options={REVIEW}
+                      defaultValue={{ value: "0", label: "Review" }}
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </Form.Group>
+          </StyledFormWrap>
+
+          <hr className="mb-5 mt-5 d-md-none" />
+
+          <StyledFormWrap>
+            <div className="d-flex">
+              <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
+              <Heading size="3">Keywords</Heading>
+            </div>
+            <div className="checkboxes">
+              <Form.Check name="featured" label="Featured" {...register("featured")} />
+              <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
+              <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
+              <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
+              <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
+              <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
+              <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
+            </div>
+            <hr className="mb-5 mt-5" />
+            <div className="d-flex">
+              <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
+              <Heading size="3">Nice to know</Heading>
+            </div>
+            <div className="checkboxes mb-5">
+              <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
+              <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
+            </div>
+            <div className="d-flex align-items-center  mb-5 mt-4">
+              <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+              <Form.Group className="mt-3 me-5">
+                <Form.Control label="check_in" type="text" placeholder="check in" {...register("check_in")} />
+              </Form.Group>
+              <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+              <Form.Group className="mt-3">
+                <Form.Control label="checkout" type="text" placeholder="checkout" {...register("checkout")} />
+              </Form.Group>
+            </div>
+          </StyledFormWrap>
+        </StyledFormWrapDesktop>
+
+        <hr className="mb-5" />
+
         <div className="d-flex mb-5">
           <Icon icon={icons.map((icon) => icon.images)} fontSize="26px" className="me-3" />
           <Heading size="3">Images</Heading>
         </div>
-        {/* FØRSTE BILDE */}
-        <div className="d-flex flex-column align-items-center mt-4">
-          <StyledImageContainer>
-            {img1 ? (
-              <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-            ) : (
-              <div className="img-placeholder">
-                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
-              </div>
-            )}
-          </StyledImageContainer>
-          <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
-          <Form.Control
-            id="imgUpload1"
-            type="file"
-            name="image_1"
-            ref={imgUpload1}
-            onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
-            style={{ opacity: "0" }}
-          />
-          {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
-        </div>
 
-        {/* ANDRE BILDE */}
-        <div className="d-flex flex-column align-items-center mt-4">
-          <StyledImageContainer>
-            {img2 ? (
-              <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-            ) : (
-              <div className="img-placeholder">
-                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
-              </div>
-            )}
-          </StyledImageContainer>
-          <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
-          <Form.Control
-            id="imgUpload2"
-            type="file"
-            name="image_2"
-            ref={imgUpload2}
-            onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
-            style={{ opacity: "0" }}
-          />
-          {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
-        </div>
+        <StyledImageWrap>
+          {/* FØRSTE BILDE */}
+          <div style={{ width: "220px" }}>
+            <StyledImageContainer>
+              {img1 ? (
+                <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload1"
+              type="file"
+              name="image_1"
+              ref={imgUpload1}
+              onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+            {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
+          </div>
 
-        {/* TREDJE BILDE */}
-        <div className="d-flex flex-column align-items-center mt-4">
-          <StyledImageContainer>
-            {img3 ? (
-              <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-            ) : (
-              <div className="img-placeholder">
-                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
-              </div>
-            )}
-          </StyledImageContainer>
-          <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
-          <Form.Control
-            id="imgUpload3"
-            type="file"
-            name="image_3"
-            ref={imgUpload3}
-            onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
-            style={{ opacity: "0" }}
-          />
-          {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
-        </div>
+          {/* ANDRE BILDE */}
+          <div style={{ width: "220px" }}>
+            <StyledImageContainer>
+              {img2 ? (
+                <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload2"
+              type="file"
+              name="image_2"
+              ref={imgUpload2}
+              onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+            {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
+          </div>
 
-        {/* FJERDE BILDE */}
-        <div className="d-flex flex-column align-items-center mt-4">
-          <StyledImageContainer>
-            {img4 ? (
-              <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-            ) : (
-              <div className="img-placeholder">
-                <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="white" />
-              </div>
-            )}
-          </StyledImageContainer>
-          <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
-          <Form.Control
-            id="imgUpload4"
-            type="file"
-            name="image_4"
-            ref={imgUpload4}
-            onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
-            style={{ opacity: "0" }}
-          />
-          {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
-        </div>
+          {/* TREDJE BILDE */}
+          <div style={{ width: "220px" }}>
+            <StyledImageContainer>
+              {img3 ? (
+                <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload3"
+              type="file"
+              name="image_3"
+              ref={imgUpload3}
+              onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+            {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
+          </div>
+
+          {/* FJERDE BILDE */}
+          <div style={{ width: "220px" }}>
+            <StyledImageContainer>
+              {img4 ? (
+                <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload4"
+              type="file"
+              name="image_4"
+              ref={imgUpload4}
+              onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+            {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
+          </div>
+        </StyledImageWrap>
 
         <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "Adding stay.." : "Add stay"}
@@ -449,15 +506,3 @@ function AddForm() {
 }
 
 export default AddForm;
-
-// console.log(imgArray);
-
-// await http.post(MEDIA_URL, formData3).then(response => {
-//   const thisID = response.data.id;
-//   // console.log(thisID);
-// });
-
-// await http.post(MEDIA_URL, formData4).then(response => {
-//   const thisID = response.data.id;
-//   // console.log(thisID);
-// });

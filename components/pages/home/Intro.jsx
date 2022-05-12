@@ -57,8 +57,11 @@ const StyledIntroContainer = styled.div`
   margin-top: -2.8rem;
 
   @media ${device.mobile_large} {
-    width: 600px;
     margin-top: -1.9rem;
+  }
+
+  @media ${device.laptop} {
+    width: 600px;
   }
 
   p {

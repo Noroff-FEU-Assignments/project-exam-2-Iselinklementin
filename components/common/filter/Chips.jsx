@@ -3,6 +3,8 @@ import React, { useRef, useState } from "react";
 import Icon, { icons } from "constants/icons";
 import { StyledFilter } from "./StyledFilter.styles";
 import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
+import styled from "styled-components";
+import Heading from "components/typography/Heading";
 
 export const Chips = ({ clicked }) => {
   const [activeButton, setActiveButton] = useState("active");
@@ -51,27 +53,37 @@ export const Chips = ({ clicked }) => {
     "pet_friendly",
   ];
 
+  const StyledHeading = styled(Heading)`
+    font-size: 16px;
+  `;
+
   return (
     <>
-      <StyledFilter onClick={clicked}>
-        {buttons.map((btnName) => {
-          let removeLine = btnName.replace("_", " ");
-          let newBtnName = CapitalizeFirstLetter(removeLine);
-          return (
-            <button
-              key={btnName}
-              name={btnName}
-              className={activeButton === btnName ? `me-2 mt-3 active` : "me-2 mt-3"}
-              onClick={(e) => {
-                clickedButtonHandler(btnName);
-                checkClick(e.target);
-              }}
-            >
-              {ShowIcon(btnName)}
-              {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
-            </button>
-          );
-        })}
+      <StyledFilter onClick={clicked} className="mt-5 mt-md-0 ms-md-5">
+        <div className="filter-tablet">
+          <div className="d-flex mb-3">
+            <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
+            <StyledHeading size="3">Keywords</StyledHeading>
+          </div>
+          {buttons.map((btnName) => {
+            let removeLine = btnName.replace("_", " ");
+            let newBtnName = CapitalizeFirstLetter(removeLine);
+            return (
+              <button
+                key={btnName}
+                name={btnName}
+                className={activeButton === btnName ? `me-2 mt-2 active` : "me-2 mt-2"}
+                onClick={(e) => {
+                  clickedButtonHandler(btnName);
+                  checkClick(e.target);
+                }}
+              >
+                {ShowIcon(btnName)}
+                {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
+              </button>
+            );
+          })}
+        </div>
       </StyledFilter>
     </>
   );

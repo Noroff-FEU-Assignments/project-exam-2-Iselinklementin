@@ -2,14 +2,23 @@ import React, { useRef, useState, createRef } from "react";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
-import { Container, Form } from "react-bootstrap";
+
 import Paragraph from "components/typography/Paragraph";
 import Icon, { icons } from "constants/icons";
 import { getStays } from "lib/getStays";
 import StaysCard from "components/cards/StaysCard";
-import { StyledFilter, StyledFilterBtn, StyledFilterButton } from "components/common/filter/StyledFilter.styles";
+import {
+  StayHeading,
+  StyledContainer,
+  StyledFilter,
+  StyledFilterBtn,
+  StyledFilterWrap,
+} from "components/common/filter/StyledFilter.styles";
 import { Chips } from "components/common/filter/Chips";
-import { StyledHeadingH1 } from "components/typography/StyledHeading.styles";
+import { Rating } from "components/common/filter/Rating";
+import { useWindowSize } from "hooks/useWindowSize";
+import { SCREEN } from "constants/misc";
+import { Container } from "react-bootstrap";
 
 function stays({ stays }) {
   const [show, setShow] = useState(false);
@@ -17,26 +26,7 @@ function stays({ stays }) {
   const [filterRating, setFilterRating] = useState([]);
   const [activeStay, setActiveStay] = useState(true);
 
-  // const chipsContainer = createRef();
-
-  let Rating = () => {
-    return (
-      <div className="rating-container">
-        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
-          <Form.Check type="radio" name="stars" />3 stars
-        </Form.Label>
-
-        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
-          <Form.Check type="radio" name="stars" />4 stars
-        </Form.Label>
-
-        <Form.Label className="d-flex" onClick={(e) => handleRadio(e.target)}>
-          <Form.Check type="radio" name="stars" />5 stars
-        </Form.Label>
-      </div>
-    );
-  };
-
+  const size = useWindowSize();
   let chipsfilter = [];
   let ratingfilter = [];
 
@@ -69,6 +59,7 @@ function stays({ stays }) {
   };
 
   const handleRadio = (e) => {
+    console.log(e);
     if (e.innerText.length) {
       ratingFilter(e.innerText);
     }
@@ -101,44 +92,62 @@ function stays({ stays }) {
   return (
     <Layout>
       <Head title="Stays" />
-      <Container className="py-4">
-        <StyledHeadingH1 className="mt-3" size="1">
+      <StyledContainer className="py-4">
+        <StayHeading className="mt-3" size="1" style={{ maxWidth: "200px" }}>
           Book a stay with free cancellation <span style={{ color: "#FC5156" }}>- apply now!</span>
-        </StyledHeadingH1>
+        </StayHeading>
 
-        <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
-          <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
-          <Paragraph>Filter search</Paragraph>
-        </StyledFilterBtn>
+        {size.width <= SCREEN.tablet ? (
+          <>
+            <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
+              <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
+              <Paragraph>Filter search</Paragraph>
+            </StyledFilterBtn>
 
-        <StyledFilter>
-          <div className={show ? "filter-container" : "filter-container hidden"}>
-            <Rating />
-            <hr />
-            <Chips clicked={(e) => onClick(e.target)} />
+            <StyledFilter>
+              <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips clicked={(e) => onClick(e.target)} />
 
-            <div className="results-btn-container">
-              <div
-                className="clear"
-                role="button"
-                onClick={() => {
-                  setFilterChips([]);
-                  setFilterRating([]);
-                }}
-              >
-                Clear all
+                <div className="results-btn-container">
+                  <div
+                    className="clear"
+                    role="button"
+                    onClick={() => {
+                      setFilterChips([]);
+                      setFilterRating([]);
+                    }}
+                  >
+                    Clear all
+                  </div>
+
+                  <div role="button" className="results">
+                    Show results
+                  </div>
+                </div>
               </div>
+            </StyledFilter>
+          </>
+        ) : (
+          <>
+            <Container>
+              <StyledFilterBtn className="d-flex mb-4 mt-5">
+                {/* <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" /> */}
+                <Paragraph>Filter search</Paragraph>
+                <div className="line"></div>
+              </StyledFilterBtn>
 
-              <div role="button" className="results">
-                Show results
-              </div>
-            </div>
-          </div>
-        </StyledFilter>
+              <StyledFilterWrap>
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips clicked={(e) => onClick(e.target)} />
+              </StyledFilterWrap>
+            </Container>
+          </>
+        )}
 
         <hr className="mb-5" />
         <CreateHtml />
-      </Container>
+      </StyledContainer>
     </Layout>
   );
 }
