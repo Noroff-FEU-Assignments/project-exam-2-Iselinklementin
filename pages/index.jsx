@@ -1,40 +1,30 @@
-import Layout from "components/layout/Layout";
-import { useState } from "react";
-import { getStays } from "lib/getStays";
-import Link from "next/link";
-import Search from "components/common/search/Search";
-import Icon, { icons } from "constants/icons";
-import { Container } from "react-bootstrap";
-import Image from "next/image";
-import IntroImg from "assets/index_img.jpg";
-import IntroImgDesktop from "assets/introimagedesktop.jpg";
-import Heading from "components/typography/Heading";
-import Paragraph from "components/typography/Paragraph";
-import { SearchBox } from "components/common/search/Searchbox.styles";
-import { StyledButton } from "components/common/buttons/Button.styles";
-
-import StaysCard from "components/cards/StaysCard";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
-import Head from "components/layout/Head";
+import { useState } from "react";
+import { getStays } from "lib/getStays";
 import { Intro } from "components/pages/home/Intro";
 import { ExploreBergen } from "components/pages/home/ExploreBergen";
 import { LinkStays } from "components/pages/home/LinkStays";
+import { SearchBox } from "components/common/search/Searchbox.styles";
+import { Container } from "react-bootstrap";
+import Image from "next/image";
+import Search from "components/common/search/Search";
+import IntroImg from "assets/index_img.jpg";
+import IntroImgDesktop from "assets/introimagedesktop.jpg";
+import Heading from "components/typography/Heading";
+import Layout from "components/layout/Layout";
+import StaysCard from "components/cards/StaysCard";
+import Head from "components/layout/Head";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
-  // console.log(stays);
 
   const size = useWindowSize();
 
   return (
     <Layout>
       <Head title="Holidaze" />
-
       <Intro />
-
-      {/* {size.width <= SCREEN.tablet ? ( */}
-
       <SearchBox className="d-flex flex-column justify-content-center mt-4 py-4">
         <Search />
       </SearchBox>
@@ -52,7 +42,7 @@ export default function Home({ stays }) {
             <ExploreBergen />
           </>
         ) : (
-          <Container className="mt-5 position-relative" style={{ height: "400px", maxWidth: "960px" }}>
+          <Container className="position-relative" style={{ height: "400px", maxWidth: "960px" }}>
             <Image
               src={IntroImgDesktop}
               alt="Girl standing on a mountain near Bergen"
@@ -65,7 +55,6 @@ export default function Home({ stays }) {
         )}
       </div>
 
-      {/* Dette må gjøres bedre:  */}
       {/* <Link
         to={{
           pathname: "/courses",
@@ -80,14 +69,14 @@ export default function Home({ stays }) {
       <LinkStays />
 
       {/* Inspiration  */}
-      <Container className="mt-5">
+      <Container className="mt-5" style={{ maxWidth: "960px" }}>
         <Heading size="4" fontSize="18px" className="mt-5 mb-4">
           Inspiration for your next trip
         </Heading>
         <StaysCard stays={stays} />
       </Container>
 
-      <Container>
+      <Container style={{ maxWidth: "960px" }}>
         <Heading size="4" fontSize="18px" className="mt-5 mb-4">
           Some of our popular destinations
         </Heading>

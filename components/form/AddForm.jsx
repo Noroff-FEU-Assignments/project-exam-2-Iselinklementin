@@ -14,7 +14,7 @@ import Heading from "components/typography/Heading";
 import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
 import { UploadLabel } from "components/common/buttons/FileUploader";
-import { StyledImageContainer } from "styles/pages/home/admin/Add/StyledImageContainer";
+import { StyledImageContainer } from "styles/pages/admin/Add/StyledImageContainer";
 
 function AddForm() {
   const [submitting, setSubmitting] = useState(false);

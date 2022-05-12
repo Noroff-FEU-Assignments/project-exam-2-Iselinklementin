@@ -14,7 +14,7 @@ export const StyledLinkStaysContainer = styled.div`
   max-width: 960px;
   margin: auto;
 
-  @media ${device.tablet} {
+  @media ${device.small_tablet} {
     display: flex;
     margin-top: 1.5rem;
   }
@@ -31,6 +31,15 @@ export const StyledLinkStaysContainer = styled.div`
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.2s ease-in-out;
       /* border: solid 1px ${(props) => props.theme.primaryColour}; */
+    }
+  }
+
+  .heading-container {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-top: -0.5rem;
     }
   }
 
@@ -51,7 +60,7 @@ export const LinkStays = () => {
         <Link href="/stays">
           <a>
             <div className="contain-text">
-              <div className="d-flex mb-1">
+              <div className="heading-container">
                 <Icon icon={icons.map((icon) => icon.hotel)} />
                 <Heading size="3" fontSize="18px" className="ms-2">
                   Hotels
@@ -67,7 +76,7 @@ export const LinkStays = () => {
         <Link href="/stays">
           <a>
             <div className="contain-text">
-              <div className="d-flex mb-1">
+              <div className="heading-container">
                 <Icon icon={icons.map((icon) => icon.apartment)} />
                 <Heading size="3" fontSize="18px" className="ms-2 ">
                   Apartments
@@ -83,7 +92,7 @@ export const LinkStays = () => {
         <Link href="/stays">
           <a>
             <div className="contain-text">
-              <div className="d-flex mb-1">
+              <div className="heading-container">
                 <Icon icon={icons.map((icon) => icon.bed)} />
                 <Heading size="3" fontSize="18px" className="ms-2">
                   Bed & Breakfast

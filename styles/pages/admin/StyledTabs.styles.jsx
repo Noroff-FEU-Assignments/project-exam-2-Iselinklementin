@@ -1,15 +1,37 @@
+import { device } from "global/ThemeConfig";
 import styled from "styled-components";
 
 export const StyledTabs = styled.div`
+  max-width: 960px;
+  margin: auto;
+
   .nav-link {
     color: ${(props) => props.theme.body};
+    background: ${(props) => props.theme.light};
     text-transform: uppercase;
     font-size: 14px;
+    padding: 8px 40px;
   }
 
   .nav-link.active {
     background-color: #fc5156;
     color: white;
+    border-top: ${(props) => props.theme.body} solid 1px;
+    border-left: ${(props) => props.theme.body} solid 1px;
+    border-right: ${(props) => props.theme.body} solid 1px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0.8px;
+
+    @media ${device.tablet} {
+      justify-content: flex-start;
+    }
+
+    /* border-bottom: ${(props) => props.theme.body} solid 1px; */
   }
 
   button::after {
@@ -20,4 +42,3 @@ export const StyledTabs = styled.div`
     background-image: none;
   }
 `;
-// url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")

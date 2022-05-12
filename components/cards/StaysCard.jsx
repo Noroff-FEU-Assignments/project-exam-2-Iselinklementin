@@ -1,12 +1,11 @@
-import { Container, Button, Card, Row, Col, Badge } from "react-bootstrap";
+import { Card, Row, Col, Badge } from "react-bootstrap";
 import { StyledCard } from "components/cards/StyledCard.styles";
 import Icon, { icons } from "constants/icons";
 import Image from "next/image";
-import IntroImg from "assets/index_img.jpg";
+
 import React from "react";
 import Link from "next/link";
 import CapitalizeFirstLetter from "components/common/functions/CapitalizeFirstLetter";
-import ShowIcons from "components/icons/ShowIcons";
 
 function StaysCard(props) {
   return (
@@ -24,7 +23,16 @@ function StaysCard(props) {
                   <Icon icon={icons.map((icon) => icon.location)} color="#FC5156" className="me-1" />
                   {stay.acf.address.short_description}
                 </Badge>
-                <Image variant="top" src={stay.acf.image.image_1.url} width={320} height={320} className="card-img" />
+
+                <Image
+                  variant="top"
+                  src={stay.acf.image.image_1.url}
+                  objectFit="cover"
+                  width={320}
+                  height={320}
+                  className="card-img"
+                />
+
                 <Card.Body>
                   <Card.Title>{stay.acf.title}</Card.Title>
                   <div className="rating-container mb-3">

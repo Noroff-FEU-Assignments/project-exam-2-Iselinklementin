@@ -58,12 +58,17 @@ export default function Enquires() {
         {contact.map((item) => {
           count++;
           let received = item.acf.date_received;
-          console.log(item);
 
           return (
             <Accordion.Item eventKey={count}>
               <Accordion.Header>
-                {item.acf.stay_title}
+                <div className="d-block">
+                  <Paragraph className="acc-heading">
+                    <span>{item.acf.stay_title}</span>
+                  </Paragraph>
+                  <Paragraph className="acc-heading">{item.acf.name}</Paragraph>
+                </div>
+
                 <div className="received-container">
                   <p className="date">{RemoveWords(received)}</p>
                   <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
@@ -80,7 +85,7 @@ export default function Enquires() {
                   <Paragraph>
                     <span>Name:</span> {item.acf.name}
                   </Paragraph>
-                  <Paragraph>
+                  <Paragraph className="paragraph-margin">
                     <span>Email:</span> {item.acf.email}
                   </Paragraph>
                   <Paragraph>
@@ -101,7 +106,7 @@ export default function Enquires() {
                     <span>Date:</span> {item.acf.from_date} - {item.acf.to_date}
                   </Paragraph>
 
-                  <Paragraph>
+                  <Paragraph className="paragraph-margin">
                     <span>Comments:</span> {item.acf.comments}
                   </Paragraph>
                 </div>

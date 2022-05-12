@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./ThemeConfig";
 
 const GlobalStyle = createGlobalStyle`
   #root {
@@ -27,7 +28,21 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-family: "Roboto";
+    font-size: 28px;
+    line-height: 1.3;
 
+    /* @media ${device.tablet} {
+    font-size: 34px;
+  } */
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 1.3;
+
+    /* @media ${device.tablet} {
+      font-size: 24px;
+  } */
   }
 
   a {

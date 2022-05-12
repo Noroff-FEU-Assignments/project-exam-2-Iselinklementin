@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { Card } from "react-bootstrap";
+import { device } from "global/ThemeConfig";
 
 export const StyledCard = styled(Card)`
   border: none;
   cursor: pointer;
+  min-height: 400px;
+
+  @media ${device.tablet} {
+    min-height: 375px;
+  }
 
   .card-title {
     font-family: ${(props) => props.theme.secondaryFont};

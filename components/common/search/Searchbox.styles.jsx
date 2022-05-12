@@ -17,7 +17,6 @@ export const SearchBox = styled.div`
     margin: auto;
     color: ${(props) => props.theme.body};
     background: ${(props) => props.theme.backgroundColour};
-    border-top: solid thin grey;
   }
 
   @media ${device.laptop} {

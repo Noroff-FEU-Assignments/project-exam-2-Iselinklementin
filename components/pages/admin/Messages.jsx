@@ -2,9 +2,8 @@ import axios from "axios";
 import Alertbox from "components/common/alert/AlertBox";
 import Loader from "components/common/loader/Loader";
 import { CONTACT_URL } from "constants/api";
-import { getMessages } from "lib/getMessages";
 import React, { useEffect, useState } from "react";
-import { Container, Tab, Tabs, Accordion, Spinner } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import { StyledAccordion } from "styles/pages/admin/StyledAccordion.styles";
 import Icon, { icons } from "constants/icons";
 import Paragraph from "components/typography/Paragraph";
@@ -58,20 +57,25 @@ export default function Messages() {
           return (
             <Accordion.Item eventKey={count}>
               <Accordion.Header>
-                {item.acf.title}
+                <div className="d-block">
+                  <Paragraph className="acc-heading">
+                    <span>{item.acf.name}</span>
+                  </Paragraph>
+                  <Paragraph className="acc-heading">{item.acf.title}</Paragraph>
+                </div>
+
                 <div className="received-container">
-                  <p className="date">{RemoveWords(received)}</p>
+                  <Paragraph>{RemoveWords(received)}</Paragraph>
                   <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
                 </div>
               </Accordion.Header>
+
               <Accordion.Body className="d-flex">
-                <Icon icon={icons.map((icon) => icon.chat)} className="me-3" fontSize="18px" />
                 <div className="text-container">
-                  <Paragraph className="fw-bold">{item.acf.name}</Paragraph>
                   <Paragraph>
                     <span>Message:</span> {item.acf.message}
                   </Paragraph>
-                  <Paragraph>
+                  <Paragraph className="paragraph-margin">
                     <span>Email:</span> {item.acf.email}
                   </Paragraph>
                 </div>
@@ -88,3 +92,5 @@ export default function Messages() {
 //   const messages = await getMessages();
 //   return { props: { messages } };
 // }
+
+//                 <Icon icon={icons.map((icon) => icon.chat)} className="me-3" fontSize="18px" />

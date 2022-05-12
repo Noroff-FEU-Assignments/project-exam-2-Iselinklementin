@@ -4,14 +4,13 @@ import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
-import { StyledHeadingH1, StyledHeadingH2 } from "components/typography/StyledHeading.styles";
+import { StyledHeadingH1 } from "components/typography/StyledHeading.styles";
 import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 
 export default function Enquire({ stay }) {
-  console.log(stay);
   const router = useRouter();
   const query = router.query;
   const room = query.room;
@@ -40,7 +39,7 @@ export default function Enquire({ stay }) {
         </StyledHeadingH1>
 
         <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
-        <StyledHeadingH2 size="2">Who is traveling?</StyledHeadingH2>
+        <Heading size="2">Who is traveling?</Heading>
 
         <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
       </Container>

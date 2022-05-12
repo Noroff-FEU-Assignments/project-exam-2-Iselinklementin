@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,7 +11,7 @@ import Alertbox from "components/common/alert/AlertBox";
 import { schema } from "utils/schemaValidation/loginFormSchema";
 import { StyledFeedbackContainer, StyledForm, WrongInput } from "./Form.styles";
 import Icon, { icons } from "constants/icons";
-import { StyledFormButton, StyledMobileButton } from "components/common/buttons/Button.styles";
+import { StyledFormButton } from "components/common/buttons/Button.styles";
 
 function LoginForm() {
   const [submitting, setSumbitting] = useState(false);
@@ -92,7 +92,7 @@ function LoginForm() {
           </WrongInput>
         )}
 
-        <StyledFormButton className="mt-3 mb-4 mt-5" type="submit">
+        <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "Logging in.." : "Login"}
         </StyledFormButton>
       </fieldset>

@@ -7,19 +7,33 @@ import Logo from "assets/logo.svg";
 import Stays from "assets/stays.svg";
 import Icon, { icons } from "constants/icons";
 import Link from "next/link";
-import { MenuContainer, StyledIconContainer, StyledLogoutBtn, StyledWideContainer } from "./layout.styles";
-import Footer from "./Footer";
+import {
+  MenuContainer,
+  StyledCoordinatesContainer,
+  StyledIconContainer,
+  StyledLogoutBtn,
+  StyledNav,
+  StyledWideContainer,
+} from "./layout.styles";
+import Footer from "./footer/Footer";
 import { UserMenu } from "./menu/UserMenu";
 import { CustomerMenu } from "./menu/CustomerMenu";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
-import ContactButton from "components/common/buttons/ContactButton";
+import { ContactButton } from "components/common/buttons/ContactButton";
+import Coordinates from "assets/coordinates.svg";
+import { useRouter } from "next/router";
+
+//     {size.width} <- bredde
+//     {size.height} <- høyde
 
 export default function ({ children }) {
   const [authorized, setAuthorized] = useState(false);
   const [auth, setAuth] = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
   const [activeAdmin, setActiveAdmin] = useState(false);
+  const size = useWindowSize();
+  const router = useRouter();
 
   // This removes React Hydration Error
 
@@ -32,10 +46,7 @@ export default function ({ children }) {
     router.push("/");
   }
 
-  const size = useWindowSize();
-
-  //     {size.width} <- bredde
-  //     {size.height} <- høyde
+  // Dropdown Menu Admin
 
   const DropdownMenuAdmin = () => {
     const dropdownRefAdmin = useRef(null);
@@ -70,6 +81,8 @@ export default function ({ children }) {
     );
   };
 
+  // Dropdown Menu Mobile
+
   const DropdownMenu = () => {
     const dropdownRef = useRef(null);
     const onClick = () => setIsActive(!isActive);
@@ -91,7 +104,7 @@ export default function ({ children }) {
     <>
       {size.width <= SCREEN.tablet ? (
         <>
-          <Navbar expand="lg">
+          <StyledNav expand="lg">
             <Container className="mt-3 justify-space-between">
               <DropdownMenu />
               <Navbar.Brand>
@@ -108,12 +121,15 @@ export default function ({ children }) {
                 </a>
               </Link>
             </Container>
-          </Navbar>
+          </StyledNav>
         </>
       ) : (
         <>
-          <Navbar expand="lg">
+          <StyledNav expand="lg">
             <Container className="mt-4">
+              <StyledCoordinatesContainer>
+                <Image src={Coordinates} alt="Bergen Coordinates" width="20" height="200" />
+              </StyledCoordinatesContainer>
               <Navbar.Brand>
                 <Link href="/" passHref>
                   <a>
@@ -124,27 +140,27 @@ export default function ({ children }) {
 
               <StyledWideContainer>
                 <Link href="/stays">
-                  <a className="me-3">Stays</a>
+                  <a className="me-4">Stays</a>
                 </Link>
-                <Link href="/stays">
-                  <ContactButton style="me-3" />
+                <Link href="/contact" passHref>
+                  <ContactButton style="me-4" />
                 </Link>
 
                 {authorized ? (
                   <>
                     <Link href="/admin">
-                      <a className="me-3">Admin</a>
+                      <a className="me-4">Admin</a>
                     </Link>
                     <DropdownMenuAdmin />
                   </>
                 ) : (
-                  <Link href="/stays">
-                    <a className="me-3">Login</a>
+                  <Link href="/login">
+                    <a className="me-4">Login</a>
                   </Link>
                 )}
               </StyledWideContainer>
             </Container>
-          </Navbar>
+          </StyledNav>
         </>
       )}
 

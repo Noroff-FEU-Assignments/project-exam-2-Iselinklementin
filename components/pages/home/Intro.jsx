@@ -11,8 +11,21 @@ const StyledImageIntroContainer = styled.div`
   width: 100vw;
   height: 300px;
 
-  .mountain {
-    opacity: 0.3;
+  @media ${device.mobile_large} {
+    height: 200px;
+  }
+
+  .mountain-container {
+    @media ${device.mobile_large} {
+      position: relative;
+      margin: auto;
+      height: 200px;
+      width: 600px;
+    }
+
+    .mountain {
+      opacity: 0.3;
+    }
   }
 
   .bryggen {
@@ -24,11 +37,11 @@ const StyledImageIntroContainer = styled.div`
 
     @media ${device.mobile_large} {
       width: 80%;
-      width: 400px;
+      width: 320px;
       left: 0;
       right: 0;
       margin: auto;
-      bottom: 0;
+      bottom: -4rem;
     }
   }
 `;
@@ -38,7 +51,15 @@ const StyledIntroContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 3rem;
+  border-top: solid thin grey;
+  padding-top: 3rem;
+  margin: auto;
+  margin-top: -2.8rem;
+
+  @media ${device.mobile_large} {
+    width: 600px;
+    margin-top: -1.9rem;
+  }
 
   p {
     max-width: 300px;
@@ -49,7 +70,16 @@ export const Intro = () => {
   return (
     <>
       <StyledImageIntroContainer>
-        <Image src={Mountain} alt="Mountains in the background" layout="fill" objectFit="cover" className="mountain" />
+        <div className="mountain-container">
+          <Image
+            src={Mountain}
+            alt="Mountains in the background"
+            layout="fill"
+            objectFit="cover"
+            className="mountain"
+          />
+        </div>
+
         <div className="bryggen">
           <Image src={Bryggen} alt="Bryggen in Bergen" layout="responsive" objectFit="cover" />
         </div>

@@ -15,8 +15,8 @@ export const StyledContactBtn = styled(StyledButton)`
   }
 `;
 
-function ContactButton({ style }) {
+export const ContactButton = ({ style }) => {
   return <StyledContactBtn className={style}>Contact</StyledContactBtn>;
-}
+};
 
-export default ContactButton;
+// export default ContactButton;

@@ -10,11 +10,14 @@ import Alertbox from "components/common/alert/AlertBox";
 import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
 import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
+import { useWindowSize } from "hooks/useWindowSize";
+import { SCREEN } from "constants/misc";
 
 function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [count, setCount] = useState(0);
+  const size = useWindowSize();
 
   const {
     register,
@@ -60,12 +63,12 @@ function ContactForm() {
         {/* Name  */}
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.user)} className="me-4" />
+            <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
             <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
           </div>
           {errors.name && (
             <StyledFeedbackContainer>
-              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
               <Alertbox className="mt-2">{errors.name.message}</Alertbox>
             </StyledFeedbackContainer>
           )}
@@ -74,17 +77,12 @@ function ContactForm() {
         {/* Email  */}
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.email)} fontSize="25px" className="me-4" />
-            <Form.Control
-              type="email"
-              placeholder="Email"
-              className="mt-2"
-              {...register("email")}
-            />
+            <Icon icon={icons.map((icon) => icon.email)} fontSize="25px" className="me-4" />
+            <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
           </div>
           {errors.email && (
             <StyledFeedbackContainer>
-              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
               <Alertbox className="mt-2">{errors.email.message}</Alertbox>
             </StyledFeedbackContainer>
           )}
@@ -92,18 +90,13 @@ function ContactForm() {
 
         <Form.Group className="mt-3">
           <div className="d-flex align-items-center">
-            <Icon icon={icons.map(icon => icon.text)} fontSize="25px" className="me-4" />
+            <Icon icon={icons.map((icon) => icon.text)} fontSize="25px" className="me-4" />
 
-            <Form.Control
-              type="text"
-              placeholder="Subject"
-              className="mt-2"
-              {...register("subject")}
-            />
+            <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
           </div>
           {errors.subject && (
             <StyledFeedbackContainer>
-              <Icon icon={icons.map(icon => icon.error)} color="#D11117" className="warning-icon" />
+              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
               <Alertbox className="mt-2">{errors.subject.message}</Alertbox>
             </StyledFeedbackContainer>
           )}
@@ -111,11 +104,11 @@ function ContactForm() {
 
         <Form.Group className="mt-3">
           <div className="text-area-container">
-            <Icon icon={icons.map(icon => icon.chat)} fontSize="25px" className="me-4 mt-2" />
+            <Icon icon={icons.map((icon) => icon.chat)} fontSize="25px" className="me-4 mt-2" />
             <Form.Control
               as="textarea"
               rows={6}
-              onKeyUp={e => setCount(e.target.value.length)}
+              onKeyUp={(e) => setCount(e.target.value.length)}
               placeholder="Message"
               className="mt-2"
               {...register("message")}
@@ -125,20 +118,21 @@ function ContactForm() {
 
           {errors.message && (
             <StyledFeedbackContainer>
-              <Icon
-                icon={icons.map(icon => icon.error)}
-                color="#D11117"
-                className="warning-icon text-area-icon"
-              />
+              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon text-area-icon" />
               <Alertbox className="mt-2">{errors.message.message}</Alertbox>
             </StyledFeedbackContainer>
           )}
         </Form.Group>
 
-        <StyledFormButton className="mb-4 mt-5" type="submit">
-          {submitting ? "sending.." : "Send"}
-        </StyledFormButton>
-
+        {size.width <= SCREEN.tablet ? (
+          <StyledFormButton className="mb-4 mt-5" type="submit">
+            {submitting ? "sending.." : "Send"}
+          </StyledFormButton>
+        ) : (
+          <StyledFormButton className="mb-4 mt-5 ms-5" type="submit">
+            {submitting ? "sending.." : "Send"}
+          </StyledFormButton>
+        )}
         {submitting && (
           <Alertbox type="success" className="mt-4 mb-4">
             Your message was sent

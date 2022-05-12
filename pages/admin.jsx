@@ -9,6 +9,39 @@ import Enquires from "components/pages/admin/Enquires";
 import Paragraph from "components/typography/Paragraph";
 import { AddEnquireBtn } from "components/common/buttons/AddEnqurieBtn";
 import { StyledTabs } from "styles/pages/admin/StyledTabs.styles";
+import styled from "styled-components";
+import { device } from "global/ThemeConfig";
+
+const StyledTextContainer = styled.div`
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 960px;
+  margin: auto auto 3rem auto;
+
+  p {
+    max-width: 450px;
+    margin: auto auto 2rem auto;
+  }
+
+  .add {
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  @media ${device.tablet} {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6rem;
+    margin-top: 6rem;
+    padding: 0;
+
+    p {
+      margin: initial;
+    }
+  }
+`;
 
 function admin() {
   const [value, setValue] = useState([]);
@@ -20,20 +53,25 @@ function admin() {
   return (
     <Layout>
       <Head title="Admin" />
-      <Container>
-        <div className="text-center p-2 mb-4">
-          <Heading className="mt-5" size="1">
-            Welcome Admin
-          </Heading>
+      <Container className="mt-5">
+        <StyledTextContainer>
+          <div>
+            <Heading size="1">Welcome Admin</Heading>
 
-          <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-          </Paragraph>
-          <AddEnquireBtn />
-        </div>
-        <StyledTabs className="mt-5">
-          <Tabs defaultActiveKey="messages" className="mb-3" onClick={handleClick}>
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.
+            </Paragraph>
+          </div>
+
+          <div className="text-center">
+            <AddEnquireBtn />
+            <Paragraph className="add">Add stay</Paragraph>
+          </div>
+        </StyledTextContainer>
+
+        <StyledTabs>
+          <Tabs defaultActiveKey="messages" onClick={handleClick}>
             <Tab eventKey="messages" title="Messages" value="0">
               <Messages />
             </Tab>

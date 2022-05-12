@@ -1,4 +1,11 @@
+import { device } from "global/ThemeConfig";
+import { Navbar } from "react-bootstrap";
 import styled from "styled-components";
+
+export const StyledNav = styled(Navbar)`
+  max-width: 1024px;
+  margin: auto;
+`;
 
 export const MenuContainer = styled.div`
   /* border: blue solid thin;
@@ -51,7 +58,6 @@ export const StyledIconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: red solid thin; */
 
   .userIcon {
     margin-bottom: 4px;
@@ -104,5 +110,16 @@ export const StyledWideContainer = styled.div`
     -webkit-box-shadow: 1px 3px 5px 0px darkgrey;
     -moz-box-shadow: 1px 3px 5px 0px darkgrey;
     box-shadow: 1px 3px 5px 0px darkgrey;
+  }
+`;
+
+export const StyledCoordinatesContainer = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 120px;
+  display: none;
+
+  @media ${device.desktop} {
+    left: 0;
   }
 `;

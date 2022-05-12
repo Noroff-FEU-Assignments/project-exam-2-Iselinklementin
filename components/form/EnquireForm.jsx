@@ -13,8 +13,8 @@ import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
 import DateFunction from "components/common/functions/DateFunction";
 import { StyledParagraphColoured } from "components/typography/Paragraph";
-import { StyledHeadingH2 } from "components/typography/StyledHeading.styles";
 import { RemoveLastWord } from "components/common/functions/RemoveWords";
+import Heading from "components/typography/Heading";
 
 // PHONE - må sjekke for nummer
 // TEXTAREA - skift font inni
@@ -83,9 +83,7 @@ export default function EnquireForm({ title, room, type }) {
 
       <StyledForm className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
-
         <Form.Control type="hidden" placeholder="Type" value={type} className="mt-2" {...register("stay_type")} />
-
         <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
 
         {/* Name  */}
@@ -168,7 +166,7 @@ export default function EnquireForm({ title, room, type }) {
         </Form.Group>
 
         <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
-        <StyledHeadingH2 size="2">{RemoveLastWord(today)}</StyledHeadingH2>
+        <Heading size="2">{RemoveLastWord(today)}</Heading>
 
         <div className="d-flex align-items-center mt-3 justify-content-between">
           <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
