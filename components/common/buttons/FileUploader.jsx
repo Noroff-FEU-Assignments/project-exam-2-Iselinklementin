@@ -3,7 +3,7 @@ import { Form, FormLabel } from "react-bootstrap";
 import styled from "styled-components";
 
 export const UploadLabel = styled(FormLabel)`
-  border: transparent;
+  /* border: transparent;
   background-color: ${(props) => props.theme.secondaryColour};
   color: ${(props) => props.theme.light};
   width: 230px;
@@ -12,7 +12,7 @@ export const UploadLabel = styled(FormLabel)`
   margin: 1rem 0 1rem 0;
   text-align: center;
   text-transform: uppercase;
-  padding: 10px;
+  padding: 10px; */
 `;
 
 // function FileUploader(props) {
