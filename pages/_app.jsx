@@ -5,9 +5,10 @@ import Theme from "global/ThemeConfig";
 import GlobalStyle from "global/GlobalStyle";
 import styled from "styled-components";
 import SSRProvider from "react-bootstrap/SSRProvider";
+import Footer from "components/layout/footer/Footer";
 
 const Wrapper = styled.div`
-  min-height: 100vh;
+  min-height: 71vh;
 `;
 
 function MyApp({ Component, pageProps }) {
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
           <Wrapper>
             <Component {...pageProps} />
           </Wrapper>
+          <Footer />
         </AuthProvider>
       </ThemeProvider>
     </SSRProvider>

@@ -19,7 +19,7 @@ export const CustomerMenu = () => {
       <Link href="/contact">
         <a className="d-flex align-items-center my-2">
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="17px" />
+            <Icon icon={icons.map(icon => icon.email)} fontSize="17px" />
           </StyledIconContainer>
           Contact us
         </a>
@@ -28,7 +28,7 @@ export const CustomerMenu = () => {
       <Link href="/login">
         <a className="d-flex align-items-center my-2">
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="userIcon" />
+            <Icon icon={icons.map(icon => icon.user)} fontSize="16px" className="userIcon" />
           </StyledIconContainer>
           Login
         </a>

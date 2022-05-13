@@ -8,7 +8,7 @@ import Paragraph from "components/typography/Paragraph";
 
 const StyledImageIntroContainer = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 300px;
 
   @media ${device.mobile_large} {
@@ -88,7 +88,7 @@ export const Intro = () => {
         </div>
       </StyledImageIntroContainer>
       <StyledIntroContainer>
-        <Heading>Welcome to Bergen</Heading>
+        <Heading size="1">Welcome to Bergen</Heading>
         <Paragraph>We in Holiday have the best places to stay, handpicked for you!</Paragraph>
       </StyledIntroContainer>
     </>

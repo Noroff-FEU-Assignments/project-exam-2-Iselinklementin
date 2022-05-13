@@ -5,21 +5,18 @@ import Head from "components/layout/Head";
 import Heading from "components/typography/Heading";
 import LoginForm from "components/form/LoginForm";
 import styled from "styled-components";
-
-const StyledContainer = styled(Container)`
-  max-width: 500px;
-`;
+import { StyledContainerSmall } from "styles/StyledContainerSmall";
 
 function login() {
   return (
     <Layout>
       <Head title="Login" />
-      <StyledContainer className="p-4">
+      <StyledContainerSmall className="p-4">
         <Heading className="mt-5" size="1">
           Login
         </Heading>
         <LoginForm />
-      </StyledContainer>
+      </StyledContainerSmall>
     </Layout>
   );
 }

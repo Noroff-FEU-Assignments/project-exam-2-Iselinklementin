@@ -8,47 +8,112 @@ export const StyledNav = styled(Navbar)`
 `;
 
 export const MenuContainer = styled.div`
-  /* border: blue solid thin;
-  transition: transform 1s ease, top 1s ease; */
   button {
     box-shadow: none;
     border: none;
     background: transparent;
     position: relative;
-    /* transition: opacity 1s ease, transform 1s ease, visibility 1s; */
-    /* transition: transform 1s ease;
-   */
+  }
+
+  .dropdown-menu-container {
+    background-color: ${props => props.theme.light};
+    position: absolute;
+    padding: 2rem;
+    padding-bottom: 5rem;
+
+    a {
+      width: 100%;
+      padding: 10px 0;
+      transition: all 0.3s;
+      margin: 0;
+    }
+
+    .logout-icon {
+      padding: 10px 0;
+      padding-top: 1rem;
+    }
+
+    a:hover,
+    .logout-icon:hover {
+      :after {
+        content: "»";
+        font-size: 18px;
+        padding-left: 24px;
+        line-height: 1.2;
+      }
+
+      color: ${props => props.theme.body};
+    }
+  }
+
+  .dropdown-menu-container.show {
+    width: 95%;
+    animation-name: slide;
+    animation-duration: 0.8s;
+    margin: auto;
+    left: 0;
+    right: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide {
+    from {
+      width: 0%;
+    }
+
+    to {
+      width: 95%;
+    }
   }
 
   .menu {
     position: absolute;
-    background: ${(p) => p.theme.backgroundColour};
-    top: 5rem;
+    background-color: ${props => props.theme.primaryColour};
+    top: 0;
     left: 0;
     right: 0;
     opacity: 0;
     visibility: hidden;
-    width: 100vw;
     z-index: 2;
     padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
-  .menu.active {
+  .menu-trigger {
+    z-index: 3;
+  }
+
+  .active {
+    /* background: ${p => p.theme.light}; */
+    /* -webkit-box-shadow: 0 4px 6px -6px black;
+    -moz-box-shadow: 0 4px 6px -6px black;
+    box-shadow: 0 4px 6px -6px black; */
     opacity: 1;
     visibility: visible;
-    -webkit-box-shadow: 0 4px 6px -6px black;
-    -moz-box-shadow: 0 4px 6px -6px black;
-    box-shadow: 0 4px 6px -6px black;
-    /* border: red solid thin; */
+    height: 100vh;
+    margin-top: 6rem;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
   }
 `;
 
 export const StyledLogoutBtn = styled.div`
   display: flex;
   cursor: pointer;
-  &:hover {
-    color: ${(props) => props.theme.primaryColour};
-  }
+  padding: 5px 0 0 0;
+
+  /* &:hover {
+    color: ${props => props.theme.primaryColour};
+  } */
 `;
 
 export const StyledIconContainer = styled.div`
@@ -85,18 +150,37 @@ export const StyledWideContainer = styled.div`
 
   .admin-menu {
     position: absolute;
-    background: ${(p) => p.theme.light};
     max-width: 170px;
-    right: 7%;
-    padding: 10px;
+    right: 30px;
     top: 6rem;
     opacity: 0;
     visibility: hidden;
     z-index: 2;
-    padding-bottom: 1rem;
+    padding: 6px;
+    border-radius: 6px;
 
+    .list-group-item {
+      border: transparent;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .list-group-item:hover,
+    a:hover {
+      background: #eceaea;
+      color: ${p => p.theme.body};
+      cursor: pointer;
+    }
+
+    .item-logout,
     a {
-      display: block;
+      padding: 10px 5px;
+      margin: 0;
+      width: 100%;
     }
 
     .logout-icon {
@@ -105,11 +189,12 @@ export const StyledWideContainer = styled.div`
   }
 
   .admin-menu.active {
+    z-index: 2;
     opacity: 1;
     visibility: visible;
     -webkit-box-shadow: 1px 3px 5px 0px darkgrey;
     -moz-box-shadow: 1px 3px 5px 0px darkgrey;
-    box-shadow: 1px 3px 5px 0px darkgrey;
+    box-shadow: 0px 0px 10px 0px darkgrey;
   }
 `;
 

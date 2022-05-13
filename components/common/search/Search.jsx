@@ -26,15 +26,15 @@ function Search() {
 
   const size = useWindowSize();
 
-  const onSuggestionHandler = (value) => {
+  const onSuggestionHandler = value => {
     setValue(value);
     setSuggestions([]);
   };
 
-  const onChangeHandler = (value) => {
+  const onChangeHandler = value => {
     let matches = [];
     if (value.length > 0) {
-      matches = stays.filter((stay) => {
+      matches = stays.filter(stay => {
         const regex = new RegExp(`${value}`, "gi");
         return stay.acf.title.match(regex);
       });
@@ -44,19 +44,26 @@ function Search() {
     setValue(value);
   };
 
+  // className="pb-4 pt-3"
+
   return (
     <StyledWideContainer>
       <Container className="pb-4 pt-3">
         <StyledIconWrap>
           <Form.Label>Find your favourite place to stay</Form.Label>
-          <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
+          <Icon
+            icon={icons.map(icon => icon.search)}
+            fontSize="16px"
+            className="search-icon"
+            color="#FC5156"
+          />
         </StyledIconWrap>
 
         <Form.Control
           type="text"
           placeholder="Search stays"
           aria-describedby="search"
-          onChange={(e) => {
+          onChange={e => {
             onChangeHandler(e.target.value);
           }}
           value={value}
@@ -66,27 +73,38 @@ function Search() {
             }, 100);
           }}
         />
-
+        <div className="split"></div>
         <ListGroup>
           {suggestions &&
             suggestions.map((suggestion, i) => (
-              <ListGroupItem key={i} action onClick={() => onSuggestionHandler(suggestion.acf.title)}>
-                <Link href={`stay/${suggestion.id}`}>
-                  <a>{suggestion.acf.title}</a>
-                </Link>
-              </ListGroupItem>
+              <Link href={`stay/${suggestion.id}`} key={suggestion.id}>
+                <a onClick={() => onSuggestionHandler(suggestion.acf.title)}>
+                  <ListGroupItem key={i} action>
+                    {suggestion.acf.title}
+                  </ListGroupItem>
+                </a>
+              </Link>
             ))}
         </ListGroup>
       </Container>
       {size.width >= SCREEN.tablet ? (
-        <StyledButtonContainer>
-          <Link href="/stays">
-            <StyledButton className="px-3 btn btn-primary" role="button">
-              Explore stays
-              <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="16px" className="ms-2" />
-            </StyledButton>
-          </Link>
-        </StyledButtonContainer>
+        <>
+          <div style={{ width: "300px" }}>
+            <StyledButtonContainer>
+              <Link href="/stays">
+                <StyledButton className="px-3 btn btn-primary" role="button">
+                  Explore all
+                  <Icon
+                    icon={icons.map(icon => icon.arrow)}
+                    color="white"
+                    fontSize="16px"
+                    className="ms-2"
+                  />
+                </StyledButton>
+              </Link>
+            </StyledButtonContainer>
+          </div>
+        </>
       ) : (
         ""
       )}

@@ -38,13 +38,13 @@ const StyledFooterContainer = styled(Container)`
 export const FooterWide = () => {
   return (
     <StyledFooterContainer>
-      <div className="logo-container">
+      {/* <div className="logo-container">
         <Link href="/">
           <a>
             <Image src={Logo} alt="Holidaze logo element" width="111" height="92.44" />
           </a>
         </Link>
-      </div>
+      </div> */}
 
       <div className="mountain-links-container">
         <Container>

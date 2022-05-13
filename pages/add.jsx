@@ -5,10 +5,7 @@ import { Container } from "react-bootstrap";
 import AddForm from "components/form/AddForm";
 import Heading from "components/typography/Heading";
 import styled from "styled-components";
-
-const StyledContainer = styled(Container)`
-  max-width: 960px;
-`;
+import { StyledContainer } from "styles/StyledContainer";
 
 function add() {
   return (

@@ -21,5 +21,7 @@ const StyledFooter = styled.footer`
 export default function Footer() {
   const size = useWindowSize();
 
-  return <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>;
+  return (
+    <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>
+  );
 }

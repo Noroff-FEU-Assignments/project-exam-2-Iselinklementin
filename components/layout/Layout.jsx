@@ -1,6 +1,6 @@
 import AuthContext from "context/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, ListGroup, ListGroupItem, Navbar } from "react-bootstrap";
 import Image from "next/image";
 import LogoIcon from "assets/logo_element.svg";
 import Logo from "assets/logo.svg";
@@ -16,13 +16,16 @@ import {
   StyledWideContainer,
 } from "./layout.styles";
 import Footer from "./footer/Footer";
-import { UserMenu } from "./menu/UserMenu";
+import { AdminMenu } from "./menu/AdminMenu";
 import { CustomerMenu } from "./menu/CustomerMenu";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
 import { ContactButton } from "components/common/buttons/ContactButton";
 import Coordinates from "assets/coordinates.svg";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+
+// const StyledContentWrapper = styled.div``;
 
 //     {size.width} <- bredde
 //     {size.height} <- høyde
@@ -50,32 +53,42 @@ export default function ({ children }) {
 
   const DropdownMenuAdmin = () => {
     const dropdownRefAdmin = useRef(null);
-    const onClicked = () => setActiveAdmin(!activeAdmin);
 
     return (
       <div>
-        <button aria-label="navigation admin" className="p-0 admin-menu-trigger" onClick={onClicked}>
-          <Icon icon={icons.map((icon) => icon.moreHorizontal)} />
+        <button
+          aria-label="navigation admin"
+          className="p-2 admin-menu-trigger"
+          onClick={e => setActiveAdmin(!activeAdmin)}
+          onMouseEnter={e => setActiveAdmin(!activeAdmin)}>
+          <Icon icon={icons.map(icon => icon.moreHorizontal)} color="#FC5156" fontSize="26px" />
         </button>
 
-        <Container ref={dropdownRefAdmin} className={`admin-menu ${activeAdmin ? "active" : "inactive"}`}>
-          <Container>
-            <Link href="/add">
-              <a className="d-flex align-items-center my-2">
+        <Container
+          ref={dropdownRefAdmin}
+          onMouseLeave={e => setActiveAdmin(!activeAdmin)}
+          className={`admin-menu ${activeAdmin ? "active" : ""}`}>
+          <ListGroup>
+            <ListGroupItem>
+              <Link href="/add">
+                <a className="d-flex align-items-center">
+                  <StyledIconContainer>
+                    <Icon icon={icons.map(icon => icon.plus)} />
+                  </StyledIconContainer>
+                  Add stay
+                </a>
+              </Link>
+            </ListGroupItem>
+
+            <ListGroupItem onClick={logout} className="item-logout">
+              <StyledLogoutBtn>
                 <StyledIconContainer>
-                  <Icon icon={icons.map((icon) => icon.plus)} />
+                  <Icon icon={icons.map(icon => icon.logout)} className="logout-icon" />
                 </StyledIconContainer>
-                Add stay
-              </a>
-            </Link>
-            <hr />
-            <StyledLogoutBtn onClick={logout}>
-              <StyledIconContainer>
-                <Icon icon={icons.map((icon) => icon.logout)} className="logout-icon" />
-              </StyledIconContainer>
-              Log out
-            </StyledLogoutBtn>
-          </Container>
+                Log out
+              </StyledLogoutBtn>
+            </ListGroupItem>
+          </ListGroup>
         </Container>
       </div>
     );
@@ -85,17 +98,28 @@ export default function ({ children }) {
 
   const DropdownMenu = () => {
     const dropdownRef = useRef(null);
-    const onClick = () => setIsActive(!isActive);
+    const onClick = e => {
+      e.preventDefault();
+      setIsActive(!isActive);
+    };
 
     return (
       <MenuContainer>
-        <button aria-label="navigation" className="p-0 menu-trigger" onClick={onClick}>
-          <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
+        <button
+          aria-label="navigation"
+          className="p-0 menu-trigger"
+          onClick={e => {
+            onClick(e);
+          }}>
+          <Icon icon={icons.map(icon => icon.burger)} fontSize="28px" color="#FC5156" />
         </button>
 
-        <Container ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
-          <Container className="py-4">{authorized ? <UserMenu /> : <CustomerMenu />}</Container>
-        </Container>
+        <div ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
+          {/* <div className="py-4 dropdown-menu-container "> */}
+          <div className={isActive ? "dropdown-menu-container show" : "dropdown-menu-container"}>
+            {authorized ? <AdminMenu /> : <CustomerMenu />}
+          </div>
+        </div>
       </MenuContainer>
     );
   };
@@ -107,10 +131,15 @@ export default function ({ children }) {
           <StyledNav expand="lg">
             <Container className="mt-3 justify-space-between">
               <DropdownMenu />
-              <Navbar.Brand>
+              <Navbar.Brand className="logo">
                 <Link href="/" passHref>
                   <a>
-                    <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
+                    <Image
+                      src={LogoIcon}
+                      alt="Holidaze logo element"
+                      width="38.71"
+                      height="38.69"
+                    />
                   </a>
                 </Link>
               </Navbar.Brand>
@@ -165,7 +194,6 @@ export default function ({ children }) {
       )}
 
       {children}
-      <Footer />
     </>
   );
 }

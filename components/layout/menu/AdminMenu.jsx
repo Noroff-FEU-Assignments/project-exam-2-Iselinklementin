@@ -7,7 +7,7 @@ import Icon, { icons } from "constants/icons";
 import Link from "next/link";
 import { StyledIconContainer, StyledLogoutBtn } from "../layout.styles";
 
-export const UserMenu = () => {
+export const AdminMenu = () => {
   const [auth, setAuth] = useContext(AuthContext);
   const router = useRouter();
 
@@ -30,7 +30,7 @@ export const UserMenu = () => {
       <Link href="/add">
         <a className="d-flex align-items-center my-2">
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.plus)} />
+            <Icon icon={icons.map(icon => icon.plus)} />
           </StyledIconContainer>
           Add stay
         </a>
@@ -39,7 +39,7 @@ export const UserMenu = () => {
       <Link href="/admin">
         <a className="d-flex align-items-center my-2">
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="userIcon" />
+            <Icon icon={icons.map(icon => icon.user)} fontSize="16px" className="userIcon" />
           </StyledIconContainer>
           Admin
         </a>
@@ -48,15 +48,15 @@ export const UserMenu = () => {
       <Link href="/contact">
         <a className="d-flex align-items-center my-2">
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="17px" />
+            <Icon icon={icons.map(icon => icon.email)} fontSize="17px" />
           </StyledIconContainer>
           Contact us
         </a>
       </Link>
       <hr />
-      <StyledLogoutBtn onClick={logout}>
+      <StyledLogoutBtn onClick={logout} className="logout-icon">
         <StyledIconContainer>
-          <Icon icon={icons.map((icon) => icon.logout)} className="logout-icon" />
+          <Icon icon={icons.map(icon => icon.logout)} />
         </StyledIconContainer>
         Log out
       </StyledLogoutBtn>

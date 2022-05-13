@@ -22,15 +22,14 @@ export const StyledLinkStaysContainer = styled.div`
   .contain-text {
     margin-top: 1.5rem;
     border-radius: 8px;
-    border: ${(props) => props.theme.body} solid 1px;
+    border: ${props => props.theme.body} solid 1px;
     padding: 2rem 1rem 1rem 1rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     :hover {
-      /* transform: scale(1.001); */
-      /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); */
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.2s ease-in-out;
-      /* border: solid 1px ${(props) => props.theme.primaryColour}; */
+      box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
+      border: ${props => props.theme.primaryColour} solid 1px;
     }
   }
 
@@ -48,7 +47,7 @@ export const StyledLinkStaysContainer = styled.div`
   }
 
   a:hover {
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
   }
 `;
 
@@ -61,7 +60,7 @@ export const LinkStays = () => {
           <a>
             <div className="contain-text">
               <div className="heading-container">
-                <Icon icon={icons.map((icon) => icon.hotel)} />
+                <Icon icon={icons.map(icon => icon.hotel)} />
                 <Heading size="3" fontSize="18px" className="ms-2">
                   Hotels
                 </Heading>
@@ -77,7 +76,7 @@ export const LinkStays = () => {
           <a>
             <div className="contain-text">
               <div className="heading-container">
-                <Icon icon={icons.map((icon) => icon.apartment)} />
+                <Icon icon={icons.map(icon => icon.apartment)} />
                 <Heading size="3" fontSize="18px" className="ms-2 ">
                   Apartments
                 </Heading>
@@ -93,7 +92,7 @@ export const LinkStays = () => {
           <a>
             <div className="contain-text">
               <div className="heading-container">
-                <Icon icon={icons.map((icon) => icon.bed)} />
+                <Icon icon={icons.map(icon => icon.bed)} />
                 <Heading size="3" fontSize="18px" className="ms-2">
                   Bed & Breakfast
                 </Heading>

@@ -7,21 +7,31 @@ export const StyledCard = styled(Card)`
   cursor: pointer;
   min-height: 400px;
 
+  :hover {
+    box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
+
+    .card-body {
+      background-color: #472673;
+    }
+  }
+
   @media ${device.tablet} {
     min-height: 375px;
   }
 
   .card-title {
-    font-family: ${(props) => props.theme.secondaryFont};
+    font-family: ${props => props.theme.secondaryFont};
     font-weight: 600;
   }
 
   .card-body {
     padding: 20px;
-    background: ${(props) => props.theme.secondaryColour};
-    color: ${(props) => props.theme.light};
+    background: ${props => props.theme.secondaryColour};
+    color: ${props => props.theme.light};
     border-radius: 0px 0px 8px 8px;
     font-size: 14px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 
   .card-img {

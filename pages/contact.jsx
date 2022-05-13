@@ -5,21 +5,18 @@ import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import styled from "styled-components";
-
-const StyledContainer = styled(Container)`
-  max-width: 500px;
-`;
+import { StyledContainerSmall } from "styles/StyledContainerSmall";
 
 function contact() {
   return (
     <Layout>
       <Head title="Contact us" />
-      <StyledContainer className="p-4">
+      <StyledContainerSmall className="p-4">
         <Heading className="mt-5" size="1">
           Contact us
         </Heading>
         <ContactForm />
-      </StyledContainer>
+      </StyledContainerSmall>
     </Layout>
   );
 }
