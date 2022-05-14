@@ -150,8 +150,8 @@ export const StyledWideContainer = styled.div`
 
   .admin-menu {
     position: absolute;
-    max-width: 280px;
-    right: 40px;
+    max-width: 300px;
+    right: 30px;
     top: 2.5rem;
     opacity: 0;
     visibility: hidden;
