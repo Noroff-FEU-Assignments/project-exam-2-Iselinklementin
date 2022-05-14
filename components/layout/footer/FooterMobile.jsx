@@ -8,7 +8,15 @@ export const FooterMobile = () => {
   return (
     <>
       <Container>
-        <Image src={Mountain} alt="image" layout="responsive" objectFit="cover" priority style={{ opacity: "0.8" }} />
+        <Image
+          src={Mountain}
+          alt="image"
+          quality={30}
+          layout="responsive"
+          objectFit="cover"
+          priority
+          style={{ opacity: "0.8" }}
+        />
       </Container>
 
       <Link href="/">

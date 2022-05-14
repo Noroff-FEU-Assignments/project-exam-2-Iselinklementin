@@ -80,6 +80,7 @@ export const Intro = () => {
             layout="fill"
             objectFit="cover"
             className="mountain"
+            quality={30}
           />
         </div>
 

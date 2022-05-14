@@ -16,17 +16,24 @@ export default function Enquire({ stay }) {
   const room = query.room;
 
   const showRoom = () => {
-    if (room === "Hotel") {
-      return (
-        <Paragraph className="mt-3">
-          <span className="fw-bold">Room: </span>
-          {room}
-        </Paragraph>
-      );
-    } else if (room === "Apartment" || room === "Bed & Breakfast") {
-      return <Paragraph className="mt-3">{room}</Paragraph>;
+    switch (room) {
+      case "Apartment":
+        return <Paragraph className="mt-3">{room}</Paragraph>;
+        break;
+      case "Bed & Breakfast":
+        return <Paragraph className="mt-3">{room}</Paragraph>;
+        break;
+      case "Choose room":
+        return <Paragraph className="mt-3">{stay.acf.room.stay_type}</Paragraph>;
+        break;
+      default:
+        return (
+          <Paragraph className="mt-3">
+            <span className="fw-bold">Room: </span>
+            {room}
+          </Paragraph>
+        );
     }
-    return <Paragraph className="mt-3">{stay.acf.room.stay_type}</Paragraph>;
   };
 
   return (
@@ -34,9 +41,9 @@ export default function Enquire({ stay }) {
       <Head title="Enquire" />
       <Container className="p-4">
         {showRoom()}
-        <StyledHeadingH1 className="mt-3" size="1">
+        <Heading className="mt-3" size="1">
           Start planning your trip to {stay.acf.title}
-        </StyledHeadingH1>
+        </Heading>
 
         <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
         <Heading size="2">Who is traveling?</Heading>
@@ -51,7 +58,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map((item) => ({
+    const paths = stay.map(item => ({
       params: {
         id: JSON.stringify(item.id),
       },

@@ -34,10 +34,10 @@ export default function Home({ stays }) {
           <>
             <Image
               src={IntroImg}
+              placeholder="blur"
               alt="Girl standing on a mountain near Bergen"
               layout="responsive"
               objectFit="cover"
-              priority
             />
             <ExploreBergen />
           </>
@@ -45,10 +45,10 @@ export default function Home({ stays }) {
           <Container className="position-relative" style={{ height: "400px", maxWidth: "960px" }}>
             <Image
               src={IntroImgDesktop}
+              placeholder="blur"
               alt="Girl standing on a mountain near Bergen"
               layout="fill"
               objectFit="cover"
-              priority
             />
             <ExploreBergen />
           </Container>

@@ -115,7 +115,6 @@ export default function ({ children }) {
         </button>
 
         <div ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
-          {/* <div className="py-4 dropdown-menu-container "> */}
           <div className={isActive ? "dropdown-menu-container show" : "dropdown-menu-container"}>
             {authorized ? <AdminMenu /> : <CustomerMenu />}
           </div>

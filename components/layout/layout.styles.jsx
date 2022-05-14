@@ -150,14 +150,19 @@ export const StyledWideContainer = styled.div`
 
   .admin-menu {
     position: absolute;
-    max-width: 170px;
-    right: 30px;
-    top: 6rem;
+    max-width: 280px;
+    right: 40px;
+    top: 2.5rem;
     opacity: 0;
     visibility: hidden;
     z-index: 2;
     padding: 6px;
     border-radius: 6px;
+    background: ${props => props.theme.backgroundColour};
+
+    /* .list-group {
+      flex-direction: row;
+    } */
 
     .list-group-item {
       border: transparent;

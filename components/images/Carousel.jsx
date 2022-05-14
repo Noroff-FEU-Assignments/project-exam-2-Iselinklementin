@@ -3,10 +3,18 @@ import { device } from "global/ThemeConfig";
 import styled from "styled-components";
 import Paragraph from "components/typography/Paragraph";
 import Image from "next/image";
+import Placeholder from "assets/placeholder.jpg";
 
 const StyledCarousel = styled(Carousel)`
-  @media ${device.laptop} {
-    width: 60%;
+  .carousel-item,
+  .carousel-item-start {
+    width: 100%;
+    height: 500px;
+
+    @media ${device.laptop} {
+      width: 500px;
+      height: 600px;
+    }
   }
 
   > .carousel-indicators {
@@ -19,16 +27,13 @@ const StyledCarousel = styled(Carousel)`
     width: 45px;
     border: white solid 1.5px;
     border-radius: 50%;
-    top: 40%;
+    top: 45%;
     right: 10px;
 
     .carousel-control-next-icon {
       width: 1.2rem;
       height: 1.2rem;
     }
-    /* @media ${device.laptop} {
-      right: -20px;
-    } */
   }
 
   > .carousel-control-prev {
@@ -37,17 +42,13 @@ const StyledCarousel = styled(Carousel)`
     width: 45px;
     border: white solid 1.5px;
     border-radius: 50%;
-    top: 40%;
+    top: 45%;
     left: 10px;
 
     .carousel-control-prev-icon {
       width: 1.2rem;
       height: 1.2rem;
     }
-
-    /* @media ${device.laptop} {
-      left: -20px;
-    } */
   }
 `;
 
@@ -56,10 +57,16 @@ const StyledCarousel = styled(Carousel)`
 export default function Carousels(props) {
   return (
     <StyledCarousel>
-      {props.stays.map((stay) => {
+      {props.stays.map(stay => {
         return (
-          <Carousel.Item key={stay} style={{ width: "100vw", height: "80vw" }}>
-            <Image src={stay} layout="fill" objectFit="cover" />
+          <Carousel.Item key={stay}>
+            <Image
+              blurDataURL={Placeholder}
+              src={stay}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="bottom center"
+            />
           </Carousel.Item>
         );
       })}
