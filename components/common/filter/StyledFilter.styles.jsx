@@ -48,12 +48,6 @@ export const StyledFilter = styled.div`
     background-color: ${props => props.theme.primaryColour};
     border: transparent;
     color: white;
-
-    #icon-filter {
-      svg {
-        color: white;
-      }
-    }
   }
 
   .results-btn-container {

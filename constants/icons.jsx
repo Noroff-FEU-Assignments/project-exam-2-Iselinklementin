@@ -157,7 +157,9 @@ export const icons = [
 const Icon = ({ icon, fontSize, color, className }) => {
   return (
     <>
-      <IconContext.Provider value={{ style: { fontSize, color }, className }}>{icon}</IconContext.Provider>
+      <IconContext.Provider value={{ style: { fontSize, color }, className }}>
+        {icon}
+      </IconContext.Provider>
     </>
   );
 };
@@ -169,10 +171,10 @@ Icon.propTypes = {
   className: PropTypes.string,
 };
 
-Icon.defaultProps = {
-  fontSize: "20px",
-  color: "#1E1B21",
-};
+// Icon.defaultProps = {
+//   fontSize: "20px",
+//   // color: "#1E1B21",
+// };
 
 export default Icon;
 
