@@ -7,18 +7,21 @@ import styled from "styled-components";
 import Heading from "components/typography/Heading";
 
 export const Chips = ({ clicked }) => {
-  const [activeButton, setActiveButton] = useState("active");
-  const [filterStay, setFilterStay] = useState(true);
+  const [activeButton, setActiveButton] = useState([]);
+  const [filterStay, setFilterStay] = useState(false);
 
   const clickedButtonHandler = (btnName) => {
-    setActiveButton(btnName);
+    activeButton.push(btnName);
+    setActiveButton(activeButton);
     setFilterStay(true);
   };
 
+  console.log("dette er activeButton, utenfor ANDRE: " + activeButton);
+
   const checkClick = (e) => {
     if (e.name === activeButton) {
-      setActiveButton("");
-      setFilterStay(false);
+      // setActiveButton([]);
+      // setFilterStay(false);
     }
   };
 
@@ -59,7 +62,7 @@ export const Chips = ({ clicked }) => {
 
   return (
     <>
-      <StyledFilter onClick={clicked} className="mt-5 mt-md-0 ms-md-5">
+      <StyledFilter onClick={() => ({ clicked })} className="mt-5 mt-md-0 ms-md-5">
         <div className="filter-tablet">
           <div className="d-flex mb-3">
             <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
@@ -75,7 +78,8 @@ export const Chips = ({ clicked }) => {
                 className={activeButton === btnName ? `me-2 mt-2 active` : "me-2 mt-2"}
                 onClick={(e) => {
                   clickedButtonHandler(btnName);
-                  checkClick(e.target);
+                  // checkClick(e.target);
+                  return activeButton;
                 }}
               >
                 {ShowIcon(btnName)}
@@ -84,6 +88,7 @@ export const Chips = ({ clicked }) => {
             );
           })}
         </div>
+        {filterStay ? "" : "no"}
       </StyledFilter>
     </>
   );

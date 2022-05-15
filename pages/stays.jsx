@@ -30,14 +30,14 @@ function stays({ stays }) {
   let chipsfilter = [];
   let ratingfilter = [];
 
-  const includeFilter = e => {
-    stays.map(item => {
+  const includeFilter = (e) => {
+    stays.map((item) => {
       if (e.toLowerCase() === item.acf.room.stay_type.toLowerCase()) {
         chipsfilter.push(item);
       }
 
       let staysInclude = Object.entries(item.acf.stay_includes);
-      staysInclude.map(key => {
+      staysInclude.map((key) => {
         if (key[1]) {
           // let thisIncludes = key[0].replace("_", " ");
           if (key[0] === e) {
@@ -49,8 +49,8 @@ function stays({ stays }) {
     setFilterChips(chipsfilter);
   };
 
-  const ratingFilter = value => {
-    stays.map(item => {
+  const ratingFilter = (value) => {
+    stays.map((item) => {
       if (item.acf.stars[0] === value) {
         ratingfilter.push(item);
       }
@@ -58,7 +58,7 @@ function stays({ stays }) {
     setFilterRating(ratingfilter);
   };
 
-  const handleRadio = e => {
+  const handleRadio = (e) => {
     let radioClick = e.parentNode.parentNode;
 
     if (e.innerText.length) {
@@ -68,7 +68,7 @@ function stays({ stays }) {
     }
   };
 
-  const onClick = e => {
+  const onClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
     includeFilter(btnName);
     // let parentDiv = e.parentNode;
@@ -99,27 +99,21 @@ function stays({ stays }) {
       <StyledContainer className="py-4">
         <Container>
           <StayHeading className="mt-3" size="1" style={{ maxWidth: "200px" }}>
-            Book a stay with free cancellation{" "}
-            <span style={{ color: "#FC5156" }}>- apply now!</span>
+            Book a stay with free cancellation <span style={{ color: "#FC5156" }}>- apply now!</span>
           </StayHeading>
         </Container>
 
         {size.width <= SCREEN.tablet ? (
           <Container>
             <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
-              <Icon
-                icon={icons.map(icon => icon.filter)}
-                color="#FC5156"
-                className="me-2"
-                fontSize="24px"
-              />
+              <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
               <Paragraph>Filter search</Paragraph>
             </StyledFilterBtn>
 
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
-                <Rating click={e => handleRadio(e.target)} />
-                <Chips clicked={e => onClick(e.target)} />
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips clicked={(e) => onClick(e.target)} />
 
                 <div className="results-btn-container">
                   <div
@@ -128,7 +122,8 @@ function stays({ stays }) {
                     onClick={() => {
                       setFilterChips([]);
                       setFilterRating([]);
-                    }}>
+                    }}
+                  >
                     Clear all
                   </div>
 
@@ -148,8 +143,8 @@ function stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
-                <Rating click={e => handleRadio(e.target)} />
-                <Chips clicked={e => onClick(e.target)} />
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips clicked={(e) => onClick(e.target)} />
               </StyledFilterWrap>
             </Container>
           </>
