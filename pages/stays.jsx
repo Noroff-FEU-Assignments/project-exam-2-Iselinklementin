@@ -1,4 +1,4 @@
-import React, { useRef, useState, createRef, useContext } from "react";
+import React, { useRef, useState, createRef, useContext, useEffect } from "react";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Paragraph from "components/typography/Paragraph";
@@ -23,12 +23,13 @@ function stays({ stays }) {
   const [filterChips, setFilterChips] = useState([]);
   const [filterRating, setFilterRating] = useState([]);
   const [filtered, setFiltered] = useState([]);
+
   const size = useWindowSize();
 
   let ratingfilter = [];
 
-  const ratingFilter = value => {
-    stays.map(item => {
+  const ratingFilter = (value) => {
+    stays.map((item) => {
       if (item.acf.stars[0] === value) {
         ratingfilter.push(item);
       }
@@ -36,7 +37,7 @@ function stays({ stays }) {
     setFilterRating(ratingfilter);
   };
 
-  const handleRadio = e => {
+  const handleRadio = (e) => {
     let radioClick = e.parentNode.parentNode;
 
     if (e.innerText.length) {
@@ -46,58 +47,88 @@ function stays({ stays }) {
     }
   };
 
-  let filteredArray = [];
+  let thisNewArray = [];
+  let newArr = [];
 
-  function includeFilter(filterChips) {
-    stays.map(item => {
-      filterChips.map(chip => {
-        // denne sjekker om valuen er true
-
-        let checkValue = Object.entries(item.acf.stay_includes).find(name => name[0] === chip);
-        if (checkValue[1]) {
-          const itemExists = filteredArray.find(arr => arr.id === item.id);
-          // Hvis den allerede finnes, gjør ingenting, finnes den ikke - legg den til
-          if (!itemExists) {
-            filteredArray.push(item);
-          }
-        }
-      });
-    });
-
-    if (filteredArray.length) {
-      console.log("this is the array in my function connected to my button: ");
-      console.log(filteredArray);
-      setFiltered(filteredArray);
-    }
-  }
-
-  const btnClick = e => {
+  const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
+    // console.log(e.attributes[1].value.includes("active"));
+    // console.log(e.attributes[1].value);
 
-    if (filterChips.length) {
-      filterChips.map(name => {
-        if (name === btnName) {
-          console.log("This already exists in the onClickButton: " + name);
-          // filterChips.pop();
-          let newArray = filterChips.filter(item => item !== btnName);
-          setFilterChips(newArray);
-          console.log("This is the new array: " + newArray);
-          // } else {
-          //   // filterChips.push(btnName);
-          //   // const newList = filterChips.filter(item => item !== btnName);
-          //   // setFilterChips(newList);
+    // console.log(e.attributes[1].value.includes("active-filter"));
+    //active-filter
+
+    let activeFilter = e.attributes[1].value.includes("active-filter");
+
+    if (activeFilter) {
+      // fjern denne fra filter
+      // console.log(filterChips);
+      filterChips.map((name) => {
+        // console.log(name);
+        // let test = [];
+        // let filt = btnName === name ? " " : test.push(name);
+        if (btnName === name) {
+          console.log("denne må fjernes : " + name);
         }
-        // console.log(filterChips);
+
+        // console.log(filt);
       });
+      // const newFilter = filterChips.find((name) => name !== e.name);
+
+      // setFilterChips(newFilter);
+
+      // console.log(newFilter);
+
+      // if (!newFilter) {
+      //   setFilterChips([]);
+      //   setFiltered([]);
+      // }
     } else {
-      filterChips.push(btnName);
+      e.classList.add("active-filter");
     }
-    // Problemer med at den kan trykkes på 2 ganger
-    // Her må jeg sjekke om chips igjen og se hva som finnes
-    if (filterChips.length) {
-      console.log("Dette er filterChips i knappen og blir levert til funksjonen: " + filterChips);
-      includeFilter(filterChips);
-    }
+
+    stays.map((item) => {
+      // let newChips = [...new Set(filterChips)];
+      // console.log("Dette er newChips : " + newChips);
+
+      if (filterChips.length) {
+        filterChips.push(btnName);
+
+        filterChips.map((chip) => {
+          if (Object.entries(item.acf.stay_includes).find((name) => name[0] === chip)) {
+            const itemExists = filtered.find((arr) => arr.id === item.id);
+
+            if (itemExists) {
+              let newFilter = [...new Set(filtered)];
+              // console.log(newFilter);
+              setFiltered(() => [...newFilter]);
+            } else {
+              filtered.push(item);
+            }
+          }
+        });
+      } else {
+        newArr.push(btnName);
+        setFilterChips(newArr);
+
+        // filterChips.push(btnName); <- dette funker ikke
+
+        let checkSingleValue = Object.entries(item.acf.stay_includes).find((name) => name[0] === btnName);
+        if (checkSingleValue[1]) {
+          thisNewArray.push(item);
+          // console.log(btnName);
+          setFiltered(thisNewArray);
+        }
+      }
+    });
+  };
+
+  const checkClass = (e) => {
+    // console.log(e.attributes[1].value.includes("active"));
+    // console.log(e.attributes[1].value);
+    //active-filter
+    // kanskje ha dette i den andre funksjonen. legg til en ekstra class
+    // på onclick. Hvis den har denne klassen, fjern det filteret.
   };
 
   const CreateHtml = () => {
@@ -117,27 +148,26 @@ function stays({ stays }) {
       <StyledContainer className="py-4">
         <Container>
           <StayHeading className="mt-3" size="1" style={{ maxWidth: "200px" }}>
-            Book a stay with free cancellation{" "}
-            <span style={{ color: "#FC5156" }}>- apply now!</span>
+            Book a stay with free cancellation <span style={{ color: "#FC5156" }}>- apply now!</span>
           </StayHeading>
         </Container>
 
         {size.width <= SCREEN.tablet ? (
           <Container>
             <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
-              <Icon
-                icon={icons.map(icon => icon.filter)}
-                color="#FC5156"
-                className="me-2"
-                fontSize="24px"
-              />
+              <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
               <Paragraph>Filter search</Paragraph>
             </StyledFilterBtn>
 
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
-                <Rating click={e => handleRadio(e.target)} />
-                <Chips clicked={e => btnClick(e)} />
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips
+                  clicked={(e) => {
+                    btnClick(e);
+                    checkClass(e);
+                  }}
+                />
 
                 <div className="results-btn-container">
                   <div
@@ -146,7 +176,8 @@ function stays({ stays }) {
                     onClick={() => {
                       setFilterChips([]);
                       setFilterRating([]);
-                    }}>
+                    }}
+                  >
                     Clear all
                   </div>
 
@@ -166,8 +197,13 @@ function stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
-                <Rating click={e => handleRadio(e.target)} />
-                <Chips clicked={e => btnClick(e)} />
+                <Rating click={(e) => handleRadio(e.target)} />
+                <Chips
+                  clicked={(e) => {
+                    btnClick(e);
+                    checkClass(e);
+                  }}
+                />
               </StyledFilterWrap>
             </Container>
           </>
@@ -189,3 +225,129 @@ export async function getStaticProps() {
   const stays = await getStays();
   return { props: { stays } };
 }
+
+// nå fungerer thisNewArray med riktig antall
+//
+// const itemExists = thisNewArray.find((arr) => arr.id === item.id);
+// Hvis den allerede finnes, ta den bort, finnes den ikke - legg den til
+// if (itemExists) {
+//   const newFilter = thisNewArray.filter((arr) => arr.id !== item.id);
+//   setFiltered(newFilter);
+// filteredArray.push(item);
+// console.log("Dette er filtered midt i funksjonen, hvis den ikke eksisterer: ");
+// console.log(filteredArray);
+// } else {
+//   setFiltered(thisNewArray);
+// }
+// const newProduct = filteredArray.filter((arr) => arr.id !== item.id);
+// setFiltered(newProduct);
+// console.log(filteredArray);
+
+// hvis chips allerede eksisterer
+// setFiltered(filteredArray);
+
+// Problemer med at den kan trykkes på 2 ganger
+// Her må jeg sjekke om chips igjen og se hva som finnes
+// if (filterChips.length) {
+//   console.log("Dette er filterChips i btnClick og blir levert til funksjonen: " + filterChips);
+//   includeFilter(filterChips);
+// }
+
+// console.log("Dette er filtered nederst i funksjonen: " + filtered);
+
+// if (filteredArray.length) {
+//   console.log("hvis lengde, dette er inne i includeFilter funksjonen, helt nederst: ");
+//   console.log(filteredArray);
+//   setFiltered(filteredArray);
+// }
+
+// if (!newArray.length) {
+//   setFiltered([]);
+//   console.log("Dette er NYE array i filterchips.map i btnClick: " + newArray);
+// } else {
+//   setFiltered(btnName, newArray);
+// }
+
+// console.log("Dette er rett ETTER den NYE array i filterchips.map i btnClick: " + filterChips);
+// includeFilter(filterChips);
+// } else if (name !== btnName) {
+// filterChips.push(btnName);
+// else {
+//   filterChips.push(btnName);
+//   console.log("går denne av");
+// }
+// });
+
+// denne funker nesten:
+
+// const btnClick = (e) => {
+//   let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
+
+//   if (filterChips.length) {
+//     // filterChips.map((name) => {
+//     stays.map((item) => {
+//       console.log(item);
+//       if (name === btnName) {
+//         // console.log(filterChips + " + name : " + name + " " + btnName + " ..inside btnClick at the top");
+//         let newArray = filterChips.filter((item) => item !== btnName);
+//         console.log("This already exists in the onClickBtn: " + name + "..new array is: " + newArray);
+//         // setFilterChips(filterChips => [newArray]);
+//         setFilterChips(() => [...newArray]);
+//         // return includeFilter(btnName, filterChips);
+//       } else {
+//         filterChips.push(btnName);
+//         // return includeFilter(btnName, filterChips);
+//       }
+//     });
+//     // });
+//   } else {
+//     let newArr = [];
+//     newArr.push(btnName);
+//     setFilterChips(() => [...newArr]);
+//     // console.log("Dette er i bunnen, else funksjonen i funksjon 1: " + filterChips);
+//   }
+
+//   console.log("Dette blir sendt avgårde: " + filterChips);
+//   return includeFilter(filterChips);
+// };
+
+// // let filteredArray = [];
+// let thisNewArray = [];
+
+// function includeFilter(filterChips) {
+//   console.log("Dette er toppen i funksjon 2 - filterChips: " + filterChips);
+//   if (filterChips.length) {
+
+//       filterChips.map((chip) => {
+//         // jeg må sjekke hva som blir trykket på,
+//         // hvis det er samme som i Chip så må den taes bort
+
+//         // denne sjekker om valuen er true
+//         let checkValue = Object.entries(item.acf.stay_includes).find((name) => name[0] === chip);
+
+//         // NYYY - Her skal jeg sjekke om den har dette inkludert
+//         if (checkValue[1]) {
+//           thisNewArray.push(item);
+//           // console.log("Dette er helt øverst: ");
+//           // console.log(thisNewArray);
+//         }
+//         // NYYY - Denne sjekker at det ikke er duplikater i html
+//         if (thisNewArray.length) {
+//           const itemExists = thisNewArray.find((arr) => arr.id === item.id);
+
+//           if (itemExists) {
+//             let newFilter = [...new Set(thisNewArray)];
+//             // console.log("dette er newFilter hvis item allerede er der:");
+//             // console.log(newFilter);
+//             setFiltered(newFilter);
+//           }
+//         } else {
+//           setFiltered(thisNewArray);
+//         }
+//       });
+
+//   } else {
+//     console.log("Its empty");
+//   }
+//   // console.log("Knapp navn: " + btnName);
+// }
