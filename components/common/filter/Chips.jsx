@@ -41,6 +41,7 @@ export const Chips = ({ clicked }) => {
     "breakfast",
     "apartment",
     "pet_friendly",
+    "wifi",
   ];
 
   return (

@@ -22,6 +22,7 @@ function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filterRating, setFilterRating] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const size = useWindowSize();
 
   let ratingfilter = [];
@@ -47,60 +48,28 @@ function stays({ stays }) {
 
   let filteredArray = [];
 
-  const includeFilter = e => {
+  function includeFilter(filterChips) {
     stays.map(item => {
       filterChips.map(chip => {
-        // let huh = item.acf.stay_includes.map(thing => {
-        //   console.log(thing);
-        // });
-        // console.log(item);
-        // console.log(item.acf.stay_includes.wifi);
-        if (item.acf.stay_includes.kitchen[0]) {
-          console.log(item);
-        }
-        // let includes = Object.entries(item.acf.stay_includes);
-        // console.log(includes);
+        // denne sjekker om valuen er true
 
-        let test = Object.entries(item.acf.stay_includes).find(name => name[0] === chip);
-        // console.log(test);
+        let checkValue = Object.entries(item.acf.stay_includes).find(name => name[0] === chip);
+        if (checkValue[1]) {
+          const itemExists = filteredArray.find(arr => arr.id === item.id);
+          // Hvis den allerede finnes, gjør ingenting, finnes den ikke - legg den til
+          if (!itemExists) {
+            filteredArray.push(item);
+          }
+        }
       });
     });
-    //   Object.entries(item.acf.stay_includes).find(name => {
-    //     // console.log(name);
-    //     if (name[0] === chip) {
-    //       console.log(item + name[1]);
-    //     }
-    //     console.log(item + name[1]);
-    //   });
-    //   console.log(item + name[1]);
-    // });
 
-    // let staysInclude = Object.entries(item.acf.stay_includes);
-    // let includeFilter = staysInclude.map(key => key[1]);
-
-    // let includeFilter = staysInclude.map(key => {
-    //   if (key[1]) {
-    //     filterChips.map(name => {
-    //       if (name === key[0]) return item;
-    //     });
-    //   }
-    // });
-
-    // if (e.toLowerCase() === item.acf.room.stay_type.toLowerCase()) {
-    //   chipsfilter.push(item);
-    // }
-
-    //   staysInclude.map(key => {
-    //     if (key[1]) {
-    //       // let thisIncludes = key[0].replace("_", " ");
-    //       if (key[0] === e) {
-    //         chipsfilter.push(item);
-    //       }
-    //     }
-    //   });
-
-    // setFilterChips(chipsfilter);
-  };
+    if (filteredArray.length) {
+      console.log("this is the array in my function connected to my button: ");
+      console.log(filteredArray);
+      setFiltered(filteredArray);
+    }
+  }
 
   const btnClick = e => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
@@ -108,30 +77,36 @@ function stays({ stays }) {
     if (filterChips.length) {
       filterChips.map(name => {
         if (name === btnName) {
-          const newList = filterChips.filter(item => item !== btnName);
-          setFilterChips(newList);
-        } else {
-          filterChips.push(btnName);
+          console.log("This already exists in the onClickButton: " + name);
+          // filterChips.pop();
+          let newArray = filterChips.filter(item => item !== btnName);
+          setFilterChips(newArray);
+          console.log("This is the new array: " + newArray);
+          // } else {
+          //   // filterChips.push(btnName);
+          //   // const newList = filterChips.filter(item => item !== btnName);
+          //   // setFilterChips(newList);
         }
+        // console.log(filterChips);
       });
     } else {
       filterChips.push(btnName);
     }
-
+    // Problemer med at den kan trykkes på 2 ganger
+    // Her må jeg sjekke om chips igjen og se hva som finnes
     if (filterChips.length) {
+      console.log("Dette er filterChips i knappen og blir levert til funksjonen: " + filterChips);
       includeFilter(filterChips);
     }
   };
 
   const CreateHtml = () => {
-    if (filterChips.length) {
-      // return <StaysCard stays={filterChips} />;
+    if (filtered.length) {
+      return <StaysCard stays={filtered} />;
     }
-
     // if (filterRating.length) {
     //   return <StaysCard stays={filterRating} />;
     // }
-
     return <StaysCard stays={stays} />;
   };
 
@@ -200,6 +175,7 @@ function stays({ stays }) {
 
         <Container>
           <hr className="mb-5" />
+
           <CreateHtml />
         </Container>
       </StyledContainer>

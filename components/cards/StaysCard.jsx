@@ -9,6 +9,7 @@ import Link from "next/link";
 import CapitalizeFirstLetter from "components/common/functions/CapitalizeFirstLetter";
 
 function StaysCard(props) {
+  // if (props.stays.length) {
   return (
     <Row xs={1} sm={2} md={3} className="g-4">
       {props.stays.map(stay => {
@@ -70,5 +71,6 @@ function StaysCard(props) {
     </Row>
   );
 }
+// }
 
 export default StaysCard;
