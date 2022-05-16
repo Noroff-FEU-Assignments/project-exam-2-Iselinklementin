@@ -47,78 +47,99 @@ function stays({ stays }) {
     }
   };
 
-  let thisNewArray = [];
-  let newArr = [];
-
+  // let btnContainer;
+  // let itemContainer;
+  let test = [];
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
-    // console.log(e.attributes[1].value.includes("active"));
-    // console.log(e.attributes[1].value);
 
-    // console.log(e.attributes[1].value.includes("active-filter"));
-    //active-filter
-
+    // ok, nå må det fjernes..
+    // let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
     let activeFilter = e.attributes[1].value.includes("active-filter");
 
+    // sjekk aktiv, fjern hvis aktiv
     if (activeFilter) {
       // fjern denne fra filter
-      // console.log(filterChips);
-      filterChips.map((name) => {
-        // console.log(name);
-        // let test = [];
-        // let filt = btnName === name ? " " : test.push(name);
+      let newChips = [...new Set(filterChips)];
+      let testThis = newChips;
+
+      newChips.map((name) => {
         if (btnName === name) {
           console.log("denne må fjernes : " + name);
+          // DENNE ER RIKTIG
+          testThis = newChips.filter((name) => name !== btnName);
+          console.log("Dette er testThis : ");
+          console.log(testThis);
+
+          // denne fjerner active filter og går over i else?
+          e.classList.remove("active-filter");
         }
-
-        // console.log(filt);
       });
-      // const newFilter = filterChips.find((name) => name !== e.name);
 
-      // setFilterChips(newFilter);
-
-      // console.log(newFilter);
-
-      // if (!newFilter) {
-      //   setFilterChips([]);
-      //   setFiltered([]);
-      // }
+      setFilterChips(() => [...testThis]);
     } else {
+      filterChips.push(btnName);
+      console.log("huh");
       e.classList.add("active-filter");
     }
 
+    // console.log(e.attributes[1].value.includes("active"));
+    // console.log(e.attributes[1].value);
+    // console.log(e.attributes[1].value.includes("active-filter"));
+
+    // setFilterChips(arr);
+    // const newFilter = filterChips.find((name) => name !== e.name);
+    // setFilterChips(newFilter);
+    // if (!newFilter) {
+    //   setFilterChips([]);
+    //   setFiltered([]);
+    // }
+    // if (!filterChips.length) {
+    //   setFiltered([]);
+    // }
     stays.map((item) => {
-      // let newChips = [...new Set(filterChips)];
       // console.log("Dette er newChips : " + newChips);
 
-      if (filterChips.length) {
-        filterChips.push(btnName);
+      let newChips = [...new Set(filterChips)];
+      console.log("Dette er filterchips HELT I toppen av funksjonen: ");
+      console.log(newChips);
+      if (newChips.length) {
+        newChips.push(btnName);
+        setFilterChips(newChips);
+        //   setFilterChips(btnContainer);
+        //   Funksjonen for å LEGGE TIL items
 
-        filterChips.map((chip) => {
-          if (Object.entries(item.acf.stay_includes).find((name) => name[0] === chip)) {
+        // let newChips = [...new Set(filterChips)];
+        // console.log("Dette er newChips i den andre funksjonen : " + newChips);
+        newChips.map((chip) => {
+          // console.log("Dette er i den andre funksjonen: " + chip);
+          // finner riktig navn på include og returnerer den
+          let checkName = Object.entries(item.acf.stay_includes).find((name) => name[0] === chip);
+          // hvis den er sann, dytt den inn i filtered
+          if (checkName[1]) {
+            filtered.push(item);
+            setFiltered(() => [...filtered]);
+            // console.log("This is filtered in function");
+            // console.log(filtered);
+
+            // denne skal finne duplikater og vise kun èn
             const itemExists = filtered.find((arr) => arr.id === item.id);
+            let newFilter = filtered;
 
             if (itemExists) {
-              let newFilter = [...new Set(filtered)];
+              newFilter = [...new Set(filtered)];
+              // console.log("dette er : newFilter");
               // console.log(newFilter);
-              setFiltered(() => [...newFilter]);
-            } else {
-              filtered.push(item);
             }
+
+            setFiltered(() => [...newFilter]);
           }
         });
       } else {
-        newArr.push(btnName);
-        setFilterChips(newArr);
-
+        // console.log("Dette er nederst i funksjonen: " + filterChips);
+        // filterChips.push(btnName);
+        // setFilterChips(filterChips);
         // filterChips.push(btnName); <- dette funker ikke
-
-        let checkSingleValue = Object.entries(item.acf.stay_includes).find((name) => name[0] === btnName);
-        if (checkSingleValue[1]) {
-          thisNewArray.push(item);
-          // console.log(btnName);
-          setFiltered(thisNewArray);
-        }
       }
     });
   };
@@ -132,6 +153,8 @@ function stays({ stays }) {
   };
 
   const CreateHtml = () => {
+    console.log("Dette er i html");
+    console.log(filtered);
     if (filtered.length) {
       return <StaysCard stays={filtered} />;
     }
@@ -160,6 +183,7 @@ function stays({ stays }) {
             </StyledFilterBtn>
 
             <StyledFilter>
+              {!filtered.length ? "Its empty now" : "Still showing wrong"}
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => handleRadio(e.target)} />
                 <Chips
@@ -176,6 +200,7 @@ function stays({ stays }) {
                     onClick={() => {
                       setFilterChips([]);
                       setFilterRating([]);
+                      setFiltered([]);
                     }}
                   >
                     Clear all
@@ -197,6 +222,7 @@ function stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
+                {!filtered.length ? "Its empty now" : "Still showing wrong"}
                 <Rating click={(e) => handleRadio(e.target)} />
                 <Chips
                   clicked={(e) => {

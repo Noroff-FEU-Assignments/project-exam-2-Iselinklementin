@@ -13,7 +13,7 @@ const StyledHeading = styled(Heading)`
 export const Chips = ({ clicked }) => {
   // const [activeButton, setActiveButton] = useState([]);
 
-  const clickedButtonHandler = e => {
+  const clickedButtonHandler = (e) => {
     // activeButton.push(btnName);
     // setActiveButton(activeButton);
     e.currentTarget.classList.toggle("active");
@@ -21,8 +21,8 @@ export const Chips = ({ clicked }) => {
 
   let stayIcons = "";
 
-  const ShowIcon = btnName => {
-    icons.map(icon => {
+  const ShowIcon = (btnName) => {
+    icons.map((icon) => {
       let keys = Object.keys(icon);
       if (keys.includes(btnName)) {
         stayIcons = icon;
@@ -49,22 +49,22 @@ export const Chips = ({ clicked }) => {
       <StyledFilter className="mt-5 mt-md-0 ms-md-5">
         <div className="filter-tablet">
           <div className="d-flex mb-3">
-            <Icon icon={icons.map(icon => icon.heart)} fontSize="15px" className="me-2" />
+            <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
             <StyledHeading size="3">Keywords</StyledHeading>
           </div>
-          {buttons.map(btnName => {
+          {buttons.map((btnName) => {
             let removeLine = btnName.replace("_", " ");
             let newBtnName = CapitalizeFirstLetter(removeLine);
             return (
               <button
                 key={btnName}
                 name={btnName}
-                onClick={e => {
+                onClick={(e) => {
                   clickedButtonHandler(e, btnName);
                   clicked(e.target);
-                  // checkClick(e.target);
                 }}
-                className="me-2 mt-2">
+                className="me-2 mt-2"
+              >
                 {ShowIcon(btnName)}
                 {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
               </button>
