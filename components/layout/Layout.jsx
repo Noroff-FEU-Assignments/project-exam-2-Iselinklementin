@@ -59,21 +59,23 @@ export default function ({ children }) {
         <button
           aria-label="navigation admin"
           className="p-2 admin-menu-trigger"
-          onClick={e => setActiveAdmin(!activeAdmin)}
-          onMouseEnter={e => setActiveAdmin(!activeAdmin)}>
-          <Icon icon={icons.map(icon => icon.moreHorizontal)} color="#FC5156" fontSize="26px" />
+          onClick={(e) => setActiveAdmin(!activeAdmin)}
+          // onMouseEnter={(e) => setActiveAdmin(!activeAdmin)}
+        >
+          <Icon icon={icons.map((icon) => icon.moreHorizontal)} color="#FC5156" fontSize="26px" />
         </button>
 
         <Container
           ref={dropdownRefAdmin}
-          onMouseLeave={e => setActiveAdmin(!activeAdmin)}
-          className={`admin-menu ${activeAdmin ? "active" : ""}`}>
+          onMouseLeave={(e) => setActiveAdmin(!activeAdmin)}
+          className={`admin-menu ${activeAdmin ? "active" : ""}`}
+        >
           <ListGroup>
             <ListGroupItem>
               <Link href="/add">
                 <a className="d-flex align-items-center">
                   <StyledIconContainer>
-                    <Icon icon={icons.map(icon => icon.plus)} />
+                    <Icon icon={icons.map((icon) => icon.plus)} />
                   </StyledIconContainer>
                   Add stay
                 </a>
@@ -83,7 +85,7 @@ export default function ({ children }) {
             <ListGroupItem onClick={logout} className="item-logout">
               <StyledLogoutBtn>
                 <StyledIconContainer>
-                  <Icon icon={icons.map(icon => icon.logout)} className="logout-icon" />
+                  <Icon icon={icons.map((icon) => icon.logout)} className="logout-icon" />
                 </StyledIconContainer>
                 Log out
               </StyledLogoutBtn>
@@ -98,7 +100,7 @@ export default function ({ children }) {
 
   const DropdownMenu = () => {
     const dropdownRef = useRef(null);
-    const onClick = e => {
+    const onClick = (e) => {
       e.preventDefault();
       setIsActive(!isActive);
     };
@@ -108,10 +110,11 @@ export default function ({ children }) {
         <button
           aria-label="navigation"
           className="p-0 menu-trigger"
-          onClick={e => {
+          onClick={(e) => {
             onClick(e);
-          }}>
-          <Icon icon={icons.map(icon => icon.burger)} fontSize="28px" color="#FC5156" />
+          }}
+        >
+          <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
         </button>
 
         <div ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
@@ -133,12 +136,7 @@ export default function ({ children }) {
               <Navbar.Brand className="logo">
                 <Link href="/" passHref>
                   <a>
-                    <Image
-                      src={LogoIcon}
-                      alt="Holidaze logo element"
-                      width="38.71"
-                      height="38.69"
-                    />
+                    <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
                   </a>
                 </Link>
               </Navbar.Brand>

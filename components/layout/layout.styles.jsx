@@ -16,7 +16,7 @@ export const MenuContainer = styled.div`
   }
 
   .dropdown-menu-container {
-    background-color: ${props => props.theme.light};
+    background-color: ${(props) => props.theme.light};
     position: absolute;
     padding: 2rem;
     padding-bottom: 5rem;
@@ -42,7 +42,7 @@ export const MenuContainer = styled.div`
         line-height: 1.2;
       }
 
-      color: ${props => props.theme.body};
+      color: ${(props) => props.theme.body};
     }
   }
 
@@ -77,7 +77,7 @@ export const MenuContainer = styled.div`
 
   .menu {
     position: absolute;
-    background-color: ${props => props.theme.primaryColour};
+    background-color: ${(props) => props.theme.primaryColour};
     top: 0;
     left: 0;
     right: 0;
@@ -93,7 +93,7 @@ export const MenuContainer = styled.div`
   }
 
   .active {
-    /* background: ${p => p.theme.light}; */
+    /* background: ${(p) => p.theme.light}; */
     /* -webkit-box-shadow: 0 4px 6px -6px black;
     -moz-box-shadow: 0 4px 6px -6px black;
     box-shadow: 0 4px 6px -6px black; */
@@ -112,7 +112,7 @@ export const StyledLogoutBtn = styled.div`
   padding: 5px 0 0 0;
 
   /* &:hover {
-    color: ${props => props.theme.primaryColour};
+    color: ${(props) => props.theme.primaryColour};
   } */
 `;
 
@@ -150,19 +150,15 @@ export const StyledWideContainer = styled.div`
 
   .admin-menu {
     position: absolute;
-    max-width: 300px;
-    right: 30px;
-    top: 2.5rem;
+    max-width: 180px;
+    right: 50px;
+    top: 6rem;
     opacity: 0;
     visibility: hidden;
     z-index: 2;
     padding: 6px;
     border-radius: 6px;
-    background: ${props => props.theme.backgroundColour};
-
-    /* .list-group {
-      flex-direction: row;
-    } */
+    background: ${(props) => props.theme.backgroundColour};
 
     .list-group-item {
       border: transparent;
@@ -170,14 +166,14 @@ export const StyledWideContainer = styled.div`
       align-items: center;
       margin: 0;
       padding: 0;
-      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
     }
 
     .list-group-item:hover,
     a:hover {
       background: #eceaea;
-      color: ${p => p.theme.body};
+      color: ${(p) => p.theme.body};
       cursor: pointer;
     }
 
