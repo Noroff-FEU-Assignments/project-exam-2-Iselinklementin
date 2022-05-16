@@ -47,114 +47,91 @@ function stays({ stays }) {
     }
   };
 
-  // let btnContainer;
-  // let itemContainer;
-  let test = [];
+  let filteredBtnOn = [];
+
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
 
-    // ok, nå må det fjernes..
-    // let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
     let activeFilter = e.attributes[1].value.includes("active-filter");
-
-    // sjekk aktiv, fjern hvis aktiv
-    if (activeFilter) {
-      // fjern denne fra filter
-      let newChips = [...new Set(filterChips)];
-      let testThis = newChips;
-
-      newChips.map((name) => {
-        if (btnName === name) {
-          console.log("denne må fjernes : " + name);
-          // DENNE ER RIKTIG
-          testThis = newChips.filter((name) => name !== btnName);
-          console.log("Dette er testThis : ");
-          console.log(testThis);
-
-          // denne fjerner active filter og går over i else?
-          e.classList.remove("active-filter");
-        }
-      });
-
-      setFilterChips(() => [...testThis]);
-    } else {
-      filterChips.push(btnName);
-      console.log("huh");
-      e.classList.add("active-filter");
-    }
-
-    // console.log(e.attributes[1].value.includes("active"));
-    // console.log(e.attributes[1].value);
-    // console.log(e.attributes[1].value.includes("active-filter"));
-
-    // setFilterChips(arr);
-    // const newFilter = filterChips.find((name) => name !== e.name);
-    // setFilterChips(newFilter);
-    // if (!newFilter) {
-    //   setFilterChips([]);
-    //   setFiltered([]);
-    // }
-    // if (!filterChips.length) {
-    //   setFiltered([]);
-    // }
     stays.map((item) => {
-      // console.log("Dette er newChips : " + newChips);
+      // sjekk aktiv, fjern hvis aktiv
+      if (activeFilter) {
+        // fjern denne fra filter
+        let newChips = [...new Set(filterChips)];
+        let testThis = newChips;
 
-      let newChips = [...new Set(filterChips)];
-      console.log("Dette er filterchips HELT I toppen av funksjonen: ");
-      console.log(newChips);
-      if (newChips.length) {
-        newChips.push(btnName);
-        setFilterChips(newChips);
-        //   setFilterChips(btnContainer);
-        //   Funksjonen for å LEGGE TIL items
+        newChips.map((name) => {
+          if (btnName === name) {
+            // DENNE ER RIKTIG
+            testThis = newChips.filter((name) => name !== btnName);
+            e.classList.remove("active-filter");
+          }
+        });
 
-        // let newChips = [...new Set(filterChips)];
-        // console.log("Dette er newChips i den andre funksjonen : " + newChips);
+        console.log("HER ER FUNKSJONEN I ACTIVE CLASS DELETE KJØRT: ");
+
+        if (!testThis.length) {
+          setFilterChips([]);
+          return setFiltered([]);
+        } else {
+          setFilterChips(() => [...testThis]);
+          filterItems(testThis);
+        }
+      } else {
+        filterChips.push(btnName);
+        e.classList.add("active-filter");
+        console.log(" HER ER FUNKSJONEN I ELSE KJØRT: ");
+        filterItems(filterChips);
+      }
+
+      function filterItems(array) {
+        let newChips = [...new Set(array)];
+
+        //   Funksjonen for å filtrere items
         newChips.map((chip) => {
-          // console.log("Dette er i den andre funksjonen: " + chip);
+          console.log("Dette er chip HELT I toppen av funksjonen: ");
+          console.log(chip);
+
           // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => name[0] === chip);
           // hvis den er sann, dytt den inn i filtered
           if (checkName[1]) {
-            filtered.push(item);
-            setFiltered(() => [...filtered]);
-            // console.log("This is filtered in function");
-            // console.log(filtered);
-
+            // RIKTIG OGSÅ PÅ DELETE
+            // filteredBtnOff.push(item);
+            filteredBtnOn.push(item);
             // denne skal finne duplikater og vise kun èn
-            const itemExists = filtered.find((arr) => arr.id === item.id);
-            let newFilter = filtered;
+
+            const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
+            let newFilter = filteredBtnOn.sort();
 
             if (itemExists) {
-              newFilter = [...new Set(filtered)];
-              // console.log("dette er : newFilter");
-              // console.log(newFilter);
+              newFilter = [...new Set(filteredBtnOn)];
             }
 
-            setFiltered(() => [...newFilter]);
+            // const itemExists = filtered.find((arr) => arr.id === item.id);
+            // let newFilter = filtered;
+            // if (itemExists) {
+            //   newFilter = [...new Set(filtered)];
+            // }
+
+            return setFiltered(() => [...newFilter]);
+
+            // if (activeFilter) {
+            //   newFilter.sort();
+            //   return setFiltered(() => [...newFilter]);
+            // } else {
+            //   filteredBtnOn.sort();
+            //   return setFiltered(() => [...newFilter]);
+            //   // newFilter.sort();
+            //   // return setFiltered(() => [...newFilter]);
+            // }
           }
         });
-      } else {
-        // console.log("Dette er nederst i funksjonen: " + filterChips);
-        // filterChips.push(btnName);
-        // setFilterChips(filterChips);
-        // filterChips.push(btnName); <- dette funker ikke
       }
     });
   };
 
-  const checkClass = (e) => {
-    // console.log(e.attributes[1].value.includes("active"));
-    // console.log(e.attributes[1].value);
-    //active-filter
-    // kanskje ha dette i den andre funksjonen. legg til en ekstra class
-    // på onclick. Hvis den har denne klassen, fjern det filteret.
-  };
-
   const CreateHtml = () => {
-    console.log("Dette er i html");
-    console.log(filtered);
     if (filtered.length) {
       return <StaysCard stays={filtered} />;
     }
@@ -183,13 +160,11 @@ function stays({ stays }) {
             </StyledFilterBtn>
 
             <StyledFilter>
-              {!filtered.length ? "Its empty now" : "Still showing wrong"}
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => handleRadio(e.target)} />
                 <Chips
                   clicked={(e) => {
                     btnClick(e);
-                    checkClass(e);
                   }}
                 />
 
@@ -222,12 +197,10 @@ function stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
-                {!filtered.length ? "Its empty now" : "Still showing wrong"}
                 <Rating click={(e) => handleRadio(e.target)} />
                 <Chips
                   clicked={(e) => {
                     btnClick(e);
-                    checkClass(e);
                   }}
                 />
               </StyledFilterWrap>
