@@ -29,7 +29,14 @@ export const Chips = ({ clicked }) => {
       }
     });
 
-    return <Icon icon={Object.entries(stayIcons)[0][1]} fontSize="16px" className="me-2" />;
+    return (
+      <Icon
+        icon={Object.entries(stayIcons)[0][1]}
+        name={Object.entries(stayIcons)[0]}
+        fontSize="16px"
+        className="me-2"
+      />
+    );
   };
 
   const buttons = [
@@ -65,7 +72,8 @@ export const Chips = ({ clicked }) => {
                 }}
                 className="me-2 mt-2"
               >
-                {ShowIcon(btnName)}
+                {/* Nå er ikke ikonene koblet opp ! */}
+                {/* {ShowIcon(btnName)} */}
                 {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
               </button>
             );

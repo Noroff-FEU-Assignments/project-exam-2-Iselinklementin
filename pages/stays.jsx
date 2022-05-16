@@ -49,8 +49,11 @@ function stays({ stays }) {
 
   let filteredBtnOn = [];
 
+  // HUSK å gå gjennom navnene her
+
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
+    // let parent = e.parentElement;
 
     let activeFilter = e.attributes[1].value.includes("active-filter");
     stays.map((item) => {
@@ -68,8 +71,6 @@ function stays({ stays }) {
           }
         });
 
-        console.log("HER ER FUNKSJONEN I ACTIVE CLASS DELETE KJØRT: ");
-
         if (!testThis.length) {
           setFilterChips([]);
           return setFiltered([]);
@@ -80,51 +81,29 @@ function stays({ stays }) {
       } else {
         filterChips.push(btnName);
         e.classList.add("active-filter");
-        console.log(" HER ER FUNKSJONEN I ELSE KJØRT: ");
         filterItems(filterChips);
       }
 
       function filterItems(array) {
         let newChips = [...new Set(array)];
 
-        //   Funksjonen for å filtrere items
+        // Funksjonen for å filtrere items
         newChips.map((chip) => {
-          console.log("Dette er chip HELT I toppen av funksjonen: ");
-          console.log(chip);
-
           // finner riktig navn på include og returnerer den
-          let checkName = Object.entries(item.acf.stay_includes).find((name) => name[0] === chip);
+          let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
+          let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
+
           // hvis den er sann, dytt den inn i filtered
-          if (checkName[1]) {
-            // RIKTIG OGSÅ PÅ DELETE
-            // filteredBtnOff.push(item);
+          if (checkStay || checkName) {
             filteredBtnOn.push(item);
             // denne skal finne duplikater og vise kun èn
-
             const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
             let newFilter = filteredBtnOn.sort();
 
             if (itemExists) {
               newFilter = [...new Set(filteredBtnOn)];
             }
-
-            // const itemExists = filtered.find((arr) => arr.id === item.id);
-            // let newFilter = filtered;
-            // if (itemExists) {
-            //   newFilter = [...new Set(filtered)];
-            // }
-
             return setFiltered(() => [...newFilter]);
-
-            // if (activeFilter) {
-            //   newFilter.sort();
-            //   return setFiltered(() => [...newFilter]);
-            // } else {
-            //   filteredBtnOn.sort();
-            //   return setFiltered(() => [...newFilter]);
-            //   // newFilter.sort();
-            //   // return setFiltered(() => [...newFilter]);
-            // }
           }
         });
       }
