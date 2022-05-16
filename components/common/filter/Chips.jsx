@@ -11,11 +11,7 @@ const StyledHeading = styled(Heading)`
 `;
 
 export const Chips = ({ clicked }) => {
-  // const [activeButton, setActiveButton] = useState([]);
-
   const clickedButtonHandler = (e) => {
-    // activeButton.push(btnName);
-    // setActiveButton(activeButton);
     e.currentTarget.classList.toggle("active");
   };
 
@@ -79,8 +75,6 @@ export const Chips = ({ clicked }) => {
             );
           })}
         </div>
-        {/* <filterStayContext.Provider>value={{ filterStay }}</filterStayContext.Provider> */}
-        {/* {filterStay ? "" : "no"} */}
       </StyledFilter>
     </>
   );

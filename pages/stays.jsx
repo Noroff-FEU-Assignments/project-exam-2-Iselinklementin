@@ -21,41 +21,23 @@ import { StyledContainer } from "styles/StyledContainer";
 function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
-  const [filterRating, setFilterRating] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
   const size = useWindowSize();
 
-  let ratingfilter = [];
-
-  const ratingFilter = (value) => {
-    stays.map((item) => {
-      if (item.acf.stars[0] === value) {
-        ratingfilter.push(item);
-      }
-    });
-    setFilterRating(ratingfilter);
-  };
-
-  const handleRadio = (e) => {
-    let radioClick = e.parentNode.parentNode;
-
-    if (e.innerText.length) {
-      ratingFilter(e.innerText);
-    } else if (radioClick.innerText.length) {
-      ratingFilter(radioClick.innerText);
-    }
-  };
-
   let filteredBtnOn = [];
-
   // HUSK å gå gjennom navnene her
 
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
-    // let parent = e.parentElement;
+    let activeFilter;
 
-    let activeFilter = e.attributes[1].value.includes("active-filter");
+    if (e.tagName === "BUTTON") {
+      activeFilter = e.attributes[1].value.includes("active-filter");
+    } else if (e.tagName === "INPUT") {
+      activeFilter = e.attributes[2].value.includes("active-filter");
+    }
+
     stays.map((item) => {
       // sjekk aktiv, fjern hvis aktiv
       if (activeFilter) {
@@ -64,7 +46,7 @@ function stays({ stays }) {
         let testThis = newChips;
 
         newChips.map((name) => {
-          if (btnName === name) {
+          if (btnName == name || e.checked) {
             // DENNE ER RIKTIG
             testThis = newChips.filter((name) => name !== btnName);
             e.classList.remove("active-filter");
@@ -92,9 +74,10 @@ function stays({ stays }) {
           // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
           let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
+          let checkRating = item.acf.stars[0] === chip;
 
           // hvis den er sann, dytt den inn i filtered
-          if (checkStay || checkName) {
+          if (checkStay || checkName || checkRating) {
             filteredBtnOn.push(item);
             // denne skal finne duplikater og vise kun èn
             const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
@@ -114,9 +97,6 @@ function stays({ stays }) {
     if (filtered.length) {
       return <StaysCard stays={filtered} />;
     }
-    // if (filterRating.length) {
-    //   return <StaysCard stays={filterRating} />;
-    // }
     return <StaysCard stays={stays} />;
   };
 
@@ -140,20 +120,15 @@ function stays({ stays }) {
 
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
-                <Rating click={(e) => handleRadio(e.target)} />
-                <Chips
-                  clicked={(e) => {
-                    btnClick(e);
-                  }}
-                />
+                <Rating click={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} />
 
-                <div className="results-btn-container">
+                {/* <div className="results-btn-container">
                   <div
                     className="clear"
                     role="button"
                     onClick={() => {
                       setFilterChips([]);
-                      setFilterRating([]);
                       setFiltered([]);
                     }}
                   >
@@ -161,9 +136,9 @@ function stays({ stays }) {
                   </div>
 
                   <div role="button" className="results">
-                    Show results
+                    Show results - denne må kobles opp
                   </div>
-                </div>
+                </div> */}
               </div>
             </StyledFilter>
           </Container>
@@ -176,12 +151,8 @@ function stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
-                <Rating click={(e) => handleRadio(e.target)} />
-                <Chips
-                  clicked={(e) => {
-                    btnClick(e);
-                  }}
-                />
+                <Rating click={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} />
               </StyledFilterWrap>
             </Container>
           </>
