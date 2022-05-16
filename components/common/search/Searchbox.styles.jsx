@@ -8,15 +8,15 @@ export const StyledIconWrap = styled.div`
 export const SearchBox = styled.div`
   position: relative;
   width: 100%;
-  background: ${props => props.theme.primaryColour};
+  background: ${(props) => props.theme.primaryColour};
   color: white;
 
   @media ${device.tablet} {
     max-width: 720px;
     padding: 0 1rem;
     margin: auto;
-    color: ${props => props.theme.body};
-    background: ${props => props.theme.backgroundColour};
+    color: ${(props) => props.theme.body};
+    background: ${(props) => props.theme.backgroundColour};
   }
 
   @media ${device.laptop} {
@@ -33,13 +33,13 @@ export const SearchBox = styled.div`
     }
 
     @media ${device.tablet} {
-      border: ${props => props.theme.primaryColour} solid thin;
+      border: ${(props) => props.theme.primaryColour} solid thin;
     }
   }
 
   input::placeholder {
     font-size: 14px;
-    color: ${props => props.theme.body};
+    color: ${(props) => props.theme.body};
     opacity: 0.8;
   }
 
@@ -48,12 +48,61 @@ export const SearchBox = styled.div`
     bottom: -1.6rem;
     left: 0.6rem;
   }
+
+  // her er ny loader
+
+  .loader {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    right: 10px;
+    top: 40px;
+    display: inline-block;
+    animation: around 5.4s infinite;
+    display: none;
+  }
+
+  .loader.show {
+    display: initial;
+  }
+
+  .loader::after,
+  .loader::before {
+    content: "";
+    background: white;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-width: 2px;
+    border-color: #333 #333 transparent transparent;
+    border-style: solid;
+    border-radius: 20px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    animation: around 0.7s ease-in-out infinite;
+  }
+
+  .loader::after {
+    animation: around 0.7s ease-in-out 0.1s infinite;
+    background: transparent;
+  }
+
+  @keyframes around {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 export const StyledWideContainer = styled.div`
   .list-group-item:hover {
     background: #fdc2c2;
-    color: ${props => props.theme.body};
+    color: ${(props) => props.theme.body};
   }
 
   .container {
