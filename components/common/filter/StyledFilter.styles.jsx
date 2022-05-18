@@ -4,10 +4,10 @@ import { device } from "global/ThemeConfig";
 import Heading from "components/typography/Heading";
 
 export const StyledFilter = styled.div`
-  background-color: ${props => props.theme.light};
+  background-color: ${(props) => props.theme.light};
 
   @media ${device.tablet} {
-    background-color: ${props => props.theme.backgroundColour};
+    background-color: ${(props) => props.theme.backgroundColour};
   }
 
   .filter-tablet {
@@ -32,11 +32,11 @@ export const StyledFilter = styled.div`
     border-radius: 6px;
     padding: 5px 10px;
     border: 1px solid grey;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
 
     @media ${device.tablet} {
-      margin: 20px 15px 10px 15px;
+      /* margin: 20px 15px 10px 15px; */
     }
   }
 
@@ -45,7 +45,7 @@ export const StyledFilter = styled.div`
   }
 
   .active {
-    background-color: ${props => props.theme.primaryColour};
+    background-color: ${(props) => props.theme.primaryColour};
     border: transparent;
     color: white;
   }
@@ -55,7 +55,7 @@ export const StyledFilter = styled.div`
     margin-top: 2rem;
     justify-content: space-between;
     padding: 1rem;
-    /* background-color: ${props => props.theme.backgroundColour}; */
+    /* background-color: ${(props) => props.theme.backgroundColour}; */
   }
 
   .results,
@@ -66,7 +66,7 @@ export const StyledFilter = styled.div`
   }
 
   .results {
-    color: ${props => props.theme.primaryColour};
+    color: ${(props) => props.theme.primaryColour};
   }
 `;
 
@@ -78,8 +78,10 @@ export const StyledFilterBtn = styled.div`
     margin-top: -2px;
   }
 
+  // ordnet en egen fil til denne
+  // StyledLine
   .line {
-    border: ${props => props.theme.primaryColour} 1px solid;
+    border: ${(props) => props.theme.primaryColour} 1px solid;
     width: 40px;
     height: 1px;
     position: absolute;
@@ -92,7 +94,7 @@ export const StyledFilterWrap = styled.div`
   margin-top: 3rem;
 
   .rating-container {
-    width: 200px;
+    width: 240px;
 
     input {
       margin-right: 0.8rem;

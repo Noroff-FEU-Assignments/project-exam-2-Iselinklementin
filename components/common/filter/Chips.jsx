@@ -13,6 +13,7 @@ const StyledHeading = styled(Heading)`
 export const Chips = ({ clicked }) => {
   const clickedButtonHandler = (e) => {
     e.currentTarget.classList.toggle("active");
+    // ✕
   };
 
   let stayIcons = "";

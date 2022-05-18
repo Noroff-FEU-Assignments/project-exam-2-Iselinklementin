@@ -20,22 +20,27 @@ export const StyledCard = styled(Card)`
   }
 
   .card-title {
-    font-family: ${props => props.theme.secondaryFont};
+    font-family: ${(props) => props.theme.secondaryFont};
     font-weight: 600;
   }
 
   .card-body {
     padding: 20px;
-    background: ${props => props.theme.secondaryColour};
-    color: ${props => props.theme.light};
+    background: ${(props) => props.theme.secondaryColour};
+    color: ${(props) => props.theme.light};
     border-radius: 0px 0px 8px 8px;
     font-size: 14px;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
   }
 
   .card-img {
     border-radius: 8px 8px 0px 0px;
+  }
+
+  .card-text {
+    span {
+    }
   }
 
   .badge {

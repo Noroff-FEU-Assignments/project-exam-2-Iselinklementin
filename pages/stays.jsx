@@ -17,6 +17,13 @@ import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
 import { Container } from "react-bootstrap";
 import { StyledContainer } from "styles/StyledContainer";
+import Heading from "components/typography/Heading";
+import { StyledLine } from "styles/pages/stays/StyledLine.styles";
+import styled from "styled-components";
+
+const StyledParagraph = styled(Paragraph)`
+  font-size: 14px;
+`;
 
 function stays({ stays }) {
   const [show, setShow] = useState(false);
@@ -94,10 +101,42 @@ function stays({ stays }) {
   };
 
   const CreateHtml = () => {
-    if (filtered.length) {
-      return <StaysCard stays={filtered} />;
+    let length = filtered.length;
+
+    let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
+    let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");
+    let bedbreakfast = stays.filter((stay) => stay.acf.room.stay_type === "Bed & Breakfast");
+
+    if (length) {
+      return (
+        <>
+          <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
+          <StaysCard stays={filtered} />
+        </>
+      );
     }
-    return <StaysCard stays={stays} />;
+    return (
+      <>
+        <div className="mt-5">
+          <Heading size="2">Hotels</Heading>
+          <StyledLine className="mb-4"></StyledLine>
+          <StaysCard stays={hotels} />
+        </div>
+
+        <div className="mt-5">
+          <Heading size="2">Apartment</Heading>
+          <StyledLine className="mb-4"></StyledLine>
+          <StaysCard stays={apartment} />
+        </div>
+
+        <div className="mt-5 position-relative">
+          <Heading size="2">Bed & Breakfast</Heading>
+          <StyledLine className="mb-4"></StyledLine>
+
+          <StaysCard stays={bedbreakfast} />
+        </div>
+      </>
+    );
   };
 
   return (
@@ -122,6 +161,8 @@ function stays({ stays }) {
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => btnClick(e)} />
                 <Chips clicked={(e) => btnClick(e)} />
+
+                {/* Her ligger det sikkert noe styling jeg kan ta bort: */}
 
                 {/* <div className="results-btn-container">
                   <div
@@ -160,7 +201,6 @@ function stays({ stays }) {
 
         <Container>
           <hr className="mb-5" />
-
           <CreateHtml />
         </Container>
       </StyledContainer>

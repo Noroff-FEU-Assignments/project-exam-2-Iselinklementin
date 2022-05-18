@@ -15,6 +15,7 @@ import Heading from "components/typography/Heading";
 import Layout from "components/layout/Layout";
 import StaysCard from "components/cards/StaysCard";
 import Head from "components/layout/Head";
+import { StyledContainer } from "styles/StyledContainer";
 
 export default function Home({ stays }) {
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ export default function Home({ stays }) {
             <ExploreBergen />
           </>
         ) : (
-          <Container className="position-relative" style={{ height: "400px", maxWidth: "960px" }}>
+          <StyledContainer className="position-relative" style={{ height: "400px" }}>
             <Image
               src={IntroImgDesktop}
               placeholder="blur"
@@ -51,7 +52,7 @@ export default function Home({ stays }) {
               objectFit="cover"
             />
             <ExploreBergen />
-          </Container>
+          </StyledContainer>
         )}
       </div>
 

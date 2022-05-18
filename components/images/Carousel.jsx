@@ -57,15 +57,15 @@ const StyledCarousel = styled(Carousel)`
 export default function Carousels(props) {
   return (
     <StyledCarousel>
-      {props.stays.map(stay => {
+      {props.stays.map((stay) => {
         return (
           <Carousel.Item key={stay}>
             <Image
-              blurDataURL={Placeholder}
+              // blurDataURL={Placeholder}
               src={stay}
               layout="fill"
               objectFit="cover"
-              objectPosition="bottom center"
+              // objectPosition="top center"
             />
           </Carousel.Item>
         );

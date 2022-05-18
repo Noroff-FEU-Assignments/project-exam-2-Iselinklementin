@@ -38,7 +38,7 @@ export default function stay({ stay }) {
 
   let image = Object.entries(stay.acf.image);
   let imagesArr = [];
-  image.forEach(img => {
+  image.forEach((img) => {
     imagesArr.push(img[1].url);
   });
 
@@ -66,21 +66,11 @@ export default function stay({ stay }) {
               <ShowIcons stay={stay.acf.stay_includes} />
             </div>
 
-            <Description
-              className="mt-5"
-              hSize="2"
-              heading="Description"
-              body={stay.acf.stay_description}
-            />
+            <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
           </Container>
 
           <Container>
-            <Description
-              className="mt-3"
-              hSize="2"
-              heading="Nice to know"
-              body={stay.acf.nice_to_know_text}
-            />
+            <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
 
             <div className="d-flex">
               <Location
@@ -114,12 +104,7 @@ export default function stay({ stay }) {
 
             <div className="ms-5">
               <ShowIcons stay={stay.acf.stay_includes} />
-              <Description
-                className="mt-5"
-                hSize="2"
-                heading="Description"
-                body={stay.acf.stay_description}
-              />
+              <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
               <ShowRoomOption
                 stay_type={stay.acf.room.stay_type}
                 room_type={stay.acf.room.room_type}
@@ -131,12 +116,7 @@ export default function stay({ stay }) {
           </div>
           <div className="mt-5 d-flex justify-content-between align-items-center">
             <StyledNiceToKnow className="border-right">
-              <Description
-                className="mt-3"
-                hSize="2"
-                heading="Nice to know"
-                body={stay.acf.nice_to_know_text}
-              />
+              <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
             </StyledNiceToKnow>
             <StyledSplit></StyledSplit>
             <div className="ms-5">
@@ -160,7 +140,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map(item => ({
+    const paths = stay.map((item) => ({
       params: {
         id: JSON.stringify(item.id),
       },
@@ -171,6 +151,8 @@ export async function getStaticPaths() {
     console.log(error);
   }
 }
+
+// se om jeg kan gjøre id om til navn i stede
 
 export async function getStaticProps({ params }) {
   const url = `${API_URL}/${params.id}`;

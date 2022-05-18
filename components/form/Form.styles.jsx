@@ -19,7 +19,7 @@ export const StyledForm = styled(Form)`
 
   input::placeholder {
     font-size: 14px;
-    color: ${props => props.theme.body};
+    color: ${(props) => props.theme.body};
     opacity: 0.8;
   }
 
@@ -67,7 +67,7 @@ export const StyledForm = styled(Form)`
 
       .react-select__option--is-focused {
         background: #fdc2c2;
-        color: ${props => props.theme.body};
+        color: ${(props) => props.theme.body};
       }
     }
   }
@@ -80,7 +80,7 @@ export const StyledForm = styled(Form)`
 
     .form-control::placeholder {
       font-size: 14px;
-      color: ${props => props.theme.body};
+      color: ${(props) => props.theme.body};
       opacity: 0.8;
     }
 
@@ -98,7 +98,9 @@ export const StyledForm = styled(Form)`
       background-color: #fc5156;
       border-color: #fc5156;
     }
+
     input[type="checkbox"] {
+      cursor: pointer;
       height: 20px;
       width: 20px;
       :focus {
@@ -122,7 +124,7 @@ export const StyledFeedbackContainer = styled.div`
 
   .alert-primary {
     background-color: transparent;
-    color: ${props => props.theme.error};
+    color: ${(props) => props.theme.error};
     padding: 0 0 0 2.9rem;
     border: none;
     font-size: 14px;
@@ -141,6 +143,6 @@ export const StyledFeedbackContainer = styled.div`
 
 export const WrongInput = styled(Alert)`
   background-color: transparent;
-  color: ${props => props.theme.error};
+  color: ${(props) => props.theme.error};
   border: none;
 `;

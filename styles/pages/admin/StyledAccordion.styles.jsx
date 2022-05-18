@@ -45,6 +45,8 @@ export const StyledAccordion = styled.div`
 
   .text-container {
     max-width: 240px;
+    max-width: 500px;
+
     p {
       margin-bottom: 4px;
       word-break: break-word;

@@ -9,10 +9,9 @@ import Link from "next/link";
 import CapitalizeFirstLetter from "components/common/functions/CapitalizeFirstLetter";
 
 function StaysCard(props) {
-  // if (props.stays.length) {
   return (
-    <Row xs={1} sm={2} md={3} className="g-4">
-      {props.stays.map(stay => {
+    <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+      {props.stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
         let includes = Object.entries(stay.acf.stay_includes);
@@ -22,7 +21,7 @@ function StaysCard(props) {
             <Link href={`stay/${stay.id}`}>
               <StyledCard>
                 <Badge bg="light" text="dark" className="pe-3">
-                  <Icon icon={icons.map(icon => icon.location)} color="#FC5156" className="me-1" />
+                  <Icon icon={icons.map((icon) => icon.location)} color="#FC5156" className="me-1" />
                   {stay.acf.address.short_description}
                 </Badge>
 
@@ -34,7 +33,7 @@ function StaysCard(props) {
                   width={320}
                   height={320}
                   className="card-img"
-                  blurDataURL={Placeholder}
+                  // blurDataURL={Placeholder}
                 />
 
                 <Card.Body>
@@ -42,7 +41,7 @@ function StaysCard(props) {
                   <div className="rating-container mb-3">
                     {[...Array(numbersOfStars)].map((e, i) => (
                       <Icon
-                        icon={icons.map(icon => icon.star)}
+                        icon={icons.map((icon) => icon.star)}
                         key={i}
                         color="white"
                         className="me-1"
@@ -51,11 +50,11 @@ function StaysCard(props) {
                     ))}
                   </div>
                   <Card.Text>
-                    {includes.map(include => {
+                    {includes.map((include) => {
                       let thisIncludes = include[0].replace("_", " ");
                       return include[1] ? (
-                        <span className="me-2" key={thisIncludes}>
-                          {CapitalizeFirstLetter(thisIncludes)}{" "}
+                        <span className="me-2 keywords" key={thisIncludes}>
+                          {CapitalizeFirstLetter(thisIncludes)}
                         </span>
                       ) : (
                         ""

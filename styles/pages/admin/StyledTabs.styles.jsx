@@ -16,9 +16,9 @@ export const StyledTabs = styled.div`
   .nav-link.active {
     background-color: #fc5156;
     color: white;
-    border-top: ${(props) => props.theme.body} solid 1px;
+    /* border-top: ${(props) => props.theme.body} solid 1px;
     border-left: ${(props) => props.theme.body} solid 1px;
-    border-right: ${(props) => props.theme.body} solid 1px;
+    border-right: ${(props) => props.theme.body} solid 1px; */
   }
 
   .nav-tabs {

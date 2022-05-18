@@ -9,7 +9,7 @@ import Image from "next/image";
 import { schema } from "utils/schemaValidation/AddFormSchema";
 import { STAYS, REVIEW, ROOMS } from "constants/misc";
 import { StyledForm } from "./Form.styles";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import Heading from "components/typography/Heading";
 import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
@@ -17,19 +17,19 @@ import { StyledImageContainer, UploadLabel } from "styles/pages/admin/Add/Styled
 import styled from "styled-components";
 import { device } from "global/ThemeConfig";
 
-const StyledImageWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+// const StyledImageWrap = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
 
-  @media ${device.tablet} {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 10px;
-  }
-`;
+//   @media ${device.tablet} {
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     align-items: flex-start;
+//     gap: 10px;
+//   }
+// `;
 
 const StyledFormWrap = styled.div`
   @media ${device.tablet} {
@@ -402,99 +402,109 @@ function AddForm() {
           <Heading size="3">Images</Heading>
         </div>
 
-        <StyledImageWrap>
-          {/* FØRSTE BILDE */}
-          <div style={{ width: "220px" }}>
-            <StyledImageContainer>
-              {img1 ? (
-                <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-              ) : (
-                <div className="img-placeholder">
-                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                </div>
-              )}
-            </StyledImageContainer>
-            <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
-            <Form.Control
-              id="imgUpload1"
-              type="file"
-              name="image_1"
-              ref={imgUpload1}
-              onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
-              style={{ opacity: "0" }}
-            />
-            {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
-          </div>
+        <div>
+          <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+            {/* FØRSTE BILDE */}
+            <Col>
+              <div>
+                <StyledImageContainer>
+                  {img1 ? (
+                    <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+                  ) : (
+                    <div className="img-placeholder">
+                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                    </div>
+                  )}
+                </StyledImageContainer>
+                <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
+                <Form.Control
+                  id="imgUpload1"
+                  type="file"
+                  name="image_1"
+                  ref={imgUpload1}
+                  onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
+                  style={{ opacity: "0" }}
+                />
+                {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
+              </div>
+            </Col>
 
-          {/* ANDRE BILDE */}
-          <div style={{ width: "220px" }}>
-            <StyledImageContainer>
-              {img2 ? (
-                <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-              ) : (
-                <div className="img-placeholder">
-                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                </div>
-              )}
-            </StyledImageContainer>
-            <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
-            <Form.Control
-              id="imgUpload2"
-              type="file"
-              name="image_2"
-              ref={imgUpload2}
-              onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
-              style={{ opacity: "0" }}
-            />
-            {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
-          </div>
+            {/* ANDRE BILDE */}
+            <Col>
+              <div>
+                <StyledImageContainer>
+                  {img2 ? (
+                    <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+                  ) : (
+                    <div className="img-placeholder">
+                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                    </div>
+                  )}
+                </StyledImageContainer>
+                <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
+                <Form.Control
+                  id="imgUpload2"
+                  type="file"
+                  name="image_2"
+                  ref={imgUpload2}
+                  onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
+                  style={{ opacity: "0" }}
+                />
+                {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
+              </div>
+            </Col>
 
-          {/* TREDJE BILDE */}
-          <div style={{ width: "220px" }}>
-            <StyledImageContainer>
-              {img3 ? (
-                <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-              ) : (
-                <div className="img-placeholder">
-                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                </div>
-              )}
-            </StyledImageContainer>
-            <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
-            <Form.Control
-              id="imgUpload3"
-              type="file"
-              name="image_3"
-              ref={imgUpload3}
-              onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
-              style={{ opacity: "0" }}
-            />
-            {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
-          </div>
+            {/* TREDJE BILDE */}
+            <Col>
+              <div>
+                <StyledImageContainer>
+                  {img3 ? (
+                    <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+                  ) : (
+                    <div className="img-placeholder">
+                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                    </div>
+                  )}
+                </StyledImageContainer>
+                <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
+                <Form.Control
+                  id="imgUpload3"
+                  type="file"
+                  name="image_3"
+                  ref={imgUpload3}
+                  onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
+                  style={{ opacity: "0" }}
+                />
+                {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
+              </div>
+            </Col>
 
-          {/* FJERDE BILDE */}
-          <div style={{ width: "220px" }}>
-            <StyledImageContainer>
-              {img4 ? (
-                <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-              ) : (
-                <div className="img-placeholder">
-                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                </div>
-              )}
-            </StyledImageContainer>
-            <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
-            <Form.Control
-              id="imgUpload4"
-              type="file"
-              name="image_4"
-              ref={imgUpload4}
-              onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
-              style={{ opacity: "0" }}
-            />
-            {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
-          </div>
-        </StyledImageWrap>
+            {/* FJERDE BILDE */}
+            <Col>
+              <div>
+                <StyledImageContainer>
+                  {img4 ? (
+                    <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+                  ) : (
+                    <div className="img-placeholder">
+                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                    </div>
+                  )}
+                </StyledImageContainer>
+                <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
+                <Form.Control
+                  id="imgUpload4"
+                  type="file"
+                  name="image_4"
+                  ref={imgUpload4}
+                  onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
+                  style={{ opacity: "0" }}
+                />
+                {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
+              </div>
+            </Col>
+          </Row>
+        </div>
 
         <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "Adding stay.." : "Add stay"}

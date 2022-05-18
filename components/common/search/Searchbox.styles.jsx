@@ -113,7 +113,7 @@ export const StyledWideContainer = styled.div`
         border-right: solid thin grey;
         height: 50px;
         position: absolute;
-        right: -6.8%;
+        right: -4%;
         top: 40px;
       }
     }
@@ -134,7 +134,7 @@ export const StyledButtonContainer = styled.div`
   padding-left: 1.8rem;
   position: absolute;
   top: 47px;
-  right: 0;
+  right: 25px;
 
   a {
     height: 40px;
