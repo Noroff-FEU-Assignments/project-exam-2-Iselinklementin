@@ -20,10 +20,11 @@ import { AdminMenu } from "./menu/AdminMenu";
 import { CustomerMenu } from "./menu/CustomerMenu";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
-import { ContactButton } from "components/common/buttons/ContactButton";
 import Coordinates from "assets/coordinates.svg";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { StyledButton } from "components/common/buttons/Button.styles";
+import { StyledContactBtn } from "components/common/buttons/ContactButton";
 
 // const StyledContentWrapper = styled.div``;
 
@@ -169,7 +170,7 @@ export default function ({ children }) {
                   <a className="me-4">Stays</a>
                 </Link>
                 <Link href="/contact" passHref>
-                  <ContactButton style="me-4" />
+                  <StyledContactBtn className="me-4">Contact</StyledContactBtn>
                 </Link>
 
                 {authorized ? (

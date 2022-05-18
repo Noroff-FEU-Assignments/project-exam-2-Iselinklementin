@@ -38,6 +38,7 @@ function StaysCard(props) {
 
                 <Card.Body>
                   <Card.Title>{stay.acf.title}</Card.Title>
+                  {stay.acf.room.stay_type}
                   <div className="rating-container mb-3">
                     {[...Array(numbersOfStars)].map((e, i) => (
                       <Icon

@@ -17,6 +17,7 @@ export const StyledCard = styled(Card)`
 
   @media ${device.tablet} {
     min-height: 375px;
+    min-height: 420px;
   }
 
   .card-title {
