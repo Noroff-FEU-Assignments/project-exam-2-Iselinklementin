@@ -12,6 +12,8 @@ import { schema } from "utils/schemaValidation/loginFormSchema";
 import { StyledFeedbackContainer, StyledForm, WrongInput } from "./Form.styles";
 import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
+import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
+import { StyledIconContainer } from "components/layout/layout.styles";
 
 function LoginForm() {
   const [submitting, setSumbitting] = useState(false);
@@ -49,15 +51,18 @@ function LoginForm() {
     <StyledForm onSubmit={handleSubmit(onSubmit)} className="pe-4 p-3">
       <fieldset disabled={submitting} className="mt-4">
         <Form.Group className="mb-3 ">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
+          <StyledFlexIconText>
+            <StyledIconContainer>
+              <Icon icon={icons.map((icon) => icon.user)} />
+            </StyledIconContainer>
             <Form.Control
               name="username"
+              type="text"
               placeholder="Username"
               {...register("username")}
               autoComplete="new-password"
             />
-          </div>
+          </StyledFlexIconText>
           {errors.username && (
             <StyledFeedbackContainer>
               <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
@@ -67,8 +72,10 @@ function LoginForm() {
         </Form.Group>
 
         <Form.Group className="mb-3 ">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.lock)} className="me-4" />
+          <StyledFlexIconText>
+            <StyledIconContainer>
+              <Icon icon={icons.map((icon) => icon.lock)} />
+            </StyledIconContainer>
             <Form.Control
               name="password"
               placeholder="Password"
@@ -76,7 +83,7 @@ function LoginForm() {
               type="password"
               autoComplete="new-password"
             />
-          </div>
+          </StyledFlexIconText>
 
           {errors.username && (
             <StyledFeedbackContainer>

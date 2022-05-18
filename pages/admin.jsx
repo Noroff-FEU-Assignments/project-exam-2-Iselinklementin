@@ -11,6 +11,7 @@ import { AddEnquireBtn } from "components/common/buttons/AddEnqurieBtn";
 import { StyledTabs } from "styles/pages/admin/StyledTabs.styles";
 import styled from "styled-components";
 import { device } from "global/ThemeConfig";
+import { StyledContainer } from "styles/StyledContainer";
 
 const StyledTextContainer = styled.div`
   text-align: center;
@@ -53,7 +54,7 @@ function admin() {
   return (
     <Layout>
       <Head title="Admin" />
-      <Container className="mt-5">
+      <StyledContainer className="mt-5">
         <StyledTextContainer>
           <div>
             <Heading size="1">Welcome Admin</Heading>
@@ -80,7 +81,7 @@ function admin() {
             </Tab>
           </Tabs>
         </StyledTabs>
-      </Container>
+      </StyledContainer>
     </Layout>
   );
 }

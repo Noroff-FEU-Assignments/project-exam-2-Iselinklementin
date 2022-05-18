@@ -10,6 +10,7 @@ import {
   MdWifi,
   MdTextFields,
   MdLogout,
+  MdOutlineClose,
 } from "react-icons/md";
 import { GoSignOut } from "react-icons/go";
 import { HiPlusSm } from "react-icons/hi";
@@ -33,7 +34,7 @@ import { IconContext } from "react-icons";
 
 export const icons = [
   {
-    close: <IoCloseCircle key="close" />,
+    close: <MdOutlineClose key="close" />,
   },
   {
     moreHorizontal: <IoMdMore key="moreHorizontal" />,

@@ -1,23 +1,64 @@
 import React, { useState } from "react";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import Select from "react-select";
+import Alertbox from "components/common/alert/AlertBox";
+import DateFunction from "components/common/functions/DateFunction";
+import styled from "styled-components";
+import Icon, { icons } from "constants/icons";
+import Heading from "components/typography/Heading";
 import { useForm, Controller } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ENQUIRES_URL, LIGHT_AUTH } from "constants/api";
-import Select from "react-select";
-import { schema } from "utils/schemaValidation/enquireFormSchema";
-import { Form } from "react-bootstrap";
-import Alertbox from "components/common/alert/AlertBox";
 import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
-import Icon, { icons } from "constants/icons";
+import { schema } from "utils/schemaValidation/enquireFormSchema";
+import { Form, FormControl } from "react-bootstrap";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
-import DateFunction from "components/common/functions/DateFunction";
-import { StyledParagraphColoured } from "components/typography/Paragraph";
+import Paragraph, { StyledParagraphColoured } from "components/typography/Paragraph";
 import { RemoveLastWord } from "components/common/functions/RemoveWords";
-import Heading from "components/typography/Heading";
-import { SUBJECT } from "constants/misc";
-import { Calendar } from "components/common/calendar/Calendar";
+import { device } from "global/ThemeConfig";
+import { BOOKED, CALENDAR_OPTIONS, SUBJECT } from "constants/misc";
+import { StyledCloseBtn, StyledCalendar } from "styles/StyledCalendar.styles";
+import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
+import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
 
+const StyledFlexContainerLaptop = styled.div`
+  @media ${device.tablet} {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+`;
+
+const StyledFormContainerLaptop = styled.div`
+  @media ${device.tablet} {
+    width: 460px;
+    margin-right: 2rem;
+  }
+`;
+
+const StyledDeleteDate = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+
+  :hover {
+    svg {
+      color: ${(props) => props.theme.primaryColour};
+    }
+    color: ${(props) => props.theme.primaryColour};
+  }
+
+  @media ${device.tablet} {
+    margin-top: -10px;
+  }
+`;
+
+// const StyledInputDate = styled(FormControl)`
+//   /* border: none; */
+//   width: unset;
+// `;
 // PHONE - må sjekke for nummer
 // TEXTAREA - skift font inni
 // SELECT - gi advarsel
@@ -26,9 +67,18 @@ import { Calendar } from "components/common/calendar/Calendar";
 export default function EnquireForm({ title, room, type }) {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
   const [count, setCount] = useState(0);
 
   let today = DateFunction();
+
+  const clicked = () => {
+    setDateRange([null, null]);
+  };
+
+  let startDateFormatted = startDate ? startDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
+  let endDateFormatted = endDate ? endDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
 
   const {
     register,
@@ -37,6 +87,7 @@ export default function EnquireForm({ title, room, type }) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: "onBlur",
   });
 
   async function onSubmit(data) {
@@ -76,127 +127,187 @@ export default function EnquireForm({ title, room, type }) {
       {submitting}
 
       <StyledForm className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
-        <Form.Control type="hidden" placeholder="Type" value={type} className="mt-2" {...register("stay_type")} />
-        <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
+        <StyledFlexContainerLaptop className="mt-5">
+          <StyledFormContainerLaptop>
+            <StyledParagraphColoured>Information</StyledParagraphColoured>
+            <Heading size="2">Who is traveling?</Heading>
+            <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
+            <Form.Control type="hidden" placeholder="Type" value={type} className="mt-2" {...register("stay_type")} />
+            <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
 
-        {/* Name  */}
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
-            <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
-          </div>
-          {errors.name && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.name.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
-        </Form.Group>
-        {/* Phone  */}
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.phone)} className="me-4" />
-            <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
-          </div>
-          {errors.name && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.phone.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
-        </Form.Group>
-        {/* Email  */}
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="25px" className="me-4" />
-            <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
-          </div>
-          {errors.email && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.email.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
-        </Form.Group>
+            {/* Name  */}
+            <Form.Group className="mt-3">
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.user)} />
+                </StyledIconFormContainer>
 
-        <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.userplus)} fontSize="25px" className="me-4" />
-            <Controller
-              name="how_many"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  className="select"
-                  classNamePrefix="react-select"
-                  defaultValue={{ value: 0, label: "Persons" }}
-                  // defaultInputValue="Persons"
-                  options={SUBJECT}
-                  {...field}
-                />
+                <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+              </StyledFlexIconText>
+              {errors.name && (
+                <StyledFeedbackContainer>
+                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                  <Alertbox className="mt-2">{errors.name.message}</Alertbox>
+                </StyledFeedbackContainer>
               )}
-            />
-          </div>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <div className="text-area-container">
-            <Icon icon={icons.map((icon) => icon.chat)} fontSize="25px" className="me-4" />
-            <Form.Control
-              as="textarea"
-              rows={6}
-              placeholder="Comments"
-              onKeyUp={(e) => setCount(e.target.value.length)}
-              className="mt-2"
-              {...register("message")}
-            />
-            <span className="counter">{count}/20</span>
-          </div>
-          {errors.message && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.message.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
-        </Form.Group>
+            </Form.Group>
+            {/* Phone  */}
+            <Form.Group className="mt-3">
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.phone)} />
+                </StyledIconFormContainer>
+                <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
+              </StyledFlexIconText>
+              {errors.phone && (
+                <StyledFeedbackContainer>
+                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                  <Alertbox className="mt-2">{errors.phone.message}</Alertbox>
+                </StyledFeedbackContainer>
+              )}
+            </Form.Group>
+            {/* Email  */}
+            <Form.Group className="mt-3">
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" />
+                </StyledIconFormContainer>
+                <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
+              </StyledFlexIconText>
+              {errors.email && (
+                <StyledFeedbackContainer>
+                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                  <Alertbox className="mt-2">{errors.email.message}</Alertbox>
+                </StyledFeedbackContainer>
+              )}
+            </Form.Group>
 
-        <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
-        <Heading size="2">{RemoveLastWord(today)}</Heading>
+            <Form.Group className="mt-3">
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.userplus)} fontSize="20px" />
+                </StyledIconFormContainer>
+                <Controller
+                  name="how_many"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      className="select"
+                      classNamePrefix="react-select"
+                      defaultValue={{ value: 0, label: "Persons" }}
+                      // defaultInputValue="Persons"
+                      options={SUBJECT}
+                      {...field}
+                    />
+                  )}
+                />
+              </StyledFlexIconText>
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <div className="text-area-container">
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" />
+                </StyledIconFormContainer>
+                <Form.Control
+                  as="textarea"
+                  rows={6}
+                  placeholder="Comments"
+                  onKeyUp={(e) => setCount(e.target.value.length)}
+                  className="mt-2"
+                  {...register("message")}
+                />
+                <span className="counter">{count}/20</span>
+              </div>
+              {errors.message && (
+                <StyledFeedbackContainer>
+                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                  <Alertbox className="mt-2">{errors.message.message}</Alertbox>
+                </StyledFeedbackContainer>
+              )}
+            </Form.Group>
+          </StyledFormContainerLaptop>
+          <div>
+            <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
+            <Heading size="2">{RemoveLastWord(today)}</Heading>
 
-        <div className="d-flex align-items-center mt-3 justify-content-between">
-          <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
-          <Form.Group className="mt-3">
-            <Form.Control type="text" placeholder="from_date" className="mt-2" {...register("from_date")} />
-            {errors.from_date && (
-              <StyledFeedbackContainer>
-                <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
-              </StyledFeedbackContainer>
+            <div className="d-md-flex">
+              <StyledCalendar className="mt-4">
+                <DatePicker
+                  selected={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  dateFormat="dd/MM/yyyy"
+                  selectsRange
+                  fixedHeight={true}
+                  inline
+                  calendarClassName="egen-class-her"
+                  isClearable={true}
+                  onChange={(update) => {
+                    setDateRange(update);
+                  }}
+                  minDate={new Date()}
+                  excludeDateIntervals={BOOKED}
+                />
+                {/* <div className="position-relative"></div> */}
+              </StyledCalendar>
+
+              <Form.Group className="d-flex mb-4 mt-md-3 align-items-center">
+                <StyledIconFormContainer className="d-none">
+                  <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
+                </StyledIconFormContainer>
+                <div>
+                  <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
+                    From:
+                  </Form.Label>
+                  <Form.Control
+                    placeholder="From date"
+                    type="text"
+                    value={startDateFormatted}
+                    className="me-4"
+                    {...register("from_date")}
+                    disabled
+                  />
+                </div>
+                <span className="mx-3">-</span>
+                <div>
+                  <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
+                    To:
+                  </Form.Label>
+                  <Form.Control
+                    placeholder="To date"
+                    type="text"
+                    value={endDateFormatted}
+                    {...register("to_date")}
+                    disabled
+                  />
+                </div>
+              </Form.Group>
+              <StyledDeleteDate onClick={clicked} style={{ fontSize: "14px" }}>
+                <StyledCloseBtn type="button" aria-label="Close">
+                  <Icon icon={icons.map((icon) => icon.close)} fontSize="18px" />
+                </StyledCloseBtn>
+                <span className="">Delete date</span>
+              </StyledDeleteDate>
+            </div>
+
+            <StyledFormButton className="mb-4 mt-5" type="submit">
+              <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-3" />
+              {submitting ? "sending enquire.." : "Enquire"}
+            </StyledFormButton>
+            {submitting && (
+              <Alertbox type="success" className="mt-4 mb-4">
+                Your message was sent
+              </Alertbox>
             )}
-          </Form.Group>
-
-          <div className="mx-2 d-flex align-items-center justify-content-center"> - </div>
-
-          <Form.Group className="mt-3">
-            <Form.Control type="text" placeholder="to_date" className="mt-2" {...register("to_date")} />
-            {errors.to_date && (
-              <StyledFeedbackContainer>
-                <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
-              </StyledFeedbackContainer>
-            )}
-          </Form.Group>
-        </div>
-        <br />
-        <Calendar />
-        <StyledFormButton className="mb-4 mt-5" type="submit">
-          <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-2" />
-          {submitting ? "sending enquire.." : "Enquire"}
-        </StyledFormButton>
-        {submitting && (
-          <Alertbox type="success" className="mt-4 mb-4">
-            Your message was sent
-          </Alertbox>
-        )}
+          </div>
+        </StyledFlexContainerLaptop>
       </StyledForm>
     </>
   );
 }
+
+// {errors.to_date && (
+//   <StyledFeedbackContainer>
+//     <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
+//   </StyledFeedbackContainer>
+// )}

@@ -156,7 +156,7 @@ function stays({ stays }) {
               <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
               <Paragraph>Filter search</Paragraph>
             </StyledFilterBtn>
-
+            {/* // fiks border eller noe så de ikke hopper rundt når de blir selected */}
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => btnClick(e)} />

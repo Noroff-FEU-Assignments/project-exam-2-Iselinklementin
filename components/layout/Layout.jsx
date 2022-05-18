@@ -25,6 +25,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { StyledButton } from "components/common/buttons/Button.styles";
 import { StyledContactBtn } from "components/common/buttons/ContactButton";
+import { ShowModal } from "components/modal/ShowModal";
 
 // const StyledContentWrapper = styled.div``;
 
@@ -36,6 +37,7 @@ export default function ({ children }) {
   const [auth, setAuth] = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
   const [activeAdmin, setActiveAdmin] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const size = useWindowSize();
   const router = useRouter();
 
@@ -47,7 +49,12 @@ export default function ({ children }) {
 
   function logout() {
     setAuth(null);
+    setModalShow(false);
     router.push("/");
+  }
+
+  function hideModal() {
+    setModalShow(false);
   }
 
   // Dropdown Menu Admin
@@ -60,7 +67,7 @@ export default function ({ children }) {
         <button
           aria-label="navigation admin"
           className="p-2 admin-menu-trigger"
-          onClick={(e) => setActiveAdmin(!activeAdmin)}
+          onClick={() => setActiveAdmin(!activeAdmin)}
           // onMouseEnter={(e) => setActiveAdmin(!activeAdmin)}
         >
           <Icon icon={icons.map((icon) => icon.moreHorizontal)} color="#FC5156" fontSize="26px" />
@@ -68,7 +75,7 @@ export default function ({ children }) {
 
         <Container
           ref={dropdownRefAdmin}
-          onMouseLeave={(e) => setActiveAdmin(!activeAdmin)}
+          onMouseLeave={() => setActiveAdmin(!activeAdmin)}
           className={`admin-menu ${activeAdmin ? "active" : ""}`}
         >
           <ListGroup>
@@ -82,8 +89,8 @@ export default function ({ children }) {
                 </a>
               </Link>
             </ListGroupItem>
-
-            <ListGroupItem onClick={logout} className="item-logout">
+            {/* onClick={logout} */}
+            <ListGroupItem className="item-logout" onClick={() => setModalShow(true)}>
               <StyledLogoutBtn>
                 <StyledIconContainer>
                   <Icon icon={icons.map((icon) => icon.logout)} className="logout-icon" />
@@ -93,6 +100,13 @@ export default function ({ children }) {
             </ListGroupItem>
           </ListGroup>
         </Container>
+        <ShowModal
+          modalShow={modalShow}
+          cancel={hideModal}
+          heading="Sign out"
+          message="Are you sure?"
+          confirmed={logout}
+        />
       </div>
     );
   };

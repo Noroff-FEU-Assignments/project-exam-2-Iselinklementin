@@ -336,7 +336,7 @@ function AddForm() {
               </div>
             </Form.Group>
 
-            <Form.Group className="mt-5">
+            <Form.Group className="mt-5 mb-md-5">
               <div className="text-area-container">
                 <Icon icon={icons.map((icon) => icon.star)} fontSize="22px" className="me-3 mt-3" />
                 <Controller

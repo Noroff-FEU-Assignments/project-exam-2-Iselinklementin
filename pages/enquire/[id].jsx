@@ -9,6 +9,7 @@ import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
+import { StyledContainer } from "styles/StyledContainer";
 
 export default function Enquire({ stay }) {
   const router = useRouter();
@@ -39,17 +40,17 @@ export default function Enquire({ stay }) {
   return (
     <Layout>
       <Head title="Enquire" />
-      <Container className="p-4">
+      <StyledContainer className="p-4 mt-5">
         {showRoom()}
         <Heading className="mt-3" size="1">
           Start planning your trip to {stay.acf.title}
         </Heading>
 
-        <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
-        <Heading size="2">Who is traveling?</Heading>
+        {/* <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
+        <Heading size="2">Who is traveling?</Heading> */}
 
         <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
-      </Container>
+      </StyledContainer>
     </Layout>
   );
 }
@@ -58,7 +59,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map(item => ({
+    const paths = stay.map((item) => ({
       params: {
         id: JSON.stringify(item.id),
       },

@@ -12,6 +12,8 @@ import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
+import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
+import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
 
 function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -62,10 +64,12 @@ function ContactForm() {
       <fieldset disabled={submitting}>
         {/* Name  */}
         <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
+          <StyledFlexIconText>
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
+            </StyledIconFormContainer>
             <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
-          </div>
+          </StyledFlexIconText>
           {errors.name && (
             <StyledFeedbackContainer>
               <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
@@ -76,10 +80,12 @@ function ContactForm() {
 
         {/* Email  */}
         <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="25px" className="me-4" />
+          <StyledFlexIconText>
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" className="me-4" />
+            </StyledIconFormContainer>
             <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
-          </div>
+          </StyledFlexIconText>
           {errors.email && (
             <StyledFeedbackContainer>
               <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
@@ -89,11 +95,12 @@ function ContactForm() {
         </Form.Group>
 
         <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.text)} fontSize="25px" className="me-4" />
-
+          <StyledFlexIconText>
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.text)} className="me-4" fontSize="20px" />
+            </StyledIconFormContainer>
             <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
-          </div>
+          </StyledFlexIconText>
           {errors.subject && (
             <StyledFeedbackContainer>
               <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
@@ -104,7 +111,9 @@ function ContactForm() {
 
         <Form.Group className="mt-3">
           <div className="text-area-container">
-            <Icon icon={icons.map((icon) => icon.chat)} fontSize="25px" className="me-4 mt-2" />
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" className="me-4 mt-2" />
+            </StyledIconFormContainer>
             <Form.Control
               as="textarea"
               rows={6}

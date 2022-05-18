@@ -42,6 +42,14 @@ export default function stay({ stay }) {
     imagesArr.push(img[1].url);
   });
 
+  //   <div className="books">
+  //   <h2>Books</h2>
+  //   {books.map(function (book) {
+  //     const { id, title, published } = book;
+  //     return <BookItem key={id} id={id} title={title} published={published} />;
+  //   })}
+  // </div>
+
   return (
     <Layout>
       <Head title={stay.acf.title} />
@@ -169,3 +177,5 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
+// return loader?

@@ -10,7 +10,6 @@ export const StyledButton = styled.a`
   display: inline-flex;
   color: white;
   border-radius: 6px;
-  /* font-weight: 500; */
 
   &:hover,
   &:focus {
@@ -19,6 +18,10 @@ export const StyledButton = styled.a`
     color: white;
   }
 `;
+
+// denne er bra, de under her kan beholdes.
+// Se gjennom det over, funker ikke godt nok.
+// bare skift navn så den ikke heter "form"
 
 export const StyledMobileButton = styled(StyledButton)`
   width: 100%;
@@ -45,9 +48,11 @@ export const StyledFormButton = styled(Button)`
   &:hover,
   &:focus,
   &:active {
-    background: ${(props) => props.theme.secondaryColour};
+    /* background: ${(props) => props.theme.secondaryColour}; */
+    background: #f4454b;
     border-color: transparent;
     color: white;
+    box-shadow: 0 0 0 0.25rem #fb76793d;
   }
 
   @media ${device.tablet} {

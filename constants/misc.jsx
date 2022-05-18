@@ -48,8 +48,23 @@ export const DATEOPTIONS = {
 };
 
 export const CALENDAR_OPTIONS = {
-  weekday: "long",
+  weekday: "short",
   day: "numeric",
   month: "long",
   year: "numeric",
 };
+
+export const BOOKED = [
+  {
+    start: new Date("06/24/2022"),
+    end: new Date("06/28/2022"),
+  },
+  {
+    start: new Date("06/06/2022"),
+    end: new Date("06/11/2022"),
+  },
+  {
+    start: new Date("07/15/2022"),
+    end: new Date("07/22/2022"),
+  },
+];

@@ -6,7 +6,8 @@ import styled from "styled-components";
 export const StyledForm = styled(Form)`
   input[type="text"],
   input[type="email"],
-  input[type="phone"] {
+  input[type="phone"],
+  input[type="password"] {
     border-radius: 6px;
     height: 50px;
     background: white;
