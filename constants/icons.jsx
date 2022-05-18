@@ -15,7 +15,7 @@ import { GoSignOut } from "react-icons/go";
 import { HiPlusSm } from "react-icons/hi";
 import { ImSpoonKnife } from "react-icons/im";
 import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu, IoMdMore } from "react-icons/io";
-import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
+import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp, IoCloseCircle } from "react-icons/io5";
 import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
 import { GrWheelchair } from "react-icons/gr";
 import {
@@ -32,6 +32,9 @@ import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
 
 export const icons = [
+  {
+    close: <IoCloseCircle key="close" />,
+  },
   {
     moreHorizontal: <IoMdMore key="moreHorizontal" />,
   },
@@ -157,9 +160,7 @@ export const icons = [
 const Icon = ({ icon, fontSize, color, className }) => {
   return (
     <>
-      <IconContext.Provider value={{ style: { fontSize, color }, className }}>
-        {icon}
-      </IconContext.Provider>
+      <IconContext.Provider value={{ style: { fontSize, color }, className }}>{icon}</IconContext.Provider>
     </>
   );
 };

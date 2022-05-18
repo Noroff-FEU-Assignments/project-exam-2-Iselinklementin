@@ -15,19 +15,13 @@ import DateFunction from "components/common/functions/DateFunction";
 import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { RemoveLastWord } from "components/common/functions/RemoveWords";
 import Heading from "components/typography/Heading";
+import { SUBJECT } from "constants/misc";
+import { Calendar } from "components/common/calendar/Calendar";
 
 // PHONE - må sjekke for nummer
 // TEXTAREA - skift font inni
-// SELECT - endre styling og gi advarsel
+// SELECT - gi advarsel
 // Gi tilbakemelding når sendt, fjern skjema
-
-export const SUBJECT = [
-  { value: "1", label: "1" },
-  { value: "2", label: "2" },
-  { value: "3", label: "3" },
-  { value: "4", label: "4" },
-  { value: "5+", label: "5+" },
-];
 
 export default function EnquireForm({ title, room, type }) {
   const [submitting, setSubmitting] = useState(false);
@@ -191,6 +185,8 @@ export default function EnquireForm({ title, room, type }) {
             )}
           </Form.Group>
         </div>
+        <br />
+        <Calendar />
         <StyledFormButton className="mb-4 mt-5" type="submit">
           <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-2" />
           {submitting ? "sending enquire.." : "Enquire"}

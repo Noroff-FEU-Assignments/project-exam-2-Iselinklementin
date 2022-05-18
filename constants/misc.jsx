@@ -29,3 +29,27 @@ export const SCREEN = {
   desktop: 1200,
   desktop_large: 1400,
 };
+
+export const SUBJECT = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5+", label: "5+" },
+];
+
+export const DATEOPTIONS = {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+};
+
+export const CALENDAR_OPTIONS = {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+};

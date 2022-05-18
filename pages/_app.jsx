@@ -6,6 +6,7 @@ import GlobalStyle from "global/GlobalStyle";
 import styled from "styled-components";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Footer from "components/layout/footer/Footer";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Wrapper = styled.div`
   min-height: 71vh;

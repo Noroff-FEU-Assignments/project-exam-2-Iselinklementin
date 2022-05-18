@@ -5,7 +5,7 @@ import { device } from "global/ThemeConfig";
 export const StyledCard = styled(Card)`
   border: none;
   cursor: pointer;
-  min-height: 400px;
+  /* min-height: 400px; */
 
   :hover {
     box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
@@ -16,8 +16,9 @@ export const StyledCard = styled(Card)`
   }
 
   @media ${device.tablet} {
-    min-height: 375px;
-    min-height: 420px;
+    /* min-height: 375px; */
+    /* height: 400px; */
+    /* min-height: 420px; */
   }
 
   .card-title {
@@ -33,6 +34,7 @@ export const StyledCard = styled(Card)`
     font-size: 14px;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
+    height: 180px;
   }
 
   .card-img {
