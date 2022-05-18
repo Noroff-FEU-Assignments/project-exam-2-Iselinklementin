@@ -16,8 +16,9 @@ function Search() {
   const [stays, setStays] = useState([]);
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-
   const showLoading = useRef(null);
+  const [noResult, setNoResult] = useState("");
+  // const [match, setMatch] = useState(null);
 
   useEffect(() => {
     const loadStays = async () => {
@@ -40,13 +41,21 @@ function Search() {
     if (value.length > 0) {
       matches = stays.filter((stay) => {
         const regex = new RegExp(`${value}`, "gi");
+        // setNoResult("");
+        // setMatch(true);
         return stay.acf.title.match(regex);
       });
+    } else {
+      // setMatch(false);
+      // setNoResult("Sorry, no results");
     }
 
     setSuggestions(matches);
     setValue(value);
   };
+
+  // console.log(match);
+  // console.log(noResult);
 
   return (
     <StyledWideContainer>
@@ -68,11 +77,12 @@ function Search() {
           onBlur={() => {
             setTimeout(() => {
               setSuggestions([]);
+              setNoResult("");
             }, 100);
           }}
         />
         <div className="split"></div>
-
+        {/* {match ? ( */}
         <ListGroup>
           {suggestions &&
             suggestions.map((suggestion, i) => (
@@ -85,6 +95,11 @@ function Search() {
               </Link>
             ))}
         </ListGroup>
+        {/* ) : (
+          <ListGroup>
+            <ListGroupItem>{noResult}</ListGroupItem>
+          </ListGroup>
+        )} */}
       </Container>
       {size.width >= SCREEN.tablet ? (
         <>
