@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tab, Tabs } from "react-bootstrap";
+import { Container, Tab, Tabs } from "react-bootstrap";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
@@ -53,33 +53,35 @@ function admin() {
   return (
     <Layout>
       <Head title="Admin" />
-      <StyledContainer className="mt-5">
-        <StyledTextContainer>
-          <div>
-            <Heading size="1">Welcome Admin</Heading>
+      <StyledContainer className="mt-5 py-4">
+        <Container>
+          <StyledTextContainer>
+            <div>
+              <Heading size="1">Welcome Admin</Heading>
 
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </Paragraph>
-          </div>
+              <Paragraph>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Paragraph>
+            </div>
 
-          <div className="text-center">
-            <AddEnquireBtn />
-            <Paragraph className="add">Add stay</Paragraph>
-          </div>
-        </StyledTextContainer>
+            <div className="text-center">
+              <AddEnquireBtn />
+              <Paragraph className="add">Add stay</Paragraph>
+            </div>
+          </StyledTextContainer>
 
-        <StyledTabs>
-          <Tabs defaultActiveKey="messages" onClick={handleClick}>
-            <Tab eventKey="messages" title="Messages" value="0">
-              <Messages />
-            </Tab>
-            <Tab eventKey="enquires" title="Enquires" value="1">
-              {value}
-            </Tab>
-          </Tabs>
-        </StyledTabs>
+          <StyledTabs>
+            <Tabs defaultActiveKey="messages" onClick={handleClick}>
+              <Tab eventKey="messages" title="Messages" value="0">
+                <Messages />
+              </Tab>
+              <Tab eventKey="enquires" title="Enquires" value="1">
+                {value}
+              </Tab>
+            </Tabs>
+          </StyledTabs>
+        </Container>
       </StyledContainer>
     </Layout>
   );

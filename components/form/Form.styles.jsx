@@ -4,6 +4,17 @@ import styled from "styled-components";
 // også i searchfunksjonen
 
 export const StyledForm = styled(Form)`
+  button:disabled,
+  .btn-primary.disabled,
+  .btn-primary:disabled {
+    background: ${(props) => props.theme.primaryColour};
+    border-color: ${(props) => props.theme.primaryColour};
+  }
+
+  .form-control:disabled {
+    background: ${(props) => props.theme.light};
+  }
+
   input[type="text"],
   input[type="email"],
   input[type="phone"],
