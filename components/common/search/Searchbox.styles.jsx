@@ -1,4 +1,4 @@
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import styled from "styled-components";
 
 export const StyledIconWrap = styled.div`
@@ -146,11 +146,3 @@ export const StyledButtonContainer = styled.div`
     }
   }
 `;
-
-// export const SearchContainer = styled(Container)`
-//   padding: 1rem;
-//   @media ${device.tablet} {
-//     /* margin-top: -2rem; */
-//   }
-//   /* width: 90%; */
-// `;

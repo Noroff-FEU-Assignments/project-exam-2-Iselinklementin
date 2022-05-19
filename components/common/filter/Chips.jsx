@@ -70,7 +70,7 @@ export const Chips = forwardRef((props, ref) => {
                 }}
                 className="me-2 mt-2"
               >
-                {/* Nå er ikke ikonene koblet opp ! */}
+                {/* Nå er ikke ikonene koblet opp, kan fjernes hvis jeg ikke fikser (med funksjonen) */}
                 {/* {ShowIcon(btnName)} */}
                 {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
               </button>

@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
-import { Container, Row, Button } from "react-bootstrap";
-import Carousels from "components/images/Carousel";
-import Link from "next/link";
-import Icon, { icons } from "constants/icons";
+import { Container } from "react-bootstrap";
+import Carousels from "components/carousel/Carousel";
 import styled from "styled-components";
-import { StyledMobileButton } from "components/common/buttons/Button.styles";
 import ShowIcons from "components/icons/ShowIcons";
-import { StyledSelect } from "components/form/StyledSelect";
 import { StyledContainer } from "styles/StyledContainer";
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
@@ -24,7 +20,6 @@ import { ShowRoomOption } from "components/pages/detailpage/ShowRoomOption";
 
 const StyledNiceToKnow = styled.div`
   width: 720px;
-  /* border-right: solid thin grey; */
   padding-right: 2rem;
 `;
 

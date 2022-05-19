@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Container } from "react-bootstrap";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import Heading from "components/typography/Heading";
 
 export const StyledFilter = styled.div`
@@ -55,7 +54,6 @@ export const StyledFilter = styled.div`
     margin-top: 2rem;
     justify-content: space-between;
     padding: 1rem;
-    /* background-color: ${(props) => props.theme.backgroundColour}; */
   }
 
   .results,

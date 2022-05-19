@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 
 export const StyledCloseBtn = styled.button`
   background-color: transparent;

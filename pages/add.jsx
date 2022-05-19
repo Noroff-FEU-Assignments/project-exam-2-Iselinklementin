@@ -1,10 +1,8 @@
-import React, { useState, useContext, useRef } from "react";
+import React from "react";
 import Layout from "components/layout/Layout";
 import Head from "components/layout/Head";
-import { Container } from "react-bootstrap";
 import AddForm from "components/form/AddForm";
 import Heading from "components/typography/Heading";
-import styled from "styled-components";
 import { StyledContainer } from "styles/StyledContainer";
 
 function add() {

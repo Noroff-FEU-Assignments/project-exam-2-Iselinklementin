@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Container, Tab, Tabs, Accordion } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
@@ -10,7 +9,7 @@ import Paragraph from "components/typography/Paragraph";
 import { AddEnquireBtn } from "components/common/buttons/AddEnqurieBtn";
 import { StyledTabs } from "styles/pages/admin/StyledTabs.styles";
 import styled from "styled-components";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import { StyledContainer } from "styles/StyledContainer";
 
 const StyledTextContainer = styled.div`

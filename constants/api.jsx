@@ -1,6 +1,4 @@
 export const BASE_URL = "https://grafs.no/wp-json/";
-// export const TOKEN_PATH =
-//   "simple-jwt-login/v1/?rest_route=/simple-jwt-login/v1/auth&username=Username&password=Password";
 export const TOKEN_PATH = "jwt-auth/v1/token";
 export const LOGIN_URL = BASE_URL + TOKEN_PATH;
 export const API_URL = BASE_URL + "wp/v2/exam_holidaze";

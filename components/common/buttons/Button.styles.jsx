@@ -1,4 +1,4 @@
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 

@@ -1,7 +1,6 @@
 import { Carousel } from "react-bootstrap";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import styled from "styled-components";
-import Paragraph from "components/typography/Paragraph";
 import Image from "next/image";
 import Placeholder from "assets/placeholder.jpg";
 

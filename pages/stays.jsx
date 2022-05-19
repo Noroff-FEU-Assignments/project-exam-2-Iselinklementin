@@ -1,9 +1,9 @@
-import React, { useRef, useState, createRef, useContext, useEffect } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Paragraph from "components/typography/Paragraph";
 import Icon, { icons } from "constants/icons";
-import { getStays } from "lib/getStays";
+import { getStays } from "constants/getStays";
 import StaysCard from "components/cards/StaysCard";
 import {
   StayHeading,
@@ -30,8 +30,9 @@ function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
-
+  let filteredBtnOn = [];
   const size = useWindowSize();
+
   const router = useRouter();
   const query = router.query;
   const sortType = query.type;
@@ -40,19 +41,6 @@ function stays({ stays }) {
   let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
   let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");
   let bedbreakfast = stays.filter((stay) => stay.acf.room.stay_type === "Bed & Breakfast");
-  let filteredBtnOn = [];
-
-  const ShowStayType = ({ title, array }) => {
-    return (
-      <div className="mt-5">
-        <Heading size="2">{title}</Heading>
-        <StyledLine className="mb-4"></StyledLine>
-        <StaysCard stays={array} />
-      </div>
-    );
-  };
-
-  console.log(sortType);
 
   useEffect(() => {
     let btns = ref.current.parentElement.children;
@@ -83,7 +71,15 @@ function stays({ stays }) {
     }
   }, []);
 
-  // console.log(filterBtnContainer);
+  const ShowStayType = ({ title, array }) => {
+    return (
+      <div className="mt-5">
+        <Heading size="2">{title}</Heading>
+        <StyledLine className="mb-4"></StyledLine>
+        <StaysCard stays={array} />
+      </div>
+    );
+  };
 
   // HUSK å gå gjennom navnene her
 

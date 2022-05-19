@@ -1,10 +1,19 @@
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import { Navbar } from "react-bootstrap";
 import styled from "styled-components";
 
 export const StyledNav = styled(Navbar)`
   max-width: 1024px;
   margin: auto;
+
+  .nav-link-active {
+    color: ${(props) => props.theme.primaryColour};
+    border-bottom: ${(props) => props.theme.primaryColour} thin solid;
+  }
+
+  .nav-link-active-mobile {
+    color: ${(props) => props.theme.primaryColour};
+  }
 `;
 
 export const MenuContainer = styled.div`
@@ -93,10 +102,6 @@ export const MenuContainer = styled.div`
   }
 
   .active {
-    /* background: ${(p) => p.theme.light}; */
-    /* -webkit-box-shadow: 0 4px 6px -6px black;
-    -moz-box-shadow: 0 4px 6px -6px black;
-    box-shadow: 0 4px 6px -6px black; */
     opacity: 1;
     visibility: visible;
     height: 100vh;

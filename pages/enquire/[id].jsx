@@ -4,11 +4,8 @@ import Head from "components/layout/Head";
 import Layout from "components/layout/Layout";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
-import { StyledHeadingH1 } from "components/typography/StyledHeading.styles";
-import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import { StyledContainer } from "styles/StyledContainer";
 
 export default function Enquire({ stay }) {
@@ -45,9 +42,6 @@ export default function Enquire({ stay }) {
         <Heading className="mt-3" size="1">
           Start planning your trip to {stay.acf.title}
         </Heading>
-
-        {/* <StyledParagraphColoured className="mt-5">Information</StyledParagraphColoured>
-        <Heading size="2">Who is traveling?</Heading> */}
 
         <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
       </StyledContainer>

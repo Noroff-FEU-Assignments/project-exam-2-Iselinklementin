@@ -1,6 +1,7 @@
 import Icon, { icons } from "constants/icons";
 
-// Filter icons
+// Filter icons, find spesific ones for detailpage etc.
+// using "stay include" as a boolean
 
 export default function FilterIcons({ includes, iconIncludes }) {
   let stayIcons = [];

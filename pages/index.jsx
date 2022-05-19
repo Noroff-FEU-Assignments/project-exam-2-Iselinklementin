@@ -1,7 +1,6 @@
 import { useWindowSize } from "hooks/useWindowSize";
 import { SCREEN } from "constants/misc";
-import { useState } from "react";
-import { getStays } from "lib/getStays";
+import { getStays } from "constants/getStays";
 import { Intro } from "components/pages/home/Intro";
 import { ExploreBergen } from "components/pages/home/ExploreBergen";
 import { LinkStays } from "components/pages/home/LinkStays";
@@ -63,17 +62,6 @@ export default function Home({ stays }) {
         )}
       </div>
 
-      {/* <Link
-        to={{
-          pathname: "/courses",
-          search: "?sort=name",
-          hash: "#the-hash",
-          state: { fromDashboard: true },
-        }}
-      /> 
-      
-      <Link href="/dashboard?from=loginPage" as="/dashboard" />*/}
-
       <LinkStays />
 
       {/* Inspiration  */}
@@ -97,20 +85,3 @@ export async function getStaticProps() {
   const stays = await getStays();
   return { props: { stays } };
 }
-
-// export async function getStaticProps() {
-//   let stays = [];
-
-//   try {
-//     const response = await axios.get(API_URL);
-//     stays = response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-//   return {
-//     props: {
-//       stays,
-//     },
-//   };
-// }

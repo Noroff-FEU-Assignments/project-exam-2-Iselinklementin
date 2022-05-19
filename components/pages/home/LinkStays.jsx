@@ -3,11 +3,8 @@ import Icon, { icons } from "constants/icons";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import Link from "next/link";
-import { useWindowSize } from "hooks/useWindowSize";
-import { SCREEN } from "constants/misc";
 import styled from "styled-components";
-import { device } from "global/ThemeConfig";
-import { StyledIconContainer } from "components/layout/layout.styles";
+import { device } from "styles/global/ThemeConfig";
 import { useState } from "react";
 
 export const StyledLinkStaysContainer = styled.div`

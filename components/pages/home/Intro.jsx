@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Mountain from "assets/mountain.svg";
 import Bryggen from "assets/bryggen.svg";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 

@@ -1,10 +1,9 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
 import useAxios from "hooks/useAxios";
 import { API_URL, MEDIA_URL } from "constants/api";
-import AuthContext from "context/AuthContext";
 import Image from "next/image";
 import { schema } from "utils/schemaValidation/AddFormSchema";
 import { STAYS, REVIEW, ROOMS } from "constants/misc";
@@ -15,21 +14,7 @@ import Icon, { icons } from "constants/icons";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
 import { StyledImageContainer, UploadLabel } from "styles/pages/admin/Add/StyledImageContainer";
 import styled from "styled-components";
-import { device } from "global/ThemeConfig";
-
-// const StyledImageWrap = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-
-//   @media ${device.tablet} {
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     align-items: flex-start;
-//     gap: 10px;
-//   }
-// `;
+import { device } from "styles/global/ThemeConfig";
 
 const StyledFormWrap = styled.div`
   @media ${device.tablet} {
@@ -425,7 +410,6 @@ function AddForm() {
                   onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
                   style={{ opacity: "0" }}
                 />
-                {/* <FileUploader setImg={setImg1} ref={imgUpload1} uploadBtn="img1" name="image_1" /> */}
               </div>
             </Col>
 
@@ -450,7 +434,6 @@ function AddForm() {
                   onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
                   style={{ opacity: "0" }}
                 />
-                {/* <FileUploader setImg={setImg2} ref={imgUpload2} uploadBtn="img2" name="image_2" /> */}
               </div>
             </Col>
 
@@ -475,7 +458,6 @@ function AddForm() {
                   onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
                   style={{ opacity: "0" }}
                 />
-                {/* <FileUploader setImg={setImg3} ref={imgUpload3} uploadBtn="img3" name="image_3" /> */}
               </div>
             </Col>
 
@@ -500,7 +482,6 @@ function AddForm() {
                   onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
                   style={{ opacity: "0" }}
                 />
-                {/* <FileUploader setImg={setImg4} ref={imgUpload4} uploadBtn="img4" name="image_4" /> */}
               </div>
             </Col>
           </Row>

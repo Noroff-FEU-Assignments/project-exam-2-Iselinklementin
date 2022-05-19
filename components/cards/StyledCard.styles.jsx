@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Card } from "react-bootstrap";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 
 export const StyledCard = styled(Card)`
   border: none;

@@ -12,11 +12,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ENQUIRES_URL, LIGHT_AUTH } from "constants/api";
 import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
 import { schema } from "utils/schemaValidation/enquireFormSchema";
-import { Form, FormControl } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { StyledFormButton } from "components/common/buttons/Button.styles";
-import Paragraph, { StyledParagraphColoured } from "components/typography/Paragraph";
+import { StyledParagraphColoured } from "components/typography/Paragraph";
 import { RemoveLastWord } from "components/common/functions/RemoveWords";
-import { device } from "global/ThemeConfig";
+import { device } from "styles/global/ThemeConfig";
 import { BOOKED, CALENDAR_OPTIONS, SUBJECT } from "constants/misc";
 import { StyledCloseBtn, StyledCalendar } from "styles/StyledCalendar.styles";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
@@ -55,10 +55,6 @@ const StyledDeleteDate = styled.div`
   }
 `;
 
-// const StyledInputDate = styled(FormControl)`
-//   /* border: none; */
-//   width: unset;
-// `;
 // PHONE - må sjekke for nummer
 // TEXTAREA - skift font inni
 // SELECT - gi advarsel

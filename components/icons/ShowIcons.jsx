@@ -15,7 +15,7 @@ function ShowIcons(props) {
         let thisIncludes = include[0].replace("_", " ");
         let date = [];
 
-        // If its check-in or checkout, its needs to
+        // If the string is check-in or checkout, its needs to
         // show the time too.
 
         if (typeof include[1] === "string") {
