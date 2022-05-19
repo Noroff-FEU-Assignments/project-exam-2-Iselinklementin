@@ -28,11 +28,15 @@ import {
   BsFillClockFill,
   BsFillArrowRightCircleFill,
   BsJustifyLeft,
+  BsTrash,
 } from "react-icons/bs";
 import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
 
 export const icons = [
+  {
+    trash: <BsTrash key="trash" />,
+  },
   {
     close: <MdOutlineClose key="close" />,
   },

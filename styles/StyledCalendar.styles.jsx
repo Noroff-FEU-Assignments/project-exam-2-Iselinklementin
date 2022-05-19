@@ -52,7 +52,11 @@ export const StyledCalendar = styled.div`
     width: 100%;
 
     @media ${device.tablet} {
-      width: 430px;
+      width: 380px;
+    }
+
+    @media ${device.laptop} {
+      width: 420px;
     }
 
     .react-datepicker__month {
@@ -66,16 +70,16 @@ export const StyledCalendar = styled.div`
 
     .react-datepicker__day,
     .react-datepicker__day-name {
-      line-height: 2.5rem;
+      line-height: 2.2rem;
       width: 12%;
 
       @media ${device.tablet} {
-        width: 13%;
-        width: 50px;
+        width: 43px;
       }
 
       @media ${device.laptop} {
-        line-height: 2.2rem;
+        line-height: 2.4rem;
+        width: 50px;
       }
 
       :hover {

@@ -45,7 +45,7 @@ export const StyledFilter = styled.div`
 
   .active {
     background-color: ${(props) => props.theme.primaryColour};
-    border: transparent;
+    border: ${(props) => props.theme.primaryColour} thin solid;
     color: white;
   }
 

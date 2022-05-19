@@ -5,7 +5,7 @@ import { Intro } from "components/pages/home/Intro";
 import { ExploreBergen } from "components/pages/home/ExploreBergen";
 import { LinkStays } from "components/pages/home/LinkStays";
 import { SearchBox } from "components/common/search/Searchbox.styles";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import Search from "components/common/search/Search";
 import IntroImg from "assets/index_img.jpg";
@@ -17,7 +17,9 @@ import Head from "components/layout/Head";
 import { StyledContainer } from "styles/StyledContainer";
 
 export default function Home({ stays }) {
-  // const [loading, setLoading] = useState(false);
+  // if (!stays) {
+  //   return <div>error</div>;
+  // }
 
   let featured = stays.filter((stay) => stay.acf.featured === true);
   console.log(featured);

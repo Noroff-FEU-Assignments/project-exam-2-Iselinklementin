@@ -68,7 +68,7 @@ export default function Carousels(props) {
               alt={alt}
               layout="fill"
               objectFit="cover"
-              // objectPosition="top center"
+              objectPosition="bottom center"
             />
           </Carousel.Item>
         );

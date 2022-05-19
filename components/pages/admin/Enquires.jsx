@@ -23,10 +23,10 @@ export default function Enquires() {
       try {
         const response = await axios.get(ENQUIRES_URL);
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response.data);
           setContact(response.data);
         } else {
-          setError("This wasnt good");
+          setError(error);
         }
       } catch (error) {
         console.log(error);
@@ -44,8 +44,8 @@ export default function Enquires() {
 
   if (error) {
     return (
-      <Alertbox className="mt-2" type="danger">
-        {error}
+      <Alertbox className="mt-5" type="danger">
+        Sorry, something went wrong.
       </Alertbox>
     );
   }
@@ -91,23 +91,21 @@ export default function Enquires() {
                   <Paragraph>
                     <span>Persons:</span> {item.acf.how_many}
                   </Paragraph>
-                  {item.acf.room === "Choose room" ? (
+
+                  {item.acf.room === "Choose room" || item.acf.room === "" ? (
                     " "
                   ) : (
                     <Paragraph>
                       <span>Room:</span> {item.acf.room}
                     </Paragraph>
                   )}
-
                   <Paragraph>
                     <span>Date:</span> {item.acf.from_date} - {item.acf.to_date}
                   </Paragraph>
-
                   <Paragraph className="paragraph-margin">
                     <span>Comments:</span> {item.acf.comments}
                   </Paragraph>
-
-                  <Paragraph className="paragraph-margin">
+                  <Paragraph>
                     <span>Email:</span> {item.acf.email}
                   </Paragraph>
                 </div>

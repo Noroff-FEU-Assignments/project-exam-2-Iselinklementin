@@ -56,15 +56,11 @@ function ContactForm() {
       await axios.post(CONTACT_URL, data, {
         auth: LIGHT_AUTH,
       });
-
-      // her må jeg få opp en ny boks som sier at meldingen er sent osv.
-      // og at de eventuelt kan sende en ny beskjed.
     } catch (error) {
       setServerError(error.toString());
     } finally {
       setSubmitting(false);
       setSubmitted(true);
-      // formRef.reset();
     }
   }
 

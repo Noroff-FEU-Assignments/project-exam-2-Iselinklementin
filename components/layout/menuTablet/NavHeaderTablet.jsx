@@ -20,8 +20,6 @@ export const NavHeaderTablet = () => {
     auth ? setAuthorized(true) : false;
   }, []);
 
-  console.log(router.pathname);
-
   return (
     <StyledNav expand="lg">
       <Container className="mt-4">

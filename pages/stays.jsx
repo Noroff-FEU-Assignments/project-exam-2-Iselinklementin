@@ -32,11 +32,9 @@ function stays({ stays }) {
   const [filtered, setFiltered] = useState([]);
   let filteredBtnOn = [];
   const size = useWindowSize();
-
   const router = useRouter();
   const query = router.query;
   const sortType = query.type;
-
   const ref = createRef();
   let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
   let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");

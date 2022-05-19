@@ -7,7 +7,7 @@ import { API_URL, MEDIA_URL } from "constants/api";
 import Image from "next/image";
 import { schema } from "utils/schemaValidation/AddFormSchema";
 import { STAYS, REVIEW, ROOMS } from "constants/misc";
-import { StyledForm } from "./Form.styles";
+import { StyledFeedbackContainer, StyledForm } from "./Form.styles";
 import { Form, Row, Col } from "react-bootstrap";
 import Heading from "components/typography/Heading";
 import Icon, { icons } from "constants/icons";
@@ -15,6 +15,12 @@ import { StyledFormButton } from "components/common/buttons/Button.styles";
 import { StyledImageContainer, UploadLabel } from "styles/pages/admin/Add/StyledImageContainer";
 import styled from "styled-components";
 import { device } from "styles/global/ThemeConfig";
+import Alertbox from "components/common/alert/AlertBox";
+import Loader from "components/common/loader/Loader";
+import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
+import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
+import { StyledSelect } from "./StyledSelect";
+import { ValidationError } from "./ValidationError";
 
 const StyledFormWrap = styled.div`
   @media ${device.tablet} {
@@ -32,18 +38,19 @@ const StyledFormWrapDesktop = styled.div`
 
 function AddForm() {
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(0);
   const [counter, setCounter] = useState(0);
   const [type, setType] = useState("");
   const [roomType, setRoomType] = useState("");
-  //
+  // set images
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
   const [img4, setImg4] = useState();
-  //
+  // ref to image-inputs
   const imgUpload1 = useRef(null);
   const imgUpload2 = useRef(null);
   const imgUpload3 = useRef(null);
@@ -58,7 +65,10 @@ function AddForm() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: "onBlur",
   });
+
+  // this array changes after submit
 
   let imgArray = {
     image_1: 1234,
@@ -68,6 +78,9 @@ function AddForm() {
   };
 
   async function onSubmit(data) {
+    setLoading(true);
+    setSubmitting(true);
+    // store the files in different variables
     let file1 = imgUpload1.current.files[0];
     let file2 = imgUpload2.current.files[0];
     let file3 = imgUpload3.current.files[0];
@@ -81,10 +94,15 @@ function AddForm() {
       return formData;
     };
 
-    let imageOne = AddImages(file1, "Tester tittel 100", "Tester caption 1100");
-    let imageTwo = AddImages(file2, "Tester tittel 2", "Tester caption 200");
-    let imageThree = AddImages(file3, "Tester tittel 3", "Tester caption 300");
-    let imageFour = AddImages(file4, "Tester tittel 4", "Tester caption 400");
+    // Add formData to every file thats uploaded
+    let imageOne = AddImages(file1, "Title", "Caption");
+    let imageTwo = AddImages(file2, "Title", "Caption");
+    let imageThree = AddImages(file3, "Title", "Caption");
+    let imageFour = AddImages(file4, "Title", "Caption");
+
+    // I need to post them one by one
+    // and store the ID so I can use it in the post
+    // Wordpress doesnt allow multiple uploads at once
 
     await http.post(MEDIA_URL, imageOne).then((response) => {
       const thisID = response.data.id;
@@ -151,43 +169,77 @@ function AddForm() {
 
     // Ordne en success melding og error
 
-    await http
-      .post(API_URL, data)
-      .then((response) => {
-        console.log(response.data);
-        console.log(data);
-      })
-      .catch((error) => {
-        setError(error.toString());
-      });
-    setSubmitting(true);
+    try {
+      // await http.post(API_URL, data);
+      // console.log(response.data);
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.toString());
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+    }
+
+    // await http
+    //   .post(API_URL, data)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     console.log(data);
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     setError(error.toString());
+    //   });
+    // setSubmitting(true);
+    // setSubmitted(true);
   }
 
-  const onChangeHandler = (value) => {
-    setType(value.label);
-  };
+  if (error) {
+    return (
+      <Alertbox className="mt-5" type="danger">
+        Sorry, something went wrong.
+      </Alertbox>
+    );
+  }
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  // const onChangeHandler = (selectedType) => {
+  //   setType(selectedType.value);
+  //   // console.log(selectedType.value);
+  // };
 
   const changeHandler = (value) => {
     setRoomType(value.label);
   };
 
+  // if its a hotel you are adding,
+  // show selectbox on roomtype
+  // should be able to choose more than one
+  // forgot that
+
   const createHtml = (type) => {
-    console.log(type);
     if (type === "Hotel") {
       return (
         <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
+          <StyledFlexIconText>
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-4" />
+            </StyledIconFormContainer>
+
             <Controller
               name="room_type"
               control={control}
               render={({ field }) => (
-                <Select
+                <StyledSelect
                   name="room_type"
                   classNamePrefix="react-select"
                   className="select"
+                  placeholder="Select room"
                   options={ROOMS}
-                  defaultValue={{ value: "0", label: "Type of room" }}
                   {...field}
                   onChange={(e) => {
                     changeHandler(e);
@@ -195,104 +247,119 @@ function AddForm() {
                 />
               )}
             />
-          </div>
+          </StyledFlexIconText>
         </Form.Group>
       );
     } else if (type === "Apartment" || type === "Bed & Breakfast") {
+      // if its NOT a hotel, display a text input for extra room description
       return (
         <Form.Group className="mt-3">
-          <div className="d-flex align-items-center">
-            <Icon icon={icons.map((icon) => icon.apartment)} fontSize="24px" className="me-3" />
+          <StyledFlexIconText>
+            <StyledIconFormContainer>
+              <Icon icon={icons.map((icon) => icon.apartment)} fontSize="24px" className="me-4" />
+            </StyledIconFormContainer>
             <Form.Control label="room_info" type="text" placeholder="Room info" {...register("room_info")} />
-          </div>
+          </StyledFlexIconText>
         </Form.Group>
       );
     }
-
     return "";
   };
 
   return (
     <>
-      {submitting}
       <StyledForm className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
         <StyledFormWrapDesktop>
           <StyledFormWrap>
+            {/* Title */}
             <Form.Group className="mt-3">
-              <div className="d-flex align-items-center">
-                <Icon icon={icons.map((icon) => icon.title)} fontSize="22px" className="me-3" />
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.title)} fontSize="22px" className="me-3" />
+                </StyledIconFormContainer>
                 <Form.Control label="stay_title" type="text" placeholder="Title" {...register("title")} />
-                {/* {errors.title && (
-              <StyledFeedbackContainer>
-                <Icon
-                  icon={icons.map(icon => icon.error)}
-                  color="#D11117"
-                  className="warning-icon"
-                />
-                <Alertbox className="mt-2">{errors.title.message}</Alertbox>
-              </StyledFeedbackContainer>
-            )} */}
-              </div>
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <div className="d-flex align-items-center">
-                <Icon icon={icons.map((icon) => icon.price)} fontSize="20px" className="me-3" />
-                <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
-              </div>
+              </StyledFlexIconText>
+              {errors.title && <ValidationError errorName={errors.title.message} />}
             </Form.Group>
 
             <Form.Group className="mt-3">
-              <div className="d-flex align-items-center">
-                <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.price)} fontSize="20px" className="me-3" />
+                </StyledIconFormContainer>
+                <Form.Control label="price" type="text" placeholder="Price" {...register("price")} />
+              </StyledFlexIconText>
+              {errors.price && <ValidationError errorName={errors.price.message} />}
+            </Form.Group>
+
+            <Form.Group className="mt-3">
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-3" />
+                </StyledIconFormContainer>
+
                 <Controller
                   name="stay_type"
                   control={control}
-                  render={({ field }) => (
-                    <Select
-                      // menuIsOpen={true}
-                      defaultValue={{ value: "0", label: "Stay type" }}
+                  render={({ field: { onChange } }) => (
+                    <StyledSelect
                       className="select"
                       classNamePrefix="react-select"
+                      placeholder="Stay type"
                       options={STAYS}
-                      {...field}
+                      // {...field}
                       onChange={(e) => {
-                        onChangeHandler(e);
+                        setType(e.value);
+                        onChange(e.value);
                       }}
                     />
                   )}
                 />
-              </div>
+              </StyledFlexIconText>
+              {errors.stay_type && (
+                <StyledFeedbackContainer>
+                  <Alertbox className="mt-2">{errors.stay_type.message}</Alertbox>
+                </StyledFeedbackContainer>
+              )}
             </Form.Group>
 
             {createHtml(type)}
 
             <Form.Group className="mt-3">
-              <div className="d-flex align-items-center">
-                <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+                </StyledIconFormContainer>
                 <Form.Control
                   label="full_address"
                   type="text"
                   placeholder="Full address"
                   {...register("full_address")}
                 />
-              </div>
+              </StyledFlexIconText>
+              {errors.full_address && <ValidationError errorName={errors.full_address.message} />}
             </Form.Group>
 
             <Form.Group className="mt-3">
-              <div className="d-flex align-items-center">
-                <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+              <StyledFlexIconText>
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
+                </StyledIconFormContainer>
                 <Form.Control
                   label="short_description"
                   type="text"
                   placeholder="Location"
                   {...register("short_description")}
                 />
-              </div>
+              </StyledFlexIconText>
+              {errors.short_description && <ValidationError errorName={errors.short_description.message} />}
             </Form.Group>
 
             <Form.Group className="mt-3">
               <div className="text-area-container">
-                <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                </StyledIconFormContainer>
                 <Form.Control
                   as="textarea"
                   rows={6}
@@ -301,13 +368,18 @@ function AddForm() {
                   placeholder="Description"
                   {...register("description")}
                 />
+
                 <span className="counter">{count}/20</span>
               </div>
+
+              {errors.description && <ValidationError errorName={errors.description.message} />}
             </Form.Group>
 
             <Form.Group className="mt-5">
               <div className="text-area-container">
-                <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                <StyledIconFormContainer>
+                  <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
+                </StyledIconFormContainer>
                 <Form.Control
                   as="textarea"
                   label="text"
@@ -319,27 +391,36 @@ function AddForm() {
                 />
                 <span className="counter">{counter}/20</span>
               </div>
+              {errors.text && <ValidationError errorName={errors.text.message} />}
             </Form.Group>
 
-            <Form.Group className="mt-5 mb-md-5">
-              <div className="text-area-container">
+            <Form.Group className="mt-5 mb-md-5 text-area-container">
+              <StyledIconFormContainer>
                 <Icon icon={icons.map((icon) => icon.star)} fontSize="22px" className="me-3 mt-3" />
-                <Controller
-                  name="stars"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      className="select"
-                      classNamePrefix="react-select"
-                      name="stars"
-                      options={REVIEW}
-                      defaultValue={{ value: "0", label: "Review" }}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
+              </StyledIconFormContainer>
+              <Controller
+                name="stars"
+                control={control}
+                render={({ field: { onChange } }) => (
+                  <StyledSelect
+                    className="select"
+                    classNamePrefix="react-select"
+                    name="stars"
+                    options={REVIEW}
+                    placeholder="Review"
+                    onChange={(e) => {
+                      onChange(e.value);
+                    }}
+                    // {...field}
+                  />
+                )}
+              />
             </Form.Group>
+            {errors.stars && (
+              <StyledFeedbackContainer>
+                <Alertbox className="mt-2">{errors.stars.message}</Alertbox>
+              </StyledFeedbackContainer>
+            )}
           </StyledFormWrap>
 
           <hr className="mb-5 mt-5 d-md-none" />
@@ -350,31 +431,51 @@ function AddForm() {
               <Heading size="3">Keywords</Heading>
             </div>
             <div className="checkboxes">
-              <Form.Check name="featured" label="Featured" {...register("featured")} />
+              {/* <Form.Check name="featured" label="Featured" {...register("featured")} />
               <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
               <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
               <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
               <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
               <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
-              <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
+              <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} /> */}
+
+              <Form.Check name="featured" label="Featured" {...register("checkboxes")} />
+              <Form.Check name="wifi" label="Wifi" {...register("checkboxes")} />
+              <Form.Check name="kitchen" label="Kitchen" {...register("checkboxes")} />
+              <Form.Check name="free_parking" label="Free parking" {...register("checkboxes")} />
+              <Form.Check name="breakfast" label="Breakfast" {...register("checkboxes")} />
+              <Form.Check name="swimming_pool" label="Swimming pool" {...register("checkboxes")} />
+              <Form.Check name="pet_friendly" label="Pet friendly" {...register("checkboxes")} />
+              {errors.checkboxes && <ValidationError errorName={errors.checkboxes.message} />}
             </div>
             <hr className="mb-5 mt-5" />
+
             <div className="d-flex">
               <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
               <Heading size="3">Nice to know</Heading>
             </div>
+
             <div className="checkboxes mb-5">
               <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
               <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
             </div>
-            <div className="d-flex align-items-center  mb-5 mt-4">
-              <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+
+            <div className="d-flex align-items-center mb-5 mt-4">
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+              </StyledIconFormContainer>
+
               <Form.Group className="mt-3 me-5">
                 <Form.Control label="check_in" type="text" placeholder="check in" {...register("check_in")} />
+                {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
               </Form.Group>
-              <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+              </StyledIconFormContainer>
               <Form.Group className="mt-3">
                 <Form.Control label="checkout" type="text" placeholder="checkout" {...register("checkout")} />
+                {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
               </Form.Group>
             </div>
           </StyledFormWrap>
@@ -387,105 +488,97 @@ function AddForm() {
           <Heading size="3">Images</Heading>
         </div>
 
-        <div>
-          <Row xs={1} sm={2} md={3} lg={4} className="g-4">
-            {/* FØRSTE BILDE */}
-            <Col>
-              <div>
-                <StyledImageContainer>
-                  {img1 ? (
-                    <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-                  ) : (
-                    <div className="img-placeholder">
-                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                    </div>
-                  )}
-                </StyledImageContainer>
-                <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
-                <Form.Control
-                  id="imgUpload1"
-                  type="file"
-                  name="image_1"
-                  ref={imgUpload1}
-                  onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
-                  style={{ opacity: "0" }}
-                />
-              </div>
-            </Col>
+        {/* Images - first image */}
+        <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+          <Col>
+            <StyledImageContainer>
+              {img1 ? (
+                <Image src={img1} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
 
-            {/* ANDRE BILDE */}
-            <Col>
-              <div>
-                <StyledImageContainer>
-                  {img2 ? (
-                    <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-                  ) : (
-                    <div className="img-placeholder">
-                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                    </div>
-                  )}
-                </StyledImageContainer>
-                <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
-                <Form.Control
-                  id="imgUpload2"
-                  type="file"
-                  name="image_2"
-                  ref={imgUpload2}
-                  onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
-                  style={{ opacity: "0" }}
-                />
-              </div>
-            </Col>
+            <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
+            {/* Using a hidden button for uploads */}
+            <Form.Control
+              id="imgUpload1"
+              type="file"
+              name="image_1"
+              ref={imgUpload1}
+              onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+          </Col>
 
-            {/* TREDJE BILDE */}
-            <Col>
-              <div>
-                <StyledImageContainer>
-                  {img3 ? (
-                    <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-                  ) : (
-                    <div className="img-placeholder">
-                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                    </div>
-                  )}
-                </StyledImageContainer>
-                <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
-                <Form.Control
-                  id="imgUpload3"
-                  type="file"
-                  name="image_3"
-                  ref={imgUpload3}
-                  onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
-                  style={{ opacity: "0" }}
-                />
-              </div>
-            </Col>
+          {/* Images - second image */}
+          <Col>
+            <StyledImageContainer>
+              {img2 ? (
+                <Image src={img2} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload2">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload2"
+              type="file"
+              name="image_2"
+              ref={imgUpload2}
+              onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+          </Col>
 
-            {/* FJERDE BILDE */}
-            <Col>
-              <div>
-                <StyledImageContainer>
-                  {img4 ? (
-                    <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
-                  ) : (
-                    <div className="img-placeholder">
-                      <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
-                    </div>
-                  )}
-                </StyledImageContainer>
-                <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
-                <Form.Control
-                  id="imgUpload4"
-                  type="file"
-                  name="image_4"
-                  ref={imgUpload4}
-                  onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
-                  style={{ opacity: "0" }}
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
+          {/* Images - third image */}
+          <Col>
+            <StyledImageContainer>
+              {img3 ? (
+                <Image src={img3} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload3">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload3"
+              type="file"
+              name="image_3"
+              ref={imgUpload3}
+              onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+          </Col>
+
+          {/* Images - fourth image */}
+          <Col>
+            <StyledImageContainer>
+              {img4 ? (
+                <Image src={img4} alt="image" layout="fill" objectFit="cover" {...register("images")} />
+              ) : (
+                <div className="img-placeholder">
+                  <Icon icon={icons.map((icon) => icon.image)} fontSize="58px" color="#FC5156" />
+                </div>
+              )}
+            </StyledImageContainer>
+            <UploadLabel htmlFor="imgUpload4">Upload image</UploadLabel>
+            <Form.Control
+              id="imgUpload4"
+              type="file"
+              name="image_4"
+              ref={imgUpload4}
+              onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
+              style={{ opacity: "0" }}
+            />
+          </Col>
+        </Row>
 
         <StyledFormButton className="mb-4 mt-5" type="submit">
           {submitting ? "Adding stay.." : "Add stay"}

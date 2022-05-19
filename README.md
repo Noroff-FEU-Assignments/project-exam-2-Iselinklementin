@@ -82,6 +82,8 @@ https://stackoverflow.com/questions/63406435/how-to-detect-window-size-in-next-j
 
 https://github.com/react-icons/react-icons/issues/509
 
+https://codesandbox.io/s/react-hook-form-js-forked-rezdf8?file=/src/App.js:277-302
+
 ---
 
 react-icons (modules)

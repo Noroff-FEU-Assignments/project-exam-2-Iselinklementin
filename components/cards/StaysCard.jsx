@@ -10,7 +10,7 @@ import CapitalizeFirstLetter from "components/common/functions/CapitalizeFirstLe
 
 function StaysCard(props) {
   return (
-    <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+    <Row xs={1} sm={2} lg={4} className="g-4">
       {props.stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));

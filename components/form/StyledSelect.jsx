@@ -13,7 +13,12 @@ export const StyledSelect = styled(Select)`
     box-shadow: none;
   }
 
-  .react-select__value-container:focus-visible {
+  .react-select__placeholder {
+    height: 35px;
+  }
+
+  .react-select__input-container {
+    height: 50px;
   }
 
   .react-select__control--is-focused,

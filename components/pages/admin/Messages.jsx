@@ -75,9 +75,14 @@ export default function Messages() {
                   <Paragraph>
                     <span>Message:</span> {item.acf.message}
                   </Paragraph>
-                  <Paragraph className="paragraph-margin">
+                  {/* <Paragraph className="paragraph-margin"></Paragraph> */}
+                  <Paragraph>
                     <span>Email:</span> {item.acf.email}
                   </Paragraph>
+                  {/* <div className="d-flex align-items-center mt-4">
+                    <Icon icon={icons.map((icon) => icon.trash)} fontSize="18px" />
+                    <Paragraph>Delete message</Paragraph>
+                  </div> */}
                 </div>
               </Accordion.Body>
             </Accordion.Item>

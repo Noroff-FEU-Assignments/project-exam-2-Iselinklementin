@@ -6,6 +6,7 @@ import Heading from "components/typography/Heading";
 import Paragraph from "components/typography/Paragraph";
 import { API_URL } from "constants/api";
 import { useRouter } from "next/router";
+import { Container } from "react-bootstrap";
 import { StyledContainer } from "styles/StyledContainer";
 
 export default function Enquire({ stay }) {
@@ -38,12 +39,14 @@ export default function Enquire({ stay }) {
     <Layout>
       <Head title="Enquire" />
       <StyledContainer className="p-4 mt-5">
-        {showRoom()}
-        <Heading className="mt-3" size="1">
-          Start planning your trip to {stay.acf.title}
-        </Heading>
+        <Container className="py-4">
+          {showRoom()}
+          <Heading className="mt-3" size="1">
+            Start planning your trip to {stay.acf.title}
+          </Heading>
 
-        <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
+          <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
+        </Container>
       </StyledContainer>
     </Layout>
   );

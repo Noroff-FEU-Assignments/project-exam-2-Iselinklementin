@@ -5,6 +5,8 @@ import { device } from "styles/global/ThemeConfig";
 export const StyledCard = styled(Card)`
   border: none;
   cursor: pointer;
+  height: 100%;
+
   /* min-height: 400px; */
 
   :hover {
@@ -29,21 +31,24 @@ export const StyledCard = styled(Card)`
   .card-body {
     padding: 20px;
     background: ${(props) => props.theme.secondaryColour};
+    background: #26153d;
     color: ${(props) => props.theme.light};
     border-radius: 0px 0px 8px 8px;
     font-size: 14px;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
-    height: 180px;
+    /* height: 180px; */
   }
 
   .card-img {
     border-radius: 8px 8px 0px 0px;
   }
+  /* 
+  .keywords {
+    font-size: 12px;
+  } */
 
   .card-text {
-    span {
-    }
   }
 
   .badge {
