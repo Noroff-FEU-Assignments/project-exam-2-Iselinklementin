@@ -14,8 +14,17 @@ export const StyledForm = styled(Form)`
 
     :focus {
       border-color: #fc5156;
-      box-shadow: 0 0 0 0.05rem rgb(252 81 86 / 25%);
+      box-shadow: 0 0 0 0.1rem rgb(252 81 86 / 25%);
     }
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    box-shadow: 0 0 0 1000px white inset;
+  }
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    box-shadow: 0 0 0 1000px white inset;
   }
 
   input::placeholder {

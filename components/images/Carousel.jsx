@@ -58,11 +58,15 @@ export default function Carousels(props) {
   return (
     <StyledCarousel>
       {props.stays.map((stay) => {
+        let url = stay[0];
+        let alt = stay[1];
+
         return (
-          <Carousel.Item key={stay}>
+          <Carousel.Item key={url}>
             <Image
               // blurDataURL={Placeholder}
-              src={stay}
+              src={url}
+              alt={alt}
               layout="fill"
               objectFit="cover"
               // objectPosition="top center"

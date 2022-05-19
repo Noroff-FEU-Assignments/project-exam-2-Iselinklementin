@@ -36,11 +36,11 @@ const StyledSplit = styled.div`
 export default function stay({ stay }) {
   const size = useWindowSize();
 
+  // gather image and alt text in an array (for carousel)
   let image = Object.entries(stay.acf.image);
-  let imagesArr = [];
-  image.forEach((img) => {
-    imagesArr.push(img[1].url);
-  });
+  let imageUrl = image.map((img) => img[1].url);
+  let imageAlt = image.map((img) => img[1].alt);
+  let imageArray = imageUrl.map((url, i) => [url, imageAlt[i]]);
 
   //   <div className="books">
   //   <h2>Books</h2>
@@ -68,7 +68,7 @@ export default function stay({ stay }) {
       {size.width <= SCREEN.laptop ? (
         <StyledContainer>
           <Container className="mt-5">
-            <Carousels stays={imagesArr} />
+            <Carousels stays={imageArray} />
 
             <div className="mt-4">
               <ShowIcons stay={stay.acf.stay_includes} />
@@ -108,7 +108,7 @@ export default function stay({ stay }) {
       ) : (
         <StyledContainer>
           <div className="d-flex flex-row justify-content-between">
-            <Carousels stays={imagesArr} />
+            <Carousels stays={imageArray} />
 
             <div className="ms-5">
               <ShowIcons stay={stay.acf.stay_includes} />

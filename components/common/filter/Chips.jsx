@@ -1,5 +1,5 @@
 import { Container, Form } from "react-bootstrap";
-import React, { useRef, useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import Icon, { icons } from "constants/icons";
 import { StyledFilter } from "./StyledFilter.styles";
 import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
@@ -10,7 +10,7 @@ const StyledHeading = styled(Heading)`
   font-size: 16px;
 `;
 
-export const Chips = ({ clicked }) => {
+export const Chips = forwardRef((props, ref) => {
   const clickedButtonHandler = (e) => {
     e.currentTarget.classList.toggle("active");
     // ✕
@@ -63,9 +63,10 @@ export const Chips = ({ clicked }) => {
               <button
                 key={btnName}
                 name={btnName}
+                ref={ref}
                 onClick={(e) => {
                   clickedButtonHandler(e, btnName);
-                  clicked(e.target);
+                  props.clicked(e.target);
                 }}
                 className="me-2 mt-2"
               >
@@ -79,4 +80,4 @@ export const Chips = ({ clicked }) => {
       </StyledFilter>
     </>
   );
-};
+});

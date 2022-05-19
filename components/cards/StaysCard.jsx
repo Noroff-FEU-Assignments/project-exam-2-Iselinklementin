@@ -29,6 +29,7 @@ function StaysCard(props) {
                   variant="top"
                   quality={60}
                   src={stay.acf.image.image_1.url}
+                  alt={stay.acf.image.image_1.alt}
                   objectFit="cover"
                   width={320}
                   height={320}

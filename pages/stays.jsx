@@ -20,6 +20,7 @@ import { StyledContainer } from "styles/StyledContainer";
 import Heading from "components/typography/Heading";
 import { StyledLine } from "styles/pages/stays/StyledLine.styles";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const StyledParagraph = styled(Paragraph)`
   font-size: 14px;
@@ -31,8 +32,59 @@ function stays({ stays }) {
   const [filtered, setFiltered] = useState([]);
 
   const size = useWindowSize();
+  const router = useRouter();
+  const query = router.query;
+  const sortType = query.type;
 
+  const ref = createRef();
+  let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
+  let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");
+  let bedbreakfast = stays.filter((stay) => stay.acf.room.stay_type === "Bed & Breakfast");
   let filteredBtnOn = [];
+
+  const ShowStayType = ({ title, array }) => {
+    return (
+      <div className="mt-5">
+        <Heading size="2">{title}</Heading>
+        <StyledLine className="mb-4"></StyledLine>
+        <StaysCard stays={array} />
+      </div>
+    );
+  };
+
+  console.log(sortType);
+
+  useEffect(() => {
+    let btns = ref.current.parentElement.children;
+    let btnsArray = [...btns];
+    let apartmentBtn = btnsArray.find((btn) => btn.innerText === "Apartment");
+    let hotelBtn = btnsArray.find((btn) => btn.innerText === "Hotel");
+    let bedBreakftBtn = btnsArray.find((btn) => btn.innerText === "Bed & Breakfast");
+
+    switch (sortType) {
+      case "Apartment":
+        filterChips.push("apartment");
+        setFiltered(apartment);
+        apartmentBtn.classList.add("active");
+        apartmentBtn.classList.add("active-filter");
+        break;
+      case "Bedbreakfast":
+        filterChips.push("Bed & Breakfast");
+        setFiltered(bedbreakfast);
+        bedBreakftBtn.classList.add("active");
+        bedBreakftBtn.classList.add("active-filter");
+        break;
+      case "Hotel":
+        filterChips.push("hotel");
+        setFiltered(hotels);
+        hotelBtn.classList.add("active");
+        hotelBtn.classList.add("active-filter");
+        break;
+    }
+  }, []);
+
+  // console.log(filterBtnContainer);
+
   // HUSK å gå gjennom navnene her
 
   const btnClick = (e) => {
@@ -103,10 +155,6 @@ function stays({ stays }) {
   const CreateHtml = () => {
     let length = filtered.length;
 
-    let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
-    let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");
-    let bedbreakfast = stays.filter((stay) => stay.acf.room.stay_type === "Bed & Breakfast");
-
     if (length) {
       return (
         <>
@@ -117,24 +165,9 @@ function stays({ stays }) {
     }
     return (
       <>
-        <div className="mt-5">
-          <Heading size="2">Hotels</Heading>
-          <StyledLine className="mb-4"></StyledLine>
-          <StaysCard stays={hotels} />
-        </div>
-
-        <div className="mt-5">
-          <Heading size="2">Apartment</Heading>
-          <StyledLine className="mb-4"></StyledLine>
-          <StaysCard stays={apartment} />
-        </div>
-
-        <div className="mt-5 position-relative">
-          <Heading size="2">Bed & Breakfast</Heading>
-          <StyledLine className="mb-4"></StyledLine>
-
-          <StaysCard stays={bedbreakfast} />
-        </div>
+        <ShowStayType title="Hotels" array={hotels} />
+        <ShowStayType title="Apartment" array={apartment} />
+        <ShowStayType title="Bed & Breakfast" array={bedbreakfast} />
       </>
     );
   };
@@ -160,22 +193,13 @@ function stays({ stays }) {
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => btnClick(e)} />
-                <Chips clicked={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} ref={ref} />
 
                 {/* Her ligger det sikkert noe styling jeg kan ta bort: */}
 
                 {/* <div className="results-btn-container">
                   <div
                     className="clear"
-                    role="button"
-                    onClick={() => {
-                      setFilterChips([]);
-                      setFiltered([]);
-                    }}
-                  >
-                    Clear all
-                  </div>
-
                   <div role="button" className="results">
                     Show results - denne må kobles opp
                   </div>
@@ -193,7 +217,7 @@ function stays({ stays }) {
 
               <StyledFilterWrap>
                 <Rating click={(e) => btnClick(e)} />
-                <Chips clicked={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} ref={ref} />
               </StyledFilterWrap>
             </Container>
           </>

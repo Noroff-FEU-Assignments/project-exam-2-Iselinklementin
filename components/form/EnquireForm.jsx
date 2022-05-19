@@ -230,7 +230,7 @@ export default function EnquireForm({ title, room, type }) {
             <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
             <Heading size="2">{RemoveLastWord(today)}</Heading>
 
-            <div className="d-md-flex">
+            <div>
               <StyledCalendar className="mt-4">
                 <DatePicker
                   selected={startDate}
@@ -251,7 +251,7 @@ export default function EnquireForm({ title, room, type }) {
                 {/* <div className="position-relative"></div> */}
               </StyledCalendar>
 
-              <Form.Group className="d-flex mb-4 mt-md-3 align-items-center">
+              <Form.Group className="d-flex mb-4 mt-md-1 align-items-center">
                 <StyledIconFormContainer className="d-none">
                   <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
                 </StyledIconFormContainer>

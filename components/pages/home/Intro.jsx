@@ -90,7 +90,7 @@ export const Intro = () => {
       </StyledImageIntroContainer>
       <StyledIntroContainer>
         <Heading size="1">Welcome to Bergen</Heading>
-        <Paragraph>We in Holiday have the best places to stay, handpicked for you!</Paragraph>
+        <Paragraph>We in Holidaze have the best places to stay, handpicked for you!</Paragraph>
       </StyledIntroContainer>
     </>
   );

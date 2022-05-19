@@ -27,7 +27,11 @@ export default function Home({ stays }) {
 
   return (
     <Layout>
-      <Head title="Holidaze" />
+      <Head
+        title="Holidaze"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+      />
       <Intro />
       <SearchBox className="d-flex flex-column justify-content-center mt-4 py-4">
         <Search />

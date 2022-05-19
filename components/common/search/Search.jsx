@@ -18,7 +18,6 @@ function Search() {
   const [suggestions, setSuggestions] = useState([]);
   const showLoading = useRef(null);
   const [noResult, setNoResult] = useState("");
-  // const [match, setMatch] = useState(null);
 
   useEffect(() => {
     const loadStays = async () => {
@@ -37,25 +36,26 @@ function Search() {
   };
 
   const onChangeHandler = (value) => {
+    if (!value.length) {
+      setNoResult("");
+    }
+
     let matches = [];
     if (value.length > 0) {
       matches = stays.filter((stay) => {
         const regex = new RegExp(`${value}`, "gi");
-        // setNoResult("");
-        // setMatch(true);
+        setNoResult("");
         return stay.acf.title.match(regex);
       });
-    } else {
-      // setMatch(false);
-      // setNoResult("Sorry, no results");
+    }
+
+    if (value.length && matches.length < 1) {
+      setNoResult("Sorry, no results found..");
     }
 
     setSuggestions(matches);
     setValue(value);
   };
-
-  // console.log(match);
-  // console.log(noResult);
 
   return (
     <StyledWideContainer>
@@ -79,27 +79,33 @@ function Search() {
               setSuggestions([]);
               setNoResult("");
             }, 100);
+            setValue("");
           }}
         />
         <div className="split"></div>
-        {/* {match ? ( */}
-        <ListGroup>
-          {suggestions &&
-            suggestions.map((suggestion, i) => (
-              <Link href={`stay/${suggestion.id}`} key={suggestion.id}>
-                <a onClick={() => onSuggestionHandler(suggestion.acf.title)}>
-                  <ListGroupItem key={i} action>
-                    {suggestion.acf.title}
-                  </ListGroupItem>
-                </a>
-              </Link>
-            ))}
-        </ListGroup>
-        {/* ) : (
+        {noResult.length ? (
           <ListGroup>
             <ListGroupItem>{noResult}</ListGroupItem>
           </ListGroup>
-        )} */}
+        ) : (
+          <ListGroup>
+            {suggestions &&
+              suggestions.map((suggestion, i) => (
+                <Link href={`stay/${suggestion.id}`} key={suggestion.id}>
+                  <a
+                    onClick={() => {
+                      onSuggestionHandler(suggestion.acf.title);
+                      setValue("Loading page..");
+                    }}
+                  >
+                    <ListGroupItem key={i} action>
+                      {suggestion.acf.title}
+                    </ListGroupItem>
+                  </a>
+                </Link>
+              ))}
+          </ListGroup>
+        )}
       </Container>
       {size.width >= SCREEN.tablet ? (
         <>

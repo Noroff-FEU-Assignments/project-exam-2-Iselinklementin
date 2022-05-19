@@ -47,9 +47,9 @@ export const StyledFormButton = styled(Button)`
 
   &:hover,
   &:focus,
-  &:active {
-    /* background: ${(props) => props.theme.secondaryColour}; */
-    background: #f4454b;
+  &:active,
+  &:visited {
+    background: #f4454b !important;
     border-color: transparent;
     color: white;
     box-shadow: 0 0 0 0.25rem #fb76793d;
