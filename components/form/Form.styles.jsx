@@ -1,4 +1,4 @@
-import { Alert, Form, FormCheck } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import styled from "styled-components";
 // noe av denne koden er 2 ganger
 // også i searchfunksjonen
@@ -60,28 +60,28 @@ export const StyledForm = styled(Form)`
       box-shadow: none;
     }
 
-    .react-select__value-container:focus-visible,
+    /* .react-select__value-container:focus-visible,
     .react-select__indicators,
     .react-select__control--is-focused,
     .react-select__control--menu-is-open,
     .react-.react-select__value-container,
     .react-select__control {
       height: 50px;
-    }
+    } */
 
-    .react-select__single-value {
+    /* .react-select__single-value {
       height: 22px;
       line-height: 10px;
       overflow: unset;
-    }
+    } */
 
-    .react-select__control--is-focused,
+    /* .react-select__control--is-focused,
     .react-select__control--menu-is-open {
       border-color: #fc5156;
       box-shadow: 0 0 0 1px rgb(252 81 86 / 25%);
-    }
+    } */
 
-    .react-select__menu {
+    /* .react-select__menu {
       .react-select__option--is-selected {
         background: #fc5156;
       }
@@ -90,7 +90,7 @@ export const StyledForm = styled(Form)`
         background: #fdc2c2;
         color: ${(props) => props.theme.body};
       }
-    }
+    } */
   }
 
   .text-area-container {
@@ -111,31 +111,6 @@ export const StyledForm = styled(Form)`
       bottom: -30px;
       color: grey;
       font-size: 14px;
-    }
-  }
-
-  .checkboxes {
-    .form-check-input:checked {
-      background-color: #fc5156;
-      border-color: #fc5156;
-    }
-
-    input[type="checkbox"] {
-      cursor: pointer;
-      height: 20px;
-      width: 20px;
-      :focus {
-        border-color: #fc5156;
-        box-shadow: 0 0 0 0.25rem rgb(252 81 86 / 25%);
-      }
-    }
-
-    .form-check {
-      margin: 1rem 0 1rem 0;
-    }
-
-    label {
-      margin-left: 1rem;
     }
   }
 `;

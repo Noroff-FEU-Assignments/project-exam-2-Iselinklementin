@@ -21,6 +21,21 @@ export const StyledSelect = styled(Select)`
     height: 50px;
   }
 
+  .react-select__value-container:focus-visible,
+  .react-select__indicators,
+  .react-select__control--is-focused,
+  .react-select__control--menu-is-open,
+  .react-.react-select__value-container,
+  .react-select__control {
+    height: 50px;
+  }
+
+  .react-select__single-value {
+    height: 22px;
+    line-height: 10px;
+    overflow: unset;
+  }
+
   .react-select__control--is-focused,
   .react-select__control--menu-is-open {
     border-color: #fc5156;

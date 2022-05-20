@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, createRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
@@ -21,6 +21,8 @@ import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
 import { StyledSelect } from "./StyledSelect";
 import { ValidationError } from "./ValidationError";
+import Paragraph from "components/typography/Paragraph";
+import { StyledCheckbox } from "./StyledCheckbox.styles";
 
 const StyledFormWrap = styled.div`
   @media ${device.tablet} {
@@ -44,13 +46,16 @@ function AddForm() {
   const [count, setCount] = useState(0);
   const [counter, setCounter] = useState(0);
   const [type, setType] = useState("");
+  const [review, setReview] = useState("");
   const [roomType, setRoomType] = useState("");
   // set images
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
   const [img4, setImg4] = useState();
+
   // ref to image-inputs
+  // I get an error here, but it works
   const imgUpload1 = useRef(null);
   const imgUpload2 = useRef(null);
   const imgUpload3 = useRef(null);
@@ -78,8 +83,8 @@ function AddForm() {
   };
 
   async function onSubmit(data) {
-    setLoading(true);
-    setSubmitting(true);
+    // setLoading(true);
+
     // store the files in different variables
     let file1 = imgUpload1.current.files[0];
     let file2 = imgUpload2.current.files[0];
@@ -104,25 +109,25 @@ function AddForm() {
     // and store the ID so I can use it in the post
     // Wordpress doesnt allow multiple uploads at once
 
-    await http.post(MEDIA_URL, imageOne).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_1 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageOne).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_1 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageTwo).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_2 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageTwo).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_2 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageThree).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_3 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageThree).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_3 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageFour).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_4 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageFour).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_4 = thisID;
+    // });
 
     data = {
       status: "publish",
@@ -143,13 +148,13 @@ function AddForm() {
           handicap_friendly: data.handicap_friendly,
           no_smoking: data.no_smoking,
         },
-        nice_text: data.text,
+        nice_text: data.nice_text,
         room: {
           room_info: data.room_info,
           room_type: roomType,
           stay_type: type,
         },
-        stars: data.stars.value,
+        stars: review,
         stay_includes: {
           wifi: data.wifi,
           kitchen: data.kitchen,
@@ -168,10 +173,10 @@ function AddForm() {
     };
 
     // Ordne en success melding og error
-
+    console.log(data);
     try {
-      // await http.post(API_URL, data);
-      // console.log(response.data);
+      //  await http.post(API_URL, data);
+      console.log(response.data);
       console.log(data);
       setLoading(false);
     } catch (error) {
@@ -186,26 +191,27 @@ function AddForm() {
     //   .then((response) => {
     //     console.log(response.data);
     //     console.log(data);
-    //     setLoading(false);
+    //     // setLoading(false);
     //   })
     //   .catch((error) => {
     //     setError(error.toString());
     //   });
+
     // setSubmitting(true);
     // setSubmitted(true);
   }
 
-  if (error) {
-    return (
-      <Alertbox className="mt-5" type="danger">
-        Sorry, something went wrong.
-      </Alertbox>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Alertbox className="mt-5" type="danger">
+  //       Sorry, something went wrong.
+  //     </Alertbox>
+  //   );
+  // }
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   // const onChangeHandler = (selectedType) => {
   //   setType(selectedType.value);
@@ -268,6 +274,8 @@ function AddForm() {
 
   return (
     <>
+      {/* {submitting} */}
+
       <StyledForm className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
         <StyledFormWrapDesktop>
           <StyledFormWrap>
@@ -307,7 +315,6 @@ function AddForm() {
                       classNamePrefix="react-select"
                       placeholder="Stay type"
                       options={STAYS}
-                      // {...field}
                       onChange={(e) => {
                         setType(e.value);
                         onChange(e.value);
@@ -368,10 +375,8 @@ function AddForm() {
                   placeholder="Description"
                   {...register("description")}
                 />
-
                 <span className="counter">{count}/20</span>
               </div>
-
               {errors.description && <ValidationError errorName={errors.description.message} />}
             </Form.Group>
 
@@ -387,11 +392,11 @@ function AddForm() {
                   onKeyUp={(e) => setCounter(e.target.value.length)}
                   type="text"
                   placeholder="Nice to know"
-                  {...register("text")}
+                  {...register("nice_text")}
                 />
                 <span className="counter">{counter}/20</span>
               </div>
-              {errors.text && <ValidationError errorName={errors.text.message} />}
+              {errors.nice_text && <ValidationError errorName={errors.nice_text.message} />}
             </Form.Group>
 
             <Form.Group className="mt-5 mb-md-5 text-area-container">
@@ -401,6 +406,7 @@ function AddForm() {
               <Controller
                 name="stars"
                 control={control}
+                // render={({ field }) => (
                 render={({ field: { onChange } }) => (
                   <StyledSelect
                     className="select"
@@ -409,9 +415,9 @@ function AddForm() {
                     options={REVIEW}
                     placeholder="Review"
                     onChange={(e) => {
+                      setReview(e.value);
                       onChange(e.value);
                     }}
-                    // {...field}
                   />
                 )}
               />
@@ -430,24 +436,24 @@ function AddForm() {
               <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
               <Heading size="3">Keywords</Heading>
             </div>
-            <div className="checkboxes">
-              {/* <Form.Check name="featured" label="Featured" {...register("featured")} />
+            <StyledCheckbox>
+              <Form.Check name="featured" label="Featured" {...register("featured")} />
               <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
               <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
               <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
               <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
               <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
-              <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} /> */}
-
-              <Form.Check name="featured" label="Featured" {...register("checkboxes")} />
-              <Form.Check name="wifi" label="Wifi" {...register("checkboxes")} />
-              <Form.Check name="kitchen" label="Kitchen" {...register("checkboxes")} />
-              <Form.Check name="free_parking" label="Free parking" {...register("checkboxes")} />
-              <Form.Check name="breakfast" label="Breakfast" {...register("checkboxes")} />
-              <Form.Check name="swimming_pool" label="Swimming pool" {...register("checkboxes")} />
-              <Form.Check name="pet_friendly" label="Pet friendly" {...register("checkboxes")} />
-              {errors.checkboxes && <ValidationError errorName={errors.checkboxes.message} />}
-            </div>
+              <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
+              {console.log(Form.Check)}
+              {/* <Form.Check name="featured" label="Featured" />
+              <Form.Check name="wifi" label="Wifi" />
+              <Form.Check name="kitchen" label="Kitchen" />
+              <Form.Check name="free_parking" label="Free parking" />
+              <Form.Check name="breakfast" label="Breakfast" />
+              <Form.Check name="swimming_pool" label="Swimming pool" />
+              <Form.Check name="pet_friendly" label="Pet friendly" /> */}
+              {/* {errors.checkboxes && <ValidationError errorName={errors.checkboxes.message} />} */}
+            </StyledCheckbox>
             <hr className="mb-5 mt-5" />
 
             <div className="d-flex">
@@ -455,28 +461,34 @@ function AddForm() {
               <Heading size="3">Nice to know</Heading>
             </div>
 
-            <div className="checkboxes mb-5">
+            <StyledCheckbox className="mb-5">
               <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
               <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
-            </div>
+            </StyledCheckbox>
 
-            <div className="d-flex align-items-center mb-5 mt-4">
-              <StyledIconFormContainer>
-                <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
-              </StyledIconFormContainer>
+            <div className="d-flex align-items-center align-items-md-baseline flex-md-column mb-5 mt-4">
+              <div className="d-flex align-items-center">
+                <StyledIconFormContainer className="mt-5">
+                  <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+                </StyledIconFormContainer>
 
-              <Form.Group className="mt-3 me-5">
-                <Form.Control label="check_in" type="text" placeholder="check in" {...register("check_in")} />
-                {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
-              </Form.Group>
+                <Form.Group className="mt-3 me-5">
+                  <Paragraph>Check-in after:</Paragraph>
+                  <Form.Control label="check_in" type="text" placeholder="Check in" {...register("check_in")} />
+                  {/* {errors.check_in && <ValidationError errorName={errors.check_in.message} />} */}
+                </Form.Group>
+              </div>
+              <div className="d-flex align-items-center">
+                <StyledIconFormContainer className="mt-5">
+                  <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+                </StyledIconFormContainer>
 
-              <StyledIconFormContainer>
-                <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
-              </StyledIconFormContainer>
-              <Form.Group className="mt-3">
-                <Form.Control label="checkout" type="text" placeholder="checkout" {...register("checkout")} />
-                {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
-              </Form.Group>
+                <Form.Group className="mt-3 mt-md-4">
+                  <Paragraph>Checkout:</Paragraph>
+                  <Form.Control label="checkout" type="text" placeholder="Checkout" {...register("checkout")} />
+                  {/* {errors.checkout && <ValidationError errorName={errors.checkout.message} />} */}
+                </Form.Group>
+              </div>
             </div>
           </StyledFormWrap>
         </StyledFormWrapDesktop>

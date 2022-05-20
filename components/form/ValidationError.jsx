@@ -5,7 +5,7 @@ import { StyledFeedbackContainer } from "./Form.styles";
 export const ValidationError = ({ errorName }) => {
   return (
     <StyledFeedbackContainer>
-      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" fontSize="18px" className="warning-icon" />
       <Alertbox className="mt-2">{errorName}</Alertbox>
     </StyledFeedbackContainer>
   );
