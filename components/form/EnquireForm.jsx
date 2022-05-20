@@ -22,6 +22,8 @@ import { StyledCloseBtn, StyledCalendar } from "styles/StyledCalendar.styles";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer";
 import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
 import Link from "next/link";
+import { StyledSelect } from "./StyledSelect";
+import { ValidationError } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
@@ -78,6 +80,7 @@ export default function EnquireForm({ title, room, type }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [count, setCount] = useState(0);
+  const [travelers, setTravelers] = useState("");
 
   let today = DateFunction();
 
@@ -110,20 +113,20 @@ export default function EnquireForm({ title, room, type }) {
         email: data.email,
         from_date: startDateFormatted,
         to_date: endDateFormatted,
-        how_many: data.how_many.value,
+        how_many: travelers,
         phone: data.phone,
         room: data.room,
         date_received: DateFunction(),
         type_of_stay: data.stay_type,
       },
     };
-    console.log(data);
-    setSubmitting(true);
 
     try {
       await axios.post(ENQUIRES_URL, data, {
         auth: LIGHT_AUTH,
       });
+      console.log(data);
+      setSubmitting(true);
     } catch (error) {
       setServerError(error.toString());
     } finally {
@@ -218,18 +221,21 @@ export default function EnquireForm({ title, room, type }) {
                     <Controller
                       name="how_many"
                       control={control}
-                      render={({ field }) => (
-                        <Select
+                      render={({ field: { onChange } }) => (
+                        <StyledSelect
                           className="select"
                           classNamePrefix="react-select"
-                          defaultValue={{ value: 0, label: "Persons" }}
-                          // defaultInputValue="Persons"
+                          placeholder="How many is traveling"
                           options={SUBJECT}
-                          {...field}
+                          onChange={(e) => {
+                            setTravelers(e.value);
+                            onChange(e.value);
+                          }}
                         />
                       )}
                     />
                   </StyledFlexIconText>
+                  {errors.how_many && <ValidationError errorName={errors.how_many.message} />}
                 </Form.Group>
 
                 <Form.Group className="mt-3">

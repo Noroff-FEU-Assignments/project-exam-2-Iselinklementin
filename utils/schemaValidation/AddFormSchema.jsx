@@ -14,24 +14,38 @@ export const schema = yup.object().shape({
   short_description: yup.string().required("Enter location"),
   nice_text: yup.string().required("Fill in a short description").min(20, "Minimum 20 characters"),
   stars: yup.string().required("Select a the review").oneOf(["3 stars", "4 stars", "5 stars"]),
-  // room_info: yup.string(),
-  // featured: yup.boolean(),
-  // wifi: yup.boolean(),
-  // kitchen: yup.boolean(),
-  // free_parking: yup.boolean(),
-  // breakfast: yup.boolean(),
-  // swimming_pool: yup.boolean(),
-  // pet_friendly: yup.boolean(),
-  // no_smoking: yup.boolean(),
-  // handicap_friendly: yup.boolean(),
-  // check_in: yup.string().required("Enter a check-in time"),
-  // checkout: yup.string().required("Enter a checkout time"),
-  // images: yup.mixed().required("Add images"),
-  // checkboxes: yup.boolean().oneOf([true], "Must include something"),
-  // checkboxes = (value) => {
-  //   if (value == null) {
-  //     return "Please, choose a value";
-  //   }
-  //   return true;
-  // },
+  featured: yup.boolean(),
+  wifi: yup.boolean(),
+  kitchen: yup.boolean(),
+  free_parking: yup.boolean(),
+  breakfast: yup.boolean(),
+  swimming_pool: yup.boolean(),
+  pet_friendly: yup.boolean(),
+  no_smoking: yup.boolean(),
+  handicap_friendly: yup.boolean(),
+  check_in: yup.string().required("Enter a check-in time"),
+  checkout: yup.string().required("Enter a checkout time"),
+  room_info: yup
+    .string()
+    .ensure()
+    .when("stay_type", {
+      is: "Apartment",
+      then: yup.string().required("Please fill in room information"),
+    })
+    .ensure()
+    .when("stay_type", {
+      is: "Bed & Breakfast",
+      then: yup.string().required("Please fill in room information"),
+    }),
+  room_type: yup
+    .string()
+    .ensure()
+    .when("stay_type", {
+      is: "Hotel",
+      then: yup.string().required("Please fill in room"),
+    }),
+
+  // https://dev.to/gabrielterriaga/how-to-validate-two-fields-that-depend-on-each-other-with-yup-1ccg
 });
+
+// "Bed & Breakfast"

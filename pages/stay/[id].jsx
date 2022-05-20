@@ -45,6 +45,8 @@ export default function stay({ stay }) {
   //   })}
   // </div>
 
+  console.log(stay.acf);
+
   return (
     <Layout>
       <Head title={stay.acf.title} />

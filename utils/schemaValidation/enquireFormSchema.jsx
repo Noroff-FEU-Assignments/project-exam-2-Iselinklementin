@@ -10,4 +10,5 @@ export const schema = yup.object().shape({
   phone: yup.string().required("Please enter your number"),
   room: yup.string(),
   stay_type: yup.string(),
+  how_many: yup.string().required("Please select number of travelers"),
 });
