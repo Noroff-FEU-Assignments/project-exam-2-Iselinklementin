@@ -6,8 +6,8 @@ export const StyledTabs = styled.div`
   margin: auto;
 
   .nav-link {
-    color: ${(props) => props.theme.body};
-    background: ${(props) => props.theme.light};
+    color: ${props => props.theme.body};
+    background: ${props => props.theme.light};
     text-transform: uppercase;
     font-size: 14px;
     padding: 8px 40px;
@@ -16,9 +16,6 @@ export const StyledTabs = styled.div`
   .nav-link.active {
     background-color: #fc5156;
     color: white;
-    /* border-top: ${(props) => props.theme.body} solid 1px;
-    border-left: ${(props) => props.theme.body} solid 1px;
-    border-right: ${(props) => props.theme.body} solid 1px; */
   }
 
   .nav-tabs {
@@ -30,8 +27,6 @@ export const StyledTabs = styled.div`
     @media ${mediaQ.tablet} {
       justify-content: flex-start;
     }
-
-    /* border-bottom: ${(props) => props.theme.body} solid 1px; */
   }
 
   button::after {

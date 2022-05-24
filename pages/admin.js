@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import PageHead from "../components/layout/PageHead";
+import styled from "styled-components";
+import AuthContext from "../context/AuthContext";
 import Layout from "../components/layout/Layout";
 import Heading from "../components/typography/Heading";
-import Messages from "../components/pages/admin/Messages";
 import Enquires from "../components/pages/admin/Enquires";
 import Paragraph from "../components/typography/Paragraph";
 import { AddEnquireBtn } from "../components/buttons/AddEnquireBtn";
-import { StyledTabs } from "../styles/pages/admin/StyledTabs.styled";
-import styled from "styled-components";
 import { mediaQ } from "../styles/global/ThemeConfig";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
-import PageHead from "../components/layout/PageHead";
+import { Container } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { AdminTabs } from "../components/pages/admin/AdminTabs";
 
 const StyledTextContainer = styled.div`
   text-align: center;
@@ -43,10 +44,18 @@ const StyledTextContainer = styled.div`
   }
 `;
 
-function admin() {
+export default function Admin() {
   const [value, setValue] = useState([]);
+  const [auth] = useContext(AuthContext);
+  const router = useRouter();
 
-  const handleClick = (e) => {
+  useEffect(() => {
+    if (!auth) {
+      router.push("/login");
+    }
+  }, []);
+
+  const handleClick = e => {
     setValue(<Enquires />);
   };
 
@@ -63,34 +72,20 @@ function admin() {
             <StyledTextContainer>
               <div>
                 <Heading size="1">Welcome Admin</Heading>
-
                 <Paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.
                 </Paragraph>
               </div>
-
               <div className="text-center">
                 <AddEnquireBtn />
                 <Paragraph className="add">Add stay</Paragraph>
               </div>
             </StyledTextContainer>
-
-            <StyledTabs>
-              <Tabs defaultActiveKey="messages" onClick={handleClick}>
-                <Tab eventKey="messages" title="Messages" value="0">
-                  <Messages />
-                </Tab>
-                <Tab eventKey="enquires" title="Enquires" value="1">
-                  {value}
-                </Tab>
-              </Tabs>
-            </StyledTabs>
+            <AdminTabs handleClick={handleClick} value={value} />
           </Container>
         </StyledContainer>
       </Layout>
     </>
   );
 }
-
-export default admin;

@@ -9,11 +9,11 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
-export const Breadcrumbs = ({ title }) => {
+export const Breadcrumbs = ({ link, linkName, title }) => {
   return (
     <StyledBreadcrumb>
       <li className="breadcrumb-item">
-        <Link href="/stays">Stays</Link>
+        <Link href={link}>{linkName}</Link>
       </li>
       <li className="breadcrumb-item active" aria-current="page">
         {title}
