@@ -71,7 +71,7 @@ export default function Carousels({ stays }) {
               layout="fill"
               objectFit="cover"
               loading="eager"
-              objectPosition="bottom center"
+              objectPosition="center"
             />
           </Carousel.Item>
         );

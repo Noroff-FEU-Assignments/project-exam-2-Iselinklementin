@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mediaQ } from "../../global/ThemeConfig";
 
 export const StyledAccordion = styled.div`
   span {
@@ -17,8 +18,8 @@ export const StyledAccordion = styled.div`
   }
 
   .accordion-button {
-    background: ${(props) => props.theme.light};
-    color: ${(props) => props.theme.body};
+    background: ${props => props.theme.light};
+    color: ${props => props.theme.body};
     word-break: break-word;
   }
 
@@ -48,6 +49,10 @@ export const StyledAccordion = styled.div`
     p {
       line-height: 1.5;
       font-size: 14px;
+
+      @media ${mediaQ.desktop} {
+        font-size: 16px;
+      }
     }
   }
 
@@ -73,7 +78,7 @@ export const StyledAccordion = styled.div`
     padding-top: 1rem;
     padding-bottom: 1rem;
     button {
-      background: ${(props) => props.theme.backgroundColour};
+      background: ${props => props.theme.backgroundColour};
     }
   }
 

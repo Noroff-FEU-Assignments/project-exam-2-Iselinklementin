@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Select from "react-select";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 export const StyledSelect = styled(Select)`
   width: 100%;
@@ -15,10 +16,14 @@ export const StyledSelect = styled(Select)`
 
   .react-select__placeholder {
     height: 30px;
-    font-family: ${(props) => props.theme.primaryFont};
-    color: ${(props) => props.theme.body};
+    font-family: ${props => props.theme.primaryFont};
+    color: ${props => props.theme.body};
     opacity: 0.8;
     font-size: 14px;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 
   .react-select__input-container {
@@ -53,7 +58,7 @@ export const StyledSelect = styled(Select)`
 
     .react-select__option--is-focused {
       background: #fdc2c2;
-      color: ${(props) => props.theme.body};
+      color: ${props => props.theme.body};
     }
   }
 `;

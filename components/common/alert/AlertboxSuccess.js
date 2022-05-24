@@ -1,6 +1,7 @@
 import { Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledAlert = styled(Alert)`
   // skift ut success med denne:
@@ -23,6 +24,10 @@ const StyledAlert = styled(Alert)`
       color: white;
       border-bottom: white solid 2px;
       padding: 0 0 8px 0;
+    }
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
     }
   }
 `;

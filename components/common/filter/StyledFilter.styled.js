@@ -87,5 +87,9 @@ export const StayHeading = styled(Heading)`
     max-width: 450px;
     font-size: 36px;
     margin-top: 4rem;
+
+    @media ${mediaQ.desktop} {
+      font-size: 40px;
+    }
   }
 `;

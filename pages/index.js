@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Search from "../components/common/search/Search";
 import Heading from "../components/typography/Heading";
 import Layout from "../components/layout/Layout";
-import StaysCard from "../components/common/cards/StaysCard";
+import StaysCard from "../components/cards/StaysCard";
 import { Intro } from "../components/pages/home/Intro";
 import { LinkStays } from "../components/pages/home/LinkStays";
 import { SearchBox } from "../components/common/search/Search.styled";

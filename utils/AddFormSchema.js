@@ -2,10 +2,7 @@ import * as yup from "yup";
 
 export const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
-  description: yup
-    .string()
-    .required("Please enter your message")
-    .min(20, "Description must at be at least 20 characters"),
+  description: yup.string().required("Please enter your message").min(20, "Minimum 20 characters"),
   price: yup.number().typeError("Price must be a number").required("Please add a price"),
   stay_type: yup
     .string()

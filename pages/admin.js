@@ -27,6 +27,10 @@ const StyledTextContainer = styled.div`
   .add {
     text-transform: uppercase;
     font-size: 14px;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 
   @media ${mediaQ.tablet} {

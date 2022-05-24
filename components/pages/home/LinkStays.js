@@ -12,9 +12,17 @@ export const StyledLinkStaysContainer = styled.div`
   max-width: 960px;
   margin: auto;
 
-  @media ${mediaQ.small_tablet} {
+  @media ${mediaQ.tablet} {
     display: flex;
     margin-top: 1.5rem;
+  }
+
+  .wrapper {
+    max-width: 95%;
+
+    @media ${mediaQ.tablet} {
+      max-width: initial;
+    }
   }
 
   .contain-text {
@@ -37,11 +45,20 @@ export const StyledLinkStaysContainer = styled.div`
 
     svg {
       margin-top: -0.5rem;
+      font-size: 18px;
+
+      @media ${mediaQ.tablet} {
+        font-size: 20px;
+      }
     }
   }
 
   h3 {
     font-size: 18px;
+
+    @media ${mediaQ.desktop} {
+      font-size: 20px;
+    }
   }
 
   a:hover {
@@ -54,7 +71,7 @@ export const LinkStays = () => {
 
   return (
     <StyledLinkStaysContainer>
-      <Container onMouseEnter={() => setStayType("Hotel")}>
+      <Container onMouseEnter={() => setStayType("Hotel")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">
@@ -70,7 +87,7 @@ export const LinkStays = () => {
         </Link>
       </Container>
 
-      <Container onMouseEnter={() => setStayType("Apartment")}>
+      <Container onMouseEnter={() => setStayType("Apartment")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">
@@ -86,7 +103,7 @@ export const LinkStays = () => {
         </Link>
       </Container>
 
-      <Container onMouseEnter={() => setStayType("Bedbreakfast")}>
+      <Container onMouseEnter={() => setStayType("Bedbreakfast")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">

@@ -4,6 +4,7 @@ import { useWindowSize } from "../../../hooks/useWindowSize";
 import { SCREEN } from "../../../constants/misc";
 import { FooterMobile } from "./FooterMobile";
 import { FooterWide } from "./FooterWide";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledFooter = styled.footer`
   padding: 1rem;
@@ -15,11 +16,17 @@ const StyledFooter = styled.footer`
     font-size: 14px;
     margin: 10px;
     font-weight: 500;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 `;
 
 export default function Footer() {
   const size = useWindowSize();
 
-  return <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>;
+  return (
+    <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>
+  );
 }

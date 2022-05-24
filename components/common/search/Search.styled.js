@@ -8,15 +8,15 @@ export const StyledIconWrap = styled.div`
 export const SearchBox = styled.div`
   position: relative;
   width: 100%;
-  background: ${(props) => props.theme.primaryColour};
+  background: ${props => props.theme.primaryColour};
   color: white;
 
   @media ${mediaQ.tablet} {
     max-width: 720px;
     padding: 0 1rem;
     margin: auto;
-    color: ${(props) => props.theme.body};
-    background: ${(props) => props.theme.backgroundColour};
+    color: ${props => props.theme.body};
+    background: ${props => props.theme.backgroundColour};
   }
 
   @media ${mediaQ.laptop} {
@@ -33,14 +33,18 @@ export const SearchBox = styled.div`
     }
 
     @media ${mediaQ.tablet} {
-      border: ${(props) => props.theme.primaryColour} solid thin;
+      border: ${props => props.theme.primaryColour} solid thin;
     }
   }
 
   input::placeholder {
     font-size: 14px;
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
     opacity: 0.8;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 
   .search-icon {
@@ -61,7 +65,7 @@ export const SearchBox = styled.div`
 export const StyledWideContainer = styled.div`
   .list-group-item:hover {
     background: #fdc2c2;
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
   }
 
   .container {
@@ -99,6 +103,11 @@ export const StyledButtonContainer = styled.div`
     height: 40px;
     line-height: 2;
     width: 146px;
+
+    @media ${mediaQ.desktop} {
+      width: 160px;
+      line-height: 1.8;
+    }
 
     svg {
       margin-top: 5px;

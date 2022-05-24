@@ -1,5 +1,5 @@
 import Heading from "../components/typography/Heading";
-import StaysCard from "../components/common/cards/StaysCard";
+import StaysCard from "../components/cards/StaysCard";
 import Layout from "../components/layout/Layout";
 import PageHead from "../components/layout/PageHead";
 import axios from "axios";

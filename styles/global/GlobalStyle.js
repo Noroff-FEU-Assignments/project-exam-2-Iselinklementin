@@ -19,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    color: ${(props) => props.theme.body};
-    background: ${(props) => props.theme.backgroundColour};
+    color: ${props => props.theme.body};
+    background: ${props => props.theme.backgroundColour};
     font-family: "Roboto", sans-serif;
     height: 100%;
     width: 100%;
@@ -43,15 +43,19 @@ const GlobalStyle = createGlobalStyle`
     @media ${mediaQ.tablet} {
       font-size: 24px;
   }
+
+  @media ${mediaQ.desktop} {
+      font-size: 26px;
+  }
   }
 
   a {
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
     text-decoration: none;
   
 
     &:hover {
-      color: ${(props) => props.theme.primaryColour};
+      color: ${props => props.theme.primaryColour};
       cursor: pointer;
     }
   }

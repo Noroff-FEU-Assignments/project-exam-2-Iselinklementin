@@ -1,31 +1,31 @@
+import useAxios from "../../hooks/useAxios";
+import Image from "next/image";
+import Alertbox from "../../components/common/alert/Alertbox";
+import AlertboxSuccess from "../common/alert/AlertboxSuccess";
+import Loader from "../../components/common/loader/Loader";
+import styled from "styled-components";
+import Link from "next/link";
+import DatePicker from "react-datepicker";
+import Paragraph from "../../components/typography/Paragraph";
+import Heading from "../../components/typography/Heading";
+import Icon, { icons } from "../../constants/icons";
 import React, { useState, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useAxios from "../../hooks/useAxios";
 import { API_URL, MEDIA_URL } from "../../constants/api";
-import Image from "next/image";
+import { StyledCalendar } from "../../styles/StyledCalendar.styled";
 import { schema } from "../../utils/AddFormSchema";
 import { STAYS, REVIEW, ROOMS, CALENDAR_OPTIONS, TIME_OPTIONS } from "../../constants/misc";
 import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
 import { Form, Row, Col, FormText } from "react-bootstrap";
-import Heading from "../../components/typography/Heading";
-import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
 import { StyledImageContainer, UploadLabel } from "../../styles/pages/admin/StyledImageContainer";
-import styled from "styled-components";
 import { mediaQ } from "../../styles/global/ThemeConfig";
-import Alertbox from "../../components/common/alert/Alertbox";
-import AlertboxSuccess from "../common/alert/AlertboxSuccess";
-import Loader from "../../components/common/loader/Loader";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled";
 import { StyledSelect } from "../forms/styles/StyledSelect.styled";
 import { ValidationError, ValidationErrorImage, ValidationErrorSelect } from "./ValidationError";
-import Paragraph from "../../components/typography/Paragraph";
 import { StyledCheckbox } from "./styles/StyledCheckbox.styled";
-import Link from "next/link";
-import { StyledCalendar } from "../../styles/StyledCalendar.styled";
-import DatePicker from "react-datepicker";
 import { RemoveFirstWord } from "../common/functions/RemoveWords";
 import { StyledTimePicker } from "./styles/StyledTimePicker.styled";
 
@@ -54,6 +54,10 @@ const StyledFormWrapDesktop = styled.div`
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
+
+  @media ${mediaQ.desktop} {
+    font-size: 22px;
+  }
 `;
 
 function AddForm() {
@@ -65,7 +69,6 @@ function AddForm() {
   const [type, setType] = useState("");
   const [review, setReview] = useState("");
   const [roomType, setRoomType] = useState("");
-  const [imageError, setImageError] = useState("");
 
   // time
   const [checkinTime, setCheckinTime] = useState(new Date());
@@ -92,7 +95,6 @@ function AddForm() {
     ? checkoutTime.toLocaleDateString("en-GB", TIME_OPTIONS).replace(",", "")
     : "";
 
-  // legg dette const inn i data når timepicker er ferdig:
   const stayCheckin = RemoveFirstWord(checkinTimeFormatted);
   const stayCheckout = RemoveFirstWord(checkoutTimeFormatted);
 
@@ -107,7 +109,8 @@ function AddForm() {
     mode: "onBlur",
   });
 
-  // this array changes after submit
+  // the numbers changes after submitting the images
+  // keeping it to store the id.
 
   let imgArray = {
     image_1: 1234,
@@ -143,25 +146,25 @@ function AddForm() {
     // and store the ID so I can use it in the post
     // Wordpress doesnt allow multiple uploads at once
 
-    // await http.post(MEDIA_URL, imageOne).then((response) => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_1 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageOne).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_1 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageTwo).then((response) => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_2 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageTwo).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_2 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageThree).then((response) => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_3 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageThree).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_3 = thisID;
+    });
 
-    // await http.post(MEDIA_URL, imageFour).then((response) => {
-    //   const thisID = response.data.id;
-    //   imgArray.image_4 = thisID;
-    // });
+    await http.post(MEDIA_URL, imageFour).then(response => {
+      const thisID = response.data.id;
+      imgArray.image_4 = thisID;
+    });
 
     data = {
       status: "publish",
@@ -206,10 +209,10 @@ function AddForm() {
       },
     };
 
-    // API_URL,
     try {
-      await http.post(data);
+      await http.post(API_URL, data);
       setSubmitted(true);
+
       console.log(data);
     } catch (error) {
       setError(error.toString());
@@ -250,7 +253,7 @@ function AddForm() {
                   name="room_type"
                   classNamePrefix="react-select"
                   className="select"
-                  instanceId
+                  instanceId="select_one"
                   placeholder="Select room"
                   options={ROOMS}
                   onChange={e => {
@@ -357,7 +360,7 @@ function AddForm() {
                     render={({ field: { onChange } }) => (
                       <StyledSelect
                         className="select"
-                        instanceId
+                        instanceId="select_two"
                         classNamePrefix="react-select"
                         placeholder="Stay type"
                         options={STAYS}
@@ -465,20 +468,19 @@ function AddForm() {
                 {errors.nice_text && <ValidationError errorName={errors.nice_text.message} />}
               </Form.Group>
 
-              <Form.Group className="mt-5 mb-md-5 text-area-container">
+              <Form.Group className="mt-5 text-area-container">
                 <StyledIconFormContainer>
                   <Icon icon={icons.map(icon => icon.star)} fontSize="22px" className="me-3 mt-3" />
                 </StyledIconFormContainer>
                 <Controller
                   name="stars"
                   control={control}
-                  // render={({ field }) => (
                   render={({ field: { onChange } }) => (
                     <StyledSelect
                       className="select"
                       classNamePrefix="react-select"
                       name="stars"
-                      instanceId
+                      instanceId="select_three"
                       options={REVIEW}
                       placeholder="Review"
                       onChange={e => {
@@ -489,6 +491,7 @@ function AddForm() {
                   )}
                 />
               </Form.Group>
+
               {errors.stars && (
                 <StyledFeedbackContainer>
                   <Alertbox className="mt-2">{errors.stars.message}</Alertbox>
@@ -496,7 +499,7 @@ function AddForm() {
               )}
             </StyledFormWrap>
 
-            <hr className="mb-5 mt-5 d-md-none" />
+            <hr className="mb-5 mt-5 d-lg-none" />
 
             <StyledFormWrap>
               <div className="d-flex">
@@ -545,8 +548,6 @@ function AddForm() {
               </StyledCheckbox>
 
               <div className="d-flex align-items-center">
-                {/* legg inn og style timepicker */}
-
                 <Form.Group className="mt-3 me-5">
                   <Paragraph>Check-in after:</Paragraph>
                   <StyledTimePicker>
@@ -562,13 +563,38 @@ function AddForm() {
                       classNamePrefix="react-time"
                       onChange={date => {
                         setCheckinTime(date);
-                        if (errors.check_in) {
-                          clearErrors("check_in");
-                        }
+                        // if (errors.check_in) {
+                        //   clearErrors("check_in");
+                        // }
                       }}
                     />
                   </StyledTimePicker>
-                  {/* <Form.Control label="check_in" type="text" placeholder="11:00" {...register("check_in")} /> */}
+
+                  {/* <Controller
+                    as={
+                      <DatePicker
+                        selected={checkinTime}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeFormat="HH:mm"
+                        timeIntervals={30}
+                        timeCaption="Time"
+                        dateFormat="HH:mm"
+                        classNamePrefix="react-time"
+                        onChange={date => {
+                          setCheckinTime(date);
+                        }}
+                      />
+                    }
+                    control={control}
+                    {...register("check_in")}
+                    valueName="selected"
+                    onChange={() => {
+                      console.log(selected);
+                      // return valueName;
+                    }}
+                  /> */}
+
                   {errors.check_in ? (
                     <>
                       {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
@@ -597,14 +623,13 @@ function AddForm() {
                       dateFormat="HH:mm"
                       onChange={date => {
                         setCheckoutTime(date);
-                        if (errors.checkout) {
-                          clearErrors("checkout");
-                        }
+                        // if (errors.checkout) {
+                        //   clearErrors("checkout");
+                        // }
                       }}
                     />
                   </StyledTimePicker>
 
-                  {/* <Form.Control label="checkout" type="text" placeholder="11:00" {...register("checkout")} /> */}
                   {errors.checkout ? (
                     <>
                       {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
@@ -616,7 +641,6 @@ function AddForm() {
                   )}
                 </Form.Group>
               </div>
-              {/* </div> */}
             </StyledFormWrap>
           </StyledFormWrapDesktop>
 
@@ -643,8 +667,8 @@ function AddForm() {
                 )}
               </StyledImageContainer>
 
-              <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
               {/* Using a hidden button for uploads */}
+              <UploadLabel htmlFor="imgUpload1">Upload image</UploadLabel>
               <Form.Control
                 id="imgUpload1"
                 type="file"

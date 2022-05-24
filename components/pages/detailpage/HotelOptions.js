@@ -19,7 +19,7 @@ export const HotelOptions = ({ options, id }) => {
       <Paragraph>{roomOption}</Paragraph>
       <StyledSelect
         options={options}
-        instanceId
+        instanceId="select_one"
         className="select"
         classNamePrefix="react-select"
         onChange={handleInput}

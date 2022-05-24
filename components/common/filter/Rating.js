@@ -4,9 +4,14 @@ import Heading from "../../../components/typography/Heading";
 import Icon, { icons } from "../../../constants/icons";
 import { Form } from "react-bootstrap";
 import { StyledCheckbox } from "../../forms/styles/StyledCheckbox.styled";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledHeading = styled(Heading)`
   font-size: 16px;
+
+  @media ${mediaQ.desktop} {
+    font-size: 18px;
+  }
 `;
 
 export const Rating = ({ click }) => {

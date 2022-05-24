@@ -5,7 +5,7 @@ export const ExploreContainer = styled.div`
   position: absolute;
   left: 15px;
   top: 65px;
-  color: ${(props) => props.theme.light};
+  color: ${props => props.theme.light};
 
   @media ${mediaQ.mobile_large} {
     left: 10%;
@@ -32,5 +32,10 @@ export const ExploreContainer = styled.div`
     line-height: 1.4;
     margin-bottom: 2rem;
     text-shadow: 2px 3px 2px #4d4c4c88;
+
+    @media ${mediaQ.desktop} {
+      font-size: 22px;
+      max-width: 230px;
+    }
   }
 `;

@@ -4,9 +4,14 @@ import { StyledFilter } from "./StyledFilter.styled";
 import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
 import styled from "styled-components";
 import Heading from "../../../components/typography/Heading";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledHeading = styled(Heading)`
   font-size: 16px;
+
+  @media ${mediaQ.desktop} {
+    font-size: 18px;
+  }
 `;
 
 export const Chips = forwardRef((props, ref) => {

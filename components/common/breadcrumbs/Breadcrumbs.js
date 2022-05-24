@@ -2,11 +2,16 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Breadcrumb } from "react-bootstrap";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledBreadcrumb = styled(Breadcrumb)`
   li {
     font-size: 12px;
     text-transform: uppercase;
+
+    @media ${mediaQ.desktop} {
+      font-size: 14px;
+    }
   }
 `;
 

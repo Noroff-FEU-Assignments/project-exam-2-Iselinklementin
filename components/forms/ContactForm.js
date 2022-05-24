@@ -19,9 +19,14 @@ import Link from "next/link";
 import Heading from "../../components/typography/Heading";
 import styled from "styled-components";
 import { ValidationError } from "./ValidationError";
+import { mediaQ } from "../../styles/global/ThemeConfig";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
+
+  /* @media ${mediaQ.desktop_large} {
+    font-size: 22px;
+  } */
 `;
 
 function ContactForm() {

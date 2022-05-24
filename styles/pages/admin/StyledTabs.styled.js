@@ -11,6 +11,10 @@ export const StyledTabs = styled.div`
     text-transform: uppercase;
     font-size: 14px;
     padding: 8px 40px;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 
   .nav-link.active {

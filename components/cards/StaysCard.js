@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import { Card, Row, Col, Badge } from "react-bootstrap";
 import { StyledCard } from "./StyledCards.styled";
-import Icon, { icons } from "../../../constants/icons";
+import Icon, { icons } from "../../constants/icons";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
-import { PLACEHOLDER_IMG } from "../../../constants/misc";
+import CapitalizeFirstLetter from "../common/functions/CapitalizeFirstLetter";
+import { PLACEHOLDER_IMG } from "../../constants/misc";
 
 function StaysCard({ stays }) {
   return (
-    <Row xs={1} sm={2} lg={3} className="g-4">
+    <Row xs={1} sm={2} md={3} className="g-4">
       {stays.map(stay => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
@@ -46,7 +46,7 @@ function StaysCard({ stays }) {
                         key={i}
                         color="white"
                         className="me-1"
-                        fontSize="10px"
+                        fontSize="12px"
                       />
                     ))}
                   </div>

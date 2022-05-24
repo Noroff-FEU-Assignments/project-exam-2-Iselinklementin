@@ -27,6 +27,10 @@ import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
+
+  @media ${mediaQ.desktop} {
+    font-size: 22px;
+  }
 `;
 
 const StyledFlexContainerLaptop = styled.div`
@@ -254,7 +258,7 @@ export default function EnquireForm({ title, room, type }) {
                     control={control}
                     render={({ field: { onChange } }) => (
                       <StyledSelect
-                        instanceId
+                        instanceId="select_one"
                         className="select"
                         classNamePrefix="react-select"
                         placeholder="How many is traveling"

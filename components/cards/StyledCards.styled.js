@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card } from "react-bootstrap";
+import { mediaQ } from "../../styles/global/ThemeConfig";
 
 export const StyledCard = styled(Card)`
   border: none;
@@ -15,8 +16,13 @@ export const StyledCard = styled(Card)`
   }
 
   .card-title {
-    font-family: ${(props) => props.theme.secondaryFont};
+    font-family: ${props => props.theme.secondaryFont};
     font-weight: 600;
+
+    @media ${mediaQ.desktop} {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .card-body {
@@ -24,13 +30,17 @@ export const StyledCard = styled(Card)`
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    background: ${(props) => props.theme.secondaryColour};
+    background: ${props => props.theme.secondaryColour};
     background: #26153d;
-    color: ${(props) => props.theme.light};
+    color: ${props => props.theme.light};
     border-radius: 0px 0px 8px 8px;
     font-size: 14px;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    @media ${mediaQ.desktop} {
+      font-size: 16px;
+    }
   }
 
   .card-img {

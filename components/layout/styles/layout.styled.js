@@ -50,7 +50,6 @@ export const MenuContainer = styled.div`
         padding-left: 24px;
         line-height: 1.2;
       }
-
       color: ${props => props.theme.body};
     }
   }
@@ -141,6 +140,10 @@ export const StyledWideContainer = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
+
+  @media ${mediaQ.desktop} {
+    font-size: 16px;
+  }
 
   button {
     background: transparent;
