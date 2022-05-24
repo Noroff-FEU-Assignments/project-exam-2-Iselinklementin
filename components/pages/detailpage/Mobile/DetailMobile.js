@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Carousels from "../../../carousel/Carousel";
 import ShowIcons from "../../../common/icons/ShowIcons";
 import Heading from "../../../typography/Heading";
@@ -53,4 +54,16 @@ export const DetailMobile = ({
       </Container>
     </StyledContainer>
   );
+};
+
+DetailMobile.propTypes = {
+  price: PropTypes.string.isRequired,
+  include: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  nice_text: PropTypes.string.isRequired,
+  nice_icons: PropTypes.object.isRequired,
+  address: PropTypes.object.isRequired,
+  images: PropTypes.array.isRequired,
+  room: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
 };

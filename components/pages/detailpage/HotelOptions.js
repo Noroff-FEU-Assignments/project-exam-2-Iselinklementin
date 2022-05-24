@@ -1,8 +1,9 @@
-import { StyledMobileButton } from "../../../styles/buttons/StyledMobileButton.styled";
-import { StyledSelect } from "../../forms/styles/StyledSelect.styled";
+import PropTypes from "prop-types";
+import Link from "next/link";
 import Paragraph from "../../../components/typography/Paragraph";
 import Icon, { icons } from "../../../constants/icons";
-import Link from "next/link";
+import { StyledMobileButton } from "../../../styles/buttons/StyledMobileButton.styled";
+import { StyledSelect } from "../../forms/styles/StyledSelect.styled";
 import { useState } from "react";
 
 export const HotelOptions = ({ options, id }) => {
@@ -32,4 +33,9 @@ export const HotelOptions = ({ options, id }) => {
       </Link>
     </div>
   );
+};
+
+HotelOptions.propTypes = {
+  options: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired,
 };

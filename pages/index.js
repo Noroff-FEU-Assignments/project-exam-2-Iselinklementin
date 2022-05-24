@@ -1,5 +1,6 @@
 import PageHead from "../components/layout/PageHead";
 import axios from "axios";
+import PropTypes from "prop-types";
 import Search from "../components/common/search/Search";
 import Heading from "../components/typography/Heading";
 import Layout from "../components/layout/Layout";
@@ -51,3 +52,7 @@ export async function getStaticProps() {
   }
   return { props: { stays: stays } };
 }
+
+Home.propTypes = {
+  stays: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+};

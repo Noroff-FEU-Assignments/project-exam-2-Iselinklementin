@@ -1,11 +1,11 @@
-import Icon, { icons } from "../../../constants/icons";
-import Link from "next/link";
-import { ExploreContainer } from "../../../styles/pages/home/ExploreContainer.styled";
 import Heading from "../../typography/Heading";
+import Link from "next/link";
+import Paragraph from "../../typography/Paragraph";
+import Icon, { icons } from "../../../constants/icons";
+import { ExploreContainer } from "../../../styles/pages/home/ExploreContainer.styled";
 import { StyledBasicButton } from "../../../styles/buttons/StyledBasicButton.styled";
 import { SCREEN } from "../../../constants/misc";
 import { useWindowSize } from "../../../hooks/useWindowSize";
-import Paragraph from "../../typography/Paragraph";
 
 export const ExploreBergenText = () => {
   const size = useWindowSize();

@@ -1,4 +1,3 @@
-import React, { useContext, useEffect, useState } from "react";
 import PageHead from "../components/layout/PageHead";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
@@ -6,6 +5,7 @@ import Layout from "../components/layout/Layout";
 import Heading from "../components/typography/Heading";
 import Enquires from "../components/pages/admin/Enquires";
 import Paragraph from "../components/typography/Paragraph";
+import React, { useContext, useEffect, useState } from "react";
 import { AddEnquireBtn } from "../components/buttons/AddEnquireBtn";
 import { mediaQ } from "../styles/global/ThemeConfig";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";

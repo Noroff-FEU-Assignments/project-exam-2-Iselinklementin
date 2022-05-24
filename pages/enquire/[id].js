@@ -1,4 +1,5 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 import EnquireForm from "../../components/forms/EnquireForm";
 import Layout from "../../components/layout/Layout";
 import Heading from "../../components/typography/Heading";
@@ -90,3 +91,7 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
+Enquire.propTypes = {
+  stay: PropTypes.object.isRequired,
+};

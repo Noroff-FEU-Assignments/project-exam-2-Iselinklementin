@@ -70,14 +70,16 @@ https://codesandbox.io/s/react-hook-form-js-forked-rezdf8?file=/src/App.js:277-3
 
 ---
 
-If you get a warning in the console about not finding correct something,
-in react-icons (node_modules) you need to change, in react-icons package.json:
+If you get this warning in the console:
+DeprecationWarning: Invalid 'main' field in '.../node_modules/react-icons/package.json' of 'lib'. Please either fix that or report it to the module author.
 
-from this:
+You can remove it by changing this in react-icons package.json:
+
+Replace this:
 "main": "lib",
 "types": "./lib/esm/index.d.ts",
 
-to this:
+With this:
 "main": "lib/cjs/index.js",
 "module": "lib/esm/index.js",
 "types": "lib/esm/index.d.ts",

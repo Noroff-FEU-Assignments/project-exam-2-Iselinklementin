@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import PageHead from "../../components/layout/PageHead";
 import Layout from "../../components/layout/Layout";
 import Heading from "../../components/typography/Heading";
@@ -13,7 +14,7 @@ import { Breadcrumbs } from "../../components/common/breadcrumbs/Breadcrumbs";
 import { DetailMobile } from "../../components/pages/detailpage/Mobile/DetailMobile";
 import { DetailLaptop } from "../../components/pages/detailpage/Laptop/DetailLaptop";
 
-export default function stay({ stay }) {
+export default function Stay({ stay }) {
   const size = useWindowSize();
 
   const {
@@ -115,3 +116,7 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
+Stay.propTypes = {
+  stay: PropTypes.object.isRequired,
+};

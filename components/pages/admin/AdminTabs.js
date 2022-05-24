@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Messages from "./Messages";
 import { StyledTabs } from "../../../styles/pages/admin/StyledTabs.styled";
 import { Tab, Tabs } from "react-bootstrap";
@@ -15,4 +16,9 @@ export const AdminTabs = ({ value, handleClick }) => {
       </Tabs>
     </StyledTabs>
   );
+};
+
+AdminTabs.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  handleClick: PropTypes.func.isRequired,
 };

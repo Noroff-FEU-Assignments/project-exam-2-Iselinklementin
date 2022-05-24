@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import Heading from "../components/typography/Heading";
 import LoginForm from "../components/forms/LoginForm";
 import PageHead from "../components/layout/PageHead";
 import AuthContext from "../context/AuthContext";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { StyledContainerSmall } from "../styles/containers/StyledContainerSmall";
 

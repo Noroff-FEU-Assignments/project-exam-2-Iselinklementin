@@ -1,10 +1,10 @@
+import IntroImg from "../../../assets/index_img.jpg";
+import IntroImgDesktop from "../../../assets/introimagedesktop.jpg";
+import Image from "next/image";
 import { SCREEN } from "../../../constants/misc";
 import { ExploreBergenText } from "./ExploreBergenText";
 import { StyledContainer } from "../../../styles/containers/StyledContainer.styled";
 import { useWindowSize } from "../../../hooks/useWindowSize";
-import IntroImg from "../../../assets/index_img.jpg";
-import IntroImgDesktop from "../../../assets/introimagedesktop.jpg";
-import Image from "next/image";
 
 export const ExploreBergen = () => {
   const size = useWindowSize();

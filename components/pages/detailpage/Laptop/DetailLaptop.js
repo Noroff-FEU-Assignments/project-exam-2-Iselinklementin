@@ -1,10 +1,11 @@
-import { StyledContainer } from "../../../../styles/containers/StyledContainer.styled";
+import PropTypes from "prop-types";
 import Carousels from "../../../carousel/Carousel";
 import ShowIcons from "../../../common/icons/ShowIcons";
+import styled from "styled-components";
+import { StyledContainer } from "../../../../styles/containers/StyledContainer.styled";
 import { Description } from "../Description";
 import { Location } from "../Location";
 import { ShowRoomOption } from "../ShowRoomOption";
-import styled from "styled-components";
 
 const StyledNiceToKnow = styled.div`
   width: 720px;
@@ -61,4 +62,16 @@ export const DetailLaptop = ({
       </div>
     </StyledContainer>
   );
+};
+
+DetailLaptop.propTypes = {
+  price: PropTypes.string.isRequired,
+  include: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  nice_text: PropTypes.string.isRequired,
+  nice_icons: PropTypes.object.isRequired,
+  address: PropTypes.object.isRequired,
+  images: PropTypes.array.isRequired,
+  room: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
 };

@@ -1,35 +1,30 @@
-import React, { useState, createRef, useEffect } from "react";
 import Heading from "../components/typography/Heading";
+import StaysCard from "../components/common/cards/StaysCard";
 import Layout from "../components/layout/Layout";
 import PageHead from "../components/layout/PageHead";
 import axios from "axios";
 import Paragraph from "../components/typography/Paragraph";
+import PropTypes from "prop-types";
+import React, { useState, createRef, useEffect } from "react";
 import Icon, { icons } from "../constants/icons";
 import { API_URL } from "../constants/api";
-import StaysCard from "../components/common/cards/StaysCard";
+import { Chips } from "../components/common/filter/Chips";
+import { Rating } from "../components/common/filter/Rating";
+import { useWindowSize } from "../hooks/useWindowSize";
+import { SCREEN } from "../constants/misc";
+import { Container } from "react-bootstrap";
+import { StyledContainer } from "../styles/containers/StyledContainer.styled";
+import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
+import { useRouter } from "next/router";
 import {
   StayHeading,
   StyledFilter,
   StyledFilterBtn,
   StyledFilterWrap,
 } from "../components/common/filter/StyledFilter.styled";
-import { Chips } from "../components/common/filter/Chips";
-import { Rating } from "../components/common/filter/Rating";
-import { useWindowSize } from "../hooks/useWindowSize";
-import { SCREEN } from "../constants/misc";
-import { Container, Row } from "react-bootstrap";
-import { StyledContainer } from "../styles/containers/StyledContainer.styled";
-import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-
-const StyledParagraph = styled(Paragraph)`
-  font-size: 14px;
-`;
 
 export default function Stays({ stays }) {
   const [show, setShow] = useState(false);
-  const [newfiltered, setNewFiltered] = useState(stays || []);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
@@ -355,3 +350,7 @@ export async function getStaticProps() {
   }
   return { props: { stays: stays } };
 }
+
+Stays.propTypes = {
+  stays: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+};

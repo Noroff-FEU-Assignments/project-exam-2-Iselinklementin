@@ -1,8 +1,9 @@
 import AuthContext from "../../../../context/AuthContext";
-import { useContext, useEffect, useState } from "react";
 import Logo from "../../../../assets/logo.svg";
 import Link from "next/link";
 import Image from "next/image";
+import Coordinates from "../../../../assets/coordinates.svg";
+import { useContext, useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import {
   StyledCoordinatesContainer,
@@ -10,7 +11,6 @@ import {
   StyledWideContainer,
 } from "../../styles/layout.styled";
 import { DropdownMenuAdmin } from "./DropdownMenuAdmin";
-import Coordinates from "../../../../assets/coordinates.svg";
 import { StyledStayBtn } from "../../../../styles/buttons/StyledStayBtn.styled";
 import { useRouter } from "next/router";
 
