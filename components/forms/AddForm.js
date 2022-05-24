@@ -2,7 +2,6 @@ import useAxios from "../../hooks/useAxios";
 import Image from "next/image";
 import Alertbox from "../../components/common/alert/Alertbox";
 import AlertboxSuccess from "../common/alert/AlertboxSuccess";
-import Loader from "../../components/common/loader/Loader";
 import styled from "styled-components";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
@@ -13,7 +12,6 @@ import React, { useState, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { API_URL, MEDIA_URL } from "../../constants/api";
-import { StyledCalendar } from "../../styles/StyledCalendar.styled";
 import { schema } from "../../utils/AddFormSchema";
 import { STAYS, REVIEW, ROOMS, CALENDAR_OPTIONS, TIME_OPTIONS } from "../../constants/misc";
 import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
@@ -73,18 +71,16 @@ function AddForm() {
   // time
   const [checkinTime, setCheckinTime] = useState(new Date());
   const [checkoutTime, setCheckoutTime] = useState(new Date());
-  // set images
-  const [img1, setImg1] = useState();
-  const [img2, setImg2] = useState();
-  const [img3, setImg3] = useState();
-  const [img4, setImg4] = useState();
-
-  // ref to image-inputs
-  // I get an error here, but it works
-  const imgUpload1 = useRef(null);
-  const imgUpload2 = useRef(null);
-  const imgUpload3 = useRef(null);
-  const imgUpload4 = useRef(null);
+  // set image url so I can show was been uploaded
+  const [img1url, setImg1url] = useState();
+  const [img2url, setImg2url] = useState();
+  const [img3url, setImg3url] = useState();
+  const [img4url, setImg4url] = useState();
+  // set image upload so i can store the file
+  const [imgUpload1, setImgUpload1] = useState();
+  const [imgUpload2, setImgUpload2] = useState();
+  const [imgUpload3, setImgUpload3] = useState();
+  const [imgUpload4, setImgUpload4] = useState();
 
   let http = useAxios();
 
@@ -102,7 +98,6 @@ function AddForm() {
     register,
     handleSubmit,
     control,
-    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -120,14 +115,6 @@ function AddForm() {
   };
 
   async function onSubmit(data) {
-    setSubmitting(true);
-
-    // store the files in different variables
-    let file1 = imgUpload1.current.files[0];
-    let file2 = imgUpload2.current.files[0];
-    let file3 = imgUpload3.current.files[0];
-    let file4 = imgUpload4.current.files[0];
-
     const AddImages = (file, title, caption) => {
       const formData = new FormData();
       formData.append("title", title);
@@ -137,14 +124,15 @@ function AddForm() {
     };
 
     // Add formData to every file thats uploaded
-    let imageOne = AddImages(file1, "Title", "Caption");
-    let imageTwo = AddImages(file2, "Title", "Caption");
-    let imageThree = AddImages(file3, "Title", "Caption");
-    let imageFour = AddImages(file4, "Title", "Caption");
+    let imageOne = AddImages(imgUpload1, "Title", "Caption");
+    let imageTwo = AddImages(imgUpload2, "Title", "Caption");
+    let imageThree = AddImages(imgUpload3, "Title", "Caption");
+    let imageFour = AddImages(imgUpload4, "Title", "Caption");
 
     // I need to post them one by one
     // and store the ID so I can use it in the post
     // Wordpress doesnt allow multiple uploads at once
+    setSubmitting(true);
 
     await http.post(MEDIA_URL, imageOne).then(response => {
       const thisID = response.data.id;
@@ -212,7 +200,6 @@ function AddForm() {
     try {
       await http.post(API_URL, data);
       setSubmitted(true);
-
       console.log(data);
     } catch (error) {
       setError(error.toString());
@@ -231,7 +218,7 @@ function AddForm() {
   // if its a hotel you are adding,
   // show selectbox on roomtype
   // should be able to choose more than one
-  // forgot that
+  // I forgot that
 
   const createHtml = type => {
     if (type === "Hotel") {
@@ -491,7 +478,6 @@ function AddForm() {
                   )}
                 />
               </Form.Group>
-
               {errors.stars && (
                 <StyledFeedbackContainer>
                   <Alertbox className="mt-2">{errors.stars.message}</Alertbox>
@@ -551,50 +537,27 @@ function AddForm() {
                 <Form.Group className="mt-3 me-5">
                   <Paragraph>Check-in after:</Paragraph>
                   <StyledTimePicker>
-                    <DatePicker
-                      {...register("check_in")}
-                      selected={checkinTime}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeFormat="HH:mm"
-                      timeIntervals={30}
-                      timeCaption="Time"
-                      dateFormat="HH:mm"
-                      classNamePrefix="react-time"
-                      onChange={date => {
-                        setCheckinTime(date);
-                        // if (errors.check_in) {
-                        //   clearErrors("check_in");
-                        // }
-                      }}
+                    <Controller
+                      name="check_in"
+                      control={control}
+                      render={({ field: { onChange } }) => (
+                        <DatePicker
+                          selected={checkinTime}
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeFormat="HH:mm"
+                          timeIntervals={30}
+                          timeCaption="Time"
+                          dateFormat="HH:mm"
+                          classNamePrefix="react-time"
+                          onChange={date => {
+                            setCheckinTime(date);
+                            onChange(date);
+                          }}
+                        />
+                      )}
                     />
                   </StyledTimePicker>
-
-                  {/* <Controller
-                    as={
-                      <DatePicker
-                        selected={checkinTime}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeFormat="HH:mm"
-                        timeIntervals={30}
-                        timeCaption="Time"
-                        dateFormat="HH:mm"
-                        classNamePrefix="react-time"
-                        onChange={date => {
-                          setCheckinTime(date);
-                        }}
-                      />
-                    }
-                    control={control}
-                    {...register("check_in")}
-                    valueName="selected"
-                    onChange={() => {
-                      console.log(selected);
-                      // return valueName;
-                    }}
-                  /> */}
-
                   {errors.check_in ? (
                     <>
                       {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
@@ -610,26 +573,28 @@ function AddForm() {
                 <Form.Group className="mt-3 mt-md-4">
                   <Paragraph>Checkout:</Paragraph>
                   <StyledTimePicker>
-                    <DatePicker
-                      {...register("checkout")}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeFormat="HH:mm"
-                      timeIntervals={30}
-                      timeCaption="Time"
-                      classNamePrefix="react-time"
-                      selected={checkoutTime}
-                      placeholderText="Select time"
-                      dateFormat="HH:mm"
-                      onChange={date => {
-                        setCheckoutTime(date);
-                        // if (errors.checkout) {
-                        //   clearErrors("checkout");
-                        // }
-                      }}
+                    <Controller
+                      name="checkout"
+                      control={control}
+                      render={({ field: { onChange } }) => (
+                        <DatePicker
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeFormat="HH:mm"
+                          timeIntervals={30}
+                          timeCaption="Time"
+                          classNamePrefix="react-time"
+                          selected={checkoutTime}
+                          placeholderText="Select time"
+                          dateFormat="HH:mm"
+                          onChange={date => {
+                            setCheckoutTime(date);
+                            onChange(date);
+                          }}
+                        />
+                      )}
                     />
                   </StyledTimePicker>
-
                   {errors.checkout ? (
                     <>
                       {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
@@ -643,9 +608,7 @@ function AddForm() {
               </div>
             </StyledFormWrap>
           </StyledFormWrapDesktop>
-
           <hr className="mb-5" />
-
           <div className="d-flex justify-content-between mb-5">
             <div className="d-flex">
               <Icon icon={icons.map(icon => icon.images)} fontSize="26px" className="me-3" />
@@ -658,8 +621,8 @@ function AddForm() {
           <Row xs={1} sm={2} md={3} lg={4} className="g-4">
             <Col className="position-relative">
               <StyledImageContainer>
-                {img1 ? (
-                  <Image src={img1} alt="image" layout="fill" objectFit="cover" />
+                {img1url ? (
+                  <Image src={img1url} alt="image" layout="fill" objectFit="cover" />
                 ) : (
                   <div className="img-placeholder">
                     <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="#FC5156" />
@@ -673,9 +636,11 @@ function AddForm() {
                 id="imgUpload1"
                 type="file"
                 name="image_1"
-                ref={imgUpload1}
                 {...register("image_one")}
-                onChange={e => setImg1(URL.createObjectURL(e.target.files[0]))}
+                onChange={e => {
+                  setImg1url(URL.createObjectURL(e.target.files[0]));
+                  setImgUpload1(e.target.files[0]);
+                }}
                 style={{ opacity: "0" }}
               />
               {errors.image_one && (
@@ -689,8 +654,8 @@ function AddForm() {
             {/* Images - second image */}
             <Col className="position-relative">
               <StyledImageContainer>
-                {img2 ? (
-                  <Image src={img2} alt="image" layout="fill" objectFit="cover" />
+                {img2url ? (
+                  <Image src={img2url} alt="image" layout="fill" objectFit="cover" />
                 ) : (
                   <div className="img-placeholder">
                     <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="#FC5156" />
@@ -702,9 +667,11 @@ function AddForm() {
                 id="imgUpload2"
                 type="file"
                 name="image_2"
-                ref={imgUpload2}
                 {...register("image_two")}
-                onChange={e => setImg2(URL.createObjectURL(e.target.files[0]))}
+                onChange={e => {
+                  setImg2url(URL.createObjectURL(e.target.files[0]));
+                  setImgUpload2(e.target.files[0]);
+                }}
                 style={{ opacity: "0" }}
               />
               {errors.image_two && (
@@ -718,8 +685,8 @@ function AddForm() {
             {/* Images - third image */}
             <Col className="position-relative">
               <StyledImageContainer>
-                {img3 ? (
-                  <Image src={img3} alt="image" layout="fill" objectFit="cover" />
+                {img3url ? (
+                  <Image src={img3url} alt="image" layout="fill" objectFit="cover" />
                 ) : (
                   <div className="img-placeholder">
                     <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="#FC5156" />
@@ -731,9 +698,11 @@ function AddForm() {
                 id="imgUpload3"
                 type="file"
                 name="image_3"
-                ref={imgUpload3}
                 {...register("image_three")}
-                onChange={e => setImg3(URL.createObjectURL(e.target.files[0]))}
+                onChange={e => {
+                  setImg3url(URL.createObjectURL(e.target.files[0]));
+                  setImgUpload3(e.target.files[0]);
+                }}
                 style={{ opacity: "0" }}
               />
               {errors.image_three && (
@@ -747,8 +716,8 @@ function AddForm() {
             {/* Images - fourth image */}
             <Col className="position-relative">
               <StyledImageContainer>
-                {img4 ? (
-                  <Image src={img4} alt="image" layout="fill" objectFit="cover" />
+                {img4url ? (
+                  <Image src={img4url} alt="image" layout="fill" objectFit="cover" />
                 ) : (
                   <div className="img-placeholder">
                     <Icon icon={icons.map(icon => icon.image)} fontSize="58px" color="#FC5156" />
@@ -760,9 +729,11 @@ function AddForm() {
                 id="imgUpload4"
                 type="file"
                 name="image_4"
-                ref={imgUpload4}
                 {...register("image_four")}
-                onChange={e => setImg4(URL.createObjectURL(e.target.files[0]))}
+                onChange={e => {
+                  setImg4url(URL.createObjectURL(e.target.files[0]));
+                  setImgUpload4(e.target.files[0]);
+                }}
                 style={{ opacity: "0" }}
               />
               {errors.image_four && (
@@ -783,7 +754,6 @@ function AddForm() {
               className="ms-12"
             />
           </StyledFormButton>
-
           {error && (
             <Alertbox className="mt-3" type="danger">
               Sorry, something went wrong. Please try again later.

@@ -32,7 +32,7 @@ export const DetailLaptop = ({
     <StyledContainer>
       <div className="d-flex flex-row justify-content-between">
         <Carousels stays={images} />
-        <div className="ms-5">
+        <div className="ms-5" style={{ minWidth: "375px" }}>
           <ShowIcons stay={include} />
           <Description className="mt-5" hSize="2" heading="Description" body={description} />
           <ShowRoomOption
