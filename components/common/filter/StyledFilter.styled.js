@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { mediaQ } from "../../../styles/global/ThemeConfig";
 import Heading from "../../../components/typography/Heading";
+import { FormCheck } from "react-bootstrap";
 
 export const StyledFilter = styled.div`
   background-color: ${props => props.theme.light};
@@ -71,10 +72,18 @@ export const StyledFilterBtn = styled.div`
 
 export const StyledFilterWrap = styled.div`
   display: flex;
+  /* flex-wrap: wrap; */
   margin-top: 3rem;
 
+  #input-container {
+    display: flex;
+    border: red solid thin;
+    width: 400px;
+  }
+
   .rating-container {
-    width: 240px;
+    /* width: 240px; */
+    border: red solid thin;
 
     input {
       margin-right: 0.8rem;
@@ -91,5 +100,14 @@ export const StayHeading = styled(Heading)`
     @media ${mediaQ.desktop} {
       font-size: 40px;
     }
+  }
+`;
+
+export const StyledRadioBtn = styled(FormCheck)`
+  #keyword-btn:before {
+    content: "";
+  }
+  #keyword-btn {
+    color: initial;
   }
 `;

@@ -22,35 +22,39 @@ export const Rating = ({ click }) => {
         <StyledHeading size="3">Rating</StyledHeading>
       </div>
 
-      <StyledCheckbox>
-        <Form.Label name="3 stars" className="d-flex">
-          <Form.Check
-            type="checkbox"
-            name="3 stars"
-            className="me-2"
-            onClick={e => click(e.target)}
-          />
-          3 stars
-        </Form.Label>
-        <Form.Label name="4 stars" className="d-flex">
-          <Form.Check
-            type="checkbox"
-            name="4 stars"
-            className="me-2"
-            onClick={e => click(e.target)}
-          />
-          4 stars
-        </Form.Label>
-        <Form.Label name="5 stars" className="d-flex">
-          <Form.Check
-            type="checkbox"
-            name="5 stars"
-            className="me-2"
-            onClick={e => click(e.target)}
-          />
-          5 stars
-        </Form.Label>
-      </StyledCheckbox>
+      <div id="input-container">
+        <StyledCheckbox>
+          <Form.Label name="3 stars" className="d-flex">
+            <Form.Check
+              type="checkbox"
+              name="3 stars"
+              className="me-2"
+              onClick={e => click(e.target)}
+            />
+            3 stars
+          </Form.Label>
+
+          <Form.Label name="4 stars" className="d-flex">
+            <Form.Check
+              type="checkbox"
+              name="4 stars"
+              className="me-2"
+              onClick={e => click(e.target)}
+            />
+            4 stars
+          </Form.Label>
+
+          <Form.Label name="5 stars" className="d-flex">
+            <Form.Check
+              type="checkbox"
+              name="5 stars"
+              className="me-2"
+              onClick={e => click(e.target)}
+            />
+            5 stars
+          </Form.Label>
+        </StyledCheckbox>
+      </div>
     </div>
   );
 };

@@ -16,6 +16,7 @@ import { Container } from "react-bootstrap";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
 import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
 import { useRouter } from "next/router";
+import { ShowStayType } from "../components/pages/stays/ShowStayType";
 import {
   StayHeading,
   StyledFilter,
@@ -27,12 +28,12 @@ export default function Stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
-
   const size = useWindowSize();
   const router = useRouter();
   const query = router.query;
   const sortType = query.type;
   const ref = createRef();
+
   let hotels = stays.filter(stay => stay.acf.room.stay_type === "Hotel");
   let apartment = stays.filter(stay => stay.acf.room.stay_type === "Apartment");
   let bedbreakfast = stays.filter(stay => stay.acf.room.stay_type === "Bed & Breakfast");
@@ -66,23 +67,9 @@ export default function Stays({ stays }) {
     }
   }, []);
 
-  const ShowStayType = ({ title, array }) => {
-    return (
-      <div className="mt-5">
-        <Heading size="2">{title}</Heading>
-        <StyledLine className="mb-4"></StyledLine>
-        <StaysCard stays={array} />
-      </div>
-    );
-  };
-
-  // HUSK å gå gjennom navnene her
-
   const btnClick = e => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
-    let keywords = [];
-    let ratings = [];
-    let stay = [];
+    let [ratings, stay] = [[], []];
     let activeFilter;
 
     if (e.tagName === "BUTTON") {
@@ -120,21 +107,20 @@ export default function Stays({ stays }) {
         let newChips = [...new Set(array)];
 
         newChips.map(chip => {
-          let checkName = Object.entries(item.acf.stay_includes).find(name =>
-            name[0] === chip ? name[1] : ""
-          );
           let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
           let checkRating = item.acf.stars[0] === chip;
 
-          checkName ? keywords.push(item) : "";
+          // If the item returns true, push them to each array
+
           checkStay ? stay.push(item) : "";
           checkRating ? ratings.push(item) : "";
         });
 
-        let keywordsLength = keywords.length;
         let ratingsLength = ratings.length;
         let stayLength = stay.length;
         let newFilterItems = [];
+
+        // if the array stores an item, show them in cards (using filter usestate)
 
         if (stayLength) {
           newFilterItems = stay;
@@ -142,17 +128,8 @@ export default function Stays({ stays }) {
           newFilterItems = ratings;
         }
 
-        if (keywordsLength) {
-          const itemExists = keywords.find(arr => arr.id === item.id);
-          let newFilter = keywords.sort();
+        // if a place has both STAY TYPE and RATING true:
 
-          if (itemExists) {
-            newFilter = [...new Set(keywords)];
-          }
-          newFilterItems = newFilter;
-        }
-
-        // sjekker rating og type stay opp mot hverandre, og funker
         if (stayLength && ratingsLength) {
           let checkID;
           let array = [];
@@ -169,74 +146,6 @@ export default function Stays({ stays }) {
               }
             });
           });
-
-          if (!checkID) {
-            array = [];
-          }
-          newFilterItems = array;
-        }
-
-        if (keywordsLength && stayLength) {
-          let checkID;
-          let array = [];
-          stay.filter(stays => {
-            keywords.find(key => {
-              if (stays.id === key.id) {
-                if (findWithKeywords(key)) {
-                  array.push(key);
-                  checkID = true;
-                } else {
-                  checkID = false;
-                }
-              }
-            });
-          });
-          if (!checkID) {
-            array = [];
-          }
-          newFilterItems = array;
-        }
-
-        if (keywordsLength && ratingsLength) {
-          let checkID;
-          let array = [];
-
-          ratings.filter(rate => {
-            keywords.find(key => {
-              if (key.id === rate.id) {
-                if (findWithKeywords(key)) {
-                  array.push(key);
-                  checkID = true;
-                } else {
-                  checkID = false;
-                }
-              }
-            });
-          });
-
-          if (!checkID) {
-            array = [];
-          }
-          newFilterItems = array;
-        }
-
-        if (keywordsLength && ratingsLength && stayLength) {
-          let checkID;
-          let array = [];
-          ratings.filter(rate => {
-            stay.filter(stay => {
-              keywords.find(key => {
-                if (findWithKeywords(key)) {
-                  if (key.id === rate.id && key.id === stay.id && stay.id === rate.id) {
-                    array.push(key);
-                    checkID = true;
-                  } else {
-                    checkID = false;
-                  }
-                }
-              });
-            });
-          });
           if (!checkID) {
             array = [];
           }
@@ -245,23 +154,20 @@ export default function Stays({ stays }) {
 
         function findWithKeywords(key) {
           if (btnName) {
-            let checkIncludes = Object.entries(key.acf.stay_includes).find(name =>
-              name[0] === btnName ? name[1] : ""
-            );
             let checkStays = key.acf.room.stay_type.toLowerCase() === btnName.toLowerCase();
             let checkRatings = key.acf.stars[0] === btnName;
-            if (checkIncludes || checkStays || checkRatings) {
+
+            if (checkStays || checkRatings) {
               return true;
             } else {
               return false;
             }
           }
         }
-
         if (!newFilterItems.length) {
           setFiltered([]);
         } else {
-          return setFiltered(newFilterItems);
+          setFiltered(newFilterItems);
         }
       }
     });

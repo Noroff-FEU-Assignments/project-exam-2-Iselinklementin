@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import Link from "next/link";
+import Heading from "../../components/typography/Heading";
+import styled from "styled-components";
 import axios from "axios";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DateFunction from "../../components/common/functions/DateFunction";
@@ -15,11 +18,7 @@ import { useWindowSize } from "../../hooks/useWindowSize";
 import { SCREEN } from "../../constants/misc";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
-import Link from "next/link";
-import Heading from "../../components/typography/Heading";
-import styled from "styled-components";
 import { ValidationError } from "./ValidationError";
-import { mediaQ } from "../../styles/global/ThemeConfig";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
