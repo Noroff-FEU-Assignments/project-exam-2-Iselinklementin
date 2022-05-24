@@ -90,8 +90,6 @@ export default function Stays({ stays }) {
     let stay = [];
     let activeFilter;
 
-    console.log(e.name);
-
     if (e.tagName === "BUTTON") {
       activeFilter = e.attributes[1].value.includes("active-filter");
     } else if (e.tagName === "INPUT") {
@@ -326,7 +324,7 @@ export default function Stays({ stays }) {
             <Container>
               <StyledFilterBtn className="d-flex mb-4 mt-5">
                 <Paragraph>Filter search</Paragraph>
-                <div className="line"></div>
+                <StyledLine className="line"></StyledLine>
               </StyledFilterBtn>
 
               <StyledFilterWrap>

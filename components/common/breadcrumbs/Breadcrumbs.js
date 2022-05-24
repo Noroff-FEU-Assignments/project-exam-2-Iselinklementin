@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Link from "next/link";
 import { Breadcrumb } from "react-bootstrap";
 
@@ -22,4 +23,8 @@ export const Breadcrumbs = ({ link, linkName, title }) => {
   );
 };
 
-// her må det være props
+Breadcrumbs.propTypes = {
+  link: PropTypes.string.isRequired,
+  linkName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};

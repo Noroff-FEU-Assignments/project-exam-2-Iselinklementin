@@ -8,7 +8,7 @@ import { useState } from "react";
 export const HotelOptions = ({ options, id }) => {
   const [roomOption, setRoomOption] = useState("Choose room");
 
-  const handleInput = (newValue) => {
+  const handleInput = newValue => {
     setRoomOption(newValue.value);
     return newValue;
   };
@@ -16,11 +16,17 @@ export const HotelOptions = ({ options, id }) => {
   return (
     <div>
       <Paragraph>{roomOption}</Paragraph>
-      <StyledSelect options={options} className="select" classNamePrefix="react-select" onChange={handleInput} />
+      <StyledSelect
+        options={options}
+        instanceId
+        className="select"
+        classNamePrefix="react-select"
+        onChange={handleInput}
+      />
 
       <Link href={{ pathname: `/enquire/${id}`, query: { room: roomOption } }} className="mt-4">
         <StyledMobileButton className="btn primary-btn mt-4" role="button">
-          <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-2" />
+          <Icon icon={icons.map(icon => icon.bag)} color="white" fontSize="16px" className="me-2" />
           Enquire
         </StyledMobileButton>
       </Link>

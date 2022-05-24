@@ -10,7 +10,7 @@ npm install
 npm run dev
 ```
 
-Add prop type checks and fix any warnings that appear in the console. Keep your console open while developing. If you are using Next, don't forget that the component you pass the props to from getServerSideProps or getStaticProps also needs prop type checks.
+If you are using Next, don't forget that the component you pass the props to from getServerSideProps or getStaticProps also needs prop type checks.
 
 https://artisansweb.net/how-to-use-application-passwords-in-wordpress-for-rest-api-authentication/#:~:text=Head%20over%20to%20the%20Users,password%20with%20or%20without%20spaces.
 

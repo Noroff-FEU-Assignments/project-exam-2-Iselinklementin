@@ -47,7 +47,6 @@ export default function Enquire({ stay }) {
         <StyledContainer className="p-4 mt-5">
           <Container className="py-4">
             <Breadcrumbs title="Enquire" link={`/stays/${stay.id}`} linkName={stay.acf.title} />
-
             <Heading className="mt-5" size="1">
               Start planning your trip to {stay.acf.title}
             </Heading>

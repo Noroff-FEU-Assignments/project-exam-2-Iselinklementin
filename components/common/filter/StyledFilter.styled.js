@@ -3,14 +3,14 @@ import { mediaQ } from "../../../styles/global/ThemeConfig";
 import Heading from "../../../components/typography/Heading";
 
 export const StyledFilter = styled.div`
-  background-color: ${(props) => props.theme.light};
+  background-color: ${props => props.theme.light};
 
   @media ${mediaQ.tablet} {
-    background-color: ${(props) => props.theme.backgroundColour};
+    background-color: ${props => props.theme.backgroundColour};
   }
 
   button  {
-    color: ${(props) => props.theme.body};
+    color: ${props => props.theme.body};
   }
 
   .filter-tablet {
@@ -36,12 +36,8 @@ export const StyledFilter = styled.div`
     border-radius: 6px;
     padding: 5px 10px;
     border: 1px solid grey;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
-
-    @media ${mediaQ.tablet} {
-      /* margin: 20px 15px 10px 15px; */
-    }
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 
   .hidden {
@@ -49,8 +45,8 @@ export const StyledFilter = styled.div`
   }
 
   .active {
-    background-color: ${(props) => props.theme.primaryColour};
-    border: ${(props) => props.theme.primaryColour} thin solid;
+    background-color: ${props => props.theme.primaryColour};
+    border: ${props => props.theme.primaryColour} thin solid;
     color: white;
   }
 
@@ -67,12 +63,7 @@ export const StyledFilterBtn = styled.div`
     margin-top: -2px;
   }
 
-  // ordnet en egen fil til denne
-  // StyledLine
   .line {
-    border: ${(props) => props.theme.primaryColour} 1px solid;
-    width: 40px;
-    height: 1px;
     position: absolute;
     bottom: 0;
   }
