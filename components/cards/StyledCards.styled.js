@@ -19,7 +19,7 @@ export const StyledCard = styled(Card)`
     font-family: ${(props) => props.theme.secondaryFont};
     font-weight: 600;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
