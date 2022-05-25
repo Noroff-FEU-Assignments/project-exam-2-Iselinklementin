@@ -6,7 +6,7 @@ import { Tab, Tabs } from "react-bootstrap";
 export const AdminTabs = ({ value, handleClick }) => {
   return (
     <StyledTabs>
-      <Tabs defaultActiveKey="messages" onClick={handleClick}>
+      <Tabs defaultActiveKey="messages" onClick={handleClick} id="1">
         <Tab eventKey="messages" title="Messages" value="0">
           <Messages />
         </Tab>

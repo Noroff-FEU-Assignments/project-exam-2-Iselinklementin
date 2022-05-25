@@ -37,6 +37,9 @@ export const StyledLinkStaysContainer = styled.div`
       box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
       border: ${(props) => props.theme.primaryColour} solid 1px;
     }
+    @media ${mediaQ.tablet} {
+      min-height: 160px;
+    }
   }
 
   .heading-container {
@@ -81,7 +84,7 @@ export const LinkStays = () => {
                   Hotels
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Find a suitable, local hotel for one or more travelers.</Paragraph>
             </div>
           </a>
         </Link>
@@ -97,7 +100,7 @@ export const LinkStays = () => {
                   Apartments
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Rent an apartment and feel at home. Several places to show.</Paragraph>
             </div>
           </a>
         </Link>
@@ -113,7 +116,7 @@ export const LinkStays = () => {
                   Bed & Breakfast
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Find a place that offers overnight accommodation and breakfast.</Paragraph>
             </div>
           </a>
         </Link>

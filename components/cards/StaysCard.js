@@ -5,13 +5,12 @@ import Icon, { icons } from "../../constants/icons";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import CapitalizeFirstLetter from "../common/functions/CapitalizeFirstLetter";
 import { PLACEHOLDER_IMG } from "../../constants/misc";
 
 function StaysCard({ stays }) {
   return (
     <Row xs={1} sm={2} md={3} className="g-4">
-      {stays.map(stay => {
+      {stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
         let includes = Object.entries(stay.acf.stay_includes);
@@ -20,7 +19,7 @@ function StaysCard({ stays }) {
             <Link href={`stays/${stay.id}`}>
               <StyledCard>
                 <Badge bg="light" text="dark" className="pe-3">
-                  <Icon icon={icons.map(icon => icon.location)} color="#FC5156" className="me-1" />
+                  <Icon icon={icons.map((icon) => icon.location)} color="#FC5156" className="me-1" />
                   {stay.acf.address.short_description}
                 </Badge>
                 <Image
@@ -42,7 +41,7 @@ function StaysCard({ stays }) {
                   <div className="rating-container mb-2">
                     {[...Array(numbersOfStars)].map((e, i) => (
                       <Icon
-                        icon={icons.map(icon => icon.star)}
+                        icon={icons.map((icon) => icon.star)}
                         key={i}
                         color="white"
                         className="me-1"
@@ -50,19 +49,8 @@ function StaysCard({ stays }) {
                       />
                     ))}
                   </div>
-                  <Card.Text>
+                  <Card.Text className="mt-3">
                     Prices from: <span className="fw-bold">{stay.acf.price},-</span>
-                    <br />
-                    {includes.map(include => {
-                      let thisIncludes = include[0].replace("_", " ");
-                      return include[1] ? (
-                        <span className="me-2 keywords" key={thisIncludes}>
-                          {CapitalizeFirstLetter(thisIncludes)}
-                        </span>
-                      ) : (
-                        ""
-                      );
-                    })}
                   </Card.Text>
                 </Card.Body>
               </StyledCard>

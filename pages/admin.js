@@ -20,7 +20,7 @@ const StyledTextContainer = styled.div`
   margin: auto auto 3rem auto;
 
   p {
-    max-width: 450px;
+    max-width: 300px;
     margin: auto auto 2rem auto;
   }
 
@@ -76,10 +76,7 @@ export default function Admin() {
             <StyledTextContainer>
               <div>
                 <Heading size="1">Welcome Admin</Heading>
-                <Paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </Paragraph>
+                <Paragraph>Here you can read messages & enquires, or you can add a new accomondation.</Paragraph>
               </div>
               <div className="text-center">
                 <AddEnquireBtn />

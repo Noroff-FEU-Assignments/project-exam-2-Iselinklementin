@@ -26,7 +26,7 @@ export const StyledFilter = styled.div`
   .filter-tablet {
     @media ${mediaQ.tablet} {
       border-left: solid thin grey;
-      padding-left: 3rem;
+      padding-left: 2rem;
     }
   }
 
@@ -97,9 +97,6 @@ export const StyledFilterWrap = styled.div`
   }
 
   .rating-container {
-    padding-left: 0;
-    width: 40%;
-
     input {
       margin-right: 0.8rem;
     }
