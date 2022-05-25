@@ -149,7 +149,7 @@ export default function Stays({ stays }) {
 
   const CreateHtml = () => {
     if (emptyResult) {
-      return <div className="text-center">Sorry, no results found..</div>;
+      return <div className="text-center">Sorry, no results found.</div>;
     } else if (filtered.length) {
       return (
         <>
@@ -203,7 +203,7 @@ export default function Stays({ stays }) {
                 <StyledLine className="line"></StyledLine>
               </StyledFilterBtn>
 
-              <StyledFilterWrap>
+              <StyledFilterWrap className="mt-0">
                 <Rating click={(e) => btnClick(e)} />
                 <Chips clicked={(e) => btnClick(e)} ref={ref} />
               </StyledFilterWrap>
