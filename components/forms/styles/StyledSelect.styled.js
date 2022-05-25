@@ -16,12 +16,12 @@ export const StyledSelect = styled(Select)`
 
   .react-select__placeholder {
     height: 30px;
-    font-family: ${props => props.theme.primaryFont};
-    color: ${props => props.theme.body};
+    font-family: ${(props) => props.theme.primaryFont};
+    color: ${(props) => props.theme.body};
     opacity: 0.8;
     font-size: 14px;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 16px;
     }
   }
@@ -58,7 +58,7 @@ export const StyledSelect = styled(Select)`
 
     .react-select__option--is-focused {
       background: #fdc2c2;
-      color: ${props => props.theme.body};
+      color: ${(props) => props.theme.body};
     }
   }
 `;

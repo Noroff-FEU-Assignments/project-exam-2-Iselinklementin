@@ -17,7 +17,7 @@ const StyledFooter = styled.footer`
     margin: 10px;
     font-weight: 500;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 16px;
     }
   }
@@ -26,7 +26,5 @@ const StyledFooter = styled.footer`
 export default function Footer() {
   const size = useWindowSize();
 
-  return (
-    <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>
-  );
+  return <StyledFooter>{size.width <= SCREEN.tablet ? <FooterMobile /> : <FooterWide />}</StyledFooter>;
 }

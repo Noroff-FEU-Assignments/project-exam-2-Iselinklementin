@@ -1,24 +1,32 @@
 import styled from "styled-components";
 import { mediaQ } from "../../../styles/global/ThemeConfig";
 import Heading from "../../../components/typography/Heading";
-import { FormCheck } from "react-bootstrap";
 
 export const StyledFilter = styled.div`
-  background-color: ${props => props.theme.light};
+  background-color: ${(props) => props.theme.light};
 
   @media ${mediaQ.tablet} {
-    background-color: ${props => props.theme.backgroundColour};
+    background-color: ${(props) => props.theme.backgroundColour};
+  }
+
+  h1 {
+    border: red solid thin;
+  }
+
+  #input-container {
+    #label-filter {
+      margin-left: 0;
+    }
   }
 
   button  {
-    color: ${props => props.theme.body};
+    color: ${(props) => props.theme.body};
   }
 
   .filter-tablet {
     @media ${mediaQ.tablet} {
       border-left: solid thin grey;
       padding-left: 3rem;
-      padding-right: 3rem;
     }
   }
 
@@ -37,8 +45,8 @@ export const StyledFilter = styled.div`
     border-radius: 6px;
     padding: 5px 10px;
     border: 1px solid grey;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
   }
 
   .hidden {
@@ -46,8 +54,8 @@ export const StyledFilter = styled.div`
   }
 
   .active {
-    background-color: ${props => props.theme.primaryColour};
-    border: ${props => props.theme.primaryColour} thin solid;
+    background-color: ${(props) => props.theme.primaryColour};
+    border: ${(props) => props.theme.primaryColour} thin solid;
     color: white;
   }
 
@@ -72,18 +80,25 @@ export const StyledFilterBtn = styled.div`
 
 export const StyledFilterWrap = styled.div`
   display: flex;
-  /* flex-wrap: wrap; */
+  align-items: baseline;
   margin-top: 3rem;
 
   #input-container {
     display: flex;
-    border: red solid thin;
-    width: 400px;
+
+    #label-filter {
+      display: flex;
+      align-items: baseline;
+    }
+
+    #label-filter:first-of-type {
+      margin-left: 0;
+    }
   }
 
   .rating-container {
-    /* width: 240px; */
-    border: red solid thin;
+    padding-left: 0;
+    width: 40%;
 
     input {
       margin-right: 0.8rem;
@@ -92,22 +107,15 @@ export const StyledFilterWrap = styled.div`
 `;
 
 export const StayHeading = styled(Heading)`
+  max-width: 400px;
+
   @media ${mediaQ.tablet} {
     max-width: 450px;
     font-size: 36px;
     margin-top: 4rem;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 40px;
     }
-  }
-`;
-
-export const StyledRadioBtn = styled(FormCheck)`
-  #keyword-btn:before {
-    content: "";
-  }
-  #keyword-btn {
-    color: initial;
   }
 `;

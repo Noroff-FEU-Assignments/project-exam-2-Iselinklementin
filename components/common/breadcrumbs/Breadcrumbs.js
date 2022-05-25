@@ -9,7 +9,7 @@ const StyledBreadcrumb = styled(Breadcrumb)`
     font-size: 12px;
     text-transform: uppercase;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 14px;
     }
   }

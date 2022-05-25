@@ -9,7 +9,7 @@ import { mediaQ } from "../../../styles/global/ThemeConfig";
 const StyledHeading = styled(Heading)`
   font-size: 16px;
 
-  @media ${mediaQ.desktop} {
+  @media ${mediaQ.desktop_large} {
     font-size: 18px;
   }
 `;
@@ -17,7 +17,7 @@ const StyledHeading = styled(Heading)`
 export const RadioButtons = forwardRef((props, ref) => {
   const [value, setValue] = useState("");
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.classList.toggle("active");
 
     if (value === e.value) {
@@ -27,33 +27,26 @@ export const RadioButtons = forwardRef((props, ref) => {
     }
   };
 
-  const keywords = [
-    "swimming_pool",
-    "kitchen",
-    "free_parking",
-    "breakfast",
-    "pet_friendly",
-    "wifi",
-  ];
+  const keywords = ["swimming_pool", "kitchen", "free_parking", "breakfast", "pet_friendly", "wifi"];
 
   return (
     <>
       <div className="d-flex mt-5 mb-2">
-        <Icon icon={icons.map(icon => icon.heart)} fontSize="15px" className="me-2" />
+        <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
         <StyledHeading size="3">Keywords</StyledHeading>
       </div>
-      {keywords.map(btnName => {
+      {keywords.map((btnName) => {
         let removeUnderscore = btnName.replace("_", " ");
         let newBtnName = CapitalizeFirstLetter(removeUnderscore);
         return (
           <div id="radio-btns">
             <Form.Check
               type="radio"
-              onChange={e => setValue(e.target.value)}
+              onChange={(e) => setValue(e.target.value)}
               name="keywords"
               value={btnName}
               ref={ref}
-              onClick={e => {
+              onClick={(e) => {
                 props.clicked(e.target);
                 handleClick(e.target);
               }}

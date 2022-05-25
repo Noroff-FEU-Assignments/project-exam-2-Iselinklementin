@@ -8,7 +8,7 @@ export const StyledIconFormContainer = styled.div`
   display: block;
   text-align: center;
 
-  @media ${mediaQ.desktop} {
+  @media ${mediaQ.desktop_large} {
     font-size: 20px;
   }
 

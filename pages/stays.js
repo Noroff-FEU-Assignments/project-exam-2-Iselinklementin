@@ -28,22 +28,23 @@ export default function Stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [emptyResult, setEmptyResult] = useState(false);
   const size = useWindowSize();
   const router = useRouter();
   const query = router.query;
   const sortType = query.type;
   const ref = createRef();
 
-  let hotels = stays.filter(stay => stay.acf.room.stay_type === "Hotel");
-  let apartment = stays.filter(stay => stay.acf.room.stay_type === "Apartment");
-  let bedbreakfast = stays.filter(stay => stay.acf.room.stay_type === "Bed & Breakfast");
+  let hotels = stays.filter((stay) => stay.acf.room.stay_type === "Hotel");
+  let apartment = stays.filter((stay) => stay.acf.room.stay_type === "Apartment");
+  let bedbreakfast = stays.filter((stay) => stay.acf.room.stay_type === "Bed & Breakfast");
 
   useEffect(() => {
     let btns = ref.current.parentElement.children;
     let btnsArray = [...btns];
-    let apartmentBtn = btnsArray.find(btn => btn.innerText === "Apartment");
-    let hotelBtn = btnsArray.find(btn => btn.innerText === "Hotel");
-    let bedBreakftBtn = btnsArray.find(btn => btn.innerText === "Bed & Breakfast");
+    let apartmentBtn = btnsArray.find((btn) => btn.innerText === "Apartment");
+    let hotelBtn = btnsArray.find((btn) => btn.innerText === "Hotel");
+    let bedBreakftBtn = btnsArray.find((btn) => btn.innerText === "Bed & Breakfast");
 
     switch (sortType) {
       case "Apartment":
@@ -67,9 +68,9 @@ export default function Stays({ stays }) {
     }
   }, []);
 
-  const btnClick = e => {
+  const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
-    let [ratings, stay] = [[], []];
+    let [ratings, stay, newFilterItems, testArray] = [[], [], [], []];
     let activeFilter;
 
     if (e.tagName === "BUTTON") {
@@ -78,14 +79,14 @@ export default function Stays({ stays }) {
       activeFilter = e.attributes[2].value.includes("active-filter");
     }
 
-    stays.map(item => {
+    stays.map((item) => {
       if (activeFilter) {
         let newChips = [...new Set(filterChips)];
         let newFilter = newChips;
 
-        newChips.map(name => {
+        newChips.map((name) => {
           if (btnName == name || e.checked) {
-            newFilter = newChips.filter(name => name !== btnName);
+            newFilter = newChips.filter((name) => name !== btnName);
             e.classList.remove("active-filter");
           }
         });
@@ -105,86 +106,66 @@ export default function Stays({ stays }) {
 
       function filterItems(array, btnName) {
         let newChips = [...new Set(array)];
-
-        newChips.map(chip => {
+        newChips.map((chip) => {
           let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
           let checkRating = item.acf.stars[0] === chip;
 
           // If the item returns true, push them to each array
-
           checkStay ? stay.push(item) : "";
           checkRating ? ratings.push(item) : "";
+
+          // if the array stores an item, show them in cards (using filter usestate)
+          if (stay.length) {
+            newFilterItems = stay;
+          } else if (ratings.length) {
+            newFilterItems = ratings;
+          }
+
+          if (stay.length && ratings.length) {
+            stay.filter((place) => {
+              ratings.filter((rate) => {
+                if (rate.id === place.id) {
+                  if (checkRating || checkStay) {
+                    testArray.push(rate);
+                  }
+                } else if (!testArray.length) {
+                  return setEmptyResult(true);
+                }
+              });
+              newFilterItems = [...new Set(testArray)];
+            });
+          }
         });
 
-        let ratingsLength = ratings.length;
-        let stayLength = stay.length;
-        let newFilterItems = [];
-
-        // if the array stores an item, show them in cards (using filter usestate)
-
-        if (stayLength) {
-          newFilterItems = stay;
-        } else if (ratingsLength) {
-          newFilterItems = ratings;
-        }
-
-        // if a place has both STAY TYPE and RATING true:
-
-        if (stayLength && ratingsLength) {
-          let checkID;
-          let array = [];
-
-          stay.filter(stays => {
-            ratings.find(rate => {
-              if (rate.id === stays.id) {
-                if (findWithKeywords(stays)) {
-                  array.push(stays);
-                  checkID = true;
-                } else {
-                  checkID = false;
-                }
-              }
-            });
-          });
-          if (!checkID) {
-            array = [];
-          }
-          newFilterItems = array;
-        }
-
-        function findWithKeywords(key) {
-          if (btnName) {
-            let checkStays = key.acf.room.stay_type.toLowerCase() === btnName.toLowerCase();
-            let checkRatings = key.acf.stars[0] === btnName;
-
-            if (checkStays || checkRatings) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        }
         if (!newFilterItems.length) {
-          setFiltered([]);
+          setEmptyResult(true);
         } else {
           setFiltered(newFilterItems);
+          setEmptyResult(false);
         }
       }
     });
   };
 
   const CreateHtml = () => {
-    if (filtered.length) {
-      return <StaysCard stays={filtered} />;
-    } else {
+    if (emptyResult) {
+      return <div className="text-center">Sorry, no results found..</div>;
+    } else if (filtered.length) {
       return (
         <>
-          <ShowStayType title="Hotels" array={hotels} />
-          <ShowStayType title="Apartment" array={apartment} />
-          <ShowStayType title="Bed & Breakfast" array={bedbreakfast} />
+          <Paragraph>{filtered.length} results found:</Paragraph>
+          <StaysCard stays={filtered} />
         </>
       );
     }
+
+    return (
+      <>
+        <ShowStayType title="Hotels" array={hotels} />
+        <ShowStayType title="Apartment" array={apartment} />
+        <ShowStayType title="Bed & Breakfast" array={bedbreakfast} />
+      </>
+    );
   };
 
   return (
@@ -196,27 +177,21 @@ export default function Stays({ stays }) {
       />
       <StyledContainer className="py-4">
         <Container>
-          <StayHeading className="mt-3" size="1" style={{ maxWidth: "200px" }}>
-            Book a stay with free cancellation{" "}
-            <span style={{ color: "#FC5156" }}>- apply now!</span>
+          <StayHeading className="mt-3" size="1">
+            Book a stay with free cancellation <span style={{ color: "#FC5156" }}>- apply now!</span>
           </StayHeading>
         </Container>
 
         {size.width <= SCREEN.tablet ? (
           <Container>
             <StyledFilterBtn role="button" className="d-flex mt-5" onClick={() => setShow(!show)}>
-              <Icon
-                icon={icons.map(icon => icon.filter)}
-                color="#FC5156"
-                className="me-2"
-                fontSize="24px"
-              />
+              <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
               <Paragraph>Filter search</Paragraph>
             </StyledFilterBtn>
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
-                <Rating click={e => btnClick(e)} />
-                <Chips clicked={e => btnClick(e)} ref={ref} />
+                <Rating click={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} ref={ref} />
               </div>
             </StyledFilter>
           </Container>
@@ -229,8 +204,8 @@ export default function Stays({ stays }) {
               </StyledFilterBtn>
 
               <StyledFilterWrap>
-                <Rating click={e => btnClick(e)} />
-                <Chips clicked={e => btnClick(e)} ref={ref} />
+                <Rating click={(e) => btnClick(e)} />
+                <Chips clicked={(e) => btnClick(e)} ref={ref} />
               </StyledFilterWrap>
             </Container>
           </>

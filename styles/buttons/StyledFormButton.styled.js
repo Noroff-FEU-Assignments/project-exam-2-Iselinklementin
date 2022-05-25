@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 export const StyledFormButton = styled(Button)`
-  background: ${props => props.theme.primaryColour};
+  background: ${(props) => props.theme.primaryColour};
   text-transform: Uppercase;
   font-size: 14px;
   border-color: transparent;
@@ -16,7 +16,7 @@ export const StyledFormButton = styled(Button)`
   align-items: center;
   justify-content: center;
 
-  @media ${mediaQ.desktop} {
+  @media ${mediaQ.desktop_large} {
     font-size: 16px;
   }
 

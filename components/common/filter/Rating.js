@@ -9,7 +9,7 @@ import { mediaQ } from "../../../styles/global/ThemeConfig";
 const StyledHeading = styled(Heading)`
   font-size: 16px;
 
-  @media ${mediaQ.desktop} {
+  @media ${mediaQ.desktop_large} {
     font-size: 18px;
   }
 `;
@@ -18,43 +18,25 @@ export const Rating = ({ click }) => {
   return (
     <div className="rating-container mb-4">
       <div className="d-flex mb-3">
-        <Icon icon={icons.map(icon => icon.star)} fontSize="16px" className="me-2" />
+        <Icon icon={icons.map((icon) => icon.star)} fontSize="16px" className="me-2" />
         <StyledHeading size="3">Rating</StyledHeading>
       </div>
 
-      <div id="input-container">
-        <StyledCheckbox>
-          <Form.Label name="3 stars" className="d-flex">
-            <Form.Check
-              type="checkbox"
-              name="3 stars"
-              className="me-2"
-              onClick={e => click(e.target)}
-            />
-            3 stars
+      <StyledCheckbox>
+        <div id="input-container">
+          <Form.Label name="3 stars" className=" d-flex" id="label-filter">
+            <Form.Check type="checkbox" name="3 stars" onClick={(e) => click(e.target)} />3 stars
           </Form.Label>
 
-          <Form.Label name="4 stars" className="d-flex">
-            <Form.Check
-              type="checkbox"
-              name="4 stars"
-              className="me-2"
-              onClick={e => click(e.target)}
-            />
-            4 stars
+          <Form.Label name="4 stars" className=" d-flex" id="label-filter">
+            <Form.Check type="checkbox" name="4 stars" onClick={(e) => click(e.target)} />4 stars
           </Form.Label>
 
-          <Form.Label name="5 stars" className="d-flex">
-            <Form.Check
-              type="checkbox"
-              name="5 stars"
-              className="me-2"
-              onClick={e => click(e.target)}
-            />
-            5 stars
+          <Form.Label name="5 stars" className=" d-flex" id="label-filter">
+            <Form.Check type="checkbox" name="5 stars" onClick={(e) => click(e.target)} />5 stars
           </Form.Label>
-        </StyledCheckbox>
-      </div>
+        </div>
+      </StyledCheckbox>
     </div>
   );
 };

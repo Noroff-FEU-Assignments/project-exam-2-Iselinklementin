@@ -28,7 +28,7 @@ import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 const StyledHeading = styled(Heading)`
   font-size: 20px;
 
-  @media ${mediaQ.desktop} {
+  @media ${mediaQ.desktop_large} {
     font-size: 22px;
   }
 `;
@@ -60,9 +60,9 @@ const StyledDeleteDate = styled.div`
 
   :hover {
     svg {
-      color: ${props => props.theme.primaryColour};
+      color: ${(props) => props.theme.primaryColour};
     }
-    color: ${props => props.theme.primaryColour};
+    color: ${(props) => props.theme.primaryColour};
   }
 
   @media ${mediaQ.tablet} {
@@ -91,12 +91,8 @@ export default function EnquireForm({ title, room, type }) {
     setDateRange([null, null]);
   };
 
-  let startDateFormatted = startDate
-    ? startDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "")
-    : "";
-  let endDateFormatted = endDate
-    ? endDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "")
-    : "";
+  let startDateFormatted = startDate ? startDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
+  let endDateFormatted = endDate ? endDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
 
   const {
     register,
@@ -147,11 +143,7 @@ export default function EnquireForm({ title, room, type }) {
 
   return (
     <>
-      <StyledForm
-        id="enquire_form"
-        className="enquire-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate>
+      <StyledForm id="enquire_form" className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <fieldset disabled={error}>
           {submitted && (
             <AlertboxSuccess className="mt-5 mb-0">
@@ -172,47 +164,20 @@ export default function EnquireForm({ title, room, type }) {
             <StyledFormContainerLaptop>
               <StyledParagraphColoured>Information</StyledParagraphColoured>
               <Heading size="2">Who is traveling?</Heading>
-              <Form.Control
-                type="hidden"
-                placeholder="Title"
-                value={title}
-                className="mt-2"
-                {...register("title")}
-              />
-              <Form.Control
-                type="hidden"
-                placeholder="Type"
-                value={type}
-                className="mt-2"
-                {...register("stay_type")}
-              />
-              <Form.Control
-                type="hidden"
-                placeholder="Room"
-                value={room}
-                className="mt-2"
-                {...register("room")}
-              />
+              <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
+              <Form.Control type="hidden" placeholder="Type" value={type} className="mt-2" {...register("stay_type")} />
+              <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
 
               <Form.Group className="mt-3">
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
-                    <Icon icon={icons.map(icon => icon.user)} />
+                    <Icon icon={icons.map((icon) => icon.user)} />
                   </StyledIconFormContainer>
-                  <Form.Control
-                    type="text"
-                    placeholder="Name"
-                    className="mt-2"
-                    {...register("name")}
-                  />
+                  <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
                 </StyledFlexIconText>
                 {errors.name && (
                   <StyledFeedbackContainer>
-                    <Icon
-                      icon={icons.map(icon => icon.error)}
-                      color="#D11117"
-                      className="warning-icon"
-                    />
+                    <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
                     <Alertbox className="mt-2">{errors.name.message}</Alertbox>
                   </StyledFeedbackContainer>
                 )}
@@ -221,14 +186,9 @@ export default function EnquireForm({ title, room, type }) {
               <Form.Group className="mt-3">
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
-                    <Icon icon={icons.map(icon => icon.phone)} />
+                    <Icon icon={icons.map((icon) => icon.phone)} />
                   </StyledIconFormContainer>
-                  <Form.Control
-                    type="text"
-                    placeholder="Phone"
-                    className="mt-2"
-                    {...register("phone")}
-                  />
+                  <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
                 </StyledFlexIconText>
                 {errors.phone && <ValidationError errorName={errors.phone.message} />}
               </Form.Group>
@@ -236,14 +196,9 @@ export default function EnquireForm({ title, room, type }) {
               <Form.Group className="mt-3">
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
-                    <Icon icon={icons.map(icon => icon.email)} fontSize="20px" />
+                    <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" />
                   </StyledIconFormContainer>
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    className="mt-2"
-                    {...register("email")}
-                  />
+                  <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
                 </StyledFlexIconText>
                 {errors.email && <ValidationError errorName={errors.email.message} />}
               </Form.Group>
@@ -251,7 +206,7 @@ export default function EnquireForm({ title, room, type }) {
               <Form.Group className="mt-3">
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
-                    <Icon icon={icons.map(icon => icon.userplus)} fontSize="20px" />
+                    <Icon icon={icons.map((icon) => icon.userplus)} fontSize="20px" />
                   </StyledIconFormContainer>
                   <Controller
                     name="how_many"
@@ -263,7 +218,7 @@ export default function EnquireForm({ title, room, type }) {
                         classNamePrefix="react-select"
                         placeholder="How many is traveling"
                         options={SUBJECT}
-                        onChange={e => {
+                        onChange={(e) => {
                           setTravelers(e.value);
                           onChange(e.value);
                         }}
@@ -271,21 +226,19 @@ export default function EnquireForm({ title, room, type }) {
                     )}
                   />
                 </StyledFlexIconText>
-                {errors.how_many && (
-                  <ValidationErrorSelect box_class="mt-2" errorName={errors.how_many.message} />
-                )}
+                {errors.how_many && <ValidationErrorSelect box_class="mt-2" errorName={errors.how_many.message} />}
               </Form.Group>
 
               <Form.Group className="mt-3">
                 <div className="text-area-container">
                   <StyledIconFormContainer>
-                    <Icon icon={icons.map(icon => icon.chat)} fontSize="20px" />
+                    <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" />
                   </StyledIconFormContainer>
                   <Form.Control
                     as="textarea"
                     rows={8}
                     placeholder="Comments"
-                    onKeyUp={e => setCount(e.target.value.length)}
+                    onKeyUp={(e) => setCount(e.target.value.length)}
                     className="mt-2"
                     {...register("message")}
                   />
@@ -310,7 +263,7 @@ export default function EnquireForm({ title, room, type }) {
                     inline
                     calendarClassName="calendar_enquire"
                     isClearable={true}
-                    onChange={update => {
+                    onChange={(update) => {
                       setDateRange(update);
                     }}
                     minDate={new Date()}
@@ -320,11 +273,7 @@ export default function EnquireForm({ title, room, type }) {
 
                 <Form.Group className="d-flex mb-4 mt-md-1 align-items-center">
                   <StyledIconFormContainer className="d-none">
-                    <Icon
-                      icon={icons.map(icon => icon.calendar)}
-                      fontSize="20px"
-                      className="me-3"
-                    />
+                    <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
                   </StyledIconFormContainer>
                   <div>
                     <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
@@ -343,17 +292,12 @@ export default function EnquireForm({ title, room, type }) {
                     <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
                       To:
                     </Form.Label>
-                    <Form.Control
-                      placeholder="To date"
-                      type="text"
-                      value={endDateFormatted}
-                      disabled
-                    />
+                    <Form.Control placeholder="To date" type="text" value={endDateFormatted} disabled />
                   </div>
                 </Form.Group>
                 <StyledDeleteDate onClick={clicked} style={{ fontSize: "14px" }}>
                   <StyledCloseBtn type="button" id="close-btn" aria-label="Close">
-                    <Icon icon={icons.map(icon => icon.close)} fontSize="18px" />
+                    <Icon icon={icons.map((icon) => icon.close)} fontSize="18px" />
                   </StyledCloseBtn>
                   <span className="">Delete date</span>
                 </StyledDeleteDate>
@@ -362,12 +306,7 @@ export default function EnquireForm({ title, room, type }) {
           </StyledFlexContainerLaptop>
 
           <StyledEnquireButton className="mt-5" type="submit">
-            <Icon
-              icon={icons.map(icon => icon.bag)}
-              color="white"
-              fontSize="16px"
-              className="me-3"
-            />
+            <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-3" />
             {submitting ? "sending enquire.." : "Enquire"}
           </StyledEnquireButton>
 

@@ -28,7 +28,7 @@ const StyledTextContainer = styled.div`
     text-transform: uppercase;
     font-size: 14px;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 16px;
     }
   }
@@ -59,7 +59,7 @@ export default function Admin() {
     }
   }, []);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     setValue(<Enquires />);
   };
 
@@ -77,8 +77,8 @@ export default function Admin() {
               <div>
                 <Heading size="1">Welcome Admin</Heading>
                 <Paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua.
                 </Paragraph>
               </div>
               <div className="text-center">

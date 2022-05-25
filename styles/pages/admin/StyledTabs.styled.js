@@ -6,13 +6,13 @@ export const StyledTabs = styled.div`
   margin: auto;
 
   .nav-link {
-    color: ${props => props.theme.body};
-    background: ${props => props.theme.light};
+    color: ${(props) => props.theme.body};
+    background: ${(props) => props.theme.light};
     text-transform: uppercase;
     font-size: 14px;
     padding: 8px 40px;
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 16px;
     }
   }

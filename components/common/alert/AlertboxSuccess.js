@@ -6,7 +6,7 @@ import { mediaQ } from "../../../styles/global/ThemeConfig";
 const StyledAlert = styled(Alert)`
   // skift ut success med denne:
   background: #8bb263;
-  /* background: ${props => props.theme.success}; */
+  /* background: ${(props) => props.theme.success}; */
   color: white;
   border: white;
   border-radius: 6px;
@@ -26,7 +26,7 @@ const StyledAlert = styled(Alert)`
       padding: 0 0 8px 0;
     }
 
-    @media ${mediaQ.desktop} {
+    @media ${mediaQ.desktop_large} {
       font-size: 16px;
     }
   }
