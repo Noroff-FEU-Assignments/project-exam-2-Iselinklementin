@@ -19,7 +19,7 @@ export const Rating = ({ click }) => {
     <div className="rating-container mb-4">
       <div className="d-flex mb-3">
         <Icon icon={icons.map((icon) => icon.star)} fontSize="16px" className="me-2" />
-        <StyledHeading size="3">Rating</StyledHeading>
+        <StyledHeading size="2">Rating</StyledHeading>
       </div>
 
       <StyledCheckbox>

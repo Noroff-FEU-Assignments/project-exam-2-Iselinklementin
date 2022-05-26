@@ -233,6 +233,7 @@ function AddForm() {
               control={control}
               render={({ field: { onChange } }) => (
                 <StyledSelect
+                  aria-labelledBy="Room type"
                   name="room_type"
                   classNamePrefix="react-select"
                   className="select"
@@ -276,7 +277,7 @@ function AddForm() {
     <>
       {submitted && (
         <AlertboxSuccess className="mt-5 mb-0">
-          <StyledHeading size="3">Success! </StyledHeading>
+          <StyledHeading size="2">Success! </StyledHeading>
           The stay was added.
           <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
           <Link href="/">
@@ -325,6 +326,7 @@ function AddForm() {
                     control={control}
                     render={({ field: { onChange } }) => (
                       <StyledSelect
+                        aria-labelledBy="Stay type"
                         className="select"
                         instanceId="select_two"
                         classNamePrefix="react-select"
@@ -427,6 +429,7 @@ function AddForm() {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <StyledSelect
+                      aria-labelledBy="Review"
                       className="select"
                       classNamePrefix="react-select"
                       name="stars"
@@ -453,29 +456,54 @@ function AddForm() {
             <StyledFormWrap>
               <div className="d-flex">
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-                <Heading size="3">Keywords</Heading>
+                <Heading size="2">Keywords</Heading>
               </div>
 
               <StyledCheckbox>
-                <Form.Check name="featured" label="Featured" {...register("featured")} />
+                <Form.Check name="featured" label="Featured" {...register("featured")} aria-labelledBy="Featured" />
                 <StyledMutedTextCheckboxes className="text-muted">What´s included?</StyledMutedTextCheckboxes>
-                <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
-                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
-                <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
-                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
-                <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
-                <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
+                <Form.Check name="wifi" label="Wifi" {...register("wifi")} aria-labelledBy="Wifi" />
+                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} aria-labelledBy="Kitchen" />
+                <Form.Check
+                  name="free_parking"
+                  label="Free parking"
+                  {...register("free_parking")}
+                  aria-labelledBy="Free parking"
+                />
+                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} aria-labelledBy="Breakfast" />
+                <Form.Check
+                  name="swimming_pool"
+                  label="Swimming pool"
+                  {...register("swimming_pool")}
+                  aria-labelledBy="Swimming pool"
+                />
+                <Form.Check
+                  name="pet_friendly"
+                  label="Pet friendly"
+                  {...register("pet_friendly")}
+                  aria-labelledBy="Pet friendly"
+                />
               </StyledCheckbox>
               <hr className="mb-5 mt-5" />
 
               <div className="d-flex">
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-                <Heading size="3">Nice to know</Heading>
+                <Heading size="2">Nice to know</Heading>
               </div>
 
               <StyledCheckbox className="mb-5">
-                <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
-                <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
+                <Form.Check
+                  name="no_smoking"
+                  label="No smoking"
+                  {...register("no_smoking")}
+                  aria-labelledBy="No smoking"
+                />
+                <Form.Check
+                  name="handicap_friendly"
+                  label="Handicap friendly"
+                  {...register("handicap_friendly")}
+                  aria-labelledBy="Handicap friendly"
+                />
               </StyledCheckbox>
 
               <div className="d-flex align-items-center">
@@ -549,7 +577,7 @@ function AddForm() {
           <div className="d-flex justify-content-between mb-5">
             <div className="d-flex">
               <Icon icon={icons.map((icon) => icon.images)} fontSize="26px" className="me-3" />
-              <Heading size="3">Images</Heading>
+              <Heading size="2">Images</Heading>
             </div>
           </div>
 
@@ -682,7 +710,7 @@ function AddForm() {
 
           {submitted && (
             <AlertboxSuccess className="mt-5 mb-0">
-              <StyledHeading size="3">Success! </StyledHeading>
+              <StyledHeading size="2">Success! </StyledHeading>
               The stay was added.
               <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
               <Link href="/">

@@ -27,7 +27,7 @@ export const Chips = forwardRef((props, ref) => {
         <div className="filter-tablet">
           <div className="d-flex mt-5 mb-1">
             <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
-            <StyledHeading size="3">Type of stay</StyledHeading>
+            <StyledHeading size="2">Type of stay</StyledHeading>
           </div>
 
           {stays.map((btnName) => {
