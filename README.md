@@ -12,7 +12,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Login details
+## Login details
 
 Username: Admin
 Password: Project_exam2
