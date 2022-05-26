@@ -23,8 +23,8 @@ export const Chips = forwardRef((props, ref) => {
 
   return (
     <>
-      <StyledFilter className="mt-5 mt-md-0 ms-md-5">
-        <div className="filter-tablet">
+      <StyledFilter className="mt-5 mt-md-0 ms-lg-5">
+        <div className="filter-laptop">
           <div className="d-flex mt-5 mb-1">
             <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
             <StyledHeading size="2">Type of stay</StyledHeading>

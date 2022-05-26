@@ -16,7 +16,7 @@ const StyledHeading = styled(Heading)`
 
 export const Rating = ({ click }) => {
   return (
-    <div className="rating-container mb-4">
+    <div className="rating-container mb-4 me-5 me-lg-0">
       <div className="d-flex mb-3">
         <Icon icon={icons.map((icon) => icon.star)} fontSize="16px" className="me-2" />
         <StyledHeading size="2">Rating</StyledHeading>
