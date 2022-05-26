@@ -14,8 +14,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Login details
 
+```bash
 Username: Admin
 Password: Project_exam2
+```
 
 # Project Exam 2
 
