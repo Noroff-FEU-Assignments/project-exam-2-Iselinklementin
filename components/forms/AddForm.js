@@ -233,7 +233,7 @@ function AddForm() {
               control={control}
               render={({ field: { onChange } }) => (
                 <StyledSelect
-                  aria-labelledBy="Room type"
+                  aria-labelledby="Room type"
                   name="room_type"
                   classNamePrefix="react-select"
                   className="select"
@@ -326,7 +326,7 @@ function AddForm() {
                     control={control}
                     render={({ field: { onChange } }) => (
                       <StyledSelect
-                        aria-labelledBy="Stay type"
+                        aria-labelledby="Stay type"
                         className="select"
                         instanceId="select_two"
                         classNamePrefix="react-select"
@@ -429,7 +429,7 @@ function AddForm() {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <StyledSelect
-                      aria-labelledBy="Review"
+                      aria-labelledby="Review"
                       className="select"
                       classNamePrefix="react-select"
                       name="stars"
@@ -460,28 +460,28 @@ function AddForm() {
               </div>
 
               <StyledCheckbox>
-                <Form.Check name="featured" label="Featured" {...register("featured")} aria-labelledBy="Featured" />
+                <Form.Check name="featured" label="Featured" {...register("featured")} aria-labelledby="Featured" />
                 <StyledMutedTextCheckboxes className="text-muted">What´s included?</StyledMutedTextCheckboxes>
-                <Form.Check name="wifi" label="Wifi" {...register("wifi")} aria-labelledBy="Wifi" />
-                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} aria-labelledBy="Kitchen" />
+                <Form.Check name="wifi" label="Wifi" {...register("wifi")} aria-labelledby="Wifi" />
+                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} aria-labelledby="Kitchen" />
                 <Form.Check
                   name="free_parking"
                   label="Free parking"
                   {...register("free_parking")}
-                  aria-labelledBy="Free parking"
+                  aria-labelledby="Free parking"
                 />
-                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} aria-labelledBy="Breakfast" />
+                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} aria-labelledby="Breakfast" />
                 <Form.Check
                   name="swimming_pool"
                   label="Swimming pool"
                   {...register("swimming_pool")}
-                  aria-labelledBy="Swimming pool"
+                  aria-labelledby="Swimming pool"
                 />
                 <Form.Check
                   name="pet_friendly"
                   label="Pet friendly"
                   {...register("pet_friendly")}
-                  aria-labelledBy="Pet friendly"
+                  aria-labelledby="Pet friendly"
                 />
               </StyledCheckbox>
               <hr className="mb-5 mt-5" />
@@ -496,13 +496,13 @@ function AddForm() {
                   name="no_smoking"
                   label="No smoking"
                   {...register("no_smoking")}
-                  aria-labelledBy="No smoking"
+                  aria-labelledby="No smoking"
                 />
                 <Form.Check
                   name="handicap_friendly"
                   label="Handicap friendly"
                   {...register("handicap_friendly")}
-                  aria-labelledBy="Handicap friendly"
+                  aria-labelledby="Handicap friendly"
                 />
               </StyledCheckbox>
 
