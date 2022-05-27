@@ -67,8 +67,7 @@ function AddForm() {
   const [type, setType] = useState("");
   const [review, setReview] = useState("");
   const [roomType, setRoomType] = useState("");
-
-  // time
+  // check-in, checkout time
   const [checkinTime, setCheckinTime] = useState(new Date());
   const [checkoutTime, setCheckoutTime] = useState(new Date());
   // set image url so I can show was been uploaded
@@ -102,7 +101,7 @@ function AddForm() {
     mode: "onBlur",
   });
 
-  // the numbers changes after submitting the images
+  // the numbers in imgArray changes after submitting the images
   // keeping it to store the id.
 
   let imgArray = {
@@ -130,6 +129,7 @@ function AddForm() {
     // I need to post them one by one
     // and store the ID so I can use it in the post
     // Wordpress doesnt allow multiple uploads at once
+
     setSubmitting(true);
 
     await http.post(MEDIA_URL, imageOne).then((response) => {
@@ -214,9 +214,7 @@ function AddForm() {
   };
 
   // if its a hotel you are adding,
-  // show selectbox on roomtype
-  // should be able to choose more than one
-  // I forgot that
+  // show select on roomtype
 
   const createHtml = (type) => {
     if (type === "Hotel") {
@@ -256,7 +254,7 @@ function AddForm() {
         </Form.Group>
       );
     } else if (type === "Apartment" || type === "Bed & Breakfast") {
-      // if its NOT a hotel, display a text input for extra room description
+      // if its not a hotel, display a text input for extra room description
       return (
         <Form.Group className="mt-3">
           <StyledMutedText className="text-muted">Please describe room standards</StyledMutedText>
